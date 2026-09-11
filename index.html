@@ -2,669 +2,1405 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#063d32">
 <title>عون | AWN — معاً.. لمجتمع أكثر أماناً</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-integrity="sha256-p4NxAoJBhIINfQ3QTuZ0Q4yD2x1K7J5cFhXzQvR8X8xk="
-crossorigin=""/>
+<link
+ rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+ crossorigin=""
+/>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
- margin:0;
- font-family:Tajawal,Arial,sans-serif;
- background:#f5f7f5;
- color:#102c25;
-}
-button,input,select,textarea{font-family:inherit}
-button{cursor:pointer}
-.hidden{display:none!important}
-
 :root{
- --green:#075c49;
- --green2:#0b725a;
- --dark:#102c25;
- --gold:#b99a58;
- --red:#b51e2b;
- --white:#fff;
- --gray:#6d7c77;
- --border:#dce6e2;
- --bg:#f5f7f5;
+  --green:#075c49;
+  --green-dark:#043d32;
+  --green-deep:#022c25;
+  --green-light:#0d8067;
+  --gold:#b99a58;
+  --gold-light:#d9c38b;
+  --red:#b51e2b;
+  --cream:#f7f8f4;
+  --white:#ffffff;
+  --dark:#102c25;
+  --muted:#71827c;
+  --line:#e4ebe7;
+  --shadow:0 18px 55px rgba(3,43,35,.10);
+  --shadow2:0 8px 28px rgba(3,43,35,.08);
+  --radius:24px;
 }
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:"Tajawal",sans-serif;
+  background:
+    radial-gradient(circle at 85% 0%,rgba(185,154,88,.08),transparent 25%),
+    radial-gradient(circle at 0% 20%,rgba(7,92,73,.05),transparent 28%),
+    var(--cream);
+  color:var(--dark);
+  line-height:1.7;
+}
+
+button,
+input,
+textarea,
+select{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   HEADER
+========================= */
 
 header{
- position:sticky;
- top:0;
- z-index:1000;
- background:rgba(255,255,255,.97);
- border-bottom:1px solid var(--border);
- backdrop-filter:blur(10px);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(255,255,255,.91);
+  backdrop-filter:blur(22px);
+  border-bottom:1px solid rgba(7,92,73,.08);
 }
 
 .nav{
- max-width:1200px;
- margin:auto;
- min-height:78px;
- padding:10px 22px;
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:20px;
+  width:min(1240px,92%);
+  margin:auto;
+  min-height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
 }
 
 .brand{
- display:flex;
- align-items:center;
- gap:10px;
- text-decoration:none;
- color:var(--dark);
+  display:flex;
+  align-items:center;
+  gap:13px;
+  text-decoration:none;
+  color:var(--dark);
 }
 
 .brand img{
- width:58px;
- height:58px;
- object-fit:contain;
- border-radius:12px;
+  width:55px;
+  height:55px;
+  object-fit:contain;
+}
+
+.brandText{
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
 }
 
 .brandText strong{
- display:block;
- font-size:20px;
- font-weight:900;
- color:var(--green);
+  font-size:20px;
+  font-weight:900;
 }
 
 .brandText span{
- display:block;
- font-size:12px;
- color:#66756f;
- margin-top:2px;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
 }
 
 .navlinks{
- display:flex;
- align-items:center;
- gap:7px;
- flex-wrap:wrap;
+  display:flex;
+  align-items:center;
+  gap:4px;
 }
 
 .navlinks button{
- border:0;
- background:transparent;
- color:#31443e;
- padding:10px 13px;
- border-radius:10px;
- font-weight:700;
+  background:none;
+  border:0;
+  padding:11px 14px;
+  border-radius:12px;
+  color:#52645e;
+  font-weight:700;
+  font-size:14px;
+  transition:.2s;
 }
 
 .navlinks button:hover{
- background:#edf5f1;
- color:var(--green);
+  background:#edf4f1;
+  color:var(--green);
 }
 
-.navAction{
- background:var(--green)!important;
- color:white!important;
+.navlinks .navAction{
+  background:var(--green);
+  color:white;
+  padding:11px 19px;
+  box-shadow:0 7px 20px rgba(7,92,73,.2);
 }
 
 .menuBtn{
- display:none;
- border:0;
- background:#edf5f1;
- color:var(--green);
- width:45px;
- height:45px;
- border-radius:12px;
- font-size:23px;
+  display:none;
+  border:1px solid var(--line);
+  background:white;
+  color:var(--green);
+  width:45px;
+  height:45px;
+  border-radius:14px;
+  font-size:22px;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.heroWrap{
+  padding:42px 0 20px;
 }
 
 .hero{
- max-width:1200px;
- margin:0 auto;
- padding:75px 22px 55px;
- display:grid;
- grid-template-columns:1.1fr .9fr;
- gap:45px;
- align-items:center;
+  width:min(1240px,92%);
+  margin:auto;
+  min-height:570px;
+  border-radius:36px;
+  padding:70px 7%;
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  align-items:center;
+  gap:40px;
+  background:
+    radial-gradient(circle at 90% 20%,rgba(217,195,139,.20),transparent 28%),
+    linear-gradient(135deg,#043d32,#075c49 55%,#08735a);
+  color:white;
+  box-shadow:0 30px 80px rgba(3,61,50,.22);
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  width:400px;
+  height:400px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  left:-180px;
+  bottom:-220px;
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  border:1px solid rgba(217,195,139,.14);
+  border-radius:50%;
+  right:-90px;
+  top:-90px;
+}
+
+.heroContent{
+  position:relative;
+  z-index:2;
 }
 
 .heroBadge{
- display:inline-flex;
- align-items:center;
- gap:8px;
- background:#e8f3ef;
- color:var(--green);
- padding:8px 14px;
- border-radius:999px;
- font-weight:800;
- font-size:14px;
+  display:inline-flex;
+  padding:8px 15px;
+  border-radius:100px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.14);
+  color:#f4e8c6;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:22px;
 }
 
 .hero h1{
- font-size:clamp(42px,7vw,76px);
- line-height:1;
- margin:18px 0 15px;
- color:var(--green);
+  font-size:clamp(54px,7vw,88px);
+  line-height:.95;
+  font-weight:900;
+  letter-spacing:-3px;
 }
 
 .hero h2{
- margin:0 0 15px;
- font-size:clamp(23px,3vw,34px);
- color:var(--dark);
+  font-size:clamp(22px,3vw,35px);
+  margin-top:13px;
+  font-weight:700;
+  color:#f5ead0;
 }
 
 .hero p{
- color:#687873;
- font-size:18px;
- line-height:1.9;
- max-width:680px;
+  max-width:620px;
+  color:rgba(255,255,255,.80);
+  font-size:16px;
+  margin-top:20px;
 }
 
 .heroBtns{
- display:flex;
- gap:12px;
- flex-wrap:wrap;
- margin-top:25px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:30px;
 }
 
 .btn{
- border:0;
- border-radius:13px;
- padding:14px 23px;
- font-size:16px;
- font-weight:800;
- transition:.2s;
+  border:0;
+  border-radius:14px;
+  min-height:48px;
+  padding:0 20px;
+  font-size:14px;
+  font-weight:800;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
 }
 
 .btnPrimary{
- background:var(--green);
- color:white;
+  background:linear-gradient(135deg,#d9c38b,#b99a58);
+  color:#18352d;
+  box-shadow:0 12px 28px rgba(0,0,0,.16);
 }
 
-.btnPrimary:hover{background:#064b3c}
-
 .btnSecondary{
- background:white;
- color:var(--green);
- border:1px solid #cbdad4;
+  background:white;
+  color:var(--green);
+  border:1px solid var(--line);
+}
+
+.hero .btnSecondary{
+  background:rgba(255,255,255,.10);
+  color:white;
+  border-color:rgba(255,255,255,.17);
 }
 
 .heroLogo{
- display:flex;
- justify-content:center;
- align-items:center;
+  position:relative;
+  z-index:2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.heroLogoBox{
+  width:min(350px,100%);
+  aspect-ratio:1;
+  border-radius:42px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.13);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-shadow:inset 0 1px rgba(255,255,255,.1);
+  backdrop-filter:blur(10px);
 }
 
 .heroLogo img{
- width:min(100%,430px);
- max-height:430px;
- object-fit:contain;
- filter:drop-shadow(0 20px 35px rgba(0,0,0,.08));
+  width:76%;
+  max-width:290px;
+  object-fit:contain;
+  filter:drop-shadow(0 20px 30px rgba(0,0,0,.18));
 }
 
+/* =========================
+   SECTIONS
+========================= */
+
 .section{
- max-width:1200px;
- margin:auto;
- padding:65px 22px;
+  width:min(1180px,92%);
+  margin:0 auto;
+  padding:82px 0;
 }
 
 .sectionTitle{
- text-align:center;
- margin-bottom:35px;
+  margin-bottom:30px;
+}
+
+.sectionTitle .eyebrow{
+  color:var(--gold);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
 }
 
 .sectionTitle h2{
- margin:0 0 8px;
- font-size:34px;
- color:var(--green);
+  font-size:clamp(28px,4vw,42px);
+  margin-top:4px;
+  font-weight:900;
+  letter-spacing:-1px;
 }
 
 .sectionTitle p{
- margin:0;
- color:#71807a;
+  color:var(--muted);
+  margin-top:5px;
 }
 
-.cards{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:18px;
-}
-
-.card{
- background:white;
- border:1px solid var(--border);
- border-radius:20px;
- padding:25px;
- box-shadow:0 8px 25px rgba(15,50,40,.04);
-}
-
-.cardIcon{
- width:48px;
- height:48px;
- border-radius:14px;
- background:#eaf4f0;
- color:var(--green);
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:24px;
- margin-bottom:15px;
-}
-
-.card h3{
- margin:0 0 9px;
-}
-
-.card p{
- color:#71807a;
- line-height:1.8;
- margin:0;
-}
+/* =========================
+   STATS
+========================= */
 
 .stats{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:15px;
+  width:min(1180px,92%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
 }
 
 .stat{
- background:white;
- border:1px solid var(--border);
- border-radius:18px;
- padding:24px;
- text-align:center;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+  box-shadow:var(--shadow2);
+  position:relative;
+  overflow:hidden;
+}
+
+.stat:before{
+  content:"";
+  position:absolute;
+  width:70px;
+  height:4px;
+  background:var(--gold);
+  top:0;
+  right:25px;
+  border-radius:0 0 10px 10px;
+}
+
+.statIcon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#edf5f2;
+  display:grid;
+  place-items:center;
+  margin-bottom:14px;
 }
 
 .stat strong{
- display:block;
- color:var(--green);
- font-size:32px;
- font-weight:900;
+  display:block;
+  color:var(--green);
+  font-size:34px;
+  font-weight:900;
+  line-height:1;
 }
 
 .stat span{
- color:#71807a;
- font-size:14px;
+  display:block;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:600;
 }
 
+/* =========================
+   FEATURES
+========================= */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:25px;
+  box-shadow:var(--shadow2);
+  transition:.25s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:var(--shadow);
+}
+
+.cardIcon{
+  width:54px;
+  height:54px;
+  border-radius:17px;
+  display:grid;
+  place-items:center;
+  background:#edf5f2;
+  font-size:24px;
+  margin-bottom:17px;
+}
+
+.card h3{
+  font-size:19px;
+  margin-bottom:6px;
+}
+
+.card p{
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* =========================
+   AI BANNER
+========================= */
+
+.aiBanner{
+  width:min(1180px,92%);
+  margin:20px auto 0;
+  border-radius:28px;
+  padding:28px;
+  background:
+    radial-gradient(circle at 90% 20%,rgba(185,154,88,.18),transparent 30%),
+    linear-gradient(135deg,#092e27,#075c49);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+  box-shadow:0 20px 50px rgba(3,61,50,.16);
+}
+
+.aiBadge{
+  width:52px;
+  height:52px;
+  border-radius:17px;
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.1);
+  font-size:25px;
+}
+
+.aiBanner h3{
+  font-size:21px;
+}
+
+.aiBanner p{
+  color:rgba(255,255,255,.72);
+  font-size:13px;
+}
+
+/* =========================
+   REPORT FORM
+========================= */
+
 .reportWrap{
- max-width:850px;
- margin:auto;
- background:white;
- border:1px solid var(--border);
- border-radius:25px;
- padding:30px;
- box-shadow:0 15px 40px rgba(15,50,40,.06);
+  background:white;
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:30px;
+  box-shadow:var(--shadow);
 }
 
 .formGrid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:18px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
 }
 
 .field{
- margin-bottom:18px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
 
 .field.full{
- grid-column:1/-1;
+  grid-column:1/-1;
 }
 
 .field label{
- display:block;
- font-weight:800;
- margin-bottom:8px;
+  font-weight:800;
+  font-size:13px;
 }
 
 .field input,
-.field select,
-.field textarea{
- width:100%;
- border:1px solid #d4e0dc;
- border-radius:13px;
- padding:14px;
- background:#fff;
- color:var(--dark);
- font-size:15px;
- outline:none;
+.field textarea,
+.field select{
+  width:100%;
+  border:1px solid #dce5e1;
+  background:#fbfcfb;
+  border-radius:14px;
+  padding:14px 15px;
+  outline:none;
+  color:var(--dark);
+  font-size:14px;
+  transition:.2s;
 }
 
 .field textarea{
- min-height:150px;
- resize:vertical;
+  min-height:140px;
+  resize:vertical;
 }
 
 .field input:focus,
-.field select:focus,
-.field textarea:focus{
- border-color:var(--green2);
- box-shadow:0 0 0 3px rgba(11,114,90,.08);
+.field textarea:focus,
+.field select:focus{
+  border-color:var(--green);
+  box-shadow:0 0 0 4px rgba(7,92,73,.07);
+  background:white;
+}
+
+.photoBox{
+  border:1.5px dashed #bdccc6;
+  border-radius:18px;
+  padding:23px;
+  background:#fbfcfb;
+  text-align:center;
+  transition:.2s;
+}
+
+.photoBox:hover{
+  border-color:var(--green);
+  background:#f5faf8;
+}
+
+.photoBox strong{
+  display:block;
+  color:var(--green);
+}
+
+.photoBox span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
+}
+
+.photoBox input{
+  border:0;
+  padding:12px 0 0;
+  background:none;
 }
 
 .locationBtns{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
-}
-
-.locationBtns .btn{
- flex:1;
- min-width:150px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
 .mapBox{
- margin-top:12px;
- border:1px solid var(--border);
- border-radius:16px;
- overflow:hidden;
-}
-
-#reportMap,
-#mainMap{
- width:100%;
- height:430px;
+  margin-top:10px;
+  overflow:hidden;
+  border-radius:20px;
+  border:1px solid var(--line);
 }
 
 .mapHint{
- padding:12px 14px;
- background:#f8faf9;
- color:#65756f;
- font-size:13px;
+  background:#f1f6f3;
+  color:var(--muted);
+  padding:10px 14px;
+  font-size:12px;
 }
 
-.fileBox{
- border:1px dashed #bfcfc9;
- border-radius:14px;
- padding:18px;
- background:#fafcfb;
+#reportMap{
+  height:350px;
 }
 
-.fileBox input{
- border:0;
- padding:0;
+.aiAnalysis{
+  display:none;
+  background:#f3f8f5;
+  border:1px solid #d9e8e1;
+  border-radius:20px;
+  padding:18px;
 }
 
-.reports{
- display:grid;
- gap:14px;
+.aiAnalysis.active{
+  display:block;
 }
 
-.reportItem{
- background:white;
- border:1px solid var(--border);
- border-radius:18px;
- padding:20px;
- display:flex;
- justify-content:space-between;
- gap:15px;
- align-items:center;
+.aiAnalysisHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
 }
 
-.reportItem h3{
- margin:0 0 6px;
+.aiScore{
+  font-size:31px;
+  font-weight:900;
+  color:var(--green);
 }
 
-.reportItem p{
- margin:0;
- color:#71807a;
+.aiTags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:10px;
 }
 
-.status{
- display:inline-flex;
- padding:7px 11px;
- border-radius:999px;
- background:#edf5f1;
- color:var(--green);
- font-size:12px;
- font-weight:800;
- white-space:nowrap;
+.aiTag{
+  background:white;
+  border:1px solid #dce8e3;
+  padding:5px 9px;
+  border-radius:100px;
+  font-size:11px;
+  font-weight:800;
 }
 
-.mapSection{
- background:#edf4f1;
-}
+/* =========================
+   MAIN MAP
+========================= */
 
 .mapCard{
- background:white;
- border:1px solid var(--border);
- border-radius:22px;
- overflow:hidden;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:14px;
+  box-shadow:var(--shadow);
 }
 
 .mapTop{
- padding:20px;
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:15px;
- flex-wrap:wrap;
+  padding:10px 10px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
 }
 
-.authBox{
- max-width:470px;
- margin:auto;
- background:white;
- border:1px solid var(--border);
- border-radius:22px;
- padding:28px;
+.mapTop strong{
+  font-size:18px;
 }
 
-.authBox h2{
- text-align:center;
- margin-top:0;
- color:var(--green);
+#mainMap{
+  height:540px;
+  border-radius:21px;
+  overflow:hidden;
 }
 
-.authTabs{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:7px;
- background:#f0f5f2;
- padding:5px;
- border-radius:12px;
- margin-bottom:22px;
+/* =========================
+   REPORT CARDS
+========================= */
+
+.reports{
+  display:grid;
+  gap:14px;
 }
 
-.authTabs button{
- border:0;
- background:transparent;
- padding:11px;
- border-radius:9px;
- font-weight:800;
- color:#64736d;
+.reportCard{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:21px;
+  box-shadow:var(--shadow2);
 }
 
-.authTabs button.active{
- background:white;
- color:var(--green);
- box-shadow:0 2px 8px rgba(0,0,0,.05);
+.reportCardTop{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:flex-start;
 }
 
-.profileCard{
- max-width:700px;
- margin:auto;
- background:white;
- border:1px solid var(--border);
- border-radius:22px;
- padding:28px;
+.reportCard h3{
+  font-size:18px;
 }
 
-.profileHead{
- display:flex;
- align-items:center;
- gap:15px;
- margin-bottom:25px;
+.reportCard p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:7px;
 }
 
-.avatar{
- width:65px;
- height:65px;
- border-radius:50%;
- background:var(--green);
- color:white;
- display:flex;
- align-items:center;
- justify-content:center;
- font-size:25px;
- font-weight:900;
+.reportMeta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:15px;
 }
 
-footer{
- background:#092d24;
- color:white;
- padding:40px 22px;
- margin-top:50px;
+.pill{
+  padding:6px 10px;
+  border-radius:100px;
+  font-size:11px;
+  font-weight:800;
+  background:#eef4f1;
+  color:#456057;
 }
 
-.footerInner{
- max-width:1200px;
- margin:auto;
- display:flex;
- justify-content:space-between;
- gap:25px;
- flex-wrap:wrap;
+.pill.status{
+  background:#fff5dc;
+  color:#8c6a19;
 }
 
-.footerLogo{
- display:flex;
- align-items:center;
- gap:12px;
+.pill.danger{
+  background:#ffeaed;
+  color:#a91d2c;
 }
 
-.footerLogo img{
- width:55px;
- height:55px;
- object-fit:contain;
- border-radius:10px;
- background:white;
+.scoreBadge{
+  min-width:82px;
+  padding:10px 9px;
+  border-radius:17px;
+  background:#eef7f3;
+  text-align:center;
+  border:1px solid #d9eae3;
 }
 
-footer p{
- color:#b9c9c3;
- margin:6px 0;
+.scoreBadge strong{
+  display:block;
+  font-size:23px;
+  color:var(--green);
+  line-height:1;
 }
 
-.modal{
- position:fixed;
- inset:0;
- z-index:3000;
- background:rgba(5,25,20,.55);
- display:flex;
- align-items:center;
- justify-content:center;
- padding:20px;
-}
-
-.modalBox{
- width:min(650px,100%);
- max-height:90vh;
- overflow:auto;
- background:white;
- border-radius:24px;
- padding:28px;
- position:relative;
-}
-
-.close{
- position:absolute;
- left:18px;
- top:15px;
- border:0;
- background:#eef3f1;
- color:#40544e;
- width:38px;
- height:38px;
- border-radius:50%;
- font-size:20px;
-}
-
-.notice{
- background:#fff8e7;
- color:#876c2d;
- border:1px solid #f0dfae;
- padding:14px;
- border-radius:13px;
- margin-bottom:18px;
- line-height:1.7;
+.scoreBadge span{
+  font-size:9px;
+  color:var(--muted);
+  font-weight:800;
 }
 
 .empty{
- text-align:center;
- background:white;
- border:1px dashed #cbd9d4;
- border-radius:18px;
- padding:35px;
- color:#71807a;
+  background:white;
+  border:1px dashed #ccd9d4;
+  border-radius:20px;
+  padding:40px;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profileCard{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:30px;
+  box-shadow:var(--shadow);
+}
+
+.profileHead{
+  display:flex;
+  align-items:center;
+  gap:17px;
+  margin-bottom:25px;
+}
+
+.avatar{
+  width:64px;
+  height:64px;
+  border-radius:21px;
+  background:linear-gradient(135deg,var(--green),var(--green-light));
+  color:white;
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  font-weight:900;
+}
+
+/* =========================
+   SUPPORT
+========================= */
+
+.supportGrid{
+  display:grid;
+  grid-template-columns:1.2fr .8fr;
+  gap:18px;
+}
+
+.supportCard{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:25px;
+  box-shadow:var(--shadow2);
+}
+
+.supportItem{
+  display:flex;
+  gap:14px;
+  padding:17px 0;
+  border-bottom:1px solid #edf1ef;
+}
+
+.supportItem:last-child{
+  border-bottom:0;
+}
+
+.supportIcon{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  background:#edf5f2;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+
+.supportItem h4{
+  font-size:15px;
+}
+
+.supportItem p{
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.adminShell{
+  background:#f0f4f2;
+  border-radius:32px;
+  padding:22px;
+}
+
+.adminStats{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.adminStat{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:17px;
+}
+
+.adminStat span{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+}
+
+.adminStat strong{
+  display:block;
+  font-size:27px;
+  color:var(--green);
 }
 
 .adminGrid{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:15px;
- margin-bottom:25px;
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:18px;
 }
 
-.adminCard{
- background:white;
- border:1px solid var(--border);
- border-radius:18px;
- padding:20px;
-}
-
-.adminCard strong{
- display:block;
- font-size:30px;
- color:var(--green);
-}
-
-@media(max-width:850px){
- .navlinks{
-  display:none;
-  position:absolute;
-  top:78px;
-  right:15px;
-  left:15px;
+.adminPanel{
   background:white;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:10px;
-  box-shadow:0 15px 35px rgba(0,0,0,.08);
- }
- .navlinks.open{display:grid}
- .navlinks button{text-align:right}
- .menuBtn{display:block}
- .hero{
-  grid-template-columns:1fr;
-  text-align:center;
-  padding-top:45px;
- }
- .hero p{margin-left:auto;margin-right:auto}
- .heroBtns{justify-content:center}
- .heroLogo{order:-1}
- .heroLogo img{width:250px;height:250px}
- .cards,.stats{grid-template-columns:1fr 1fr}
- .formGrid{grid-template-columns:1fr}
- .field.full{grid-column:auto}
+  border:1px solid var(--line);
+  border-radius:23px;
+  padding:20px;
 }
 
-@media(max-width:550px){
- .nav{padding:9px 14px}
- .brand img{width:48px;height:48px}
- .brandText strong{font-size:17px}
- .brandText span{font-size:10px}
- .section{padding:45px 15px}
- .cards,.stats,.adminGrid{grid-template-columns:1fr}
- .reportWrap{padding:20px}
- #reportMap,#mainMap{height:350px}
- .reportItem{align-items:flex-start;flex-direction:column}
+.adminPanel h3{
+  font-size:17px;
+  margin-bottom:15px;
+}
+
+.adminTools{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+.adminTools input,
+.adminTools select{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px 12px;
+  background:#fbfcfb;
+  outline:none;
+}
+
+.adminReport{
+  border:1px solid #e8eeeb;
+  border-radius:17px;
+  padding:15px;
+  margin-bottom:10px;
+}
+
+.adminReportTop{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.userRow{
+  border-bottom:1px solid #edf1ef;
+  padding:14px 0;
+}
+
+.userRow:last-child{
+  border-bottom:0;
+}
+
+.userRow strong{
+  display:block;
+}
+
+.userRow span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.roleBadge{
+  display:inline-block;
+  margin-top:5px;
+  padding:4px 8px;
+  background:#edf5f2;
+  color:var(--green);
+  border-radius:100px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.adminSelect{
+  margin-top:10px;
+  width:100%;
+  padding:8px;
+  border-radius:10px;
+  border:1px solid var(--line);
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+  margin-top:40px;
+  background:#032d26;
+  color:white;
+  padding:55px 0 25px;
+}
+
+.footerInner{
+  width:min(1180px,92%);
+  margin:auto;
+  display:grid;
+  grid-template-columns:1.2fr .8fr .8fr;
+  gap:35px;
+}
+
+.footerBrand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.footerBrand img{
+  width:62px;
+}
+
+footer h4{
+  margin-bottom:13px;
+  color:#f4e7c4;
+}
+
+footer p,
+footer li{
+  color:rgba(255,255,255,.65);
+  font-size:13px;
+}
+
+footer ul{
+  list-style:none;
+}
+
+footer li{
+  margin:8px 0;
+}
+
+.footerBottom{
+  width:min(1180px,92%);
+  margin:35px auto 0;
+  padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.09);
+  color:rgba(255,255,255,.45);
+  font-size:11px;
+  text-align:center;
+}
+
+/* =========================
+   MODALS
+========================= */
+
+.modalOverlay{
+  position:fixed;
+  inset:0;
+  background:rgba(2,30,25,.62);
+  backdrop-filter:blur(10px);
+  z-index:3000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.modalOverlay.active{
+  display:flex;
+}
+
+.modal{
+  width:min(510px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:27px;
+  padding:28px;
+  box-shadow:0 30px 100px rgba(0,0,0,.25);
+  position:relative;
+}
+
+.closeBtn{
+  position:absolute;
+  left:18px;
+  top:18px;
+  border:0;
+  background:#f0f4f2;
+  width:36px;
+  height:36px;
+  border-radius:11px;
+  color:var(--green);
+  font-size:19px;
+}
+
+.modal h2{
+  font-size:25px;
+  margin-bottom:6px;
+}
+
+.modalSub{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:20px;
+}
+
+.authTabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:#f0f4f2;
+  padding:4px;
+  border-radius:13px;
+  margin-bottom:18px;
+}
+
+.authTabs button{
+  border:0;
+  background:transparent;
+  padding:10px;
+  border-radius:10px;
+  font-weight:800;
+  color:var(--muted);
+}
+
+.authTabs button.active{
+  background:white;
+  color:var(--green);
+  box-shadow:0 3px 10px rgba(0,0,0,.06);
+}
+
+.authForm{
+  display:grid;
+  gap:12px;
+}
+
+.authForm input{
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:13px;
+  outline:none;
+}
+
+.authForm input:focus{
+  border-color:var(--green);
+}
+
+.successIcon{
+  width:70px;
+  height:70px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  background:#e7f5ef;
+  display:grid;
+  place-items:center;
+  font-size:32px;
+}
+
+.successModal{
+  text-align:center;
+}
+
+.detailGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:18px;
+}
+
+.detailBox{
+  background:#f5f8f6;
+  border-radius:15px;
+  padding:13px;
+}
+
+.detailBox span{
+  color:var(--muted);
+  font-size:10px;
+  display:block;
+}
+
+.detailBox strong{
+  display:block;
+  margin-top:3px;
+}
+
+.toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  z-index:5000;
+  background:#082f28;
+  color:white;
+  padding:14px 18px;
+  border-radius:15px;
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
+  transform:translateY(130px);
+  opacity:0;
+  transition:.3s;
+  max-width:340px;
+  font-size:13px;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:950px){
+  .navlinks{
+    display:none;
+    position:absolute;
+    top:75px;
+    right:4%;
+    left:4%;
+    background:#063d32;
+    padding:12px;
+    border-radius:20px;
+    box-shadow:0 20px 55px rgba(0,0,0,.18);
+  }
+
+  .navlinks.open{
+    display:grid;
+  }
+
+  .navlinks button{
+    color:white;
+    text-align:right;
+  }
+
+  .navlinks button:hover{
+    background:rgba(255,255,255,.08);
+  }
+
+  .navlinks .navAction{
+    background:var(--gold);
+    color:#18352d;
+  }
+
+  .menuBtn{
+    display:block;
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+    min-height:auto;
+    padding:55px 7%;
+    text-align:right;
+  }
+
+  .heroLogo{
+    order:-1;
+  }
+
+  .heroLogoBox{
+    width:210px;
+    border-radius:28px;
+  }
+
+  .heroLogo img{
+    max-width:170px;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .adminStats{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .adminGrid{
+    grid-template-columns:1fr;
+  }
+
+  .supportGrid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+  .nav{
+    min-height:72px;
+  }
+
+  .brand img{
+    width:47px;
+    height:47px;
+  }
+
+  .brandText strong{
+    font-size:17px;
+  }
+
+  .brandText span{
+    font-size:9px;
+  }
+
+  .heroWrap{
+    padding-top:18px;
+  }
+
+  .hero{
+    width:94%;
+    border-radius:27px;
+    padding:36px 22px 40px;
+  }
+
+  .heroLogoBox{
+    width:165px;
+    aspect-ratio:1;
+  }
+
+  .heroLogo img{
+    width:75%;
+  }
+
+  .hero h1{
+    font-size:58px;
+  }
+
+  .hero h2{
+    font-size:23px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  .heroBtns{
+    display:grid;
+  }
+
+  .section{
+    padding:60px 0;
+  }
+
+  .stats{
+    width:94%;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  .stat{
+    padding:17px;
+    border-radius:18px;
+  }
+
+  .stat strong{
+    font-size:27px;
+  }
+
+  .stat span{
+    font-size:10px;
+  }
+
+  .reportWrap{
+    padding:17px;
+    border-radius:22px;
+  }
+
+  .formGrid{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  #reportMap{
+    height:290px;
+  }
+
+  #mainMap{
+    height:430px;
+  }
+
+  .mapCard{
+    padding:8px;
+  }
+
+  .mapTop{
+    padding:9px 6px 13px;
+  }
+
+  .adminShell{
+    padding:10px;
+    border-radius:22px;
+  }
+
+  .adminStats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .adminStat:last-child{
+    grid-column:1/-1;
+  }
+
+  .footerInner{
+    grid-template-columns:1fr;
+  }
+
+  .detailGrid{
+    grid-template-columns:1fr;
+  }
+
+  .toast{
+    left:15px;
+    right:15px;
+    bottom:15px;
+  }
 }
 </style>
 </head>
@@ -674,7 +1410,7 @@ footer p{
 <header>
 <nav class="nav">
 
-<a class="brand" href="#home">
+<a class="brand" href="#home" onclick="go('home')">
 <img src="awn-logo.png" alt="عون AWN">
 <div class="brandText">
 <strong>عون | AWN</strong>
@@ -689,6 +1425,7 @@ footer p{
 <button onclick="go('report')">رفع بلاغ</button>
 <button onclick="go('map')">الخريطة</button>
 <button onclick="go('myreports')">بلاغاتي</button>
+<button onclick="go('support')">الدعم</button>
 <button onclick="go('about')">عن عون</button>
 <button class="navAction" id="authBtn" onclick="openAuth()">تسجيل الدخول</button>
 </div>
@@ -696,65 +1433,100 @@ footer p{
 </nav>
 </header>
 
+
 <main>
 
-<section id="home" class="hero">
+<!-- HERO -->
+<div class="heroWrap" id="home">
+<section class="hero">
 
-<div>
-<span class="heroBadge">🇦🇪 منصة رقمية لخدمة المجتمع</span>
+<div class="heroContent">
+<span class="heroBadge">🇦🇪 منصة رقمية ذكية لخدمة المجتمع</span>
 
 <h1>عون</h1>
-
 <h2>معاً.. لمجتمع أكثر أماناً</h2>
 
 <p>
 منصة رقمية تساعد أفراد المجتمع على الإبلاغ عن المشكلات والمخاطر
-في الأماكن العامة، مع تحديد الموقع ومتابعة حالة البلاغ.
+في الأماكن العامة، وتحليل البلاغات وترتيب الأولويات ومتابعة حالتها.
 </p>
 
 <div class="heroBtns">
-<button class="btn btnPrimary" onclick="go('report')">📢 رفع بلاغ</button>
-<button class="btn btnSecondary" onclick="go('map')">🗺️ استكشاف الخريطة</button>
+<button class="btn btnPrimary" onclick="go('report')">
+📢 رفع بلاغ
+</button>
+
+<button class="btn btnSecondary" onclick="go('map')">
+🗺️ استكشاف الخريطة
+</button>
 </div>
 </div>
 
 <div class="heroLogo">
+<div class="heroLogoBox">
 <img src="awn-logo.png" alt="شعار عون">
+</div>
 </div>
 
 </section>
+</div>
 
-<section class="section">
 
+<!-- STATS -->
+<section class="section" style="padding-top:30px;padding-bottom:35px">
 <div class="stats">
+
 <div class="stat">
+<div class="statIcon">📢</div>
 <strong id="statReports">0</strong>
 <span>إجمالي البلاغات</span>
 </div>
 
 <div class="stat">
+<div class="statIcon">⏳</div>
 <strong id="statOpen">0</strong>
-<span>بلاغات قيد المتابعة</span>
+<span>قيد المتابعة</span>
 </div>
 
 <div class="stat">
+<div class="statIcon">✓</div>
 <strong id="statDone">0</strong>
 <span>بلاغات مكتملة</span>
 </div>
 
 <div class="stat">
+<div class="statIcon">🛡️</div>
 <strong>24/7</strong>
 <span>خدمة المجتمع</span>
 </div>
-</div>
 
+</div>
 </section>
 
+
+<!-- AI -->
+<div class="aiBanner">
+<div style="display:flex;align-items:center;gap:15px">
+<div class="aiBadge">✦</div>
+<div>
+<h3>Awn AI</h3>
+<p>تحليل ذكي للبلاغات وترتيب الأولوية واقتراح الجهة المختصة.</p>
+</div>
+</div>
+
+<button class="btn btnPrimary" onclick="go('report')">
+جرّب الذكاء الاصطناعي
+</button>
+</div>
+
+
+<!-- ABOUT -->
 <section id="about" class="section">
 
 <div class="sectionTitle">
+<div class="eyebrow">HOW AWN WORKS</div>
 <h2>كيف يعمل عون؟</h2>
-<p>طريقة بسيطة للإبلاغ عن المشكلات في الأماكن العامة</p>
+<p>من بلاغ بسيط إلى معلومات منظمة تساعد على اتخاذ القرار.</p>
 </div>
 
 <div class="cards">
@@ -762,30 +1534,62 @@ footer p{
 <div class="card">
 <div class="cardIcon">📸</div>
 <h3>1. صوّر المشكلة</h3>
-<p>أرفق صورة للمشكلة إذا كانت الصورة تساعد على توضيح البلاغ.</p>
+<p>
+أرفق صورة واضحة للمشكلة لمساعدة النظام على فهم الحالة وتوثيقها.
+</p>
 </div>
 
 <div class="card">
 <div class="cardIcon">📍</div>
 <h3>2. حدّد الموقع</h3>
-<p>حدد موقع المشكلة من الخريطة أو استخدم موقعك الحالي.</p>
+<p>
+حدد مكان المشكلة على الخريطة حتى يمكن معرفة موقعها بدقة.
+</p>
 </div>
 
 <div class="card">
-<div class="cardIcon">📢</div>
-<h3>3. أرسل البلاغ</h3>
-<p>اكتب عنواناً ووصفاً واضحاً، ثم أرسل البلاغ للمتابعة.</p>
+<div class="cardIcon">✦</div>
+<h3>3. عون يحلل</h3>
+<p>
+يقوم النظام بتحليل الوصف والنوع والموقع وتقدير درجة الأولوية.
+</p>
+</div>
+
+<div class="card">
+<div class="cardIcon">🔎</div>
+<h3>4. كشف التكرار</h3>
+<p>
+يفحص البلاغات القريبة لمعرفة ما إذا كانت المشكلة مكررة أو مرتبطة ببلاغ سابق.
+</p>
+</div>
+
+<div class="card">
+<div class="cardIcon">🏛️</div>
+<h3>5. اقتراح الجهة</h3>
+<p>
+يحدد النظام الجهة أو المجال الأنسب لمعالجة المشكلة.
+</p>
+</div>
+
+<div class="card">
+<div class="cardIcon">📊</div>
+<h3>6. متابعة الحالة</h3>
+<p>
+يبقى البلاغ محفوظاً في حسابك ويمكنك متابعة حالته ودرجة أولويته.
+</p>
 </div>
 
 </div>
-
 </section>
 
+
+<!-- REPORT -->
 <section id="report" class="section">
 
 <div class="sectionTitle">
+<div class="eyebrow">SMART REPORTING</div>
 <h2>رفع بلاغ</h2>
-<p>ساعدنا في جعل المجتمع أكثر أماناً</p>
+<p>ساعدنا في جعل المجتمع أكثر أماناً.</p>
 </div>
 
 <div class="reportWrap">
@@ -794,40 +1598,52 @@ footer p{
 
 <div class="field">
 <label>عنوان البلاغ</label>
-<input id="reportTitle" type="text" placeholder="مثال: حفرة في الطريق">
+<input id="reportTitle" placeholder="مثال: إنارة شارع لا تعمل">
 </div>
 
 <div class="field">
 <label>نوع البلاغ</label>
-<select id="reportType">
+<select id="reportType" onchange="runAIAnalysis()">
+<option value="">اختر نوع البلاغ</option>
+<option value="سلامة">سلامة</option>
 <option value="طريق أو رصيف">طريق أو رصيف</option>
 <option value="إنارة">إنارة</option>
 <option value="نظافة">نظافة</option>
-<option value="مرفق عام">مرفق عام</option>
-<option value="سلامة">سلامة</option>
-<option value="إتاحة الوصول">إتاحة الوصول</option>
-<option value="مشكلة أخرى">مشكلة أخرى</option>
+<option value="مياه">مياه</option>
+<option value="مرافق عامة">مرافق عامة</option>
+<option value="مواقف">مواقف</option>
+<option value="تشجير">تشجير</option>
+<option value="إمكانية وصول">إمكانية وصول</option>
+<option value="أخرى">أخرى</option>
 </select>
 </div>
 
 <div class="field full">
 <label>وصف المشكلة</label>
-<textarea id="reportDescription" placeholder="اكتب وصفاً واضحاً للمشكلة ومكانها..."></textarea>
+<textarea id="reportDescription"
+placeholder="اشرح المشكلة وأي تفاصيل قد تساعد على فهمها..."
+oninput="runAIAnalysis()"></textarea>
 </div>
 
 <div class="field full">
-<label>صورة البلاغ <span style="font-weight:400;color:#788">(اختياري)</span></label>
 
-<div class="fileBox">
-<input id="reportPhoto" type="file" accept="image/*">
+<label>صورة البلاغ</label>
+
+<div class="photoBox">
+<strong>📷 أرفق صورة للمشكلة</strong>
+<span>الصورة تساعد عون على فهم البلاغ بشكل أفضل.</span>
+<input id="reportPhoto" type="file" accept="image/*" onchange="runAIAnalysis()">
 </div>
 
 </div>
+
 
 <div class="field full">
+
 <label>الموقع</label>
 
 <div class="locationBtns">
+
 <button class="btn btnSecondary" type="button" onclick="useMyLocation()">
 📍 تحديد موقعي
 </button>
@@ -835,6 +1651,7 @@ footer p{
 <button class="btn btnSecondary" type="button" onclick="clearLocation()">
 مسح الموقع
 </button>
+
 </div>
 
 <input id="latitude" type="hidden">
@@ -849,42 +1666,87 @@ footer p{
 
 </div>
 
+
+<!-- AI ANALYSIS -->
 <div class="field full">
-<button class="btn btnPrimary" style="width:100%" onclick="submitReport()">
-إرسال البلاغ
+
+<div id="aiAnalysis" class="aiAnalysis">
+
+<div class="aiAnalysisHeader">
+<div>
+<strong>✦ Awn AI Analysis</strong>
+<p style="font-size:11px;color:#71827c">
+تحليل مبدئي يساعد على ترتيب البلاغ.
+</p>
+</div>
+
+<div class="aiScore">
+<span id="aiScore">0</span>/100
+</div>
+</div>
+
+<div class="aiTags">
+<span class="aiTag" id="aiCategory">التصنيف: —</span>
+<span class="aiTag" id="aiRisk">الأولوية: —</span>
+<span class="aiTag" id="aiDepartment">الجهة المقترحة: —</span>
+<span class="aiTag" id="aiDuplicate">التكرار: —</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="field full">
+
+<button
+class="btn btnPrimary"
+style="width:100%;min-height:55px"
+onclick="submitReport()"
+>
+📢 إرسال البلاغ
 </button>
+
 </div>
 
 </div>
-</div>
 
+</div>
 </section>
 
-<section id="map" class="section mapSection">
+
+<!-- MAP -->
+<section id="map" class="section">
 
 <div class="sectionTitle">
-<h2>Awn Map</h2>
-<p>خريطة البلاغات ومناطق الأولوية</p>
+<div class="eyebrow">AWN MAP</div>
+<h2>الخريطة</h2>
+<p>استكشف البلاغات ومناطق الأولوية.</p>
 </div>
 
 <div class="mapCard">
 
 <div class="mapTop">
 <strong>خريطة البلاغات</strong>
-<button class="btn btnSecondary" onclick="loadMapReports()">تحديث الخريطة</button>
+
+<button class="btn btnSecondary" onclick="loadMapReports()">
+↻ تحديث
+</button>
 </div>
 
 <div id="mainMap"></div>
 
 </div>
-
 </section>
 
+
+<!-- MY REPORTS -->
 <section id="myreports" class="section">
 
 <div class="sectionTitle">
+<div class="eyebrow">MY REPORTS</div>
 <h2>بلاغاتي</h2>
-<p>تابع البلاغات التي قمت بإرسالها</p>
+<p>هنا تظهر البلاغات التي قمت أنت بإرسالها فقط.</p>
 </div>
 
 <div id="myReportsList" class="reports">
@@ -895,30 +1757,31 @@ footer p{
 
 </section>
 
+
+<!-- PROFILE -->
 <section id="profile" class="section hidden">
 
 <div class="sectionTitle">
-<h2>الملف الشخصي</h2>
-<p>إدارة بيانات حسابك</p>
+<div class="eyebrow">MY ACCOUNT</div>
+<h2>حسابي</h2>
+<p>إدارة معلومات حسابك في عون.</p>
 </div>
 
 <div class="profileCard">
 
 <div class="profileHead">
-<div class="avatar" id="avatarLetter">ع</div>
+<div class="avatar" id="profileAvatar">ع</div>
+
 <div>
-<h3 id="profileName">المستخدم</h3>
-<p id="profileEmail" style="margin:0;color:#71807a"></p>
+<h3 id="profileName">—</h3>
+<p id="profileEmail" style="color:#71827c;font-size:12px">—</p>
 </div>
 </div>
 
-<div class="field">
-<label>اسم المستخدم</label>
-<input id="profileUsername" readonly>
-</div>
+<div class="formGrid">
 
 <div class="field">
-<label>الاسم الكامل</label>
+<label>الاسم</label>
 <input id="profileFullName">
 </div>
 
@@ -927,129 +1790,332 @@ footer p{
 <input id="profilePhone">
 </div>
 
-<button class="btn btnPrimary" onclick="saveProfile()">حفظ التغييرات</button>
-<button class="btn btnSecondary" onclick="logout()">تسجيل الخروج</button>
+<div class="field">
+<label>اسم المستخدم</label>
+<input id="profileUsername" disabled>
+</div>
+
+<div class="field">
+<label>الدور</label>
+<input id="profileRole" disabled>
+</div>
+
+<div class="field full">
+<button class="btn btnPrimary" onclick="saveProfile()">
+حفظ التعديلات
+</button>
+</div>
+
+<div class="field full">
+<button class="btn btnSecondary" onclick="logout()">
+تسجيل الخروج
+</button>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<!-- SUPPORT -->
+<section id="support" class="section">
+
+<div class="sectionTitle">
+<div class="eyebrow">SUPPORT CENTER</div>
+<h2>مركز الدعم</h2>
+<p>نساعدك على استخدام عون بطريقة سهلة وواضحة.</p>
+</div>
+
+<div class="supportGrid">
+
+<div class="supportCard">
+
+<div class="supportItem">
+<div class="supportIcon">📢</div>
+<div>
+<h4>كيف أرفع بلاغ؟</h4>
+<p>
+سجّل الدخول، اكتب عنوان المشكلة ووصفها، أرفق صورة وحدد الموقع ثم أرسل البلاغ.
+</p>
+</div>
+</div>
+
+<div class="supportItem">
+<div class="supportIcon">📍</div>
+<div>
+<h4>هل الموقع ضروري؟</h4>
+<p>
+نعم، الموقع يساعد النظام والجهة المختصة على تحديد مكان المشكلة.
+</p>
+</div>
+</div>
+
+<div class="supportItem">
+<div class="supportIcon">✦</div>
+<div>
+<h4>ما معنى درجة الخطورة؟</h4>
+<p>
+درجة من 100 تساعد على ترتيب أولوية البلاغات حسب طبيعة المشكلة وتأثيرها.
+</p>
+</div>
+</div>
+
+<div class="supportItem">
+<div class="supportIcon">🔎</div>
+<div>
+<h4>ماذا يحدث إذا كان البلاغ مكرراً؟</h4>
+<p>
+يبحث عون عن بلاغات قريبة ومتشابهة، ويعرض وجود بلاغات مرتبطة بدلاً من تجاهلها.
+</p>
+</div>
+</div>
 
 </div>
 
+
+<div class="supportCard">
+
+<h3 style="margin-bottom:8px">هل تحتاج مساعدة؟</h3>
+
+<p style="font-size:13px;color:#71827c">
+إذا واجهت مشكلة في المنصة أو لديك اقتراح لتطوير عون، يمكنك التواصل مع فريق المشروع.
+</p>
+
+<div style="
+margin-top:22px;
+background:#f1f6f3;
+border-radius:18px;
+padding:18px;
+">
+
+<strong style="display:block;color:#075c49">
+عون | AWN
+</strong>
+
+<span style="font-size:12px;color:#71827c">
+منصة رقمية لخدمة المجتمع
+</span>
+
+</div>
+
+</div>
+
+</div>
 </section>
 
+
+<!-- ADMIN -->
 <section id="admin" class="section hidden">
 
 <div class="sectionTitle">
+<div class="eyebrow">ADMIN COMMAND CENTER</div>
 <h2>لوحة تحكم عون</h2>
-<p>إدارة البلاغات والمستخدمين</p>
+<p>إدارة البلاغات والمستخدمين ومراقبة أداء المنصة.</p>
 </div>
 
-<div class="adminGrid">
-<div class="adminCard">
+<div class="adminShell">
+
+<div class="adminStats">
+
+<div class="adminStat">
 <span>إجمالي البلاغات</span>
 <strong id="adminReports">0</strong>
 </div>
 
-<div class="adminCard">
+<div class="adminStat">
 <span>قيد المتابعة</span>
 <strong id="adminOpen">0</strong>
 </div>
 
-<div class="adminCard">
-<span>المكتملة</span>
+<div class="adminStat">
+<span>مكتملة</span>
 <strong id="adminDone">0</strong>
 </div>
+
+<div class="adminStat">
+<span>عالية الأولوية</span>
+<strong id="adminHigh">0</strong>
 </div>
 
-<div id="adminReportsList" class="reports"></div>
+<div class="adminStat">
+<span>المستخدمون</span>
+<strong id="adminUsers">0</strong>
+</div>
+
+</div>
+
+
+<div class="adminGrid">
+
+<div class="adminPanel">
+
+<h3>📢 إدارة البلاغات</h3>
+
+<div class="adminTools">
+
+<input
+id="adminSearch"
+placeholder="بحث عن بلاغ..."
+oninput="renderAdminReports()"
+>
+
+<select id="adminFilter" onchange="renderAdminReports()">
+<option value="">كل الحالات</option>
+<option value="قيد المتابعة">قيد المتابعة</option>
+<option value="جاري العمل">جاري العمل</option>
+<option value="مكتمل">مكتمل</option>
+<option value="مرفوض">مرفوض</option>
+</select>
+
+</div>
+
+<div id="adminReportsList"></div>
+
+</div>
+
+
+<div class="adminPanel">
+
+<h3>👥 المستخدمون</h3>
+
+<input
+id="userSearch"
+style="
+width:100%;
+padding:11px;
+border:1px solid #e2e9e5;
+border-radius:12px;
+outline:none;
+margin-bottom:10px;
+"
+placeholder="البحث بالاسم أو البريد..."
+oninput="renderUsers()"
+>
+
+<div id="adminUsersList"></div>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 </main>
 
+
 <footer>
 
 <div class="footerInner">
 
-<div class="footerLogo">
+<div>
+
+<div class="footerBrand">
 <img src="awn-logo.png" alt="عون">
 <div>
-<strong>عون | AWN</strong>
-<p>معاً.. لمجتمع أكثر أماناً</p>
+<strong style="font-size:20px">عون | AWN</strong>
+<div style="font-size:11px;color:#9bb1aa">
+معاً.. لمجتمع أكثر أماناً
 </div>
+</div>
+</div>
+
+<p style="margin-top:15px">
+منصة رقمية تهدف إلى تسهيل الإبلاغ عن المشكلات
+في الأماكن العامة وتحويل المعلومات إلى بيانات تساعد على تحسين المجتمع.
+</p>
+
 </div>
 
 <div>
-<p>منصة رقمية لخدمة المجتمع</p>
-<p>© 2026 AWN</p>
+<h4>الوصول السريع</h4>
+<ul>
+<li onclick="go('home')" style="cursor:pointer">الرئيسية</li>
+<li onclick="go('report')" style="cursor:pointer">رفع بلاغ</li>
+<li onclick="go('map')" style="cursor:pointer">الخريطة</li>
+<li onclick="go('myreports')" style="cursor:pointer">بلاغاتي</li>
+</ul>
 </div>
 
+<div>
+<h4>عون</h4>
+<ul>
+<li onclick="go('about')" style="cursor:pointer">عن المنصة</li>
+<li onclick="go('support')" style="cursor:pointer">مركز الدعم</li>
+<li>الأمان أولاً</li>
+<li>خدمة المجتمع</li>
+</ul>
+</div>
+
+</div>
+
+<div class="footerBottom">
+© 2026 Awn | AWN — جميع الحقوق محفوظة
 </div>
 
 </footer>
 
+
 <!-- AUTH MODAL -->
-<div id="authModal" class="modal hidden">
+<div class="modalOverlay" id="authModal">
 
-<div class="modalBox">
+<div class="modal">
 
-<button class="close" onclick="closeModal('authModal')">×</button>
+<button class="closeBtn" onclick="closeModal('authModal')">×</button>
 
-<div class="authBox" style="box-shadow:none;border:0;padding:0">
+<h2>مرحباً بك في عون</h2>
 
-<h2>حساب عون</h2>
+<p class="modalSub">
+سجّل الدخول لمتابعة بلاغاتك واستخدام جميع خدمات المنصة.
+</p>
 
 <div class="authTabs">
-<button id="loginTab" class="active" onclick="showLogin()">تسجيل الدخول</button>
-<button id="signupTab" onclick="showSignup()">إنشاء حساب</button>
+
+<button id="loginTab" class="active" onclick="switchAuth('login')">
+تسجيل الدخول
+</button>
+
+<button id="signupTab" onclick="switchAuth('signup')">
+إنشاء حساب
+</button>
+
 </div>
 
-<div id="loginForm">
 
-<div class="field">
-<label>البريد أو اسم المستخدم أو الهاتف</label>
-<input id="loginIdentifier" placeholder="أدخل بيانات الدخول">
-</div>
+<div id="loginForm" class="authForm">
 
-<div class="field">
-<label>كلمة المرور</label>
-<input id="loginPassword" type="password">
-</div>
+<input id="loginIdentifier" placeholder="البريد أو اسم المستخدم أو رقم الهاتف">
 
-<button class="btn btnPrimary" style="width:100%" onclick="login()">دخول</button>
+<input id="loginPassword" type="password" placeholder="كلمة المرور">
 
-<button class="btn btnSecondary" style="width:100%;margin-top:10px"
-onclick="openForgot()">
+<button class="btn btnPrimary" onclick="login()">
+تسجيل الدخول
+</button>
+
+<button
+style="border:0;background:none;color:#075c49;font-size:12px"
+onclick="forgotPassword()"
+>
 نسيت كلمة المرور؟
 </button>
 
 </div>
 
-<div id="signupForm" class="hidden">
 
-<div class="field">
-<label>اسم المستخدم</label>
-<input id="signupUsername">
-</div>
+<div id="signupForm" class="authForm hidden">
 
-<div class="field">
-<label>الاسم الكامل</label>
-<input id="signupFullName">
-</div>
+<input id="signupFullName" placeholder="الاسم الكامل">
 
-<div class="field">
-<label>رقم الهاتف</label>
-<input id="signupPhone">
-</div>
+<input id="signupUsername" placeholder="اسم المستخدم">
 
-<div class="field">
-<label>البريد الإلكتروني</label>
-<input id="signupEmail" type="email">
-</div>
+<input id="signupEmail" type="email" placeholder="البريد الإلكتروني">
 
-<div class="field">
-<label>كلمة المرور</label>
-<input id="signupPassword" type="password">
-</div>
+<input id="signupPhone" placeholder="رقم الهاتف">
 
-<button class="btn btnPrimary" style="width:100%" onclick="signup()">
+<input id="signupPassword" type="password" placeholder="كلمة المرور">
+
+<button class="btn btnPrimary" onclick="signup()">
 إنشاء الحساب
 </button>
 
@@ -1057,57 +2123,95 @@ onclick="openForgot()">
 
 </div>
 </div>
-</div>
 
-<!-- FORGOT -->
-<div id="forgotModal" class="modal hidden">
 
-<div class="modalBox">
+<!-- SUCCESS MODAL -->
+<div class="modalOverlay" id="successModal">
 
-<button class="close" onclick="closeModal('forgotModal')">×</button>
+<div class="modal successModal">
 
-<h2 style="color:var(--green)">استعادة كلمة المرور</h2>
+<div class="successIcon">✓</div>
 
-<p style="color:#71807a">
-أدخل بريدك الإلكتروني وسنرسل لك رابط تغيير كلمة المرور.
+<h2>تم إرسال البلاغ بنجاح</h2>
+
+<p class="modalSub">
+شكراً لمساهمتك في جعل المجتمع أكثر أماناً.
 </p>
 
-<div class="field">
-<label>البريد الإلكتروني</label>
-<input id="forgotEmail" type="email">
-</div>
+<div id="successReportInfo"></div>
 
-<button class="btn btnPrimary" style="width:100%" onclick="forgotPassword()">
-إرسال الرابط
+<button
+class="btn btnPrimary"
+style="width:100%;margin-top:20px"
+onclick="closeModal('successModal');go('myreports')"
+>
+عرض بلاغاتي
 </button>
 
 </div>
-</div>
-
-<!-- REPORT DETAIL -->
-<div id="reportModal" class="modal hidden">
-
-<div class="modalBox">
-
-<button class="close" onclick="closeModal('reportModal')">×</button>
-
-<h2 id="detailTitle" style="color:var(--green)"></h2>
-
-<div id="detailContent"></div>
 
 </div>
+
+
+<!-- DETAIL MODAL -->
+<div class="modalOverlay" id="detailModal">
+
+<div class="modal">
+
+<button class="closeBtn" onclick="closeModal('detailModal')">×</button>
+
+<h2 id="detailTitle">تفاصيل البلاغ</h2>
+
+<p class="modalSub" id="detailDescription"></p>
+
+<div class="detailGrid">
+
+<div class="detailBox">
+<span>النوع</span>
+<strong id="detailType">—</strong>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-crossorigin=""></script>
+<div class="detailBox">
+<span>الحالة</span>
+<strong id="detailStatus">—</strong>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div class="detailBox">
+<span>درجة الخطورة</span>
+<strong id="detailScore">— / 100</strong>
+</div>
+
+<div class="detailBox">
+<span>تاريخ البلاغ</span>
+<strong id="detailDate">—</strong>
+</div>
+
+<div class="detailBox">
+<span>الجهة المقترحة</span>
+<strong id="detailDepartment">—</strong>
+</div>
+
+<div class="detailBox">
+<span>البلاغات المرتبطة</span>
+<strong id="detailMatches">—</strong>
+</div>
+
+</div>
+
+<div id="detailPhoto" style="margin-top:18px"></div>
+
+</div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
 
 <script>
-/* =========================
-   SUPABASE
-========================= */
+/* =========================================================
+   AWN CONFIG
+========================================================= */
 
 const SUPABASE_URL =
 "https://ftamcnweyimjefjajhcp.supabase.co";
@@ -1118,1233 +2222,2038 @@ const SUPABASE_KEY =
 const EDGE_FUNCTION =
 "https://ftamcnweyimjefjajhcp.supabase.co/functions/v1/swift-worker";
 
-const SITE_URL =
-window.location.origin + window.location.pathname;
-
 const supabaseClient =
 window.supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
 let currentUser = null;
 let currentProfile = null;
 
 let reportMap = null;
-let mainMap = null;
-
 let reportMarker = null;
 
-/* =========================
-   HELPERS
-========================= */
+let mainMap = null;
+let mainMarkers = [];
 
-function $(id){
- return document.getElementById(id);
-}
+let allAdminReports = [];
+let allUsers = [];
 
-function show(id){
- $(id)?.classList.remove("hidden");
-}
 
-function hide(id){
- $(id)?.classList.add("hidden");
-}
-
-function closeModal(id){
- hide(id);
-}
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 function toggleMenu(){
- $("navlinks").classList.toggle("open");
+  document.getElementById("navlinks").classList.toggle("open");
 }
 
 function go(id){
- document.getElementById(id)?.scrollIntoView({
-  behavior:"smooth",
-  block:"start"
- });
 
- $("navlinks").classList.remove("open");
+  const el = document.getElementById(id);
+
+  if(!el) return;
+
+  document.getElementById("navlinks").classList.remove("open");
+
+  el.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+
+  if(id === "report"){
+    setTimeout(initReportMap,350);
+  }
+
+  if(id === "map"){
+    setTimeout(()=>{
+      initMainMap();
+      loadMapReports();
+    },350);
+  }
+
+  if(id === "myreports"){
+    loadMyReports();
+  }
 }
 
-/* =========================
-   AUTH MODAL
-========================= */
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function openModal(id){
+  document.getElementById(id).classList.add("active");
+}
+
+function closeModal(id){
+  document.getElementById(id).classList.remove("active");
+}
 
 function openAuth(){
- show("authModal");
- showLogin();
+  openModal("authModal");
 }
 
-function showLogin(){
- show("loginForm");
- hide("signupForm");
+function switchAuth(type){
 
- $("loginTab").classList.add("active");
- $("signupTab").classList.remove("active");
+  const login =
+    document.getElementById("loginForm");
+
+  const signup =
+    document.getElementById("signupForm");
+
+  const loginTab =
+    document.getElementById("loginTab");
+
+  const signupTab =
+    document.getElementById("signupTab");
+
+  if(type === "login"){
+
+    login.classList.remove("hidden");
+    signup.classList.add("hidden");
+
+    loginTab.classList.add("active");
+    signupTab.classList.remove("active");
+
+  }else{
+
+    login.classList.add("hidden");
+    signup.classList.remove("hidden");
+
+    loginTab.classList.remove("active");
+    signupTab.classList.add("active");
+  }
 }
 
-function showSignup(){
- hide("loginForm");
- show("signupForm");
 
- $("loginTab").classList.remove("active");
- $("signupTab").classList.add("active");
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+function toast(message){
+
+  const el =
+    document.getElementById("toast");
+
+  el.textContent = message;
+
+  el.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(()=>{
+      el.classList.remove("show");
+    },3500);
 }
 
-function openForgot(){
- hide("authModal");
- show("forgotModal");
-}
 
-/* =========================
-   SIGN UP
-========================= */
+/* =========================================================
+   AUTH
+========================================================= */
 
 async function signup(){
 
- const username =
- $("signupUsername").value.trim();
+  const fullName =
+    document.getElementById("signupFullName").value.trim();
 
- const fullName =
- $("signupFullName").value.trim();
+  const username =
+    document.getElementById("signupUsername").value.trim();
 
- const phone =
- $("signupPhone").value.trim();
+  const email =
+    document.getElementById("signupEmail").value.trim();
 
- const email =
- $("signupEmail").value.trim().toLowerCase();
+  const phone =
+    document.getElementById("signupPhone").value.trim();
 
- const password =
- $("signupPassword").value;
+  const password =
+    document.getElementById("signupPassword").value;
 
- if(!username || !fullName || !email || !password){
-  alert("يرجى تعبئة البيانات المطلوبة.");
-  return;
- }
-
- if(password.length < 6){
-  alert("كلمة المرور يجب أن تكون 6 أحرف على الأقل.");
-  return;
- }
-
- const {data,error} =
- await supabaseClient.auth.signUp({
-  email,
-  password,
-  options:{
-   emailRedirectTo:SITE_URL,
-   data:{
-    username,
-    full_name:fullName,
-    phone
-   }
+  if(!fullName || !username || !email || !password){
+    toast("يرجى تعبئة البيانات الأساسية.");
+    return;
   }
- });
-
- if(error){
-  alert(error.message);
-  return;
- }
-
- if(data.user && !data.session){
-  alert("تم إنشاء الحساب. تحقق من بريدك الإلكتروني لتأكيد الحساب.");
- }else{
-  alert("تم إنشاء الحساب بنجاح.");
- }
-
- closeModal("authModal");
-}
-
-/* =========================
-   LOGIN
-========================= */
-
-async function login(){
-
- const identifier =
- $("loginIdentifier").value.trim();
-
- const password =
- $("loginPassword").value;
-
- if(!identifier || !password){
-  alert("أدخل بيانات الدخول.");
-  return;
- }
-
- try{
-
-  const response =
-  await fetch(EDGE_FUNCTION,{
-   method:"POST",
-   headers:{
-    "Content-Type":"application/json",
-    "apikey":SUPABASE_KEY
-   },
-   body:JSON.stringify({
-    action:"login",
-    identifier,
-    password
-   })
-  });
-
-  const data =
-  await response.json();
-
-  if(!response.ok || !data.access_token){
-   alert(data.error || "بيانات الدخول غير صحيحة.");
-   return;
-  }
-
-  const {error} =
-  await supabaseClient.auth.setSession({
-   access_token:data.access_token,
-   refresh_token:data.refresh_token
-  });
-
-  if(error){
-   alert(error.message);
-   return;
-  }
-
-  closeModal("authModal");
-
-  await loadCurrentUser();
-
-  alert("تم تسجيل الدخول بنجاح.");
-
- }catch(error){
-  console.error(error);
-  alert("تعذر الاتصال بالخادم.");
- }
-}
-
-/* =========================
-   FORGOT PASSWORD
-========================= */
-
-async function forgotPassword(){
-
- const email =
- $("forgotEmail").value.trim().toLowerCase();
-
- if(!email){
-  alert("أدخل بريدك الإلكتروني.");
-  return;
- }
-
- const {error} =
- await supabaseClient.auth.resetPasswordForEmail(
-  email,
-  {
-   redirectTo:SITE_URL
-  }
- );
-
- if(error){
-  alert(error.message);
-  return;
- }
-
- alert("تم إرسال رابط تغيير كلمة المرور إلى بريدك الإلكتروني.");
- closeModal("forgotModal");
-}
-
-/* =========================
-   CURRENT USER
-========================= */
-
-async function loadCurrentUser(){
-
- const {
-  data:{user}
- } =
- await supabaseClient.auth.getUser();
-
- currentUser = user || null;
-
- if(!currentUser){
-  currentProfile = null;
-
-  $("authBtn").textContent =
-  "تسجيل الدخول";
-
-  hide("profile");
-  hide("admin");
-
-  await loadMyReports();
-
-  return;
- }
-
- const {data,error} =
- await supabaseClient
- .from("profiles")
- .select("*")
- .eq("id",currentUser.id)
- .maybeSingle();
-
- if(error){
-  console.error(error);
- }
-
- currentProfile = data || null;
-
- $("authBtn").textContent =
- currentProfile?.username ||
- currentProfile?.full_name ||
- "حسابي";
-
- updateProfileUI();
-
- await loadMyReports();
-
- if(currentProfile?.role === "admin"){
-  show("admin");
-  await loadAdminDashboard();
- }else{
-  hide("admin");
- }
-}
-
-/* =========================
-   PROFILE
-========================= */
-
-function updateProfileUI(){
-
- if(!currentProfile) return;
-
- $("profileUsername").value =
- currentProfile.username || "";
-
- $("profileFullName").value =
- currentProfile.full_name || "";
-
- $("profilePhone").value =
- currentProfile.phone || "";
-
- $("profileEmail").textContent =
- currentProfile.email || currentUser?.email || "";
-
- $("profileName").textContent =
- currentProfile.full_name ||
- currentProfile.username ||
- "المستخدم";
-
- const letter =
- (currentProfile.full_name ||
- currentProfile.username ||
- "ع").charAt(0);
-
- $("avatarLetter").textContent = letter;
-}
-
-function openProfile(){
-
- if(!currentUser){
-  openAuth();
-  return;
- }
-
- show("profile");
-
- setTimeout(()=>{
-  $("profile").scrollIntoView({
-   behavior:"smooth"
-  });
- },50);
-}
-
-async function saveProfile(){
-
- if(!currentUser){
-  openAuth();
-  return;
- }
-
- const fullName =
- $("profileFullName").value.trim();
-
- const phone =
- $("profilePhone").value.trim();
-
- const {error} =
- await supabaseClient
- .from("profiles")
- .update({
-  full_name:fullName,
-  phone:phone
- })
- .eq("id",currentUser.id);
-
- if(error){
-  alert(error.message);
-  return;
- }
-
- await loadCurrentUser();
-
- alert("تم حفظ البيانات.");
-}
-
-async function logout(){
-
- await supabaseClient.auth.signOut();
-
- currentUser = null;
- currentProfile = null;
-
- hide("profile");
- hide("admin");
-
- $("authBtn").textContent =
- "تسجيل الدخول";
-
- await loadMyReports();
-
- alert("تم تسجيل الخروج.");
-}
-
-/* =========================
-   REPORT MAP
-========================= */
-
-function initReportMap(){
-
- if(reportMap) return;
-
- reportMap =
- L.map("reportMap").setView(
-  [24.2075,55.7447],
-  10
- );
-
- L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  {
-   maxZoom:19,
-   attribution:"© OpenStreetMap"
-  }
- ).addTo(reportMap);
-
- reportMap.on("click",function(e){
-
-  setLocation(
-   e.latlng.lat,
-   e.latlng.lng
-  );
-
- });
-}
-
-function setLocation(lat,lng){
-
- $("latitude").value = lat;
- $("longitude").value = lng;
-
- if(reportMarker){
-  reportMap.removeLayer(reportMarker);
- }
-
- reportMarker =
- L.marker([lat,lng])
- .addTo(reportMap)
- .bindPopup("موقع البلاغ")
- .openPopup();
-}
-
-function clearLocation(){
-
- $("latitude").value="";
- $("longitude").value="";
-
- if(reportMarker){
-  reportMap.removeLayer(reportMarker);
-  reportMarker=null;
- }
-}
-
-function useMyLocation(){
-
- if(!navigator.geolocation){
-  alert("المتصفح لا يدعم تحديد الموقع.");
-  return;
- }
-
- navigator.geolocation.getCurrentPosition(
-  function(position){
-
-   const lat =
-   position.coords.latitude;
-
-   const lng =
-   position.coords.longitude;
-
-   setLocation(lat,lng);
-
-   reportMap.setView(
-    [lat,lng],
-    16
-   );
-
-  },
-  function(){
-   alert("تعذر تحديد موقعك. يمكنك الضغط على الخريطة لتحديد الموقع.");
-  },
-  {
-   enableHighAccuracy:true,
-   timeout:10000
-  }
- );
-}
-
-/* =========================
-   MAIN MAP
-========================= */
-
-function initMainMap(){
-
- if(mainMap) return;
-
- mainMap =
- L.map("mainMap").setView(
-  [24.2075,55.7447],
-  9
- );
-
- L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  {
-   maxZoom:19,
-   attribution:"© OpenStreetMap"
-  }
- ).addTo(mainMap);
-
- loadMapReports();
-}
-
-async function loadMapReports(){
-
- if(!mainMap) return;
-
- const {data,error} =
- await supabaseClient
- .from("reports")
- .select("id,title,type,description,latitude,longitude,status,score,created_at");
-
- if(error){
-  console.error(error);
-  return;
- }
-
- data?.forEach(report=>{
-
-  if(!report.latitude || !report.longitude){
-   return;
-  }
-
-  const marker =
-  L.marker([
-   report.latitude,
-   report.longitude
-  ]).addTo(mainMap);
-
-  marker.bindPopup(`
-   <div dir="rtl">
-    <strong>${escapeHtml(report.title || report.type || "بلاغ")}</strong>
-    <br>
-    الحالة: ${escapeHtml(report.status || "قيد المتابعة")}
-    <br>
-    الأولوية: ${report.score || 0}
-   </div>
-  `);
-
- });
-}
-
-/* =========================
-   SCORE
-========================= */
-
-function calculateScore(type,description){
-
- let score=50;
-
- if(type==="سلامة"){
-  score+=20;
- }
-
- if(type==="طريق أو رصيف"){
-  score+=10;
- }
-
- if(description.length>100){
-  score+=5;
- }
-
- return Math.min(100,score);
-}
-
-/* =========================
-   SUBMIT REPORT
-========================= */
-
-async function submitReport(){
-
- if(!currentUser){
-  alert("يجب تسجيل الدخول قبل إرسال البلاغ.");
-  openAuth();
-  return;
- }
-
- const title =
- $("reportTitle").value.trim();
-
- const type =
- $("reportType").value;
-
- const description =
- $("reportDescription").value.trim();
-
- const lat =
- parseFloat($("latitude").value);
-
- const lng =
- parseFloat($("longitude").value);
-
- if(!title){
-  alert("اكتب عنوان البلاغ.");
-  return;
- }
-
- if(!description){
-  alert("اكتب وصف المشكلة.");
-  return;
- }
-
- if(!Number.isFinite(lat) || !Number.isFinite(lng)){
-  alert("حدد موقع البلاغ من الخريطة.");
-  return;
- }
-
- const score =
- calculateScore(type,description);
-
- let photoUrl=null;
-
- const file =
- $("reportPhoto").files[0];
-
- if(file){
 
   try{
 
-   const ext =
-   file.name.split(".").pop();
+    const {data,error} =
+      await supabaseClient.auth.signUp({
+        email,
+        password,
+        options:{
+          data:{
+            username,
+            full_name:fullName,
+            phone
+          }
+        }
+      });
 
-   const path =
-   `${currentUser.id}/${Date.now()}.${ext}`;
+    if(error) throw error;
 
-   const upload =
-   await supabaseClient
-   .storage
-   .from("reports")
-   .upload(path,file,{
-    upsert:false
-   });
+    if(data.user){
 
-   if(upload.error){
-    console.error(upload.error);
-   }else{
+      await supabaseClient
+        .from("profiles")
+        .upsert({
+          id:data.user.id,
+          username,
+          full_name:fullName,
+          email,
+          phone,
+          role:"user"
+        });
 
-    const publicUrl =
-    supabaseClient
-    .storage
-    .from("reports")
-    .getPublicUrl(path);
+    }
 
-    photoUrl =
-    publicUrl.data.publicUrl;
-   }
+    toast("تم إنشاء الحساب بنجاح.");
+
+    switchAuth("login");
 
   }catch(error){
-   console.error(error);
+
+    console.error(error);
+
+    toast(
+      error.message ||
+      "حدث خطأ أثناء إنشاء الحساب."
+    );
   }
- }
-
- const {data,error} =
- await supabaseClient
- .from("reports")
- .insert({
-  user_id:currentUser.id,
-  title:title,
-  type:type,
-  description:description,
-  latitude:lat,
-  longitude:lng,
-  score:score,
-  matches:0,
-  status:"قيد المتابعة",
-  has_photo:!!photoUrl,
-  photo_url:photoUrl
- })
- .select()
- .single();
-
- if(error){
-  console.error(error);
-  alert(error.message);
-  return;
- }
-
- alert("تم إرسال البلاغ بنجاح.");
-
- $("reportTitle").value="";
- $("reportDescription").value="";
- $("reportPhoto").value="";
-
- clearLocation();
-
- await loadMyReports();
- await loadStats();
-
- if(mainMap){
-  await loadMapReports();
- }
 }
 
-/* =========================
+
+async function login(){
+
+  const identifier =
+    document.getElementById("loginIdentifier").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  if(!identifier || !password){
+    toast("أدخل بيانات تسجيل الدخول.");
+    return;
+  }
+
+  try{
+
+    let result =
+      await supabaseClient.functions.invoke(
+        "swift-worker",
+        {
+          body:{
+            action:"login",
+            identifier,
+            password
+          }
+        }
+      );
+
+    if(result.error){
+      throw result.error;
+    }
+
+    if(result.data?.session){
+
+      await supabaseClient.auth.setSession(
+        result.data.session
+      );
+
+    }else{
+
+      const {data,error} =
+        await supabaseClient.auth.signInWithPassword({
+          email:identifier,
+          password
+        });
+
+      if(error) throw error;
+
+    }
+
+    await loadCurrentUser();
+
+    closeModal("authModal");
+
+    toast("تم تسجيل الدخول بنجاح.");
+
+  }catch(error){
+
+    console.error(error);
+
+    toast(
+      error.message ||
+      "بيانات تسجيل الدخول غير صحيحة."
+    );
+  }
+}
+
+
+async function forgotPassword(){
+
+  const email =
+    prompt("أدخل بريدك الإلكتروني:");
+
+  if(!email) return;
+
+  try{
+
+    const {error} =
+      await supabaseClient.auth.resetPasswordForEmail(
+        email,
+        {
+          redirectTo:
+            window.location.origin +
+            window.location.pathname
+        }
+      );
+
+    if(error) throw error;
+
+    toast("تم إرسال رابط إعادة تعيين كلمة المرور.");
+
+  }catch(error){
+
+    toast(
+      error.message ||
+      "تعذر إرسال الرابط."
+    );
+  }
+}
+
+
+async function logout(){
+
+  await supabaseClient.auth.signOut();
+
+  currentUser = null;
+  currentProfile = null;
+
+  updateAuthUI();
+
+  document.getElementById("profile")
+    .classList.add("hidden");
+
+  document.getElementById("admin")
+    .classList.add("hidden");
+
+  document.getElementById("myReportsList").innerHTML =
+    `<div class="empty">سجّل الدخول لعرض بلاغاتك.</div>`;
+
+  toast("تم تسجيل الخروج.");
+
+  go("home");
+}
+
+
+/* =========================================================
+   CURRENT USER
+========================================================= */
+
+async function loadCurrentUser(){
+
+  const {data,error} =
+    await supabaseClient.auth.getUser();
+
+  if(error || !data?.user){
+
+    currentUser = null;
+    currentProfile = null;
+
+    updateAuthUI();
+
+    return;
+  }
+
+  currentUser =
+    data.user;
+
+  const profileResult =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id",currentUser.id)
+      .maybeSingle();
+
+  currentProfile =
+    profileResult.data || {
+      id:currentUser.id,
+      email:currentUser.email,
+      role:"user"
+    };
+
+  updateAuthUI();
+
+  loadMyReports();
+
+  loadStats();
+
+  document.getElementById("profile")
+    .classList.remove("hidden");
+
+  if(currentProfile.role === "admin"){
+
+    document.getElementById("admin")
+      .classList.remove("hidden");
+
+    await loadAdminDashboard();
+  }
+}
+
+
+function updateAuthUI(){
+
+  const btn =
+    document.getElementById("authBtn");
+
+  if(currentUser){
+
+    btn.textContent =
+      currentProfile?.role === "admin"
+        ? "لوحة التحكم"
+        : "حسابي";
+
+    btn.onclick =
+      currentProfile?.role === "admin"
+        ? ()=>go("admin")
+        : ()=>go("profile");
+
+    if(currentProfile){
+
+      const name =
+        currentProfile.full_name ||
+        currentProfile.username ||
+        "ع";
+
+      document.getElementById("profileName")
+        .textContent = name;
+
+      document.getElementById("profileEmail")
+        .textContent =
+          currentProfile.email ||
+          currentUser.email ||
+          "—";
+
+      document.getElementById("profileFullName")
+        .value =
+          currentProfile.full_name || "";
+
+      document.getElementById("profilePhone")
+        .value =
+          currentProfile.phone || "";
+
+      document.getElementById("profileUsername")
+        .value =
+          currentProfile.username || "";
+
+      document.getElementById("profileRole")
+        .value =
+          currentProfile.role === "admin"
+            ? "مدير النظام"
+            : "مستخدم";
+
+      document.getElementById("profileAvatar")
+        .textContent =
+          name.charAt(0);
+
+    }
+
+  }else{
+
+    btn.textContent =
+      "تسجيل الدخول";
+
+    btn.onclick =
+      openAuth;
+  }
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+async function saveProfile(){
+
+  if(!currentUser){
+    openAuth();
+    return;
+  }
+
+  const fullName =
+    document.getElementById("profileFullName")
+      .value.trim();
+
+  const phone =
+    document.getElementById("profilePhone")
+      .value.trim();
+
+  const {error} =
+    await supabaseClient
+      .from("profiles")
+      .update({
+        full_name:fullName,
+        phone
+      })
+      .eq("id",currentUser.id);
+
+  if(error){
+
+    console.error(error);
+
+    toast("تعذر حفظ التعديلات.");
+
+    return;
+  }
+
+  currentProfile.full_name =
+    fullName;
+
+  currentProfile.phone =
+    phone;
+
+  updateAuthUI();
+
+  toast("تم حفظ بيانات الحساب.");
+}
+
+
+/* =========================================================
+   AI ENGINE
+========================================================= */
+
+function getAIAnalysis(){
+
+  const type =
+    document.getElementById("reportType")
+      .value;
+
+  const title =
+    document.getElementById("reportTitle")
+      .value
+      .toLowerCase();
+
+  const description =
+    document.getElementById("reportDescription")
+      .value
+      .toLowerCase();
+
+  const text =
+    `${type} ${title} ${description}`;
+
+  let score = 35;
+
+  const keywords = {
+
+    critical:[
+      "حادث",
+      "خطر",
+      "كهرباء",
+      "سلك",
+      "حريق",
+      "انهيار",
+      "تسرب كبير",
+      "إصابة",
+      "تصادم"
+    ],
+
+    high:[
+      "حفرة",
+      "طريق",
+      "رصيف",
+      "إشارة",
+      "مرور",
+      "إنارة",
+      "مياه",
+      "تسرب",
+      "خطر"
+    ],
+
+    medium:[
+      "نفايات",
+      "قمامة",
+      "موقف",
+      "حديقة",
+      "تشجير",
+      "مرفق"
+    ]
+  };
+
+  keywords.critical.forEach(word=>{
+    if(text.includes(word)) score += 15;
+  });
+
+  keywords.high.forEach(word=>{
+    if(text.includes(word)) score += 7;
+  });
+
+  keywords.medium.forEach(word=>{
+    if(text.includes(word)) score += 3;
+  });
+
+  if(type === "سلامة") score += 20;
+  if(type === "طريق أو رصيف") score += 12;
+  if(type === "إنارة") score += 8;
+  if(type === "مياه") score += 10;
+  if(type === "إمكانية وصول") score += 7;
+
+  if(description.length > 100)
+    score += 5;
+
+  if(description.length > 220)
+    score += 4;
+
+  score =
+    Math.max(
+      1,
+      Math.min(100,score)
+    );
+
+  let risk =
+    score >= 80
+      ? "حرج"
+      : score >= 60
+      ? "عالي"
+      : score >= 40
+      ? "متوسط"
+      : "منخفض";
+
+  let department =
+    "الجهة المختصة";
+
+  if(
+    type === "طريق أو رصيف" ||
+    text.includes("حفرة")
+  )
+    department =
+      "الطرق والبنية التحتية";
+
+  else if(
+    type === "إنارة" ||
+    text.includes("كهرباء")
+  )
+    department =
+      "الإنارة والكهرباء";
+
+  else if(
+    type === "نظافة"
+  )
+    department =
+      "النظافة وإدارة النفايات";
+
+  else if(
+    type === "مياه"
+  )
+    department =
+      "المياه والصرف";
+
+  else if(
+    type === "إمكانية وصول"
+  )
+    department =
+      "الخدمات وإمكانية الوصول";
+
+  else if(
+    type === "تشجير"
+  )
+    department =
+      "الحدائق والتشجير";
+
+  return {
+    score,
+    risk,
+    department,
+    type:type || "غير محدد"
+  };
+}
+
+
+async function runAIAnalysis(){
+
+  const analysis =
+    getAIAnalysis();
+
+  const hasContent =
+    document.getElementById("reportType").value ||
+    document.getElementById("reportTitle").value ||
+    document.getElementById("reportDescription").value;
+
+  const box =
+    document.getElementById("aiAnalysis");
+
+  if(!hasContent){
+
+    box.classList.remove("active");
+
+    return;
+  }
+
+  box.classList.add("active");
+
+  document.getElementById("aiScore")
+    .textContent =
+      analysis.score;
+
+  document.getElementById("aiCategory")
+    .textContent =
+      "التصنيف: " + analysis.type;
+
+  document.getElementById("aiRisk")
+    .textContent =
+      "الأولوية: " + analysis.risk;
+
+  document.getElementById("aiDepartment")
+    .textContent =
+      "الجهة المقترحة: " +
+      analysis.department;
+
+  const lat =
+    document.getElementById("latitude").value;
+
+  const lng =
+    document.getElementById("longitude").value;
+
+  let duplicateText =
+    "التكرار: لم يتم الفحص";
+
+  if(lat && lng){
+
+    const duplicates =
+      await findNearbyDuplicates(
+        Number(lat),
+        Number(lng)
+      );
+
+    duplicateText =
+      duplicates.length
+        ? `التكرار: ${duplicates.length} بلاغ مرتبط`
+        : "التكرار: لا يوجد قريب";
+
+  }
+
+  document.getElementById("aiDuplicate")
+    .textContent =
+      duplicateText;
+}
+
+
+/* =========================================================
+   DUPLICATE DETECTION
+========================================================= */
+
+async function findNearbyDuplicates(lat,lng){
+
+  if(!lat || !lng)
+    return [];
+
+  try{
+
+    const {data,error} =
+      await supabaseClient
+        .from("reports")
+        .select("id,title,type,latitude,longitude,status,score")
+        .neq("status","مكتمل")
+        .limit(300);
+
+    if(error) return [];
+
+    const selectedType =
+      document.getElementById("reportType").value;
+
+    return (data || []).filter(report=>{
+
+      if(
+        report.latitude == null ||
+        report.longitude == null
+      )
+        return false;
+
+      const distance =
+        distanceKm(
+          lat,
+          lng,
+          Number(report.latitude),
+          Number(report.longitude)
+        );
+
+      const sameType =
+        !selectedType ||
+        report.type === selectedType;
+
+      return distance <= 0.3 && sameType;
+
+    });
+
+  }catch{
+    return [];
+  }
+}
+
+
+function distanceKm(
+  lat1,
+  lon1,
+  lat2,
+  lon2
+){
+
+  const R = 6371;
+
+  const dLat =
+    (lat2-lat1) *
+    Math.PI/180;
+
+  const dLon =
+    (lon2-lon1) *
+    Math.PI/180;
+
+  const a =
+    Math.sin(dLat/2) *
+    Math.sin(dLat/2) +
+    Math.cos(lat1*Math.PI/180) *
+    Math.cos(lat2*Math.PI/180) *
+    Math.sin(dLon/2) *
+    Math.sin(dLon/2);
+
+  return (
+    R *
+    2 *
+    Math.atan2(
+      Math.sqrt(a),
+      Math.sqrt(1-a)
+    )
+  );
+}
+
+
+/* =========================================================
+   REPORT MAP
+========================================================= */
+
+function initReportMap(){
+
+  if(reportMap){
+
+    setTimeout(()=>{
+      reportMap.invalidateSize(true);
+    },100);
+
+    return;
+  }
+
+  const element =
+    document.getElementById("reportMap");
+
+  if(!element) return;
+
+  reportMap =
+    L.map(element).setView(
+      [24.2075,55.7447],
+      11
+    );
+
+  L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      maxZoom:19,
+      attribution:"© OpenStreetMap"
+    }
+  ).addTo(reportMap);
+
+  reportMap.on("click",function(e){
+
+    setReportLocation(
+      e.latlng.lat,
+      e.latlng.lng
+    );
+
+  });
+
+  setTimeout(()=>{
+    reportMap.invalidateSize(true);
+  },400);
+}
+
+
+function setReportLocation(lat,lng){
+
+  document.getElementById("latitude")
+    .value =
+      lat.toFixed(7);
+
+  document.getElementById("longitude")
+    .value =
+      lng.toFixed(7);
+
+  if(reportMarker)
+    reportMap.removeLayer(reportMarker);
+
+  reportMarker =
+    L.marker([lat,lng])
+      .addTo(reportMap)
+      .bindPopup("موقع البلاغ")
+      .openPopup();
+
+  runAIAnalysis();
+}
+
+
+function useMyLocation(){
+
+  if(!navigator.geolocation){
+
+    toast("المتصفح لا يدعم تحديد الموقع.");
+
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+
+    position=>{
+
+      const lat =
+        position.coords.latitude;
+
+      const lng =
+        position.coords.longitude;
+
+      setReportLocation(lat,lng);
+
+      reportMap.setView(
+        [lat,lng],
+        16
+      );
+
+      toast("تم تحديد موقعك.");
+
+    },
+
+    ()=>{
+      toast("تعذر الحصول على الموقع.");
+    },
+
+    {
+      enableHighAccuracy:true,
+      timeout:10000
+    }
+  );
+}
+
+
+function clearLocation(){
+
+  document.getElementById("latitude")
+    .value = "";
+
+  document.getElementById("longitude")
+    .value = "";
+
+  if(reportMarker){
+
+    reportMap.removeLayer(
+      reportMarker
+    );
+
+    reportMarker = null;
+  }
+
+  runAIAnalysis();
+}
+
+
+/* =========================================================
+   SUBMIT REPORT
+========================================================= */
+
+async function submitReport(){
+
+  if(!currentUser){
+
+    toast("يجب تسجيل الدخول أولاً.");
+
+    openAuth();
+
+    return;
+  }
+
+  const title =
+    document.getElementById("reportTitle")
+      .value.trim();
+
+  const type =
+    document.getElementById("reportType")
+      .value;
+
+  const description =
+    document.getElementById("reportDescription")
+      .value.trim();
+
+  const latitude =
+    document.getElementById("latitude")
+      .value;
+
+  const longitude =
+    document.getElementById("longitude")
+      .value;
+
+  const photoInput =
+    document.getElementById("reportPhoto");
+
+  if(!title){
+
+    toast("أدخل عنوان البلاغ.");
+
+    return;
+  }
+
+  if(!description){
+
+    toast("اكتب وصف المشكلة.");
+
+    return;
+  }
+
+  if(!latitude || !longitude){
+
+    toast("حدد موقع المشكلة على الخريطة.");
+
+    return;
+  }
+
+  const analysis =
+    getAIAnalysis();
+
+  let photoUrl = null;
+  let hasPhoto = false;
+
+  try{
+
+    if(
+      photoInput.files &&
+      photoInput.files[0]
+    ){
+
+      const file =
+        photoInput.files[0];
+
+      const extension =
+        file.name
+          .split(".")
+          .pop();
+
+      const fileName =
+        `${currentUser.id}/${Date.now()}.${extension}`;
+
+      const upload =
+        await supabaseClient
+          .storage
+          .from("reports")
+          .upload(
+            fileName,
+            file,
+            {
+              upsert:false
+            }
+          );
+
+      if(!upload.error){
+
+        const publicData =
+          supabaseClient
+            .storage
+            .from("reports")
+            .getPublicUrl(fileName);
+
+        photoUrl =
+          publicData.data.publicUrl;
+
+        hasPhoto = true;
+      }
+    }
+
+
+    const duplicates =
+      await findNearbyDuplicates(
+        Number(latitude),
+        Number(longitude)
+      );
+
+
+    const {data,error} =
+      await supabaseClient
+        .from("reports")
+        .insert({
+          user_id:currentUser.id,
+          title,
+          type:type || analysis.type,
+          description,
+          latitude:Number(latitude),
+          longitude:Number(longitude),
+          score:analysis.score,
+          matches:duplicates.length,
+          status:"قيد المتابعة",
+          has_photo:hasPhoto,
+          photo_url:photoUrl
+        })
+        .select()
+        .single();
+
+    if(error) throw error;
+
+
+    document.getElementById("successReportInfo")
+      .innerHTML = `
+        <div style="
+          background:#f3f8f5;
+          border-radius:16px;
+          padding:14px;
+          text-align:right;
+        ">
+          <strong style="color:#075c49">
+            درجة الأولوية: ${analysis.score}/100
+          </strong>
+          <br>
+          <span style="font-size:12px;color:#71827c">
+            ${analysis.department}
+          </span>
+          ${
+            duplicates.length
+              ? `<br><span style="font-size:12px;color:#a91d2c">
+                   تم العثور على ${duplicates.length} بلاغ مرتبط
+                 </span>`
+              : ""
+          }
+        </div>
+      `;
+
+
+    openModal("successModal");
+
+    clearReportForm();
+
+    await loadStats();
+
+    await loadMyReports();
+
+    await loadMapReports();
+
+    if(currentProfile?.role === "admin"){
+      await loadAdminDashboard();
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    toast(
+      error.message ||
+      "تعذر إرسال البلاغ."
+    );
+  }
+}
+
+
+function clearReportForm(){
+
+  document.getElementById("reportTitle")
+    .value = "";
+
+  document.getElementById("reportType")
+    .value = "";
+
+  document.getElementById("reportDescription")
+    .value = "";
+
+  document.getElementById("reportPhoto")
+    .value = "";
+
+  clearLocation();
+
+  document.getElementById("aiAnalysis")
+    .classList.remove("active");
+}
+
+
+/* =========================================================
    MY REPORTS
-========================= */
+========================================================= */
 
 async function loadMyReports(){
 
- const box =
- $("myReportsList");
+  const list =
+    document.getElementById("myReportsList");
 
- if(!currentUser){
+  if(!currentUser){
 
-  box.innerHTML=`
-   <div class="empty">
-    سجّل الدخول لعرض بلاغاتك.
-   </div>
-  `;
+    list.innerHTML =
+      `<div class="empty">
+        سجّل الدخول لعرض بلاغاتك.
+      </div>`;
 
-  return;
- }
+    return;
+  }
 
- const {data,error} =
- await supabaseClient
- .from("reports")
- .select("*")
- .eq("user_id",currentUser.id)
- .order("created_at",{ascending:false});
+  const {data,error} =
+    await supabaseClient
+      .from("reports")
+      .select("*")
+      .eq("user_id",currentUser.id)
+      .order("created_at",{ascending:false});
 
- if(error){
-  box.innerHTML=`
-   <div class="empty">
-    تعذر تحميل البلاغات.
-   </div>
-  `;
-  return;
- }
+  if(error){
 
- if(!data || data.length===0){
+    console.error(error);
 
-  box.innerHTML=`
-   <div class="empty">
-    لا توجد بلاغات حتى الآن.
-   </div>
-  `;
+    list.innerHTML =
+      `<div class="empty">
+        تعذر تحميل البلاغات.
+      </div>`;
 
-  return;
- }
+    return;
+  }
 
- box.innerHTML =
- data.map(report=>`
+  if(!data || !data.length){
 
-  <div class="reportItem">
+    list.innerHTML =
+      `<div class="empty">
+        لم تقم بإرسال أي بلاغ حتى الآن.
+      </div>`;
 
-   <div>
-    <h3>${escapeHtml(report.title || report.type || "بلاغ")}</h3>
+    return;
+  }
 
-    <p>
-     ${escapeHtml(report.description || "")}
-    </p>
-
-    <p style="font-size:12px;margin-top:8px">
-     ${formatDate(report.created_at)}
-    </p>
-   </div>
-
-   <div>
-    <span class="status">
-     ${escapeHtml(report.status || "قيد المتابعة")}
-    </span>
-
-    <br>
-
-    <button
-     class="btn btnSecondary"
-     style="margin-top:8px"
-     onclick='showReportDetail(${JSON.stringify(report)})'>
-     التفاصيل
-    </button>
-   </div>
-
-  </div>
-
- `).join("");
+  list.innerHTML =
+    data.map(reportCardHTML).join("");
 }
 
-/* =========================
-   REPORT DETAILS
-========================= */
+
+function reportCardHTML(report){
+
+  const score =
+    Number(report.score || 0);
+
+  const danger =
+    score >= 80
+      ? "danger"
+      : "";
+
+  const date =
+    report.created_at
+      ? new Date(report.created_at)
+          .toLocaleDateString("ar-AE")
+      : "—";
+
+  return `
+    <div class="reportCard">
+
+      <div class="reportCardTop">
+
+        <div style="flex:1">
+
+          <h3>${escapeHTML(report.title || "بلاغ")}</h3>
+
+          <p>
+            ${escapeHTML(
+              report.description || ""
+            )}
+          </p>
+
+        </div>
+
+        <div class="scoreBadge">
+          <strong>${score}</strong>
+          <span>درجة الخطورة</span>
+        </div>
+
+      </div>
+
+      <div class="reportMeta">
+
+        <span class="pill">
+          ${escapeHTML(report.type || "أخرى")}
+        </span>
+
+        <span class="pill status">
+          ${escapeHTML(report.status || "قيد المتابعة")}
+        </span>
+
+        ${
+          report.matches
+            ? `<span class="pill danger">
+                 ${report.matches} مرتبط
+               </span>`
+            : ""
+        }
+
+        <span class="pill">
+          ${date}
+        </span>
+
+      </div>
+
+      <div style="margin-top:15px">
+
+        <button
+          class="btn btnSecondary"
+          onclick='showReportDetail(${JSON.stringify(report).replace(/'/g,"&#39;")})'
+        >
+          عرض التفاصيل
+        </button>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   REPORT DETAIL
+========================================================= */
 
 function showReportDetail(report){
 
- $("detailTitle").textContent =
- report.title || report.type || "تفاصيل البلاغ";
+  document.getElementById("detailTitle")
+    .textContent =
+      report.title || "تفاصيل البلاغ";
 
- $("detailContent").innerHTML=`
+  document.getElementById("detailDescription")
+    .textContent =
+      report.description || "";
 
- <div class="card" style="box-shadow:none">
+  document.getElementById("detailType")
+    .textContent =
+      report.type || "—";
 
-  <p>
-   <strong>نوع البلاغ:</strong>
-   ${escapeHtml(report.type || "-")}
-  </p>
+  document.getElementById("detailStatus")
+    .textContent =
+      report.status || "—";
 
-  <p>
-   <strong>الوصف:</strong><br>
-   ${escapeHtml(report.description || "-")}
-  </p>
+  document.getElementById("detailScore")
+    .textContent =
+      `${report.score || 0} / 100`;
 
-  <p>
-   <strong>الحالة:</strong>
-   ${escapeHtml(report.status || "-")}
-  </p>
+  document.getElementById("detailDate")
+    .textContent =
+      report.created_at
+        ? new Date(report.created_at)
+            .toLocaleString("ar-AE")
+        : "—";
 
-  <p>
-   <strong>درجة الأولوية:</strong>
-   ${report.score || 0}/100
-  </p>
+  document.getElementById("detailDepartment")
+    .textContent =
+      getDepartment(report.type);
 
-  <p>
-   <strong>التاريخ:</strong>
-   ${formatDate(report.created_at)}
-  </p>
+  document.getElementById("detailMatches")
+    .textContent =
+      report.matches || "لا يوجد";
 
-  ${
-   report.photo_url
-   ?
-   `<img src="${escapeAttribute(report.photo_url)}"
-    style="width:100%;max-height:350px;object-fit:cover;border-radius:15px;margin-top:12px">`
-   :
-   ""
+  const photo =
+    document.getElementById("detailPhoto");
+
+  if(report.photo_url){
+
+    photo.innerHTML =
+      `
+      <img
+        src="${escapeAttribute(report.photo_url)}"
+        style="
+          width:100%;
+          max-height:300px;
+          object-fit:cover;
+          border-radius:18px;
+        "
+      >
+      `;
+
+  }else{
+
+    photo.innerHTML = "";
   }
 
- </div>
-
- `;
-
- show("reportModal");
+  openModal("detailModal");
 }
 
-/* =========================
+
+function getDepartment(type){
+
+  const map = {
+    "طريق أو رصيف":"الطرق والبنية التحتية",
+    "إنارة":"الإنارة والكهرباء",
+    "نظافة":"النظافة وإدارة النفايات",
+    "مياه":"المياه والصرف",
+    "تشجير":"الحدائق والتشجير",
+    "إمكانية وصول":"الخدمات وإمكانية الوصول",
+    "مرافق عامة":"الخدمات العامة",
+    "مواقف":"المواقف والنقل",
+    "سلامة":"السلامة"
+  };
+
+  return map[type] ||
+    "الجهة المختصة";
+}
+
+
+/* =========================================================
+   PUBLIC MAP
+========================================================= */
+
+function initMainMap(){
+
+  if(mainMap){
+
+    setTimeout(()=>{
+      mainMap.invalidateSize(true);
+    },100);
+
+    return;
+  }
+
+  const element =
+    document.getElementById("mainMap");
+
+  if(!element) return;
+
+  mainMap =
+    L.map(element)
+      .setView(
+        [24.2075,55.7447],
+        10
+      );
+
+  L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      maxZoom:19,
+      attribution:"© OpenStreetMap"
+    }
+  ).addTo(mainMap);
+
+  setTimeout(()=>{
+    mainMap.invalidateSize(true);
+  },400);
+}
+
+
+async function loadMapReports(){
+
+  initMainMap();
+
+  if(!mainMap) return;
+
+  mainMarkers.forEach(marker=>{
+    mainMap.removeLayer(marker);
+  });
+
+  mainMarkers = [];
+
+  const {data,error} =
+    await supabaseClient
+      .from("reports")
+      .select(
+        "id,title,type,description,latitude,longitude,score,status,created_at"
+      )
+      .limit(500);
+
+  if(error){
+
+    console.error(error);
+
+    return;
+  }
+
+  (data || []).forEach(report=>{
+
+    if(
+      report.latitude == null ||
+      report.longitude == null
+    )
+      return;
+
+    const score =
+      Number(report.score || 0);
+
+    const marker =
+      L.circleMarker(
+        [
+          Number(report.latitude),
+          Number(report.longitude)
+        ],
+        {
+          radius:
+            score >= 80 ? 11 :
+            score >= 60 ? 9 :
+            7,
+
+          color:
+            score >= 80
+              ? "#b51e2b"
+              : score >= 60
+              ? "#b99a58"
+              : "#075c49",
+
+          fillColor:
+            score >= 80
+              ? "#d93645"
+              : score >= 60
+              ? "#d9c38b"
+              : "#0d8067",
+
+          fillOpacity:.8,
+          weight:2
+        }
+      )
+      .addTo(mainMap);
+
+    marker.bindPopup(`
+      <div style="min-width:210px;direction:rtl">
+        <strong>
+          ${escapeHTML(report.title || "بلاغ")}
+        </strong>
+
+        <div style="margin-top:7px">
+          درجة الخطورة:
+          <b>${score}/100</b>
+        </div>
+
+        <div>
+          الحالة:
+          ${escapeHTML(report.status || "—")}
+        </div>
+
+        <div>
+          النوع:
+          ${escapeHTML(report.type || "—")}
+        </div>
+      </div>
+    `);
+
+    mainMarkers.push(marker);
+
+  });
+}
+
+
+/* =========================================================
    STATS
-========================= */
+========================================================= */
 
 async function loadStats(){
 
- const {data,error} =
- await supabaseClient
- .from("reports")
- .select("status");
+  try{
 
- if(error || !data){
-  return;
- }
+    const {data,error} =
+      await supabaseClient
+        .from("reports")
+        .select("status");
 
- const total=data.length;
+    if(error) return;
 
- const open=
- data.filter(r=>
-  r.status!=="مكتمل" &&
-  r.status!=="مغلق"
- ).length;
+    const reports =
+      data || [];
 
- const done=
- data.filter(r=>
-  r.status==="مكتمل" ||
-  r.status==="مغلق"
- ).length;
+    const total =
+      reports.length;
 
- $("statReports").textContent=total;
- $("statOpen").textContent=open;
- $("statDone").textContent=done;
+    const open =
+      reports.filter(
+        r =>
+          r.status !== "مكتمل" &&
+          r.status !== "مرفوض"
+      ).length;
 
- $("adminReports").textContent=total;
- $("adminOpen").textContent=open;
- $("adminDone").textContent=done;
+    const done =
+      reports.filter(
+        r =>
+          r.status === "مكتمل"
+      ).length;
+
+    document.getElementById("statReports")
+      .textContent =
+      total;
+
+    document.getElementById("statOpen")
+      .textContent =
+      open;
+
+    document.getElementById("statDone")
+      .textContent =
+      done;
+
+  }catch(error){
+
+    console.error(error);
+  }
 }
 
-/* =========================
+
+/* =========================================================
    ADMIN
-========================= */
+========================================================= */
 
 async function loadAdminDashboard(){
 
- if(currentProfile?.role!=="admin"){
-  return;
- }
+  if(
+    !currentProfile ||
+    currentProfile.role !== "admin"
+  )
+    return;
 
- const {data,error} =
- await supabaseClient
- .from("reports")
- .select("*")
- .order("created_at",{ascending:false});
+  const reportsResult =
+    await supabaseClient
+      .from("reports")
+      .select("*")
+      .order("created_at",{ascending:false});
 
- if(error){
-  console.error(error);
-  return;
- }
+  if(reportsResult.error){
 
- const box =
- $("adminReportsList");
+    console.error(reportsResult.error);
 
- if(!data || data.length===0){
-  box.innerHTML=`
-   <div class="empty">
-    لا توجد بلاغات.
-   </div>
-  `;
-  return;
- }
+  }else{
 
- box.innerHTML =
- data.map(report=>`
+    allAdminReports =
+      reportsResult.data || [];
+  }
 
- <div class="reportItem">
 
-  <div>
-   <h3>
-    ${escapeHtml(report.title || report.type || "بلاغ")}
-   </h3>
+  const usersResult =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .order("created_at",{ascending:false});
 
-   <p>
-    ${escapeHtml(report.description || "")}
-   </p>
+  if(usersResult.error){
 
-   <p style="font-size:12px;margin-top:7px">
-    Score: ${report.score || 0}/100
-   </p>
-  </div>
+    console.error(
+      "Users load:",
+      usersResult.error
+    );
 
-  <div>
+    allUsers = [];
 
-   <select
-    onchange="updateReportStatus('${report.id}',this.value)"
-    style="padding:9px;border-radius:10px;border:1px solid #d4e0dc">
+  }else{
 
-    <option ${report.status==="قيد المتابعة"?"selected":""}>
-     قيد المتابعة
-    </option>
+    allUsers =
+      usersResult.data || [];
+  }
 
-    <option ${report.status==="جارٍ العمل"?"selected":""}>
-     جارٍ العمل
-    </option>
 
-    <option ${report.status==="مكتمل"?"selected":""}>
-     مكتمل
-    </option>
+  updateAdminStats();
 
-    <option ${report.status==="مغلق"?"selected":""}>
-     مغلق
-    </option>
+  renderAdminReports();
 
-   </select>
-
-  </div>
-
- </div>
-
- `).join("");
-
- await loadStats();
+  renderUsers();
 }
+
+
+function updateAdminStats(){
+
+  const reports =
+    allAdminReports;
+
+  const total =
+    reports.length;
+
+  const open =
+    reports.filter(
+      r =>
+        r.status !== "مكتمل" &&
+        r.status !== "مرفوض"
+    ).length;
+
+  const done =
+    reports.filter(
+      r =>
+        r.status === "مكتمل"
+    ).length;
+
+  const high =
+    reports.filter(
+      r =>
+        Number(r.score || 0) >= 70
+    ).length;
+
+  document.getElementById("adminReports")
+    .textContent =
+      total;
+
+  document.getElementById("adminOpen")
+    .textContent =
+      open;
+
+  document.getElementById("adminDone")
+    .textContent =
+      done;
+
+  document.getElementById("adminHigh")
+    .textContent =
+      high;
+
+  document.getElementById("adminUsers")
+    .textContent =
+      allUsers.length;
+}
+
+
+function renderAdminReports(){
+
+  const list =
+    document.getElementById("adminReportsList");
+
+  if(!list) return;
+
+  const search =
+    (
+      document.getElementById("adminSearch")
+        ?.value || ""
+    )
+    .toLowerCase();
+
+  const filter =
+    document.getElementById("adminFilter")
+      ?.value || "";
+
+  const reports =
+    allAdminReports.filter(report=>{
+
+      const matchesSearch =
+        !search ||
+        String(report.title || "")
+          .toLowerCase()
+          .includes(search) ||
+        String(report.description || "")
+          .toLowerCase()
+          .includes(search);
+
+      const matchesStatus =
+        !filter ||
+        report.status === filter;
+
+      return (
+        matchesSearch &&
+        matchesStatus
+      );
+
+    });
+
+
+  if(!reports.length){
+
+    list.innerHTML =
+      `<div class="empty">
+        لا توجد بلاغات مطابقة.
+      </div>`;
+
+    return;
+  }
+
+
+  list.innerHTML =
+    reports.map(report=>{
+
+      const score =
+        Number(report.score || 0);
+
+      return `
+        <div class="adminReport">
+
+          <div class="adminReportTop">
+
+            <div>
+              <strong>
+                ${escapeHTML(
+                  report.title || "بلاغ"
+                )}
+              </strong>
+
+              <div style="
+                color:#71827c;
+                font-size:11px;
+                margin-top:4px;
+              ">
+                ${escapeHTML(
+                  report.type || "—"
+                )}
+              </div>
+            </div>
+
+            <div class="scoreBadge">
+              <strong>${score}</strong>
+              <span>من 100</span>
+            </div>
+
+          </div>
+
+          <p style="
+            color:#71827c;
+            font-size:12px;
+            margin-top:9px;
+          ">
+            ${escapeHTML(
+              report.description || ""
+            )}
+          </p>
+
+          <select
+            class="adminSelect"
+            onchange="updateReportStatus('${report.id}',this.value)"
+          >
+
+            <option ${
+              report.status==="قيد المتابعة"
+                ? "selected"
+                : ""
+            }>
+              قيد المتابعة
+            </option>
+
+            <option ${
+              report.status==="جاري العمل"
+                ? "selected"
+                : ""
+            }>
+              جاري العمل
+            </option>
+
+            <option ${
+              report.status==="مكتمل"
+                ? "selected"
+                : ""
+            }>
+              مكتمل
+            </option>
+
+            <option ${
+              report.status==="مرفوض"
+                ? "selected"
+                : ""
+            }>
+              مرفوض
+            </option>
+
+          </select>
+
+          <div style="
+            display:flex;
+            gap:8px;
+            margin-top:10px;
+          ">
+
+            <button
+              class="btn btnSecondary"
+              onclick='showReportDetail(${JSON.stringify(report).replace(/'/g,"&#39;")})'
+            >
+              التفاصيل
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
 
 async function updateReportStatus(id,status){
 
- if(currentProfile?.role!=="admin"){
-  return;
- }
+  const {error} =
+    await supabaseClient
+      .from("reports")
+      .update({
+        status,
+        updated_at:new Date().toISOString()
+      })
+      .eq("id",id);
 
- const {error} =
- await supabaseClient
- .from("reports")
- .update({
-  status,
-  updated_at:new Date().toISOString()
- })
- .eq("id",id);
+  if(error){
 
- if(error){
-  alert(error.message);
-  return;
- }
+    console.error(error);
 
- await loadAdminDashboard();
- await loadStats();
- await loadMyReports();
+    toast("تعذر تحديث حالة البلاغ.");
 
- alert("تم تحديث حالة البلاغ.");
-}
-
-/* =========================
-   SECURITY HELPERS
-========================= */
-
-function escapeHtml(value){
-
- return String(value ?? "")
- .replaceAll("&","&amp;")
- .replaceAll("<","&lt;")
- .replaceAll(">","&gt;")
- .replaceAll('"',"&quot;")
- .replaceAll("'","&#039;");
-}
-
-function escapeAttribute(value){
- return escapeHtml(value);
-}
-
-function formatDate(date){
-
- if(!date) return "";
-
- try{
-
-  return new Date(date).toLocaleDateString(
-   "ar-AE",
-   {
-    year:"numeric",
-    month:"long",
-    day:"numeric"
-   }
-  );
-
- }catch{
-  return date;
- }
-}
-
-/* =========================
-   INITIALIZE
-========================= */
-
-document.addEventListener(
- "DOMContentLoaded",
- async function(){
-
-  initReportMap();
-  initMainMap();
-
-  await loadCurrentUser();
-  await loadStats();
-
-  supabaseClient.auth.onAuthStateChange(
-   async function(){
-    setTimeout(
-     loadCurrentUser,
-     0
-    );
-   }
-  );
-
- }
-);
-
-/* =========================
-   PROFILE BUTTON
-========================= */
-
-document.addEventListener(
- "click",
- function(e){
-
-  if(
-   e.target.id==="authBtn" &&
-   currentUser
-  ){
-   e.preventDefault();
-   openProfile();
+    return;
   }
 
- }
-);
+  const report =
+    allAdminReports.find(
+      r => r.id === id
+    );
+
+  if(report)
+    report.status = status;
+
+  updateAdminStats();
+
+  await loadStats();
+
+  toast("تم تحديث حالة البلاغ.");
+}
+
+
+/* =========================================================
+   ADMIN USERS
+========================================================= */
+
+function renderUsers(){
+
+  const list =
+    document.getElementById("adminUsersList");
+
+  if(!list) return;
+
+  const search =
+    (
+      document.getElementById("userSearch")
+        ?.value || ""
+    )
+    .toLowerCase();
+
+  const users =
+    allUsers.filter(user=>{
+
+      const value =
+        `${user.full_name || ""}
+         ${user.username || ""}
+         ${user.email || ""}
+         ${user.phone || ""}`
+        .toLowerCase();
+
+      return !search ||
+        value.includes(search);
+
+    });
+
+
+  if(!users.length){
+
+    list.innerHTML =
+      `<div class="empty" style="padding:25px">
+        لا توجد حسابات مطابقة.
+      </div>`;
+
+    return;
+  }
+
+
+  list.innerHTML =
+    users.map(user=>{
+
+      const name =
+        user.full_name ||
+        user.username ||
+        "مستخدم";
+
+      const date =
+        user.created_at
+          ? new Date(user.created_at)
+              .toLocaleDateString("ar-AE")
+          : "—";
+
+      return `
+        <div class="userRow">
+
+          <strong>
+            ${escapeHTML(name)}
+          </strong>
+
+          <span>
+            ${escapeHTML(
+              user.email || "بدون بريد"
+            )}
+          </span>
+
+          <span>
+            ${escapeHTML(
+              user.phone || "بدون رقم"
+            )}
+          </span>
+
+          <span>
+            اسم المستخدم:
+            ${escapeHTML(
+              user.username || "—"
+            )}
+          </span>
+
+          <span>
+            تاريخ التسجيل:
+            ${date}
+          </span>
+
+          <span class="roleBadge">
+            ${
+              user.role === "admin"
+                ? "مدير النظام"
+                : "مستخدم"
+            }
+          </span>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+function escapeAttribute(value){
+
+  return escapeHTML(value)
+    .replaceAll("`","&#096;");
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+async function initialize(){
+
+  await loadCurrentUser();
+
+  await loadStats();
+
+  initReportMap();
+
+  initMainMap();
+
+  loadMapReports();
+
+  window.addEventListener(
+    "resize",
+    ()=>{
+      if(reportMap)
+        reportMap.invalidateSize(true);
+
+      if(mainMap)
+        mainMap.invalidateSize(true);
+    }
+  );
+}
+
+
+initialize();
+
 </script>
 
 </body>
 </html>
-<!-- AWN MAP FIX -->
-<style>
-#map{
-  width:100% !important;
-  height:520px !important;
-  min-height:520px !important;
-}
-
-.leaflet-container{
-  width:100% !important;
-  height:100% !important;
-  min-height:520px !important;
-}
-</style>
-
-<script>
-(function(){
-
-  /* تحميل Leaflet CSS من جديد بدون مشكلة integrity */
-  const leafletCSS = document.createElement("link");
-  leafletCSS.rel = "stylesheet";
-  leafletCSS.href =
-    "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
-  document.head.appendChild(leafletCSS);
-
-  function fixAwnMap(){
-    if(typeof map !== "undefined" && map){
-      setTimeout(function(){
-        map.invalidateSize(true);
-      },500);
-
-      setTimeout(function(){
-        map.invalidateSize(true);
-      },1500);
-    }
-  }
-
-  window.addEventListener("load",fixAwnMap);
-
-  window.addEventListener("resize",function(){
-    if(typeof map !== "undefined" && map){
-      map.invalidateSize(true);
-    }
-  });
-
-  document.querySelectorAll('a[href="#mapSection"]').forEach(function(link){
-    link.addEventListener("click",function(){
-      setTimeout(fixAwnMap,300);
-      setTimeout(fixAwnMap,1000);
-    });
-  });
-
-})();
-</script>
-<!-- END AWN MAP FIX -->
-<!-- AWN LOGO FIX -->
-<script>
-(function () {
-  const AWN_LOGO = "https://awn01.github.io/awn/awn-logo.png?v=10";
-
-  function loadAwnLogo() {
-    const logo = new URL(AWN_LOGO, window.location.href).href;
-
-    document.querySelectorAll(
-      "#brandLogo,#heroLogo,#authLogo,#forgotLogo,#resetLogo,#profileLogo"
-    ).forEach(function (img) {
-      img.src = logo;
-      img.onerror = function () {
-        console.error("AWN logo failed to load:", logo);
-      };
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", loadAwnLogo);
-  } else {
-    loadAwnLogo();
-  }
-})();
-</script>
-<!-- END AWN LOGO FIX -->
-<!-- AWN LOGO FINAL FIX -->
-<script>
-(function () {
-
-  const AWN_LOGO =
-    "https://raw.githubusercontent.com/AWN01/awn/main/awn-logo.png";
-
-  function loadAwnLogo() {
-
-    document.querySelectorAll(
-      "#brandLogo,#heroLogo,#authLogo,#forgotLogo,#resetLogo,#profileLogo"
-    ).forEach(function (img) {
-
-      img.src = AWN_LOGO;
-
-      img.style.display = "block";
-
-    });
-
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", loadAwnLogo);
-  } else {
-    loadAwnLogo();
-  }
-
-})();
-</script>
-<!-- END AWN LOGO FINAL FIX -->
-<!-- AWN LOGO DEFINITIVE FIX -->
-<script>
-(function () {
-
-  const logoSources = [
-    "https://awn01.github.io/awn/awn-logo.png?v=10",
-    "https://github.com/AWN01/awn/raw/refs/heads/main/awn-logo.png?v=10",
-    "https://raw.githubusercontent.com/AWN01/awn/refs/heads/main/awn-logo.png?v=10"
-  ];
-
-  function applyLogo() {
-    const images = document.querySelectorAll(
-      "#brandLogo,#heroLogo,#authLogo,#forgotLogo,#resetLogo,#profileLogo"
-    );
-
-    images.forEach(function (img) {
-
-      let index = 0;
-
-      function tryNext() {
-        if (index >= logoSources.length) return;
-
-        const url = logoSources[index++];
-
-        img.onerror = tryNext;
-        img.src = url;
-        img.style.display = "block";
-        img.style.visibility = "visible";
-        img.removeAttribute("hidden");
-      }
-
-      tryNext();
-    });
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", applyLogo);
-  } else {
-    applyLogo();
-  }
-
-  setTimeout(applyLogo, 1000);
-  setTimeout(applyLogo, 3000);
-
-})();
-</script>
-<!-- END AWN LOGO DEFINITIVE FIX -->

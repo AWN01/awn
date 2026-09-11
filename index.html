@@ -2301,3 +2301,50 @@ document.addEventListener(
 })();
 </script>
 <!-- END AWN LOGO FINAL FIX -->
+<!-- AWN LOGO DEFINITIVE FIX -->
+<script>
+(function () {
+
+  const logoSources = [
+    "https://awn01.github.io/awn/awn-logo.png?v=10",
+    "https://github.com/AWN01/awn/raw/refs/heads/main/awn-logo.png?v=10",
+    "https://raw.githubusercontent.com/AWN01/awn/refs/heads/main/awn-logo.png?v=10"
+  ];
+
+  function applyLogo() {
+    const images = document.querySelectorAll(
+      "#brandLogo,#heroLogo,#authLogo,#forgotLogo,#resetLogo,#profileLogo"
+    );
+
+    images.forEach(function (img) {
+
+      let index = 0;
+
+      function tryNext() {
+        if (index >= logoSources.length) return;
+
+        const url = logoSources[index++];
+
+        img.onerror = tryNext;
+        img.src = url;
+        img.style.display = "block";
+        img.style.visibility = "visible";
+        img.removeAttribute("hidden");
+      }
+
+      tryNext();
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applyLogo);
+  } else {
+    applyLogo();
+  }
+
+  setTimeout(applyLogo, 1000);
+  setTimeout(applyLogo, 3000);
+
+})();
+</script>
+<!-- END AWN LOGO DEFINITIVE FIX -->

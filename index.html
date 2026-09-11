@@ -2245,3 +2245,29 @@ document.addEventListener(
 })();
 </script>
 <!-- END AWN MAP FIX -->
+<!-- AWN LOGO FIX -->
+<script>
+(function () {
+  const AWN_LOGO = "awn-logo.png";
+
+  function loadAwnLogo() {
+    const logo = new URL(AWN_LOGO, window.location.href).href;
+
+    document.querySelectorAll(
+      "#brandLogo,#heroLogo,#authLogo,#forgotLogo,#resetLogo,#profileLogo"
+    ).forEach(function (img) {
+      img.src = logo;
+      img.onerror = function () {
+        console.error("AWN logo failed to load:", logo);
+      };
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadAwnLogo);
+  } else {
+    loadAwnLogo();
+  }
+})();
+</script>
+<!-- END AWN LOGO FIX -->

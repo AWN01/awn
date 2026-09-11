@@ -2271,3 +2271,33 @@ document.addEventListener(
 })();
 </script>
 <!-- END AWN LOGO FIX -->
+<!-- AWN LOGO FINAL FIX -->
+<script>
+(function () {
+
+  const AWN_LOGO =
+    "https://raw.githubusercontent.com/AWN01/awn/main/awn-logo.png";
+
+  function loadAwnLogo() {
+
+    document.querySelectorAll(
+      "#brandLogo,#heroLogo,#authLogo,#forgotLogo,#resetLogo,#profileLogo"
+    ).forEach(function (img) {
+
+      img.src = AWN_LOGO;
+
+      img.style.display = "block";
+
+    });
+
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", loadAwnLogo);
+  } else {
+    loadAwnLogo();
+  }
+
+})();
+</script>
+<!-- END AWN LOGO FINAL FIX -->

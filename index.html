@@ -2190,3 +2190,58 @@ document.addEventListener(
 
 </body>
 </html>
+<!-- AWN MAP FIX -->
+<style>
+#map{
+  width:100% !important;
+  height:520px !important;
+  min-height:520px !important;
+}
+
+.leaflet-container{
+  width:100% !important;
+  height:100% !important;
+  min-height:520px !important;
+}
+</style>
+
+<script>
+(function(){
+
+  /* تحميل Leaflet CSS من جديد بدون مشكلة integrity */
+  const leafletCSS = document.createElement("link");
+  leafletCSS.rel = "stylesheet";
+  leafletCSS.href =
+    "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+  document.head.appendChild(leafletCSS);
+
+  function fixAwnMap(){
+    if(typeof map !== "undefined" && map){
+      setTimeout(function(){
+        map.invalidateSize(true);
+      },500);
+
+      setTimeout(function(){
+        map.invalidateSize(true);
+      },1500);
+    }
+  }
+
+  window.addEventListener("load",fixAwnMap);
+
+  window.addEventListener("resize",function(){
+    if(typeof map !== "undefined" && map){
+      map.invalidateSize(true);
+    }
+  });
+
+  document.querySelectorAll('a[href="#mapSection"]').forEach(function(link){
+    link.addEventListener("click",function(){
+      setTimeout(fixAwnMap,300);
+      setTimeout(fixAwnMap,1000);
+    });
+  });
+
+})();
+</script>
+<!-- END AWN MAP FIX -->

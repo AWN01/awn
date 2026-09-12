@@ -3,34 +3,296 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#06141b">
-<meta name="description" content="عون — معاً.. لمجتمع أكثر أماناً">
+<meta name="theme-color" content="#f7f8f6">
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <title>عون | AWN</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#06141b;color:#fff;font-family:Arial,Tahoma,sans-serif}
-button,input,textarea,select{font:inherit}button{cursor:pointer}
-header{height:72px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12;background:#071a22;position:sticky;top:0;z-index:1000}
-.logo{display:flex;align-items:center;gap:10px;font-weight:bold;font-size:24px}.logo b{color:#d8b45a}.mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#d8b45a,#fff0a5);color:#06141b;display:grid;place-items:center;font-size:25px;font-weight:900}
-nav{display:flex;gap:8px;flex-wrap:wrap}.nav{background:none;border:0;color:#bbb;padding:9px}.nav:hover{color:#fff}
-.login{border:1px solid #d8b45a;color:#d8b45a;background:transparent;border-radius:12px;padding:10px 15px}
-main{max-width:1150px;margin:auto;padding:28px 16px}.page{display:none}.page.active{display:block}
-.hero{padding:55px 10px;text-align:center}.hero h1{font-size:clamp(38px,8vw,72px);margin:0 0 12px}.hero h1 span{color:#d8b45a}.hero p{color:#aab7bc;font-size:18px}.cta{margin-top:25px;background:linear-gradient(135deg,#d8b45a,#fff0a5);border:0;color:#06141b;border-radius:16px;padding:15px 28px;font-weight:bold}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.card{background:#0b2029;border:1px solid #ffffff12;border-radius:20px;padding:20px;box-shadow:0 10px 35px #0003}.card h3{margin-top:0}.muted{color:#91a0a6}.stat{font-size:32px;color:#d8b45a;font-weight:bold}
-form{display:grid;gap:14px;max-width:650px;margin:auto}input,textarea,select{width:100%;background:#071820;color:#fff;border:1px solid #ffffff18;border-radius:13px;padding:14px;outline:none}textarea{min-height:120px;resize:vertical}
-label{color:#ccd5d8}.submit{background:#d8b45a;color:#06141b;border:0;border-radius:13px;padding:14px;font-weight:bold}
-#map{height:430px;border-radius:20px;overflow:hidden;margin-top:18px}.report{border-right:3px solid #d8b45a}.badge{display:inline-block;padding:5px 10px;border-radius:20px;background:#ffffff10;color:#d8b45a;font-size:12px}
-table{width:100%;border-collapse:collapse}td,th{padding:11px;border-bottom:1px solid #ffffff10;text-align:right}.danger{color:#ff8d8d}
-.modal{position:fixed;inset:0;background:#0009;display:none;place-items:center;z-index:2000;padding:20px}.modal.show{display:grid}.modalbox{width:min(500px,100%);background:#0b2029;border:1px solid #ffffff15;border-radius:22px;padding:25px}.close{float:left;background:none;border:0;color:#aaa;font-size:25px}
-.toast{position:fixed;bottom:20px;left:20px;right:20px;max-width:450px;margin:auto;background:#102b35;border:1px solid #d8b45a;color:#fff;padding:14px;border-radius:14px;text-align:center;display:none;z-index:3000}
-@media(max-width:700px){header{height:auto;min-height:70px;flex-wrap:wrap;gap:8px;padding:10px}.logo{font-size:20px}nav{order:3;width:100%;overflow:auto;white-space:nowrap}.hero{padding:35px 5px}.hero h1{font-size:45px}.card{padding:17px}}
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#f6f8f5;
+ color:#17221d;
+ font-family:Tahoma,Arial,sans-serif
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+
+header{
+ height:76px;
+ background:#fff;
+ border-bottom:1px solid #e4e9e5;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 22px;
+ position:sticky;
+ top:0;
+ z-index:1000;
+ direction:ltr
+}
+
+.logo{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ font-size:25px;
+ font-weight:800;
+ color:#17221d
+}
+.logo img{
+ width:54px;
+ height:54px;
+ object-fit:contain
+}
+.logo b{color:#16834b}
+
+nav{
+ display:flex;
+ align-items:center;
+ gap:4px;
+ direction:rtl
+}
+.nav{
+ border:0;
+ background:transparent;
+ color:#59635e;
+ padding:10px 12px;
+ border-radius:10px
+}
+.nav:hover{
+ background:#f0f5f1;
+ color:#16834b
+}
+
+.login{
+ border:1px solid #16834b;
+ background:#16834b;
+ color:#fff;
+ padding:11px 18px;
+ border-radius:12px
+}
+
+main{
+ max-width:1100px;
+ margin:auto;
+ padding:25px 16px 60px
+}
+
+.page{display:none}
+.page.active{display:block}
+
+.hero{
+ background:linear-gradient(135deg,#ffffff,#eef7f1);
+ border:1px solid #e1ebe4;
+ border-radius:28px;
+ padding:55px 25px;
+ text-align:center;
+ margin-bottom:22px
+}
+
+.hero h1{
+ font-size:clamp(34px,7vw,60px);
+ line-height:1.2;
+ margin:0 0 16px;
+ color:#17221d
+}
+
+.hero h1 span{color:#16834b}
+.hero p{
+ color:#68736d;
+ font-size:18px;
+ line-height:1.8;
+ max-width:650px;
+ margin:auto
+}
+
+.cta{
+ margin-top:25px;
+ border:0;
+ background:#16834b;
+ color:white;
+ border-radius:15px;
+ padding:15px 30px;
+ font-weight:bold;
+ box-shadow:0 8px 22px #16834b25
+}
+.cta:hover{background:#106b3c}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+ gap:16px
+}
+
+.card{
+ background:#fff;
+ border:1px solid #e3e9e5;
+ border-radius:20px;
+ padding:20px;
+ box-shadow:0 8px 25px #17221d08
+}
+
+.card h2,.card h3{margin-top:0}
+.muted{color:#78827d}
+.stat{
+ font-size:34px;
+ font-weight:800;
+ color:#16834b
+}
+
+form{
+ display:grid;
+ gap:14px;
+ max-width:680px;
+ margin:auto
+}
+
+input,textarea,select{
+ width:100%;
+ background:#f8faf8;
+ color:#17221d;
+ border:1px solid #dce4df;
+ border-radius:13px;
+ padding:14px;
+ outline:none
+}
+
+input:focus,textarea:focus,select:focus{
+ border-color:#16834b;
+ box-shadow:0 0 0 3px #16834b12
+}
+
+textarea{
+ min-height:125px;
+ resize:vertical
+}
+
+.submit{
+ border:0;
+ background:#16834b;
+ color:#fff;
+ border-radius:13px;
+ padding:14px;
+ font-weight:bold
+}
+
+#map{
+ height:430px;
+ border-radius:20px;
+ overflow:hidden;
+ margin-top:18px
+}
+
+.report{
+ border-right:4px solid #16834b;
+ margin-bottom:12px
+}
+
+.badge{
+ display:inline-block;
+ padding:5px 10px;
+ border-radius:20px;
+ background:#e9f6ee;
+ color:#16834b;
+ font-size:12px
+}
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:#17221d66;
+ display:none;
+ place-items:center;
+ z-index:2000;
+ padding:20px
+}
+.modal.show{display:grid}
+
+.modalbox{
+ width:min(500px,100%);
+ background:#fff;
+ border-radius:22px;
+ padding:25px;
+ box-shadow:0 20px 70px #0003
+}
+
+.close{
+ float:left;
+ border:0;
+ background:none;
+ color:#777;
+ font-size:25px
+}
+
+.toast{
+ position:fixed;
+ bottom:20px;
+ left:20px;
+ right:20px;
+ max-width:450px;
+ margin:auto;
+ background:#17221d;
+ color:#fff;
+ padding:14px;
+ border-radius:14px;
+ text-align:center;
+ display:none;
+ z-index:3000
+}
+
+.success{color:#16834b}
+.danger{color:#c73535}
+
+footer{
+ text-align:center;
+ color:#8a938e;
+ padding:20px
+}
+
+@media(max-width:850px){
+ header{
+  height:auto;
+  min-height:76px;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:10px 14px
+ }
+ .logo{order:1}
+ .login{order:2}
+ nav{
+  order:3;
+  width:100%;
+  overflow-x:auto;
+  justify-content:flex-start;
+  padding-bottom:2px
+ }
+ .nav{white-space:nowrap;font-size:13px}
+ .hero{padding:38px 18px}
+ .hero h1{font-size:40px}
+}
+
+@media(max-width:500px){
+ .logo img{width:48px;height:48px}
+ .logo{font-size:21px}
+ .hero h1{font-size:35px}
+ .hero p{font-size:16px}
+ #map{height:360px}
+}
 </style>
 </head>
+
 <body>
 
 <header>
-<div class="logo"><div class="mark">ع</div><span>عون <b>AWN</b></span></div>
+
+<!-- شعار عون الأصلي -->
+<div class="logo">
+<img src="awn-logo.png" alt="شعار عون">
+<span>عون <b>AWN</b></span>
+</div>
+
 <nav>
 <button class="nav" onclick="show('home')">الرئيسية</button>
 <button class="nav" onclick="show('report')">رفع بلاغ</button>
@@ -39,250 +301,941 @@ table{width:100%;border-collapse:collapse}td,th{padding:11px;border-bottom:1px s
 <button class="nav" onclick="show('pulse')">نبض المجتمع</button>
 <button class="nav" onclick="show('profile')">حسابي</button>
 </nav>
+
 <button class="login" id="authBtn" onclick="openAuth()">تسجيل الدخول</button>
+
 </header>
 
 <main>
 
 <section id="home" class="page active">
+
 <div class="hero">
-<h1>معاً.. لمجتمع <span>أكثر أماناً</span></h1>
-<p>عون منصة تساعد المجتمع على الإبلاغ عن الملاحظات والمخاطر في الأماكن العامة.</p>
-<button class="cta" onclick="show('report')">رفع بلاغ جديد</button>
+
+<h1>
+معاً.. لمجتمع
+<span>أكثر أماناً</span>
+</h1>
+
+<p>
+عون منصة تساعد المجتمع على الإبلاغ عن الملاحظات والمخاطر
+في الأماكن العامة والمساهمة في تحسين جودة الحياة.
+</p>
+
+<button class="cta" onclick="show('report')">
+رفع بلاغ جديد
+</button>
+
 </div>
+
 <div class="grid">
-<div class="card"><div class="stat" id="total">0</div><div class="muted">إجمالي البلاغات</div></div>
-<div class="card"><div class="stat" id="solved">0</div><div class="muted">بلاغات تمت معالجتها</div></div>
-<div class="card"><div class="stat" id="users">0</div><div class="muted">أعضاء عون</div></div>
+
+<div class="card">
+<div class="stat" id="total">0</div>
+<div class="muted">إجمالي البلاغات</div>
 </div>
+
+<div class="card">
+<div class="stat" id="solved">0</div>
+<div class="muted">بلاغات تمت معالجتها</div>
+</div>
+
+<div class="card">
+<div class="stat" id="users">0</div>
+<div class="muted">أعضاء عون</div>
+</div>
+
+</div>
+
 </section>
+
 
 <section id="report" class="page">
+
 <div class="card">
+
 <h2>رفع بلاغ</h2>
-<p class="muted">شاركنا المشكلة مع وصف واضح وموقعها.</p>
+
+<p class="muted">
+شاركنا المشكلة مع وصف واضح للملاحظة.
+</p>
+
 <form onsubmit="submitReport(event)">
-<input id="title" required placeholder="عنوان البلاغ">
+
+<input
+ id="title"
+ required
+ placeholder="عنوان البلاغ">
+
 <select id="type" required>
 <option value="">نوع البلاغ</option>
-<option>طريق وصيانة</option><option>إنارة</option><option>سلامة</option>
-<option>مرافق عامة</option><option>إتاحة ووصول</option><option>نظافة</option><option>أخرى</option>
+<option>طريق وصيانة</option>
+<option>إنارة</option>
+<option>سلامة</option>
+<option>مرافق عامة</option>
+<option>إتاحة ووصول</option>
+<option>نظافة</option>
+<option>أخرى</option>
 </select>
-<textarea id="description" required placeholder="صف المشكلة بالتفصيل"></textarea>
-<input id="photo" type="file" accept="image/*">
-<button class="submit">إرسال البلاغ</button>
+
+<textarea
+ id="description"
+ required
+ placeholder="صف المشكلة بالتفصيل">
+</textarea>
+
+<input
+ id="photo"
+ type="file"
+ accept="image/*">
+
+<button class="submit">
+إرسال البلاغ
+</button>
+
 </form>
+
 </div>
+
 </section>
+
 
 <section id="mapPage" class="page">
+
 <div class="card">
+
 <h2>خريطة عون</h2>
-<p class="muted">الملاحظات المسجلة على الخريطة.</p>
+
+<p class="muted">
+شاهد البلاغات المسجلة على الخريطة.
+</p>
+
 <div id="map"></div>
+
 </div>
+
 </section>
+
 
 <section id="my" class="page">
+
 <div class="card">
+
 <h2>بلاغاتي</h2>
-<div id="myReports"><p class="muted">سجل دخولك لمشاهدة بلاغاتك.</p></div>
+
+<div id="myReports">
+<p class="muted">
+سجل دخولك لمشاهدة بلاغاتك.
+</p>
 </div>
+
+</div>
+
 </section>
+
 
 <section id="pulse" class="page">
+
 <div class="card">
+
 <h2>نبض المجتمع</h2>
-<p class="muted">إحصاءات البلاغات والمشاركة المجتمعية.</p>
+
+<p class="muted">
+إحصاءات المشاركة والبلاغات في عون.
+</p>
+
 <div class="grid">
-<div class="card"><div class="stat" id="p1">0</div>بلاغ جديد</div>
-<div class="card"><div class="stat" id="p2">0</div>بلاغ قيد المعالجة</div>
-<div class="card"><div class="stat" id="p3">0</div>بلاغ مكتمل</div>
+
+<div class="card">
+<div class="stat" id="p1">0</div>
+بلاغ جديد
 </div>
+
+<div class="card">
+<div class="stat" id="p2">0</div>
+بلاغ قيد المعالجة
 </div>
+
+<div class="card">
+<div class="stat" id="p3">0</div>
+بلاغ مكتمل
+</div>
+
+</div>
+
+</div>
+
 </section>
+
 
 <section id="profile" class="page">
+
 <div class="card">
+
 <h2>حسابي</h2>
-<div id="profileBox"><p class="muted">سجل الدخول أولاً.</p></div>
+
+<div id="profileBox">
+<p class="muted">
+سجل الدخول أولاً.
+</p>
 </div>
+
+</div>
+
 </section>
 
+
 <section id="admin" class="page">
+
 <div class="card">
+
 <h2>لوحة الإدارة</h2>
+
 <div class="grid">
-<div class="card"><div class="stat" id="a1">0</div>البلاغات</div>
-<div class="card"><div class="stat" id="a2">0</div>المستخدمون</div>
+
+<div class="card">
+<div class="stat" id="a1">0</div>
+البلاغات
 </div>
+
+<div class="card">
+<div class="stat" id="a2">0</div>
+المستخدمون
+</div>
+
+</div>
+
 <div id="adminReports"></div>
+
 </div>
+
 </section>
 
 </main>
 
+
 <div id="authModal" class="modal">
+
 <div class="modalbox">
+
 <button class="close" onclick="closeAuth()">×</button>
+
 <h2 id="authTitle">تسجيل الدخول</h2>
+
 <form onsubmit="auth(event)">
-<input id="email" type="email" required placeholder="البريد الإلكتروني">
-<input id="password" type="password" required placeholder="كلمة المرور">
-<input id="name" placeholder="الاسم — للتسجيل الجديد">
-<button class="submit" id="authSubmit">دخول</button>
+
+<input
+ id="email"
+ type="email"
+ required
+ placeholder="البريد الإلكتروني">
+
+<input
+ id="password"
+ type="password"
+ required
+ placeholder="كلمة المرور">
+
+<input
+ id="name"
+ placeholder="الاسم"
+ style="display:none">
+
+<button
+ class="submit"
+ id="authSubmit">
+دخول
+</button>
+
 </form>
-<p><button class="nav" onclick="toggleAuth()">إنشاء حساب / تسجيل دخول</button></p>
+
+<p>
+<button class="nav" onclick="toggleAuth()">
+إنشاء حساب / تسجيل دخول
+</button>
+</p>
+
 </div>
+
 </div>
+
 
 <div id="toast" class="toast"></div>
 
+
+<footer>
+عون AWN — معاً.. لمجتمع أكثر أماناً
+</footer>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-const SUPABASE_URL="https://ftamcnweyimjefjajhcp.supabase.co";
-const SUPABASE_KEY="sb_publishable_z7cfsDCEV7Z3gmGD09oGpw_qEdd4WQM";
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-let user=null,profile=null,map=null,markers=[];
+<script>
+
+const SUPABASE_URL =
+"https://ftamcnweyimjefjajhcp.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_z7cfsDCEV7Z3gmGD09oGpw_qEdd4WQM";
+
+const db =
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_KEY
+);
+
+let user=null;
+let profile=null;
+let map=null;
+let markers=[];
+
 
 const $=id=>document.getElementById(id);
-function toast(x){$('toast').textContent=x;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',3000)}
+
+
+function toast(text){
+
+$("toast").textContent=text;
+$("toast").style.display="block";
+
+setTimeout(()=>{
+$("toast").style.display="none";
+},3000);
+
+}
+
+
 function show(id){
- document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
- $(id).classList.add('active');
- if(id==='mapPage')setTimeout(loadMap,100);
- if(id==='my')loadMy();
- if(id==='pulse')loadStats();
- if(id==='profile')loadProfile();
- if(id==='admin'&&profile?.role==='admin')loadAdmin();
+
+document.querySelectorAll(".page")
+.forEach(x=>x.classList.remove("active"));
+
+$(id).classList.add("active");
+
+if(id==="mapPage")
+setTimeout(loadMap,100);
+
+if(id==="my")
+loadMy();
+
+if(id==="pulse")
+loadStats();
+
+if(id==="profile")
+loadProfile();
+
+if(id==="admin" && profile?.role==="admin")
+loadAdmin();
+
 }
-function openAuth(){$('authModal').classList.add('show')}
-function closeAuth(){$('authModal').classList.remove('show')}
+
+
+function openAuth(){
+$("authModal").classList.add("show");
+}
+
+function closeAuth(){
+$("authModal").classList.remove("show");
+}
+
+
 let signup=false;
+
+
 function toggleAuth(){
- signup=!signup;
- $('authTitle').textContent=signup?'إنشاء حساب':'تسجيل الدخول';
- $('authSubmit').textContent=signup?'إنشاء الحساب':'دخول';
- $('name').style.display=signup?'block':'none';
+
+signup=!signup;
+
+$("authTitle").textContent=
+signup ? "إنشاء حساب" : "تسجيل الدخول";
+
+$("authSubmit").textContent=
+signup ? "إنشاء الحساب" : "دخول";
+
+$("name").style.display=
+signup ? "block" : "none";
+
 }
+
+
 async function auth(e){
- e.preventDefault();
- const email=$('email').value,password=$('password').value;
- if(signup){
-  const r=await db.auth.signUp({email,password});
-  if(r.error)return toast(r.error.message);
-  if(r.data.user)await db.from('profiles').upsert({id:r.data.user.id,email,full_name:$('name').value,points:0});
-  toast('تم إنشاء الحساب');closeAuth();
- }else{
-  const r=await db.auth.signInWithPassword({email,password});
-  if(r.error)return toast(r.error.message);
-  closeAuth();
- }
+
+e.preventDefault();
+
+const email=$("email").value;
+const password=$("password").value;
+
+if(signup){
+
+const r=
+await db.auth.signUp({
+email,
+password
+});
+
+if(r.error){
+toast(r.error.message);
+return;
 }
+
+if(r.data.user){
+
+await db
+.from("profiles")
+.upsert({
+id:r.data.user.id,
+email:email,
+full_name:$("name").value,
+points:0
+});
+
+}
+
+toast("تم إنشاء الحساب");
+closeAuth();
+
+}else{
+
+const r=
+await db.auth.signInWithPassword({
+email,
+password
+});
+
+if(r.error){
+toast(r.error.message);
+return;
+}
+
+closeAuth();
+
+}
+
+}
+
+
 async function init(){
- const s=await db.auth.getSession();user=s.data.session?.user||null;
- await refresh();
- db.auth.onAuthStateChange(async(_,s)=>{user=s?.user||null;await refresh()});
+
+const s=
+await db.auth.getSession();
+
+user=
+s.data.session?.user || null;
+
+await refresh();
+
+db.auth.onAuthStateChange(
+async(_,session)=>{
+
+user=session?.user || null;
+
+await refresh();
+
 }
+);
+
+}
+
+
 async function refresh(){
- if(user){
-  const r=await db.from('profiles').select('*').eq('id',user.id).maybeSingle();
-  profile=r.data;
-  $('authBtn').textContent='تسجيل الخروج';
-  $('authBtn').onclick=logout;
-  if(profile?.role==='admin'){
-   if(!document.getElementById('adminNav')){
-    const b=document.createElement('button');b.id='adminNav';b.className='nav';b.textContent='الإدارة';b.onclick=()=>show('admin');
-    document.querySelector('nav').appendChild(b);
-   }
-  }
- }else{
-  profile=null;$('authBtn').textContent='تسجيل الدخول';$('authBtn').onclick=openAuth;
- }
- loadStats();
+
+if(user){
+
+const r=
+await db
+.from("profiles")
+.select("*")
+.eq("id",user.id)
+.maybeSingle();
+
+profile=r.data;
+
+$("authBtn").textContent="تسجيل الخروج";
+$("authBtn").onclick=logout;
+
+if(profile?.role==="admin"){
+
+if(!document.getElementById("adminNav")){
+
+const b=
+document.createElement("button");
+
+b.id="adminNav";
+b.className="nav";
+b.textContent="الإدارة";
+b.onclick=()=>show("admin");
+
+document.querySelector("nav")
+.appendChild(b);
+
 }
-async function logout(){await db.auth.signOut();toast('تم تسجيل الخروج');show('home')}
-function score(type,text){
- let s=45;
- const x=(type+' '+text).toLowerCase();
- if(/خطر|حادث|حريق|حفرة|كهرب|سلامة/.test(x))s+=30;
- if(/طريق|شارع|إنارة|ممر/.test(x))s+=15;
- if(text.length>120)s+=5;
- return Math.min(100,Math.max(1,s));
+
 }
+
+}else{
+
+profile=null;
+
+$("authBtn").textContent="تسجيل الدخول";
+$("authBtn").onclick=openAuth;
+
+}
+
+loadStats();
+
+}
+
+
+async function logout(){
+
+await db.auth.signOut();
+
+toast("تم تسجيل الخروج");
+
+show("home");
+
+}
+
+
+function calculateScore(type,text){
+
+let s=45;
+
+const x=
+(type+" "+text).toLowerCase();
+
+if(
+/خطر|حادث|حريق|حفرة|كهرب|سلامة/.test(x)
+)s+=30;
+
+if(
+/طريق|شارع|إنارة|ممر/.test(x)
+)s+=15;
+
+if(text.length>120)
+s+=5;
+
+return Math.min(100,Math.max(1,s));
+
+}
+
+
 async function submitReport(e){
- e.preventDefault();
- if(!user)return openAuth();
- const title=$('title').value,type=$('type').value,description=$('description').value;
- let lat=null,lng=null;
- try{
-  const p=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{timeout:7000}));
-  lat=p.coords.latitude;lng=p.coords.longitude;
- }catch{}
- let photo_url=null;
- const file=$('photo').files[0];
- if(file){
-  const path=user.id+'/'+Date.now()+'-'+file.name;
-  const up=await db.storage.from('reports').upload(path,file);
-  if(!up.error){const u=db.storage.from('reports').getPublicUrl(path);photo_url=u.data.publicUrl}
- }
- const data={user_id:user.id,title,type,description,latitude:lat,longitude:lng,score:score(type,description),matches:0,status:'new',has_photo:!!photo_url,photo_url};
- const r=await db.from('reports').insert(data);
- if(r.error)return toast('تعذر إرسال البلاغ');
- $('title').value='';$('description').value='';$('photo').value='';
- toast('تم إرسال البلاغ بنجاح');show('my');loadStats();
+
+e.preventDefault();
+
+if(!user){
+
+openAuth();
+return;
+
 }
+
+const title=$("title").value;
+const type=$("type").value;
+const description=$("description").value;
+
+let latitude=null;
+let longitude=null;
+
+try{
+
+const p=
+await new Promise((resolve,reject)=>{
+
+navigator.geolocation.getCurrentPosition(
+resolve,
+reject,
+{timeout:7000}
+);
+
+});
+
+latitude=p.coords.latitude;
+longitude=p.coords.longitude;
+
+}catch(e){}
+
+
+let photo_url=null;
+
+const file=$("photo").files[0];
+
+if(file){
+
+const path=
+user.id+
+"/"+
+Date.now()+
+"-"+
+file.name;
+
+const upload=
+await db
+.storage
+.from("reports")
+.upload(path,file);
+
+if(!upload.error){
+
+const u=
+db
+.storage
+.from("reports")
+.getPublicUrl(path);
+
+photo_url=
+u.data.publicUrl;
+
+}
+
+}
+
+
+const data={
+
+user_id:user.id,
+title:title,
+type:type,
+description:description,
+latitude:latitude,
+longitude:longitude,
+score:calculateScore(type,description),
+matches:0,
+status:"new",
+has_photo:!!photo_url,
+photo_url:photo_url
+
+};
+
+
+const r=
+await db
+.from("reports")
+.insert(data);
+
+if(r.error){
+
+toast("تعذر إرسال البلاغ");
+
+return;
+
+}
+
+
+$("title").value="";
+$("description").value="";
+$("photo").value="";
+
+toast("تم إرسال البلاغ بنجاح");
+
+show("my");
+
+loadStats();
+
+}
+
+
 async function loadStats(){
- const r=await db.from('reports').select('status',{count:'exact'});
- $('total').textContent=r.count||0;$('a1').textContent=r.count||0;$('p1').textContent=r.count||0;
- const all=r.data||[];
- const done=all.filter(x=>x.status==='completed'||x.status==='solved').length;
- const pending=all.filter(x=>x.status==='new'||x.status==='in_progress').length;
- $('solved').textContent=done;$('p3').textContent=done;$('p2').textContent=pending;
- const u=await db.from('profiles').select('id',{count:'exact',head:true});
- $('users').textContent=u.count||0;$('a2').textContent=u.count||0;
+
+const r=
+await db
+.from("reports")
+.select("status",{count:"exact"});
+
+const all=r.data||[];
+
+$("total").textContent=r.count||0;
+$("a1").textContent=r.count||0;
+$("p1").textContent=r.count||0;
+
+const done=
+all.filter(
+x=>x.status==="completed" ||
+x.status==="solved"
+).length;
+
+const pending=
+all.filter(
+x=>x.status==="new" ||
+x.status==="in_progress"
+).length;
+
+$("solved").textContent=done;
+$("p3").textContent=done;
+$("p2").textContent=pending;
+
+const u=
+await db
+.from("profiles")
+.select("id",{count:"exact",head:true});
+
+$("users").textContent=u.count||0;
+$("a2").textContent=u.count||0;
+
 }
+
+
 async function loadMy(){
- const box=$('myReports');
- if(!user){box.innerHTML='<p class="muted">سجل دخولك لمشاهدة بلاغاتك.</p>';return}
- const r=await db.from('reports').select('*').eq('user_id',user.id).order('created_at',{ascending:false});
- if(r.error){box.innerHTML='<p class="danger">تعذر تحميل البلاغات.</p>';return}
- box.innerHTML=r.data.length?r.data.map(x=>`<div class="card report"><h3>${esc(x.title)}</h3><span class="badge">${esc(x.type)}</span><p>${esc(x.description)}</p><small class="muted">الحالة: ${esc(x.status||'new')}</small></div>`).join(''):'<p class="muted">لا توجد بلاغات حتى الآن.</p>';
+
+const box=$("myReports");
+
+if(!user){
+
+box.innerHTML=
+'<p class="muted">سجل دخولك لمشاهدة بلاغاتك.</p>';
+
+return;
+
 }
+
+const r=
+await db
+.from("reports")
+.select("*")
+.eq("user_id",user.id)
+.order("created_at",{ascending:false});
+
+if(r.error){
+
+box.innerHTML=
+'<p class="danger">تعذر تحميل البلاغات.</p>';
+
+return;
+
+}
+
+if(!r.data.length){
+
+box.innerHTML=
+'<p class="muted">لا توجد بلاغات حتى الآن.</p>';
+
+return;
+
+}
+
+box.innerHTML=
+r.data.map(x=>`
+
+<div class="card report">
+
+<h3>${esc(x.title)}</h3>
+
+<span class="badge">
+${esc(x.type)}
+</span>
+
+<p>${esc(x.description)}</p>
+
+<small class="muted">
+الحالة: ${esc(x.status||"new")}
+</small>
+
+</div>
+
+`).join("");
+
+}
+
+
 async function loadProfile(){
- const b=$('profileBox');
- if(!user){b.innerHTML='<p class="muted">سجل الدخول أولاً.</p>';return}
- b.innerHTML=`<h3>${esc(profile?.full_name||'عضو عون')}</h3><p>${esc(user.email||'')}</p><p>النقاط: <b class="stat">${profile?.points||0}</b></p><button class="submit" onclick="logout()">تسجيل الخروج</button>`;
+
+const box=$("profileBox");
+
+if(!user){
+
+box.innerHTML=
+'<p class="muted">سجل الدخول أولاً.</p>';
+
+return;
+
 }
+
+box.innerHTML=`
+
+<h3>
+${esc(profile?.full_name||"عضو عون")}
+</h3>
+
+<p>
+${esc(user.email||"")}
+</p>
+
+<p>
+النقاط:
+<b class="stat">${profile?.points||0}</b>
+</p>
+
+<button class="submit" onclick="logout()">
+تسجيل الخروج
+</button>
+
+`;
+
+}
+
+
 async function loadMap(){
- if(!map){
-  map=L.map('map').setView([24.2075,55.7447],11);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
- }
- markers.forEach(m=>map.removeLayer(m));markers=[];
- const r=await db.from('reports').select('title,type,latitude,longitude,score,status').not('latitude','is',null);
- (r.data||[]).forEach(x=>{
-  const m=L.marker([x.latitude,x.longitude]).addTo(map);
-  m.bindPopup('<b>'+esc(x.title)+'</b><br>'+esc(x.type));
-  markers.push(m);
- });
- setTimeout(()=>map.invalidateSize(),200);
+
+if(!map){
+
+map=
+L.map("map")
+.setView([24.2075,55.7447],11);
+
+L.tileLayer(
+"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+{
+attribution:"© OpenStreetMap"
 }
+).addTo(map);
+
+}
+
+markers.forEach(m=>map.removeLayer(m));
+markers=[];
+
+const r=
+await db
+.from("reports")
+.select(
+"title,type,latitude,longitude,score,status"
+)
+.not("latitude","is",null);
+
+(r.data||[]).forEach(x=>{
+
+const m=
+L.marker([
+x.latitude,
+x.longitude
+]).addTo(map);
+
+m.bindPopup(
+"<b>"+
+esc(x.title)+
+"</b><br>"+
+esc(x.type)
+);
+
+markers.push(m);
+
+});
+
+setTimeout(()=>{
+map.invalidateSize();
+},200);
+
+}
+
+
 async function loadAdmin(){
- if(profile?.role!=='admin')return;
- const r=await db.from('reports').select('*').order('created_at',{ascending:false});
- $('adminReports').innerHTML=(r.data||[]).map(x=>`<div class="card"><b>${esc(x.title)}</b><p>${esc(x.description)}</p><select onchange="status('${x.id}',this.value)"><option ${x.status==='new'?'selected':''} value="new">جديد</option><option ${x.status==='in_progress'?'selected':''} value="in_progress">قيد المعالجة</option><option ${x.status==='completed'?'selected':''} value="completed">مكتمل</option></select></div>`).join('');
+
+if(profile?.role!=="admin")
+return;
+
+const r=
+await db
+.from("reports")
+.select("*")
+.order("created_at",{ascending:false});
+
+$("adminReports").innerHTML=
+(r.data||[]).map(x=>`
+
+<div class="card" style="margin-top:12px">
+
+<b>${esc(x.title)}</b>
+
+<p>${esc(x.description)}</p>
+
+<select onchange="updateStatus('${x.id}',this.value)">
+
+<option
+value="new"
+${x.status==="new"?"selected":""}>
+جديد
+</option>
+
+<option
+value="in_progress"
+${x.status==="in_progress"?"selected":""}>
+قيد المعالجة
+</option>
+
+<option
+value="completed"
+${x.status==="completed"?"selected":""}>
+مكتمل
+</option>
+
+</select>
+
+</div>
+
+`).join("");
+
 }
-async function status(id,value){
- if(profile?.role!=='admin')return;
- const r=await db.from('reports').update({status:value,updated_at:new Date().toISOString()}).eq('id',id);
- toast(r.error?'تعذر تحديث الحالة':'تم تحديث الحالة');loadStats();
+
+
+async function updateStatus(id,value){
+
+if(profile?.role!=="admin")
+return;
+
+const r=
+await db
+.from("reports")
+.update({
+status:value,
+updated_at:new Date().toISOString()
+})
+.eq("id",id);
+
+toast(
+r.error ?
+"تعذر تحديث الحالة" :
+"تم تحديث الحالة"
+);
+
+loadStats();
+
 }
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+
+
+function esc(s){
+
+return String(s??"")
+.replace(/[&<>"']/g,m=>({
+
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+
+}[m]));
+
+}
+
+
 init();
-if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
+
+
+if("serviceWorker" in navigator){
+
+window.addEventListener("load",()=>{
+
+navigator.serviceWorker
+.register("./service-worker.js")
+.catch(()=>{});
+
+});
+
+}
+
 </script>
+
 </body>
 </html>

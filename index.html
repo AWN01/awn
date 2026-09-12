@@ -2,1517 +2,682 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#0b0f0e">
-<meta name="description" content="عون — منصة ذكية لخدمة المجتمع">
-<link rel="manifest" href="manifest.json">
-<title>عون | معاً.. لمجتمع أكثر أماناً</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#06141b">
+<meta name="description" content="عون | معاً.. لمجتمع أكثر أماناً">
 
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<title>عون | AWN</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="manifest" href="./manifest.json">
 
 <style>
-*{
- box-sizing:border-box;
- margin:0;
- padding:0;
-}
-
 :root{
- --bg:#080b0a;
- --panel:#101513;
- --panel2:#151b18;
- --border:rgba(255,255,255,.09);
- --gold:#2f80ed;
- --gold2:#6bb6ff;
- --green:#4fa8ff;
- --red:#ff5f61;
- --orange:#ff9f43;
- --blue:#4fa8ff;
- --text:#f4f5f4;
- --muted:#9da5a1;
- --shadow:0 20px 60px rgba(0,0,0,.35);
+  --bg:#06141b;
+  --bg2:#081c25;
+  --card:#0d2631;
+  --card2:#102d38;
+  --line:rgba(255,255,255,.08);
+  --text:#f4f8fb;
+  --muted:#9db0ba;
+
+  --green:#4fa8ff;
+  --green2:#2f80ed;
+  --green3:#1d65c1;
+
+  --gold:#4fa8ff;
+  --gold2:#82c0ff;
+
+  --danger:#ef6b73;
+  --warning:#f1b84b;
+  --success:#4fa8ff;
+
+  --shadow:0 20px 60px rgba(0,0,0,.25);
 }
 
-html,body{
- min-height:100%;
- background:
- radial-gradient(circle at 20% 0%,rgba(79,168,255,.08),transparent 28%),
- radial-gradient(circle at 100% 20%,rgba(79,168,255,.07),transparent 30%),
- var(--bg);
- color:var(--text);
- font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
- overflow-x:hidden;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top right,rgba(79,168,255,.10),transparent 32%),
+    radial-gradient(circle at bottom left,rgba(47,128,237,.08),transparent 28%),
+    var(--bg);
+  color:var(--text);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Tahoma,
+    Arial,
+    sans-serif;
 }
 
-button,input,textarea,select{
- font:inherit;
+button,
+input,
+textarea,
+select{
+  font:inherit;
 }
 
 button{
- cursor:pointer;
+  cursor:pointer;
 }
 
 .hidden{
- display:none!important;
+  display:none !important;
 }
 
-/* HEADER */
+/* ================================
+   HEADER
+================================ */
 
 header{
- position:sticky;
- top:0;
- z-index:1000;
- height:76px;
- background:rgba(8,11,10,.88);
- backdrop-filter:blur(20px);
- border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(6,20,27,.86);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
 }
 
 .nav{
- height:100%;
- max-width:1250px;
- margin:auto;
- padding:0 18px;
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:15px;
+  width:min(1180px,calc(100% - 28px));
+  min-height:74px;
+  margin:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
 }
 
 .logo{
- display:flex;
- align-items:center;
- gap:11px;
- cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  user-select:none;
 }
 
 .logo-mark{
- width:43px;
- height:43px;
- border-radius:13px;
- background:linear-gradient(145deg,#6bb6ff,#1d65c1);
- color:#fff;
- display:grid;
- place-items:center;
- font-size:23px;
- font-weight:900;
- box-shadow:0 8px 25px rgba(25,105,180,.18);
+  width:46px;
+  height:46px;
+  border-radius:13px;
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  background:transparent;
+  flex-shrink:0;
+}
+
+.logo-mark img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.logo-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.15;
 }
 
 .logo-text strong{
- display:block;
- font-size:20px;
- letter-spacing:.5px;
+  font-size:20px;
+  font-weight:900;
 }
 
 .logo-text small{
- color:var(--muted);
- font-size:10px;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:4px;
 }
 
 .nav-actions{
- display:flex;
- align-items:center;
- gap:8px;
-}
-
-.icon-btn{
- width:44px;
- height:44px;
- border-radius:13px;
- border:1px solid var(--border);
- background:rgba(255,255,255,.035);
- color:white;
- display:grid;
- place-items:center;
- font-size:20px;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
 .primary{
- border:0;
- color:#fff;
- font-weight:800;
- background:linear-gradient(135deg,var(--gold2),var(--gold));
- padding:13px 19px;
- border-radius:13px;
- box-shadow:0 10px 25px rgba(79,168,255,.12);
+  border:0;
+  border-radius:12px;
+  padding:11px 17px;
+  color:white;
+  background:
+    linear-gradient(
+      135deg,
+      var(--green2),
+      var(--green3)
+    );
+  font-weight:800;
+  box-shadow:
+    0 8px 25px rgba(47,128,237,.20);
+  transition:.2s ease;
+}
+
+.primary:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.08);
 }
 
 .secondary{
- border:1px solid var(--border);
- color:white;
- background:rgba(255,255,255,.04);
- padding:12px 17px;
- border-radius:13px;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  border-radius:12px;
+  padding:10px 15px;
+  font-weight:700;
 }
 
+.icon-btn{
+  width:44px;
+  height:44px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--card);
+  color:var(--text);
+  display:grid;
+  place-items:center;
+  font-size:20px;
+}
+
+.desktop-login{
+  display:block;
+}
+
+/* ================================
+   MENU
+================================ */
+
 .menu{
- position:fixed;
- top:84px;
- right:12px;
- width:min(330px,calc(100vw - 24px));
- max-height:calc(100vh - 98px);
- overflow:auto;
- z-index:2000;
- background:rgba(15,20,18,.98);
- border:1px solid rgba(255,255,255,.11);
- border-radius:22px;
- padding:12px;
- box-shadow:var(--shadow);
+  position:fixed;
+  top:82px;
+  left:14px;
+  width:min(310px,calc(100% - 28px));
+  z-index:1200;
+
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:18px;
+
+  background:
+    rgba(8,28,37,.97);
+
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(20px);
 }
 
 .menu-item{
- width:100%;
- border:0;
- background:transparent;
- color:white;
- text-align:right;
- padding:15px;
- border-radius:13px;
- display:flex;
- align-items:center;
- gap:12px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  padding:13px 14px;
+  margin-bottom:5px;
+
+  border:0;
+  border-radius:12px;
+
+  color:var(--text);
+  background:transparent;
+
+  text-align:right;
 }
 
 .menu-item:hover{
- background:rgba(255,255,255,.06);
+  background:rgba(79,168,255,.09);
 }
 
 .menu-item span:first-child{
- width:35px;
- text-align:center;
- font-size:20px;
+  width:25px;
+  text-align:center;
 }
 
-.menu-sep{
- height:1px;
- background:var(--border);
- margin:8px 0;
+/* ================================
+   MAIN
+================================ */
+
+main{
+  width:min(1180px,calc(100% - 28px));
+  margin:auto;
 }
 
-/* HERO */
-
-.hero-logo{
- display:flex;
- justify-content:center;
- margin:0 auto 16px;
+.page{
+  min-height:calc(100vh - 74px);
 }
+
+/* ================================
+   HERO
+================================ */
 
 .hero{
- max-width:1250px;
- margin:auto;
- padding:55px 18px 25px;
-}
-
-.hero-grid{
- display:grid;
- grid-template-columns:1.35fr .65fr;
- gap:22px;
+  padding:70px 0 45px;
 }
 
 .hero-main{
- min-height:430px;
- padding:45px;
- border-radius:30px;
- border:1px solid var(--border);
- background:
- linear-gradient(135deg,rgba(79,168,255,.11),transparent 45%),
- linear-gradient(160deg,#121815,#0d1110);
- position:relative;
- overflow:hidden;
+  max-width:850px;
+  margin:auto;
+  text-align:center;
 }
 
-.hero-main:after{
- content:"";
- position:absolute;
- width:300px;
- height:300px;
- border-radius:50%;
- border:1px solid rgba(79,168,255,.12);
- left:-120px;
- bottom:-150px;
- box-shadow:0 0 0 50px rgba(79,168,255,.025),
- 0 0 0 100px rgba(79,168,255,.018);
+.hero-logo{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:0 auto 18px;
+}
+
+.hero-logo img{
+  width:125px;
+  height:125px;
+  object-fit:contain;
+  display:block;
 }
 
 .badge{
- display:inline-flex;
- align-items:center;
- gap:7px;
- border:1px solid rgba(79,168,255,.25);
- color:var(--gold2);
- background:rgba(79,168,255,.07);
- border-radius:100px;
- padding:8px 13px;
- font-size:12px;
- margin-bottom:22px;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+
+  padding:8px 13px;
+
+  border-radius:999px;
+  border:1px solid rgba(79,168,255,.18);
+
+  background:rgba(79,168,255,.08);
+  color:#a9d4ff;
+
+  font-size:12px;
+  font-weight:800;
 }
 
 .hero h1{
- font-size:clamp(42px,7vw,76px);
- line-height:.95;
- margin-bottom:20px;
- letter-spacing:-3px;
+  margin-top:22px;
+
+  font-size:
+    clamp(38px,7vw,72px);
+
+  line-height:1.05;
+  font-weight:950;
+  letter-spacing:-2px;
 }
 
 .hero h1 em{
- color:var(--gold2);
- font-style:normal;
+  color:var(--green);
+  font-style:normal;
 }
 
 .hero p{
- max-width:620px;
- color:#bac0bd;
- font-size:17px;
- line-height:1.9;
- margin-bottom:28px;
+  max-width:650px;
+  margin:20px auto 0;
+
+  color:var(--muted);
+  font-size:16px;
+  line-height:1.9;
 }
 
-.hero-buttons{
- display:flex;
- flex-wrap:wrap;
- gap:10px;
+.hero-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:28px;
 }
 
-.hero-side{
- display:grid;
- gap:14px;
-}
-
-.mini-card{
- border:1px solid var(--border);
- background:linear-gradient(145deg,#131917,#0e1210);
- border-radius:24px;
- padding:24px;
- min-height:130px;
-}
-
-.mini-card .num{
- font-size:35px;
- font-weight:900;
- color:var(--gold2);
- margin-top:10px;
-}
-
-.mini-card small{
- color:var(--muted);
-}
-
-/* SECTIONS */
-
-.container{
- max-width:1250px;
- margin:auto;
- padding:25px 18px 70px;
-}
-
-.section{
- margin-top:28px;
-}
-
-.section-head{
- display:flex;
- justify-content:space-between;
- align-items:end;
- gap:15px;
- margin-bottom:16px;
-}
-
-.section-head h2{
- font-size:26px;
-}
-
-.section-head p{
- color:var(--muted);
- margin-top:4px;
- font-size:13px;
-}
+/* ================================
+   CARDS
+================================ */
 
 .grid{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:14px;
+  display:grid;
+  grid-template-columns:
+    repeat(3,minmax(0,1fr));
+  gap:14px;
 }
 
 .card{
- background:linear-gradient(145deg,#121816,#0d1110);
- border:1px solid var(--border);
- border-radius:22px;
- padding:22px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.035),
+      rgba(255,255,255,.015)
+    ),
+    var(--card);
+
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:20px;
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.12);
 }
 
-.feature{
- min-height:170px;
- transition:.2s;
+.card h3{
+  font-size:17px;
+  margin-bottom:8px;
 }
 
-.feature:hover{
- transform:translateY(-3px);
- border-color:rgba(79,168,255,.22);
+.card p{
+  color:var(--muted);
+  line-height:1.75;
+  font-size:13px;
 }
 
-.feature-icon{
- width:52px;
- height:52px;
- display:grid;
- place-items:center;
- border-radius:15px;
- background:rgba(79,168,255,.09);
- font-size:25px;
- margin-bottom:17px;
+.card-icon{
+  width:46px;
+  height:46px;
+  border-radius:14px;
+
+  display:grid;
+  place-items:center;
+
+  background:rgba(79,168,255,.10);
+  border:1px solid rgba(79,168,255,.14);
+
+  font-size:22px;
+  margin-bottom:15px;
 }
 
-.feature h3{
- margin-bottom:8px;
+/* ================================
+   SECTIONS
+================================ */
+
+.section{
+  padding:35px 0;
 }
 
-.feature p{
- color:var(--muted);
- font-size:13px;
- line-height:1.7;
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:18px;
 }
 
-/* STATS */
+.section-head h2{
+  font-size:28px;
+  font-weight:900;
+}
+
+.section-head p{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:5px;
+}
+
+/* ================================
+   STATS
+================================ */
 
 .stats{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:12px;
+  display:grid;
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
+  gap:12px;
 }
 
 .stat{
- padding:20px;
- border:1px solid var(--border);
- border-radius:20px;
- background:rgba(255,255,255,.025);
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:var(--card);
 }
 
-.stat .value{
- font-size:32px;
- font-weight:900;
- margin-top:8px;
+.stat strong{
+  display:block;
+  font-size:28px;
+  color:var(--green);
 }
 
-.stat .label{
- color:var(--muted);
- font-size:12px;
+.stat span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px;
 }
 
-/* FORMS */
+/* ================================
+   MODAL
+================================ */
 
-.form{
- max-width:700px;
- margin:auto;
+.modal-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:18px;
+
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(8px);
+}
+
+.modal{
+  width:min(520px,100%);
+  max-height:
+    calc(100vh - 36px);
+
+  overflow:auto;
+
+  background:
+    linear-gradient(
+      145deg,
+      #102d38,
+      #0b202a
+    );
+
+  border:1px solid var(--line);
+  border-radius:22px;
+
+  padding:22px;
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.4);
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:15px;
+  margin-bottom:22px;
+}
+
+.modal-head h2{
+  font-size:23px;
+  font-weight:900;
+}
+
+.close{
+  width:38px;
+  height:38px;
+
+  border:1px solid var(--line);
+  border-radius:10px;
+
+  background:var(--card);
+  color:var(--text);
+
+  font-size:23px;
 }
 
 .field{
- margin-bottom:15px;
+  margin-bottom:15px;
 }
 
 .field label{
- display:block;
- font-size:13px;
- color:#cfd4d1;
- margin-bottom:7px;
+  display:block;
+  margin-bottom:7px;
+
+  font-size:12px;
+  font-weight:800;
 }
 
 .field input,
 .field textarea,
 .field select{
- width:100%;
- border:1px solid var(--border);
- background:#0b0f0d;
- color:white;
- border-radius:14px;
- padding:14px;
- outline:none;
+  width:100%;
+
+  border:1px solid var(--line);
+  border-radius:12px;
+
+  background:#081b24;
+  color:var(--text);
+
+  padding:12px 13px;
+
+  outline:none;
 }
 
 .field input:focus,
 .field textarea:focus,
 .field select:focus{
- border-color:rgba(79,168,255,.5);
+  border-color:
+    rgba(79,168,255,.55);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(79,168,255,.08);
 }
 
 .field textarea{
- min-height:125px;
- resize:vertical;
-}
-
-.row{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
+  min-height:110px;
+  resize:vertical;
 }
 
 .actions{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
- margin-top:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  margin-top:18px;
 }
 
-/* SCORE */
+/* ================================
+   REPORT
+================================ */
 
-.score-box{
- padding:25px;
- border-radius:23px;
- background:linear-gradient(145deg,#171b18,#0e1210);
- border:1px solid var(--border);
- text-align:center;
- margin:18px 0;
+.report-box{
+  max-width:800px;
+  margin:30px auto;
 }
 
-.score-circle{
- width:140px;
- height:140px;
- margin:10px auto 15px;
- border-radius:50%;
- display:grid;
- place-items:center;
- background:
- conic-gradient(var(--gold2) var(--score,70%),rgba(255,255,255,.08) 0);
- position:relative;
+.upload-box{
+  border:1px dashed
+    rgba(79,168,255,.35);
+
+  border-radius:16px;
+
+  padding:22px;
+  text-align:center;
+
+  background:
+    rgba(79,168,255,.04);
 }
 
-.score-circle:before{
- content:"";
- position:absolute;
- width:112px;
- height:112px;
- border-radius:50%;
- background:#0d1110;
+.upload-box input{
+  margin-top:12px;
 }
 
-.score-number{
- position:relative;
- font-size:38px;
- font-weight:900;
-}
-
-.score-label{
- color:var(--muted);
-}
-
-/* REPORT CARDS */
-
-.report-list{
- display:grid;
- gap:12px;
-}
-
-.report{
- border:1px solid var(--border);
- background:linear-gradient(145deg,#131816,#0d1110);
- border-radius:21px;
- padding:18px;
-}
-
-.report-top{
- display:flex;
- align-items:flex-start;
- justify-content:space-between;
- gap:10px;
-}
-
-.report-title{
- font-weight:800;
- font-size:17px;
-}
-
-.report-type{
- color:var(--gold2);
- font-size:12px;
- margin-top:4px;
-}
-
-.status{
- padding:7px 10px;
- border-radius:100px;
- background:rgba(79,168,255,.1);
- color:#7dc2ff;
- font-size:11px;
- white-space:nowrap;
-}
-
-.status.done{
- background:rgba(79,168,255,.1);
- color:#7dc2ff;
-}
-
-.status.critical{
- background:rgba(255,95,97,.1);
- color:#ff797b;
-}
-
-.report-desc{
- color:var(--muted);
- font-size:13px;
- line-height:1.7;
- margin:13px 0;
-}
-
-.report-meta{
- display:flex;
- flex-wrap:wrap;
- gap:7px;
-}
-
-.meta{
- border:1px solid var(--border);
- padding:7px 10px;
- border-radius:10px;
- font-size:11px;
- color:#bbc1be;
-}
-
-.score-pill{
- font-weight:900;
- padding:7px 10px;
- border-radius:10px;
-}
-
-.score-high{
- color:#ff7779;
- background:rgba(255,95,97,.09);
-}
-
-.score-med{
- color:#ffb45f;
- background:rgba(255,159,67,.09);
-}
-
-.score-low{
- color:#7dc2ff;
- background:rgba(79,168,255,.09);
-}
-
-/* MAP */
-
-.map{
- width:100%;
- height:470px;
- border-radius:22px;
- overflow:hidden;
- border:1px solid var(--border);
- background:#101513;
-}
-
-.map-tools{
- display:flex;
- gap:7px;
- flex-wrap:wrap;
- margin-bottom:12px;
-}
-
-.filter{
- border:1px solid var(--border);
- background:rgba(255,255,255,.04);
- color:white;
- padding:9px 12px;
- border-radius:11px;
- font-size:12px;
-}
-
-.filter.active{
- background:rgba(79,168,255,.13);
- color:var(--gold2);
- border-color:rgba(79,168,255,.3);
-}
-
-/* TIMELINE */
-
-.timeline{
- position:relative;
- padding-right:25px;
-}
-
-.timeline:before{
- content:"";
- position:absolute;
- right:8px;
- top:5px;
- bottom:5px;
- width:2px;
- background:rgba(79,168,255,.15);
-}
-
-.timeline-item{
- position:relative;
- padding:0 0 22px 0;
-}
-
-.timeline-dot{
- position:absolute;
- right:-22px;
- top:2px;
- width:14px;
- height:14px;
- border-radius:50%;
- background:var(--gold2);
- box-shadow:0 0 0 5px rgba(79,168,255,.08);
-}
-
-.timeline-item h4{
- margin-bottom:4px;
-}
-
-.timeline-item p{
- color:var(--muted);
- font-size:12px;
- line-height:1.6;
-}
-
-/* DASHBOARD */
-
-.dashboard{
- display:grid;
- grid-template-columns:240px 1fr;
- gap:16px;
-}
-
-.sidebar{
- border:1px solid var(--border);
- background:#0e1210;
- border-radius:22px;
- padding:10px;
- height:max-content;
- position:sticky;
- top:92px;
-}
-
-.side-item{
- width:100%;
- background:transparent;
- border:0;
- color:#c8cdca;
- text-align:right;
- padding:13px;
- border-radius:12px;
- margin-bottom:3px;
-}
-
-.side-item.active,
-.side-item:hover{
- background:rgba(79,168,255,.09);
- color:var(--gold2);
-}
-
-.admin-content{
- min-width:0;
-}
-
-/* TABLE */
-
-.table-wrap{
- overflow:auto;
- border:1px solid var(--border);
- border-radius:18px;
-}
-
-table{
- width:100%;
- border-collapse:collapse;
- min-width:650px;
-}
-
-th,td{
- padding:13px;
- text-align:right;
- border-bottom:1px solid var(--border);
- font-size:12px;
-}
-
-th{
- color:var(--gold2);
- background:#121715;
-}
-
-td{
- color:#c9cecb;
-}
-
-/* MODAL */
-
-.modal-back{
- position:fixed;
- inset:0;
- z-index:5000;
- background:rgba(0,0,0,.72);
- backdrop-filter:blur(8px);
- display:grid;
- place-items:center;
- padding:18px;
-}
-
-.modal{
- width:min(570px,100%);
- max-height:90vh;
- overflow:auto;
- border:1px solid var(--border);
- border-radius:26px;
- background:#101513;
- box-shadow:var(--shadow);
- padding:25px;
-}
-
-.modal-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:20px;
-}
-
-.close{
- width:38px;
- height:38px;
- border:1px solid var(--border);
- border-radius:11px;
- background:rgba(255,255,255,.04);
- color:white;
-}
-
-.modal h2{
- font-size:24px;
-}
-
-/* TOAST */
-
-.toast{
- position:fixed;
- z-index:7000;
- left:15px;
- right:15px;
- bottom:18px;
- max-width:500px;
- margin:auto;
- padding:15px 17px;
- border-radius:15px;
- background:#161d1a;
- border:1px solid var(--border);
- box-shadow:var(--shadow);
- display:flex;
- gap:10px;
- align-items:center;
-}
-
-.toast.success{
- border-color:rgba(79,168,255,.3);
-}
-
-.toast.error{
- border-color:rgba(255,95,97,.3);
-}
-
-/* EMPTY */
-
-.empty{
- text-align:center;
- padding:45px 20px;
- color:var(--muted);
- border:1px dashed var(--border);
- border-radius:20px;
-}
-
-.empty .e-icon{
- font-size:40px;
- margin-bottom:12px;
-}
-
-/* FOOTER */
+/* ================================
+   FOOTER
+================================ */
 
 footer{
- border-top:1px solid var(--border);
- padding:35px 18px;
- text-align:center;
- color:var(--muted);
- font-size:12px;
-}
+  margin-top:60px;
+  padding:35px 0;
 
-/* MOBILE */
+  border-top:1px solid var(--line);
 
-@media(max-width:850px){
+  color:var(--muted);
+  text-align:center;
 
- .hero-grid{
-  grid-template-columns:1fr;
- }
-
- .hero-main{
-  padding:30px 22px;
-  min-height:390px;
- }
-
- .grid{
-  grid-template-columns:1fr;
- }
-
- .stats{
-  grid-template-columns:1fr 1fr;
- }
-
- .dashboard{
-  grid-template-columns:1fr;
- }
-
- .sidebar{
-  position:static;
-  display:flex;
-  overflow:auto;
-  gap:4px;
- }
-
- .side-item{
-  white-space:nowrap;
-  width:auto;
- }
-
- .row{
-  grid-template-columns:1fr;
- }
-
- .desktop-login{
-  display:block;
- }
-
- .map{
-  height:390px;
- }
-
- .hero h1{
-  letter-spacing:-2px;
- }
-
-}
-
-@media(max-width:500px){
-
- header{
-  height:68px;
- }
-
- .nav{
-  padding:0 11px;
- }
-
- .logo-mark{
-  width:39px;
-  height:39px;
- }
-
- .logo-text strong{
-  font-size:17px;
- }
-
- .hero{
-  padding-top:30px;
- }
-
- .hero-main{
-  border-radius:23px;
-  padding:25px 20px;
- }
-
- .hero h1{
-  font-size:46px;
- }
-
- .hero p{
-  font-size:14px;
- }
-
- .stats{
-  gap:8px;
- }
-
- .stat{
-  padding:15px;
- }
-
- .stat .value{
-  font-size:26px;
- }
-
- .container{
-  padding-left:12px;
-  padding-right:12px;
- }
-
-}
-
-/* HOME LIGHT THEME */
-
-body.home-light{
- background:#f3f8fd;
- color:#12304d;
-}
-
-body.home-light header{
- background:rgba(255,255,255,.94);
- border-bottom:1px solid #d8e8f7;
-}
-
-body.home-light .logo-text strong{
- color:#12304d;
-}
-
-body.home-light .logo-text small{
- color:#60758a;
-}
-
-body.home-light .logo-mark{
- background:linear-gradient(145deg,#2f80ed,#1d65c1);
- color:#fff;
- box-shadow:0 8px 25px rgba(25,105,180,.16);
-}
-
-body.home-light .icon-btn{
- color:#12304d;
- background:#fff;
- border-color:#d8e8f7;
-}
-
-body.home-light .hero,
-body.home-light .container{
- color:#12304d;
-}
-
-body.home-light .hero{
- background:
- radial-gradient(circle at 10% 10%,rgba(79,168,255,.13),transparent 30%),
- radial-gradient(circle at 90% 0%,rgba(110,190,255,.12),transparent 28%),
- linear-gradient(180deg,#ffffff 0%,#f2f8fd 100%);
-}
-
-body.home-light .hero::before{
- opacity:.35;
-}
-
-body.home-light .badge{
- background:#e8f3ff;
- color:#1d65c1;
- border-color:#c9e1f7;
-}
-
-body.home-light .hero h1{
- color:#12304d;
-}
- /* HOME LIGHT THEME — CONTINUED */
-
-body.home-light .hero-main{
- background:
- linear-gradient(135deg,rgba(79,168,255,.10),transparent 45%),
- linear-gradient(160deg,#ffffff,#f4f8fc);
- border-color:#d8e8f7;
-}
-
-body.home-light .hero-main:after{
- border-color:rgba(79,168,255,.12);
- box-shadow:
- 0 0 0 50px rgba(79,168,255,.025),
- 0 0 0 100px rgba(79,168,255,.018);
-}
-
-body.home-light .hero h1 em{
- color:#2f80ed;
-}
-
-body.home-light .hero p{
- color:#5d7891;
-}
-
-body.home-light .primary{
- color:#fff;
- background:linear-gradient(135deg,#6bb6ff,#2f80ed);
- box-shadow:0 10px 25px rgba(47,128,237,.14);
-}
-
-body.home-light .secondary{
- color:#12304d;
- background:#fff;
- border-color:#d8e8f7;
-}
-
-body.home-light .mini-card{
- background:linear-gradient(145deg,#ffffff,#f4f8fc);
- border-color:#d8e8f7;
-}
-
-body.home-light .mini-card .num{
- color:#2f80ed;
-}
-
-body.home-light .mini-card small{
- color:#60758a;
-}
-
-body.home-light .section-head p{
- color:#60758a;
-}
-
-body.home-light .card{
- background:linear-gradient(145deg,#ffffff,#f4f8fc);
- border-color:#d8e8f7;
-}
-
-body.home-light .feature:hover{
- border-color:rgba(47,128,237,.25);
-}
-
-body.home-light .feature-icon{
- background:rgba(47,128,237,.09);
-}
-
-body.home-light .feature p{
- color:#60758a;
-}
-
-body.home-light .stat{
- background:#fff;
- border-color:#d8e8f7;
-}
-
-body.home-light .stat .label{
- color:#60758a;
-}
-
-body.home-light .field label{
- color:#36536d;
-}
-
-body.home-light .field input,
-body.home-light .field textarea,
-body.home-light .field select{
- background:#fff;
- color:#12304d;
- border-color:#d8e8f7;
-}
-
-body.home-light .field input:focus,
-body.home-light .field textarea:focus,
-body.home-light .field select:focus{
- border-color:rgba(47,128,237,.55);
-}
-
-body.home-light .score-box{
- background:linear-gradient(145deg,#ffffff,#f4f8fc);
- border-color:#d8e8f7;
-}
-
-body.home-light .score-circle:before{
- background:#f4f8fc;
-}
-
-body.home-light .score-label{
- color:#60758a;
-}
-
-body.home-light .report{
- background:linear-gradient(145deg,#ffffff,#f4f8fc);
- border-color:#d8e8f7;
-}
-
-body.home-light .report-type{
- color:#2f80ed;
-}
-
-body.home-light .report-desc{
- color:#60758a;
-}
-
-body.home-light .meta{
- color:#527089;
- border-color:#d8e8f7;
-}
-
-body.home-light .score-low{
- color:#2f80ed;
- background:rgba(47,128,237,.09);
-}
-
-body.home-light .map{
- background:#fff;
- border-color:#d8e8f7;
-}
-
-body.home-light .filter{
- color:#12304d;
- background:#fff;
- border-color:#d8e8f7;
-}
-
-body.home-light .filter.active{
- background:rgba(47,128,237,.10);
- color:#1769aa;
- border-color:rgba(47,128,237,.3);
-}
-
-body.home-light .timeline:before{
- background:rgba(47,128,237,.15);
-}
-
-body.home-light .timeline-dot{
- background:#2f80ed;
- box-shadow:0 0 0 5px rgba(47,128,237,.08);
-}
-
-body.home-light .timeline-item p{
- color:#60758a;
-}
-
-body.home-light .sidebar{
- background:#fff;
- border-color:#d8e8f7;
-}
-
-body.home-light .side-item{
- color:#36536d;
-}
-
-body.home-light .side-item.active,
-body.home-light .side-item:hover{
- background:rgba(47,128,237,.09);
- color:#1769aa;
-}
-
-body.home-light th{
- color:#1769aa;
- background:#f4f8fc;
-}
-
-body.home-light td{
- color:#36536d;
-}
-
-body.home-light .modal{
- background:#fff;
- border-color:#d8e8f7;
-}
-
-body.home-light .modal h2{
- color:#12304d;
-}
-
-body.home-light .close{
- color:#12304d;
- background:#f4f8fc;
- border-color:#d8e8f7;
-}
-
-body.home-light .toast{
- background:#fff;
- border-color:#d8e8f7;
- color:#12304d;
-}
-
-body.home-light footer{
- border-color:#d8e8f7;
-}
-
-/* AUTH BUTTON */
-
-.desktop-login{
- display:block;
-}
-
-body.home-light .desktop-login{
- color:#fff;
- background:linear-gradient(135deg,#6bb6ff,#2f80ed);
-}
-
-/* AUTH / ACCOUNT */
-
-.auth-card{
- max-width:570px;
-}
-
-.auth-note{
- color:var(--muted);
- font-size:12px;
- line-height:1.7;
- margin-bottom:15px;
-}
-
-.auth-switch{
- text-align:center;
- margin-top:18px;
- color:var(--muted);
- font-size:13px;
-}
-
-.auth-switch button{
- border:0;
- background:none;
- color:var(--gold2);
- font-weight:800;
-}
-
-.profile-box{
- display:grid;
- gap:12px;
-}
-
-.profile-item{
- padding:14px;
- border:1px solid var(--border);
- border-radius:14px;
- background:rgba(255,255,255,.03);
-}
-
-.profile-item small{
- display:block;
- color:var(--muted);
- margin-bottom:5px;
-}
-
-.profile-item strong{
- display:block;
- font-size:15px;
-}
-
-/* IMAGE */
-
-.photo-preview{
- width:100%;
- max-height:280px;
- object-fit:cover;
- border-radius:16px;
- border:1px solid var(--border);
- margin-top:10px;
-}
-
-/* REPORT PAGE */
-
-.report-page{
- max-width:850px;
- margin:auto;
-}
-
-.report-header{
- margin-bottom:20px;
-}
-
-.report-header h1{
- font-size:34px;
- margin-bottom:7px;
-}
-
-.report-header p{
- color:var(--muted);
- font-size:13px;
- line-height:1.7;
-}
-
-.location-box{
- padding:15px;
- border-radius:16px;
- border:1px solid var(--border);
- background:rgba(79,168,255,.05);
- margin-bottom:15px;
-}
-
-.location-box strong{
- color:var(--gold2);
-}
-
-.report-actions{
- display:flex;
- flex-wrap:wrap;
- gap:10px;
- margin-top:18px;
-}
-
-/* NOTIFICATIONS */
-
-.notification{
- padding:15px;
- border:1px solid var(--border);
- border-radius:16px;
- margin-bottom:10px;
- background:rgba(255,255,255,.025);
-}
-
-.notification.unread{
- border-color:rgba(79,168,255,.3);
- background:rgba(79,168,255,.06);
-}
-
-.notification-title{
- font-weight:800;
- margin-bottom:5px;
-}
-
-.notification-message{
- color:var(--muted);
- font-size:13px;
- line-height:1.7;
-}
-
-/* MENU */
-
-body.home-light .menu{
- background:rgba(255,255,255,.98);
- border-color:#d8e8f7;
-}
-
-body.home-light .menu-item{
- color:#12304d;
-}
-
-body.home-light .menu-item:hover{
- background:#f0f6fc;
-}
-
-/* LINKS */
-
-a{
- color:inherit;
- text-decoration:none;
-}
-
-/* LEAFLET */
-
-.leaflet-container{
- font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
-}
-
-.leaflet-popup-content-wrapper,
-.leaflet-popup-tip{
- background:#101513;
- color:white;
-}
-
-.leaflet-popup-content{
- direction:rtl;
- text-align:right;
-}
-
-/* RESPONSIVE AUTH */
-
-@media(max-width:850px){
-
- .desktop-login{
-  display:block;
-  padding:10px 12px;
   font-size:12px;
- }
-
 }
 
-@media(max-width:500px){
-
- .desktop-login{
-  padding:9px 10px;
-  font-size:11px;
-  border-radius:11px;
- }
-
- .logo-text small{
-  display:none;
- }
-
- .hero-logo .logo-mark{
-  width:58px;
-  height:58px;
-  font-size:30px;
-  border-radius:17px;
- }
-
- .report-header h1{
-  font-size:28px;
- }
-
+footer strong{
+  color:var(--text);
 }
 
-/* PAGE SYSTEM */
+/* ================================
+   MOBILE
+================================ */
 
-.page{
- display:none;
+@media(max-width:800px){
+
+  .logo-text{
+    display:none;
+  }
+
+  .nav{
+    min-height:68px;
+  }
+
+  .desktop-login{
+    display:block;
+    padding:10px 12px;
+    font-size:12px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
+
+  .hero{
+    padding-top:45px;
+  }
+
+  .hero-logo img{
+    width:105px;
+    height:105px;
+  }
+
+  .hero h1{
+    font-size:44px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
 }
 
-.page.active{
- display:block;
-}
+@media(max-width:480px){
 
-/* LOADING */
+  .desktop-login{
+    font-size:11px;
+    padding:9px 10px;
+  }
 
-.loading{
- display:flex;
- align-items:center;
- justify-content:center;
- gap:10px;
- padding:35px;
- color:var(--muted);
-}
+  .icon-btn{
+    width:41px;
+    height:41px;
+  }
 
-.spinner{
- width:22px;
- height:22px;
- border:3px solid rgba(255,255,255,.12);
- border-top-color:var(--gold2);
- border-radius:50%;
- animation:spin .8s linear infinite;
-}
+  .hero h1{
+    font-size:38px;
+  }
 
-@keyframes spin{
- to{
-  transform:rotate(360deg);
- }
-}
-
-/* ADMIN */
-
-.admin-grid{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:12px;
- margin-bottom:16px;
-}
-
-.admin-stat{
- padding:20px;
- border:1px solid var(--border);
- border-radius:18px;
- background:rgba(255,255,255,.025);
-}
-
-.admin-stat strong{
- display:block;
- font-size:30px;
- color:var(--gold2);
- margin-top:7px;
-}
-
-.admin-stat span{
- color:var(--muted);
- font-size:12px;
-}
-
-@media(max-width:700px){
- .admin-grid{
-  grid-template-columns:1fr;
- }
-}
-
-/* HIGHLIGHT */
-
-.highlight{
- animation:highlight 1.4s ease;
-}
-
-@keyframes highlight{
- 0%{
-  box-shadow:0 0 0 0 rgba(79,168,255,.35);
- }
- 100%{
-  box-shadow:0 0 0 18px rgba(79,168,255,0);
- }
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
 }
 </style>
 </head>
@@ -1520,2969 +685,1976 @@ a{
 <body>
 
 <header>
- <div class="nav">
+  <div class="nav">
 
-  <div class="logo" onclick="goHome()">
-   <div class="logo-mark">ع</div>
-   <div class="logo-text">
-    <strong>عون</strong>
-    <small>معاً.. لمجتمع أكثر أماناً</small>
-   </div>
+    <div class="logo" onclick="goHome()">
+      <div class="logo-mark">
+        <img
+          src="./awn-logo.png"
+          alt="عون | AWN"
+        >
+      </div>
+
+      <div class="logo-text">
+        <strong>عون</strong>
+        <small>
+          معاً.. لمجتمع أكثر أماناً
+        </small>
+      </div>
+    </div>
+
+    <div class="nav-actions">
+
+      <button
+        id="headerLogin"
+        class="primary desktop-login"
+        onclick="openAuth('login')"
+      >
+        تسجيل الدخول
+      </button>
+
+      <button
+        id="headerUser"
+        class="icon-btn hidden"
+        onclick="openProfile()"
+        aria-label="حسابي"
+      >
+        👤
+      </button>
+
+      <button
+        class="icon-btn"
+        onclick="toggleMenu()"
+        aria-label="القائمة"
+      >
+        ☰
+      </button>
+
+    </div>
   </div>
-
-  <div class="nav-actions">
-
-   <button id="headerLogin"
-    class="primary desktop-login"
-    onclick="openAuth('login')">
-    تسجيل الدخول
-   </button>
-
-   <button id="headerUser"
-    class="icon-btn hidden"
-    onclick="openProfile()">
-    👤
-   </button>
-
-   <button class="icon-btn"
-    onclick="toggleMenu()">
-    ☰
-   </button>
-
-  </div>
- </div>
 </header>
 
-<div id="menu" class="menu hidden">
+<div
+  id="menu"
+  class="menu hidden"
+>
 
- <button class="menu-item"
-  onclick="goHome();toggleMenu()">
-  <span>🏠</span>
-  <span>الرئيسية</span>
- </button>
+  <button
+    class="menu-item"
+    onclick="goHome();toggleMenu()"
+  >
+    <span>🏠</span>
+    <span>الرئيسية</span>
+  </button>
 
- <button class="menu-item"
-  onclick="openReport();toggleMenu()">
-  <span>📢</span>
-  <span>رفع بلاغ</span>
- </button>
+  <button
+    class="menu-item"
+    onclick="openReport();toggleMenu()"
+  >
+    <span>📍</span>
+    <span>رفع بلاغ</span>
+  </button>
 
- <button class="menu-item"
-  onclick="showPage('map');toggleMenu()">
-  <span>🗺️</span>
-  <span>خريطة عون</span>
- </button>
+  <button
+    class="menu-item"
+    onclick="openAbout();toggleMenu()"
+  >
+    <span>ℹ️</span>
+    <span>عن عون</span>
+  </button>
 
- <button class="menu-item"
-  onclick="showPage('pulse');toggleMenu()">
-  <span>📊</span>
-  <span>نبض المجتمع</span>
- </button>
-
- <div class="menu-sep"></div>
-
- <button class="menu-item"
-  onclick="openProfile();toggleMenu()">
-  <span>👤</span>
-  <span>حسابي</span>
- </button>
-
- <button id="adminMenu"
-  class="menu-item hidden"
-  onclick="showPage('admin');toggleMenu()">
-  <span>🛡️</span>
-  <span>لوحة الإدارة</span>
- </button>
-
- <button id="logoutMenu"
-  class="menu-item hidden"
-  onclick="logout();toggleMenu()">
-  <span>🚪</span>
-  <span>تسجيل الخروج</span>
- </button>
+  <button
+    class="menu-item"
+    onclick="openSupport();toggleMenu()"
+  >
+    <span>💬</span>
+    <span>الدعم والمساعدة</span>
+  </button>
 
 </div>
 
 <main>
 
-<!-- HOME -->
+  <section
+    id="page-home"
+    class="page"
+  >
+
+    <div class="hero">
+      <div class="hero-main">
+
+        <div class="hero-logo">
+          <img
+            src="./awn-logo.png"
+            alt="شعار عون"
+          >
+        </div>
+
+        <div class="badge">
+          ✦ منصة مجتمعية ذكية
+        </div>
+
+        <h1>
+          <em>عون</em><br>
+          معاً.. لمجتمع أكثر أماناً
+        </h1>
+
+        <p>
+          منصة تساعد أفراد المجتمع على الإبلاغ
+          عن المشكلات والمخاطر في الأماكن العامة،
+          وتنظيمها وتحديد أولوياتها للوصول إلى
+          الحل بشكل أسرع.
+        </p>
+
+        <div class="hero-actions">
+
+          <button
+            class="primary"
+            onclick="openReport()"
+          >
+            📍 أبلغ عن مشكلة
+          </button>
+
+          <button
+            class="secondary"
+            onclick="openAbout()"
+          >
+            تعرف على عون
+          </button>
+
+        </div>
 
-<section id="page-home" class="page active">
-
- <div class="hero">
-
-  <div class="hero-grid">
-
-   <div class="hero-main">
-
-    <div class="hero-logo">
-     <div class="logo-mark">ع</div>
-    </div>
-
-    <div class="badge">
-     🛡️ منصة ذكية لخدمة المجتمع
-    </div>
-
-    <h1>
-     معاً.. لمجتمع
-     <em>أكثر أماناً</em>
-    </h1>
-
-    <p>
-     عون منصة مجتمعية تساعدك على الإبلاغ عن المشكلات والمخاطر
-     في الأماكن العامة، وتحويلها إلى معلومات منظمة تساعد على
-     ترتيب الأولويات وتسريع الاستجابة.
-    </p>
-
-    <div class="hero-buttons">
-
-     <button class="primary"
-      onclick="openReport()">
-      📢 ارفع بلاغ
-     </button>
-
-     <button class="secondary"
-      onclick="showPage('map')">
-      🗺️ خريطة عون
-     </button>
-
-     <button class="secondary"
-      onclick="showPage('pulse')">
-      📊 نبض المجتمع
-     </button>
-
-    </div>
-
-   </div>
-
-   <div class="hero-side">
-
-    <div class="mini-card">
-     <small>أعلى أولوية حالياً</small>
-     <div class="num"
-      id="heroHighestScore">
-      —
-     </div>
-    </div>
-
-    <div class="mini-card">
-     <small>بلاغات المجتمع</small>
-     <div class="num"
-      id="heroTotalReports">
-      —
-     </div>
-    </div>
-
-    <div class="mini-card">
-     <small>بلاغات تمت معالجتها</small>
-     <div class="num"
-      id="heroDoneReports">
-      —
-     </div>
-    </div>
-
-   </div>
-
-  </div>
-
- </div>
-
- <div class="container">
-
-  <section class="section">
-
-   <div class="section-head">
-    <div>
-     <h2>أثر عون</h2>
-     <p>نظرة سريعة على البلاغات والمجتمع</p>
-    </div>
-   </div>
-
-   <div class="stats">
-
-    <div class="stat">
-     <div class="label">إجمالي البلاغات</div>
-     <div class="value" id="statTotal">—</div>
-    </div>
-
-    <div class="stat">
-     <div class="label">البلاغات المعالجة</div>
-     <div class="value" id="statDone">—</div>
-    </div>
-
-    <div class="stat">
-     <div class="label">قيد المتابعة</div>
-     <div class="value" id="statPending">—</div>
-    </div>
-
-    <div class="stat">
-     <div class="label">أعلى أولوية حالياً</div>
-     <div class="value" id="statHighest">—</div>
-    </div>
-
-   </div>
-
-  </section>
-
-  <section class="section">
-
-   <div class="section-head">
-    <div>
-     <h2>كيف يعمل عون؟</h2>
-     <p>من البلاغ إلى المتابعة</p>
-    </div>
-   </div>
-
-   <div class="grid">
-
-    <div class="card feature">
-     <div class="feature-icon">📸</div>
-     <h3>1. صوّر المشكلة</h3>
-     <p>
-      التقط صورة للمشكلة الموجودة في المكان العام
-      وأضف وصفاً بسيطاً عنها.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">📍</div>
-     <h3>2. حدد الموقع</h3>
-     <p>
-      يساعد الموقع على فهم مكان المشكلة
-      وربط البلاغات المتشابهة.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">🧠</div>
-     <h3>3. يحلل عون</h3>
-     <p>
-      يتم تقييم البلاغ وفق عدة عوامل لتحديد
-      مستوى الأولوية.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">🔗</div>
-     <h3>4. يجمع المتشابه</h3>
-     <p>
-      البلاغات المتكررة عن نفس المشكلة يمكن
-      تجميعها لتكوين صورة أوضح.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">📊</div>
-     <h3>5. أولوية واضحة</h3>
-     <p>
-      يمنح عون كل مشكلة درجة تساعد على
-      ترتيب البلاغات حسب أهميتها.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">✅</div>
-     <h3>6. متابعة البلاغ</h3>
-     <p>
-      يستطيع المستخدم متابعة حالة البلاغ
-      ومعرفة آخر المستجدات.
-     </p>
-    </div>
-
-   </div>
-
-  </section>
-
-  <section class="section">
-
-   <div class="section-head">
-    <div>
-     <h2>مميزات عون</h2>
-     <p>أدوات مصممة لخدمة المجتمع</p>
-    </div>
-   </div>
-
-   <div class="grid">
-
-    <div class="card feature">
-     <div class="feature-icon">🎯</div>
-     <h3>Awn Score</h3>
-     <p>
-      نظام أولوية من 1 إلى 100 يعتمد على
-      شدة المشكلة وعدد المتأثرين والتكرار.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">🔍</div>
-     <h3>Awn Match</h3>
-     <p>
-      يساعد على اكتشاف البلاغات المتعلقة
-      بنفس المشكلة وتقليل التكرار.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">🗺️</div>
-     <h3>Awn Map</h3>
-     <p>
-      خريطة تعرض المشكلات حسب مستوى
-      الأولوية والموقع.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">❤️</div>
-     <h3>نبض المجتمع</h3>
-     <p>
-      مؤشرات تساعد على فهم أكثر أنواع
-      المشكلات التي يواجهها المجتمع.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">♿</div>
-     <h3>مجتمع شامل</h3>
-     <p>
-      الاهتمام بمشكلات الوصول والمرافق
-      التي يحتاجها مختلف أفراد المجتمع.
-     </p>
-    </div>
-
-    <div class="card feature">
-     <div class="feature-icon">🏆</div>
-     <h3>نقاط وإنجازات</h3>
-     <p>
-      تشجيع المشاركة المجتمعية الإيجابية
-      من خلال النقاط والإنجازات.
-     </p>
-    </div>
-
-   </div>
-
-  </section>
-
- </div>
-
-</section>
-
-<!-- REPORT PAGE -->
-
-<section id="page-report" class="page">
-
- <div class="container">
-
-  <div class="report-page">
-
-   <div class="report-header">
-    <h1>رفع بلاغ</h1>
-    <p>
-     ساعدنا على معرفة المشكلة وفهم مدى أهميتها.
-    </p>
-   </div>
-
-   <div class="card">
-
-    <form id="reportForm"
-     onsubmit="submitReport(event)">
-
-     <div class="field">
-      <label>عنوان البلاغ</label>
-      <input
-       id="reportTitle"
-       placeholder="مثال: عمود إنارة لا يعمل"
-       required>
-     </div>
-
-     <div class="field">
-      <label>نوع المشكلة</label>
-      <select id="reportType" required>
-       <option value="">اختر النوع</option>
-       <option value="طرق">طرق</option>
-       <option value="إنارة">إنارة</option>
-       <option value="سلامة">سلامة</option>
-       <option value="مرافق عامة">مرافق عامة</option>
-       <option value="إتاحة">إتاحة</option>
-       <option value="نظافة">نظافة</option>
-       <option value="أخرى">أخرى</option>
-      </select>
-     </div>
-
-     <div class="field">
-      <label>وصف المشكلة</label>
-      <textarea
-       id="reportDescription"
-       placeholder="اشرح المشكلة باختصار..."
-       required></textarea>
-     </div>
-
-     <div class="field">
-      <label>صورة المشكلة</label>
-      <input
-       id="reportPhoto"
-       type="file"
-       accept="image/*"
-       onchange="previewReportPhoto(event)">
-      <img
-       id="photoPreview"
-       class="photo-preview hidden"
-       alt="معاينة الصورة">
-     </div>
-
-     <div class="location-box">
-      <strong>📍 الموقع</strong>
-      <div id="locationText"
-       style="margin-top:7px;color:var(--muted);font-size:13px">
-       سيتم تحديد الموقع عند إرسال البلاغ.
       </div>
-     </div>
-
-     <div class="report-actions">
-
-      <button
-       type="button"
-       class="secondary"
-       onclick="getLocationForReport()">
-       📍 تحديد موقعي
-      </button>
-
-      <button
-       type="submit"
-       class="primary">
-       📢 إرسال البلاغ
-      </button>
-
-     </div>
-
-    </form>
-
-   </div>
-
-  </div>
-
- </div>
-
-</section>
-<section id="page-map" class="page">
-
- <div class="container">
-
-  <div class="section-head">
-   <div>
-    <h1>خريطة عون</h1>
-    <p>استكشف البلاغات والمشكلات حسب مواقعها وأولويتها.</p>
-   </div>
-  </div>
-
-  <div class="map-tools">
-
-   <button class="filter active"
-    onclick="filterMap('all',this)">
-    الكل
-   </button>
-
-   <button class="filter"
-    onclick="filterMap('critical',this)">
-    🔴 حرجة
-   </button>
-
-   <button class="filter"
-    onclick="filterMap('high',this)">
-    🟠 عالية
-   </button>
-
-   <button class="filter"
-    onclick="filterMap('medium',this)">
-    🟡 متوسطة
-   </button>
-
-   <button class="filter"
-    onclick="filterMap('low',this)">
-    🔵 منخفضة
-   </button>
-
-  </div>
-
-  <div id="awnMap" class="map"></div>
-
- </div>
-
-</section>
-
-
-<!-- PULSE -->
-
-<section id="page-pulse" class="page">
-
- <div class="container">
-
-  <div class="section-head">
-   <div>
-    <h1>📊 نبض المجتمع</h1>
-    <p>نظرة عامة على المشكلات والبلاغات التي يشارك بها المجتمع.</p>
-   </div>
-  </div>
-
-  <div class="stats">
-
-   <div class="stat">
-    <div class="label">إجمالي البلاغات</div>
-    <div class="value" id="pulseTotal">—</div>
-   </div>
-
-   <div class="stat">
-    <div class="label">بلاغات عالية الأولوية</div>
-    <div class="value" id="pulseHigh">—</div>
-   </div>
-
-   <div class="stat">
-    <div class="label">تمت المعالجة</div>
-    <div class="value" id="pulseDone">—</div>
-   </div>
-
-   <div class="stat">
-    <div class="label">قيد المتابعة</div>
-    <div class="value" id="pulsePending">—</div>
-   </div>
-
-  </div>
-
-
-  <section class="section">
-
-   <div class="section-head">
-    <div>
-     <h2>أكثر أنواع البلاغات</h2>
-     <p>توزيع البلاغات حسب نوع المشكلة.</p>
     </div>
-   </div>
 
-   <div id="pulseTypes"
-    class="grid">
-   </div>
+    <div class="section">
+
+      <div class="section-head">
+        <div>
+          <h2>كيف تعمل عون؟</h2>
+          <p>
+            من البلاغ إلى الأولوية والمتابعة
+          </p>
+        </div>
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-icon">📸</div>
+          <h3>صوّر المشكلة</h3>
+          <p>
+            التقط صورة للمشكلة الموجودة
+            في المكان العام وأرسل تفاصيلها.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🧠</div>
+          <h3>عون تحلل البلاغ</h3>
+          <p>
+            يتم تنظيم البلاغ وتحديد مستوى
+            الأولوية بناءً على مجموعة من العوامل.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📊</div>
+          <h3>تحديد الأولوية</h3>
+          <p>
+            يساعد نظام عون على معرفة
+            المشكلات الأكثر إلحاحاً وتأثيراً.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+
+      <div class="section-head">
+        <div>
+          <h2>نظام عون</h2>
+          <p>
+            أدوات تساعد على تنظيم البلاغات
+          </p>
+        </div>
+      </div>
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3>Awn Score</h3>
+          <p>
+            درجة من 1 إلى 100 تساعد على
+            ترتيب أولوية المشكلات.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🔗</div>
+          <h3>Awn Match</h3>
+          <p>
+            ربط البلاغات المتشابهة والمكررة
+            لتكوين صورة أوضح عن المشكلة.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🗺️</div>
+          <h3>Awn Map</h3>
+          <p>
+            تصور يساعد على معرفة أماكن
+            المشكلات ذات الأولوية.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+
+      <div class="section-head">
+        <div>
+          <h2>عون بالأرقام</h2>
+          <p>
+            مؤشرات المنصة
+          </p>
+        </div>
+      </div>
+
+      <div class="stats">
+
+        <div class="stat">
+          <strong id="statReports">0</strong>
+          <span>البلاغات</span>
+        </div>
+
+        <div class="stat">
+          <strong id="statResolved">0</strong>
+          <span>بلاغات تمت معالجتها</span>
+        </div>
+
+        <div class="stat">
+          <strong id="statUsers">0</strong>
+          <span>أعضاء المجتمع</span>
+        </div>
+
+        <div class="stat">
+          <strong id="statScore">0</strong>
+          <span>متوسط الأولوية</span>
+        </div>
+
+      </div>
+    </div>
 
   </section>
 
+  <section
+    id="page-report"
+    class="page hidden"
+  >
 
-  <section class="section">
+    <div class="section report-box">
 
-   <div class="section-head">
-    <div>
-     <h2>أحدث البلاغات</h2>
-     <p>آخر المشاركات التي وصلت إلى عون.</p>
+      <div class="section-head">
+        <div>
+          <h2>رفع بلاغ</h2>
+          <p>
+            ساعدنا في جعل مجتمعنا أكثر أماناً
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="field">
+          <label>عنوان البلاغ</label>
+          <input
+            id="reportTitle"
+            type="text"
+            placeholder="مثال: إنارة شارع لا تعمل"
+          >
+        </div>
+
+        <div class="field">
+          <label>نوع المشكلة</label>
+
+          <select id="reportType">
+
+            <option value="">
+              اختر نوع المشكلة
+            </option>
+
+            <option value="road">
+              🛣️ الطرق والممرات
+            </option>
+
+            <option value="lighting">
+              💡 الإنارة
+            </option>
+
+            <option value="facility">
+              🏢 المرافق العامة
+            </option>
+
+            <option value="safety">
+              ⚠️ السلامة
+            </option>
+
+            <option value="accessibility">
+              ♿ سهولة الوصول
+            </option>
+
+            <option value="other">
+              📌 أخرى
+            </option>
+
+          </select>
+        </div>
+
+        <div class="field">
+          <label>وصف المشكلة</label>
+
+          <textarea
+            id="reportDescription"
+            placeholder="اكتب تفاصيل المشكلة..."
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label>صورة المشكلة</label>
+
+          <div class="upload-box">
+            📷
+            <br>
+            أضف صورة تساعد على فهم المشكلة
+
+            <input
+              id="reportPhoto"
+              type="file"
+              accept="image/*"
+            >
+          </div>
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="primary"
+            onclick="submitReport()"
+          >
+            إرسال البلاغ
+          </button>
+
+          <button
+            class="secondary"
+            onclick="goHome()"
+          >
+            إلغاء
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
-   </div>
-
-   <div id="pulseReports"
-    class="report-list">
-   </div>
 
   </section>
 
- </div>
+  <section
+    id="page-about"
+    class="page hidden"
+  >
 
-</section>
+    <div class="section">
 
+      <div class="section-head">
+        <div>
+          <h2>عن عون</h2>
+          <p>
+            فكرة تقنية لخدمة المجتمع
+          </p>
+        </div>
+      </div>
 
-<!-- MY REPORTS -->
+      <div class="card">
 
-<section id="page-myreports" class="page">
+        <h3>
+          معاً.. لمجتمع أكثر أماناً
+        </h3>
 
- <div class="container">
+        <p style="margin-top:12px">
 
-  <div class="section-head">
-   <div>
-    <h1>بلاغاتي</h1>
-    <p>تابع حالة البلاغات التي أرسلتها.</p>
-   </div>
-  </div>
+          عون هي منصة مجتمعية تهدف إلى
+          تسهيل الإبلاغ عن المشكلات والمخاطر
+          في الأماكن العامة، وتنظيم البلاغات
+          وتحديد أولوياتها بطريقة ذكية.
 
-  <div id="myReports"
-   class="report-list">
-  </div>
+        </p>
 
- </div>
+        <p style="margin-top:12px">
 
-</section>
+          الفكرة ليست مجرد إرسال بلاغ،
+          بل تحويل البلاغات الفردية إلى
+          بيانات منظمة تساعد على فهم
+          المشكلات المتكررة والأكثر تأثيراً.
 
+        </p>
 
-<!-- PROFILE -->
+      </div>
 
-<section id="page-profile" class="page">
-
- <div class="container">
-
-  <div class="section-head">
-   <div>
-    <h1>حسابي</h1>
-    <p>معلومات حسابك ونشاطك في عون.</p>
-   </div>
-  </div>
-
-  <div class="card">
-
-   <div id="profileContent"
-    class="profile-box">
-   </div>
-
-  </div>
-
- </div>
-
-</section>
-
-
-<!-- SUPPORT -->
-
-<section id="page-support" class="page">
-
- <div class="container">
-
-  <div class="form">
-
-   <div class="section-head">
-    <div>
-     <h1>الدعم والمساعدة</h1>
-     <p>إذا واجهت مشكلة أو لديك استفسار، تواصل معنا.</p>
     </div>
-   </div>
 
-   <div class="card">
+  </section>
 
-    <form
-     onsubmit="sendSupport(event)">
+  <section
+    id="page-support"
+    class="page hidden"
+  >
 
-     <div class="field">
-      <label>عنوان الرسالة</label>
-      <input
-       id="supportTitle"
-       required
-       placeholder="مثال: مشكلة في رفع البلاغ">
-     </div>
+    <div class="section">
 
-     <div class="field">
-      <label>الرسالة</label>
-      <textarea
-       id="supportMessage"
-       required
-       placeholder="اكتب رسالتك هنا..."></textarea>
-     </div>
+      <div class="section-head">
+        <div>
+          <h2>الدعم والمساعدة</h2>
+          <p>
+            نحن هنا لمساعدتك
+          </p>
+        </div>
+      </div>
 
-     <button
-      class="primary">
-      إرسال الرسالة
-     </button>
+      <div class="card">
 
-    </form>
+        <div class="field">
+          <label>عنوان الرسالة</label>
+          <input
+            id="supportTitle"
+            placeholder="عنوان الرسالة"
+          >
+        </div>
 
-   </div>
+        <div class="field">
+          <label>رسالتك</label>
 
-  </div>
+          <textarea
+            id="supportMessage"
+            placeholder="اكتب رسالتك هنا..."
+          ></textarea>
 
- </div>
+        </div>
 
-</section>
+        <button
+          class="primary"
+          onclick="sendSupport()"
+        >
+          إرسال
+        </button>
 
+      </div>
 
-<!-- SUGGESTIONS -->
-
-<section id="page-suggestions" class="page">
-
- <div class="container">
-
-  <div class="form">
-
-   <div class="section-head">
-    <div>
-     <h1>💡 اقتراحاتك</h1>
-     <p>ساعدنا على تطوير عون وتحسين تجربة المجتمع.</p>
     </div>
-   </div>
 
-   <div class="card">
+  </section>
 
-    <form
-     onsubmit="sendSuggestion(event)">
+  <section
+    id="page-profile"
+    class="page hidden"
+  >
 
-     <div class="field">
-      <label>عنوان الاقتراح</label>
-      <input
-       id="suggestionTitle"
-       required
-       placeholder="مثال: إضافة ميزة جديدة">
-     </div>
+    <div class="section">
 
-     <div class="field">
-      <label>الاقتراح</label>
-      <textarea
-       id="suggestionMessage"
-       required
-       placeholder="اكتب اقتراحك هنا..."></textarea>
-     </div>
+      <div class="section-head">
+        <div>
+          <h2>حسابي</h2>
+          <p>
+            معلومات حسابك في عون
+          </p>
+        </div>
+      </div>
 
-     <button
-      class="primary">
-      إرسال الاقتراح
-     </button>
+      <div
+        id="profileContent"
+        class="card"
+      >
+        جارٍ تحميل الحساب...
+      </div>
 
-    </form>
+    </div>
 
-   </div>
+  </section>
 
-  </div>
-
- </div>
-
-</section>
-
-
-<!-- ADMIN -->
-
-<section id="page-admin" class="page">
-
- <div class="container">
-
-  <div class="section-head">
-   <div>
-    <h1>🛡️ لوحة الإدارة</h1>
-    <p>إدارة ومتابعة البلاغات الواردة.</p>
-   </div>
-  </div>
-
-  <div class="admin-grid">
-
-   <div class="admin-stat">
-    <span>إجمالي البلاغات</span>
-    <strong id="adminTotal">—</strong>
-   </div>
-
-   <div class="admin-stat">
-    <span>قيد المتابعة</span>
-    <strong id="adminPending">—</strong>
-   </div>
-
-   <div class="admin-stat">
-    <span>تمت المعالجة</span>
-    <strong id="adminDone">—</strong>
-   </div>
-
-  </div>
-
-  <div class="card">
-
-   <div class="table-wrap">
-
-    <table>
-
-     <thead>
-      <tr>
-       <th>البلاغ</th>
-       <th>النوع</th>
-       <th>الأولوية</th>
-       <th>الحالة</th>
-       <th>التاريخ</th>
-       <th>إجراء</th>
-      </tr>
-     </thead>
-
-     <tbody id="adminReports">
-     </tbody>
-
-    </table>
-
-   </div>
-
-  </div>
-
- </div>
-
-</section>
-
-
-<!-- MODAL -->
-
-<div id="modalRoot"></div>
-
-<!-- TOAST -->
-
-<div id="toastRoot"></div>
-
+</main>
 
 <footer>
 
- <div>
-  عون | AWN
- </div>
+  <strong>عون | AWN</strong>
 
- <div style="margin-top:7px">
+  <br><br>
+
   معاً.. لمجتمع أكثر أماناً
- </div>
-
- <div style="margin-top:10px">
-  © 2026 عون
- </div>
 
 </footer>
 
+<div
+  id="modalRoot"
+  class="hidden"
+></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
-
-/* =====================================================
+/* ================================
    SUPABASE
-===================================================== */
+================================ */
 
 const SUPABASE_URL =
-"https://ftamcnweyimjefjajhcp.supabase.co";
+  "https://ftamcnweyimjefjajhcp.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_z7cfsDCEV7Z3gmGD09oGpw_qEdd4WQM";
+  "sb_publishable_z7cfsDCEV7Z3gmGD09oGpw_qEdd4WQM";
 
 const supabaseClient =
-window.supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY
-);
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-
-/* =====================================================
+/* ================================
    GLOBAL STATE
-===================================================== */
+================================ */
 
 let currentUser = null;
 let currentProfile = null;
 
-let mapInstance = null;
-let mapMarkers = [];
+/* ================================
+   BASIC NAVIGATION
+================================ */
 
-let reportLatitude = null;
-let reportLongitude = null;
-
-
-/* =====================================================
-   PAGE NAVIGATION
-===================================================== */
-
-function showPage(page){
-
- document.querySelectorAll(".page")
-  .forEach(p =>
-   p.classList.remove("active")
-  );
-
- const target =
-  document.getElementById("page-"+page);
-
- if(target){
-  target.classList.add("active");
- }
-
- window.scrollTo({
-  top:0,
-  behavior:"smooth"
- });
-
- if(page==="home"){
-  loadHomeStats();
- }
-
- if(page==="map"){
-  setTimeout(() => {
-   loadMap();
-  },100);
- }
-
- if(page==="pulse"){
-  loadPulse();
- }
-
- if(page==="myreports"){
-  loadMyReports();
- }
-
- if(page==="profile"){
-  renderProfile();
- }
-
- if(page==="admin"){
-  loadAdmin();
- }
+function getPages(){
+  return [
+    "page-home",
+    "page-report",
+    "page-about",
+    "page-support",
+    "page-profile"
+  ];
 }
 
+function hidePages(){
 
-function goHome(){
- showPage("home");
-}
+  getPages().forEach(id => {
 
+    const el =
+      document.getElementById(id);
 
-/* =====================================================
-   MENU
-===================================================== */
-
-function toggleMenu(){
-
- const menu =
-  document.getElementById("menu");
-
- if(menu){
-  menu.classList.toggle("hidden");
- }
-}
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-function showModal(content){
-
- const root =
-  document.getElementById("modalRoot");
-
- if(!root) return;
-
- root.innerHTML = `
-  <div class="modal-back"
-   onclick="if(event.target===this)closeModal()">
-
-   <div class="modal">
-    ${content}
-   </div>
-
-  </div>
- `;
-}
-
-
-function closeModal(){
-
- const root =
-  document.getElementById("modalRoot");
-
- if(root){
-  root.innerHTML="";
- }
-}
-
-
-/* =====================================================
-   AUTH
-===================================================== */
-
-function openAuth(mode="login"){
-
- showModal(`
-
-  <div class="modal-head">
-
-   <div>
-
-    <h2>
-     ${mode==="login"
-      ?"تسجيل الدخول"
-      :"إنشاء حساب"}
-    </h2>
-
-    <p style="
-     color:var(--muted);
-     font-size:12px;
-     margin-top:5px">
-
-     ${mode==="login"
-      ?"أهلاً بك في عون"
-      :"انضم إلى مجتمع عون"}
-
-    </p>
-
-   </div>
-
-   <button
-    class="close"
-    onclick="closeModal()">
-    ×
-   </button>
-
-  </div>
-
-  ${
-   mode==="login"
-   ? loginForm()
-   : signupForm()
-  }
-
- `);
-}
-
-
-function loginForm(){
-
- return `
-
- <form onsubmit="login(event)">
-
-  <div class="field">
-
-   <label>
-    البريد الإلكتروني أو اسم المستخدم أو رقم الهاتف
-   </label>
-
-   <input
-    id="loginIdentifier"
-    required>
-
-  </div>
-
-
-  <div class="field">
-
-   <label>
-    كلمة المرور
-   </label>
-
-   <input
-    id="loginPassword"
-    type="password"
-    required>
-
-  </div>
-
-
-  <div class="actions">
-
-   <button
-    class="primary">
-    دخول
-   </button>
-
-   <button
-    type="button"
-    class="secondary"
-    onclick="openForgot()">
-    نسيت كلمة المرور؟
-   </button>
-
-  </div>
-
-
-  <div class="auth-switch">
-
-   ما عندك حساب؟
-
-   <button
-    type="button"
-    onclick="openAuth('signup')">
-    إنشاء حساب
-   </button>
-
-  </div>
-
- </form>
-
- `;
-
-}
-
-
-function signupForm(){
-
- return `
-
- <form onsubmit="signup(event)">
-
-  <div class="row">
-
-   <div class="field">
-
-    <label>
-     الاسم الكامل
-    </label>
-
-    <input
-     id="signupName"
-     required>
-
-   </div>
-
-
-   <div class="field">
-
-    <label>
-     اسم المستخدم
-    </label>
-
-    <input
-     id="signupUsername"
-     placeholder="مثال: awn_user"
-     required>
-
-   </div>
-
-  </div>
-
-
-  <div class="row">
-
-   <div class="field">
-
-    <label>
-     رقم الهاتف
-    </label>
-
-    <input
-     id="signupPhone"
-     type="tel"
-     required>
-
-   </div>
-
-
-   <div class="field">
-
-    <label>
-     البريد الإلكتروني
-    </label>
-
-    <input
-     id="signupEmail"
-     type="email"
-     required>
-
-   </div>
-
-  </div>
-
-
-  <div class="field">
-
-   <label>
-    كلمة المرور
-   </label>
-
-   <input
-    id="signupPassword"
-    type="password"
-    minlength="6"
-    required>
-
-  </div>
-
-
-  <button
-   class="primary">
-   إنشاء حساب
-  </button>
-
-
-  <div class="auth-switch">
-
-   عندك حساب؟
-
-   <button
-    type="button"
-    onclick="openAuth('login')">
-    تسجيل الدخول
-   </button>
-
-  </div>
-
- </form>
-
- `;
-
-}
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-async function login(event){
-
- event.preventDefault();
-
- const identifier =
-  document.getElementById("loginIdentifier").value.trim();
-
- const password =
-  document.getElementById("loginPassword").value;
-
- try{
-
-  let email = identifier;
-
-  if(!identifier.includes("@")){
-
-   const {data,error} =
-    await supabaseClient
-     .from("profiles")
-     .select("email")
-     .or(
-      `username.eq.${identifier},phone.eq.${identifier}`
-     )
-     .maybeSingle();
-
-   if(error) throw error;
-
-   if(!data){
-    throw new Error("بيانات الدخول غير صحيحة");
-   }
-
-   email=data.email;
-  }
-
-
-  const {data,error} =
-   await supabaseClient.auth
-    .signInWithPassword({
-     email,
-     password
-    });
-
-  if(error) throw error;
-
-  currentUser=data.user;
-
-  await loadProfile();
-
-  closeModal();
-
-  updateHeader();
-
-  toast(
-   "تم تسجيل الدخول بنجاح",
-   "success"
-  );
-
-  showPage("home");
-
- }catch(error){
-
-  toast(
-   error.message ||
-   "تعذر تسجيل الدخول",
-   "error"
-  );
-
- }
-
-}
-
-
-/* =====================================================
-   SIGNUP
-===================================================== */
-
-async function signup(event){
-
- event.preventDefault();
-
- const name =
-  document.getElementById("signupName").value.trim();
-
- const username =
-  document.getElementById("signupUsername").value.trim();
-
- const phone =
-  document.getElementById("signupPhone").value.trim();
-
- const email =
-  document.getElementById("signupEmail").value.trim();
-
- const password =
-  document.getElementById("signupPassword").value;
-
- try{
-
-  const {data,error} =
-   await supabaseClient.auth
-    .signUp({
-     email,
-     password,
-     options:{
-      data:{
-       full_name:name,
-       username,
-       phone
-      }
-     }
-    });
-
-  if(error) throw error;
-
-  if(data.user){
-
-   const {error:profileError} =
-    await supabaseClient
-     .from("profiles")
-     .upsert({
-      id:data.user.id,
-      full_name:name,
-      username,
-      email,
-      phone,
-      role:"user",
-      points:0,
-      badge:"عضو جديد"
-     });
-
-   if(profileError){
-    console.warn(profileError);
-   }
-
-  }
-
-  toast(
-   "تم إنشاء الحساب بنجاح",
-   "success"
-  );
-
-  if(data.session){
-
-   currentUser=data.user;
-
-   await loadProfile();
-
-   updateHeader();
-
-   closeModal();
-
-   showPage("home");
-
-  }else{
-
-   openAuth("login");
-
-  }
-
- }catch(error){
-
-  toast(
-   error.message ||
-   "تعذر إنشاء الحساب",
-   "error"
-  );
-
- }
-
-}
-
-
-/* =====================================================
-   FORGOT PASSWORD
-===================================================== */
-
-function openForgot(){
-
- showModal(`
-
-  <div class="modal-head">
-
-   <div>
-    <h2>استعادة كلمة المرور</h2>
-    <p style="
-     color:var(--muted);
-     font-size:12px;
-     margin-top:5px">
-     أدخل بريدك الإلكتروني
-    </p>
-   </div>
-
-   <button
-    class="close"
-    onclick="closeModal()">
-    ×
-   </button>
-
-  </div>
-
-
-  <form onsubmit="forgotPassword(event)">
-
-   <div class="field">
-
-    <label>
-     البريد الإلكتروني
-    </label>
-
-    <input
-     id="forgotEmail"
-     type="email"
-     required>
-
-   </div>
-
-   <button class="primary">
-    إرسال رابط الاستعادة
-   </button>
-
-  </form>
-
- `);
-
-}
-
-
-async function forgotPassword(event){
-
- event.preventDefault();
-
- const email =
-  document.getElementById("forgotEmail").value.trim();
-
- try{
-
-  const {error} =
-   await supabaseClient.auth
-    .resetPasswordForEmail(email);
-
-  if(error) throw error;
-
-  closeModal();
-
-  toast(
-   "تم إرسال رابط استعادة كلمة المرور",
-   "success"
-  );
-
- }catch(error){
-
-  toast(
-   error.message ||
-   "تعذر إرسال الرابط",
-   "error"
-  );
-
- }
-
-}
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-async function loadProfile(){
-
- if(!currentUser) return;
-
- const {data,error} =
-  await supabaseClient
-   .from("profiles")
-   .select("*")
-   .eq("id",currentUser.id)
-   .maybeSingle();
-
- if(error){
-  console.warn(error);
-  return;
- }
-
- currentProfile=data;
-}
-
-
-function renderProfile(){
-
- if(!currentUser){
-
-  openAuth("login");
-  return;
-
- }
-
- const root =
-  document.getElementById("profileContent");
-
- if(!root) return;
-
- const p=currentProfile || {};
-
- root.innerHTML=`
-
-  <div class="profile-item">
-   <small>الاسم</small>
-   <strong>
-    ${escapeHtml(p.full_name || "—")}
-   </strong>
-  </div>
-
-  <div class="profile-item">
-   <small>اسم المستخدم</small>
-   <strong>
-    ${escapeHtml(p.username || "—")}
-   </strong>
-  </div>
-
-  <div class="profile-item">
-   <small>البريد الإلكتروني</small>
-   <strong>
-    ${escapeHtml(p.email || currentUser.email || "—")}
-   </strong>
-  </div>
-
-  <div class="profile-item">
-   <small>رقم الهاتف</small>
-   <strong>
-    ${escapeHtml(p.phone || "—")}
-   </strong>
-  </div>
-
-  <div class="profile-item">
-   <small>النقاط</small>
-   <strong>
-    ${p.points ?? 0}
-   </strong>
-  </div>
-
-  <div class="profile-item">
-   <small>الشارة</small>
-   <strong>
-    ${escapeHtml(p.badge || "عضو جديد")}
-   </strong>
-  </div>
-
-  <button
-   class="secondary"
-   onclick="showPage('myreports')">
-   📢 بلاغاتي
-  </button>
-
- `;
-
-}
-
-
-async function openProfile(){
-
- if(!currentUser){
-
-  openAuth("login");
-  return;
-
- }
-
- await loadProfile();
-
- showPage("profile");
-
-}
-
-
-/* =====================================================
-   HEADER
-===================================================== */
-
-function updateHeader(){
-
- const login =
-  document.getElementById("headerLogin");
-
- const user =
-  document.getElementById("headerUser");
-
- const auth =
-  document.getElementById("authMenu");
-
- const logoutBtn =
-  document.getElementById("logoutMenu");
-
- const admin =
-  document.getElementById("adminMenu");
-
-
- if(currentUser){
-
-  if(login) login.classList.add("hidden");
-
-  if(user) user.classList.remove("hidden");
-
-  if(auth) auth.classList.add("hidden");
-
-  if(logoutBtn)
-   logoutBtn.classList.remove("hidden");
-
-  if(
-   admin &&
-   currentProfile &&
-   currentProfile.role==="admin"
-  ){
-   admin.classList.remove("hidden");
-  }
-
- }else{
-
-  if(login) login.classList.remove("hidden");
-
-  if(user) user.classList.add("hidden");
-
-  if(auth) auth.classList.remove("hidden");
-
-  if(logoutBtn)
-   logoutBtn.classList.add("hidden");
-
-  if(admin)
-   admin.classList.add("hidden");
-
- }
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
- try{
-
-  await supabaseClient.auth.signOut();
-
- }catch(e){
-  console.warn(e);
- }
-
- currentUser=null;
- currentProfile=null;
-
- updateHeader();
-
- goHome();
-
- toast(
-  "تم تسجيل الخروج",
-  "success"
- );
-
-}
-
-
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
-async function initAuth(){
-
- const {data} =
-  await supabaseClient.auth.getSession();
-
- if(data && data.session){
-
-  currentUser=data.session.user;
-
-  await loadProfile();
-
- }
-
- updateHeader();
-
-}
-
-
-/* =====================================================
-   REPORT ACCESS
-===================================================== */
-
-function requireLogin(callback){
-
- if(!currentUser){
-
-  openAuth("login");
-  return;
-
- }
-
- callback();
-
-}
-
-
-function openReport(){
-
- requireLogin(() => {
-
-  showPage("report");
-
- });
-
-}
-
-
-/* =====================================================
-   REPORT PHOTO
-===================================================== */
-
-function previewReportPhoto(event){
-
- const file =
-  event.target.files?.[0];
-
- const preview =
-  document.getElementById("photoPreview");
-
- if(!file || !preview) return;
-
- const reader =
-  new FileReader();
-
- reader.onload=function(e){
-
-  preview.src=e.target.result;
-
-  preview.classList.remove("hidden");
-
- };
-
- reader.readAsDataURL(file);
-
-}
-
-
-/* =====================================================
-   LOCATION
-===================================================== */
-
-function getLocationForReport(){
-
- const text =
-  document.getElementById("locationText");
-
- if(!navigator.geolocation){
-
-  toast(
-   "المتصفح لا يدعم تحديد الموقع",
-   "error"
-  );
-
-  return;
-
- }
-
- text.textContent=
-  "جاري تحديد الموقع...";
-
- navigator.geolocation.getCurrentPosition(
-
-  position => {
-
-   reportLatitude=
-    position.coords.latitude;
-
-   reportLongitude=
-    position.coords.longitude;
-
-   text.innerHTML=
-    `📍 تم تحديد الموقع بنجاح`;
-
-   toast(
-    "تم تحديد موقعك",
-    "success"
-   );
-
-  },
-
-  error => {
-
-   console.warn(error);
-
-   text.textContent=
-    "تعذر تحديد الموقع. يمكنك المحاولة مرة أخرى.";
-
-   toast(
-    "تعذر تحديد الموقع",
-    "error"
-   );
-
-  },
-
-  {
-   enableHighAccuracy:true,
-   timeout:10000,
-   maximumAge:0
-  }
-
- );
-
-}
-
-
-/* =====================================================
-   REPORT SCORE
-===================================================== */
-
-function calculateScore(type,description){
-
- let score=50;
-
- if(type==="سلامة"){
-  score+=20;
- }
-
- if(type==="طرق"){
-  score+=15;
- }
-
- if(type==="إنارة"){
-  score+=10;
- }
-
- if(type==="إتاحة"){
-  score+=10;
- }
-
- if(description.length>120){
-  score+=5;
- }
-
- return Math.min(
-  100,
-  Math.max(1,score)
- );
-
-}
-
-
-/* =====================================================
-   SUBMIT REPORT
-===================================================== */
-
-async function submitReport(event){
-
- event.preventDefault();
-
- if(!currentUser){
-
-  openAuth("login");
-  return;
-
- }
-
- const title =
-  document.getElementById("reportTitle").value.trim();
-
- const type =
-  document.getElementById("reportType").value;
-
- const description =
-  document.getElementById("reportDescription").value.trim();
-
- const photoInput =
-  document.getElementById("reportPhoto");
-
- const file =
-  photoInput?.files?.[0] || null;
-
-
- if(
-  !title ||
-  !type ||
-  !description
- ){
-
-  toast(
-   "تأكد من تعبئة جميع البيانات",
-   "error"
-  );
-
-  return;
-
- }
-
-
- try{
-
-  let photoUrl=null;
-
-  if(file){
-
-   const extension =
-    file.name.split(".").pop();
-
-   const fileName =
-    `${currentUser.id}/${Date.now()}.${extension}`;
-
-   const {error:uploadError} =
-    await supabaseClient.storage
-     .from("reports")
-     .upload(
-      fileName,
-      file,
-      {
-       upsert:false,
-       contentType:file.type
-      }
-     );
-
-   if(uploadError)
-    throw uploadError;
-
-
-   const {data:urlData} =
-    supabaseClient.storage
-     .from("reports")
-     .getPublicUrl(fileName);
-
-   photoUrl=
-    urlData.publicUrl;
-
-  }
-
-
-  const score =
-   calculateScore(
-    type,
-    description
-   );
-
-
-  const {error} =
-   await supabaseClient
-    .from("reports")
-    .insert([
-     {
-      user_id:currentUser.id,
-      title,
-      type,
-      description,
-      latitude:reportLatitude,
-      longitude:reportLongitude,
-      score,
-      matches:0,
-      status:"pending",
-      has_photo:!!file,
-      photo_url:photoUrl
-     }
-    ]);
-
-
-  if(error) throw error;
-
-
-  document.getElementById("reportForm").reset();
-
-  const preview =
-   document.getElementById("photoPreview");
-
-  if(preview){
-   preview.src="";
-   preview.classList.add("hidden");
-  }
-
-  reportLatitude=null;
-  reportLongitude=null;
-
-  const locationText =
-   document.getElementById("locationText");
-
-  if(locationText){
-   locationText.textContent=
-    "سيتم تحديد الموقع عند إرسال البلاغ.";
-  }
-
-
-  toast(
-   "تم إرسال البلاغ بنجاح",
-   "success"
-  );
-
-  showPage("myreports");
-
- }catch(error){
-
-  console.error(error);
-
-  toast(
-   "تعذر إرسال البلاغ. تأكد من إعدادات جدول reports والصلاحيات.",
-   "error"
-  );
-
- }
-
-}
-
-
-/* =====================================================
-   HOME STATS
-===================================================== */
-
-async function loadHomeStats(){
-
- try{
-
-  const {data,error} =
-   await supabaseClient
-    .from("reports")
-    .select("score,status");
-
-  if(error) throw error;
-
-  const reports=data || [];
-
-  const total=
-   reports.length;
-
-  const done=
-   reports.filter(
-    r=>r.status==="done" ||
-       r.status==="completed"
-   ).length;
-
-  const pending=
-   total-done;
-
-  const highest=
-   reports.length
-    ? Math.max(
-       ...reports.map(
-        r=>Number(r.score)||0
-       )
-      )
-    : 0;
-
-
-  setText("statTotal",total);
-  setText("statDone",done);
-  setText("statPending",pending);
-  setText("statHighest",highest || "—");
-
-  setText("heroTotalReports",total);
-  setText("heroDoneReports",done);
-  setText("heroHighestScore",highest || "—");
-
- }catch(error){
-
-  console.warn(error);
-
- }
-
-}
-
-
-/* =====================================================
-   MAP
-===================================================== */
-
-async function loadMap(){
-
- const mapElement =
-  document.getElementById("awnMap");
-
- if(!mapElement) return;
-
-
- if(mapInstance){
-
-  mapInstance.invalidateSize();
-
- }else{
-
-  mapInstance =
-   L.map("awnMap")
-    .setView(
-     [24.2075,55.7447],
-     11
-    );
-
-  L.tileLayer(
-   "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-   {
-    maxZoom:19,
-    attribution:"© OpenStreetMap"
-   }
-  ).addTo(mapInstance);
-
- }
-
-
- mapMarkers.forEach(
-  marker => marker.remove()
- );
-
- mapMarkers=[];
-
-
- const {data,error} =
-  await supabaseClient
-   .from("reports")
-   .select("*")
-   .not("latitude","is",null)
-   .not("longitude","is",null);
-
- if(error){
-
-  console.warn(error);
-  return;
-
- }
-
-
- (data || []).forEach(report => {
-
-  const lat=
-   Number(report.latitude);
-
-  const lng=
-   Number(report.longitude);
-
-  if(
-   !Number.isFinite(lat) ||
-   !Number.isFinite(lng)
-  ) return;
-
-
-  const marker =
-   L.marker([lat,lng])
-    .addTo(mapInstance);
-
-
-  marker.bindPopup(`
-
-   <div>
-
-    <strong>
-     ${escapeHtml(report.title || "بلاغ")}
-    </strong>
-
-    <div style="
-     margin-top:6px;
-     font-size:12px">
-
-     ${escapeHtml(
-      report.description || ""
-     )}
-
-    </div>
-
-    <div style="
-     margin-top:8px;
-     font-weight:800">
-
-     Awn Score:
-     ${Number(report.score)||0}
-
-    </div>
-
-   </div>
-
-  `);
-
-
-  marker.reportData=report;
-
-  mapMarkers.push(marker);
-
- });
-
-}
-
-
-function filterMap(type,button){
-
- document
-  .querySelectorAll(".filter")
-  .forEach(
-   b=>b.classList.remove("active")
-  );
-
- if(button)
-  button.classList.add("active");
-
-
- mapMarkers.forEach(marker => {
-
-  const score =
-   Number(marker.reportData?.score)||0;
-
-  let visible=true;
-
-  if(type==="critical")
-   visible=score>=85;
-
-  if(type==="high")
-   visible=score>=70 && score<85;
-
-  if(type==="medium")
-   visible=score>=40 && score<70;
-
-  if(type==="low")
-   visible=score<40;
-
-
-  if(visible){
-
-   marker.addTo(mapInstance);
-
-  }else{
-
-   marker.remove();
-
-  }
-
- });
-
-}
-
-
-/* =====================================================
-   PULSE
-===================================================== */
-
-async function loadPulse(){
-
- try{
-
-  const {data,error} =
-   await supabaseClient
-    .from("reports")
-    .select("*")
-    .order(
-     "created_at",
-     {ascending:false}
-    );
-
-  if(error) throw error;
-
-  const reports=data || [];
-
-  const total=
-   reports.length;
-
-  const high=
-   reports.filter(
-    r=>(Number(r.score)||0)>=70
-   ).length;
-
-  const done=
-   reports.filter(
-    r=>r.status==="done" ||
-       r.status==="completed"
-   ).length;
-
-  const pending=
-   total-done;
-
-
-  setText("pulseTotal",total);
-  setText("pulseHigh",high);
-  setText("pulseDone",done);
-  setText("pulsePending",pending);
-
-
-  const counts={};
-
-  reports.forEach(r=>{
-
-   const type=
-    r.type || "أخرى";
-
-   counts[type]=
-    (counts[type]||0)+1;
+    if(el){
+      el.classList.add("hidden");
+    }
 
   });
 
-
-  const typesRoot =
-   document.getElementById("pulseTypes");
-
-  if(typesRoot){
-
-   const entries=
-    Object.entries(counts)
-     .sort(
-      (a,b)=>b[1]-a[1]
-     );
-
-   typesRoot.innerHTML=
-    entries.length
-    ? entries.map(
-       ([type,count])=>`
-
-        <div class="card feature">
-
-         <div class="feature-icon">
-          📌
-         </div>
-
-         <h3>
-          ${escapeHtml(type)}
-         </h3>
-
-         <p>
-          عدد البلاغات:
-          <strong>${count}</strong>
-         </p>
-
-        </div>
-
-       `
-      ).join("")
-    : emptyState(
-       "📊",
-       "لا توجد بيانات بعد"
-      );
-
-  }
-
-
-  const reportsRoot =
-   document.getElementById("pulseReports");
-
-  if(reportsRoot){
-
-   reportsRoot.innerHTML=
-    reports.length
-    ? reports.slice(0,10)
-      .map(reportCard)
-      .join("")
-    : emptyState(
-       "📭",
-       "لا توجد بلاغات بعد"
-      );
-
-  }
-
- }catch(error){
-
-  console.warn(error);
-
- }
-
 }
 
+function showPage(name){
 
-/* =====================================================
-   MY REPORTS
-===================================================== */
+  hidePages();
 
-async function loadMyReports(){
-
- if(!currentUser){
-
-  openAuth("login");
-  return;
-
- }
-
-
- const root =
-  document.getElementById("myReports");
-
- if(!root) return;
-
-
- root.innerHTML=
-  `<div class="loading">
-    <div class="spinner"></div>
-    جاري تحميل بلاغاتك...
-   </div>`;
-
-
- const {data,error} =
-  await supabaseClient
-   .from("reports")
-   .select("*")
-   .eq("user_id",currentUser.id)
-   .order(
-    "created_at",
-    {ascending:false}
-   );
-
-
- if(error){
-
-  root.innerHTML=
-   emptyState(
-    "⚠️",
-    "تعذر تحميل البلاغات"
-   );
-
-  return;
-
- }
-
-
- root.innerHTML=
-  data?.length
-  ? data.map(reportCard).join("")
-  : emptyState(
-     "📭",
-     "لم ترسل أي بلاغ حتى الآن"
+  const page =
+    document.getElementById(
+      "page-" + name
     );
 
-}
-
-
-/* =====================================================
-   REPORT CARD
-===================================================== */
-
-function reportCard(report){
-
- const score=
-  Number(report.score)||0;
-
- let scoreClass=
-  "score-low";
-
- if(score>=70)
-  scoreClass="score-high";
- else if(score>=40)
-  scoreClass="score-med";
-
-
- let statusClass="";
-
- if(
-  report.status==="done" ||
-  report.status==="completed"
- ){
-  statusClass="done";
- }
-
-
- if(score>=85)
-  statusClass="critical";
-
-
- const statusText=
-  report.status==="done" ||
-  report.status==="completed"
-  ? "تمت المعالجة"
-  : report.status==="in_progress"
-  ? "قيد المعالجة"
-  : "قيد المتابعة";
-
-
- return `
-
- <div class="report">
-
-  <div class="report-top">
-
-   <div>
-
-    <div class="report-title">
-     ${escapeHtml(
-      report.title || "بلاغ"
-     )}
-    </div>
-
-    <div class="report-type">
-     ${escapeHtml(
-      report.type || "أخرى"
-     )}
-    </div>
-
-   </div>
-
-
-   <div class="status ${statusClass}">
-    ${statusText}
-   </div>
-
-  </div>
-
-
-  <div class="report-desc">
-
-   ${escapeHtml(
-    report.description || ""
-   )}
-
-  </div>
-
-
-  <div class="report-meta">
-
-   <span class="meta">
-    📊 Awn Score:
-    <strong class="${scoreClass}">
-     ${score}
-    </strong>
-   </span>
-
-   <span class="meta">
-    🔗 ${Number(report.matches)||0} مرتبط
-   </span>
-
-   <span class="meta">
-    ${formatDate(report.created_at)}
-   </span>
-
-  </div>
-
-
-  ${
-   report.photo_url
-   ? `
-    <img
-     class="photo-preview"
-     src="${escapeAttr(report.photo_url)}"
-     alt="صورة البلاغ">
-   `
-   : ""
+  if(page){
+    page.classList.remove("hidden");
   }
 
- </div>
-
- `;
-
-}
-
-
-/* =====================================================
-   SUPPORT
-===================================================== */
-
-async function sendSupport(event){
-
- event.preventDefault();
-
- if(!currentUser){
-
-  openAuth("login");
-  return;
-
- }
-
-
- const title =
-  document.getElementById("supportTitle").value.trim();
-
- const message =
-  document.getElementById("supportMessage").value.trim();
-
-
- try{
-
-  const {error} =
-   await supabaseClient
-    .from("support_messages")
-    .insert([
-     {
-      user_id:currentUser.id,
-      title,
-      message
-     }
-    ]);
-
-  if(error) throw error;
-
-  event.target.reset();
-
-  toast(
-   "تم إرسال رسالتك",
-   "success"
-  );
-
- }catch(error){
-
-  console.warn(error);
-
-  toast(
-   "تعذر إرسال الرسالة",
-   "error"
-  );
-
- }
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
-
-/* =====================================================
-   SUGGESTIONS
-===================================================== */
-
-async function sendSuggestion(event){
-
- event.preventDefault();
-
- if(!currentUser){
-
-  openAuth("login");
-  return;
-
- }
-
-
- const title =
-  document
-   .getElementById("suggestionTitle")
-   .value.trim();
-
- const message =
-  document
-   .getElementById("suggestionMessage")
-   .value.trim();
-
-
- try{
-
-  const {error} =
-   await supabaseClient
-    .from("suggestions")
-    .insert([
-     {
-      user_id:currentUser.id,
-      title,
-      message
-     }
-    ]);
-
-  if(error) throw error;
-
-  event.target.reset();
-
-  toast(
-   "شكراً على اقتراحك",
-   "success"
-  );
-
- }catch(error){
-
-  console.warn(error);
-
-  toast(
-   "تعذر إرسال الاقتراح",
-   "error"
-  );
-
- }
-
-}
-
-
-/* =====================================================
-   ADMIN
-===================================================== */
-
-async function loadAdmin(){
-
- if(
-  !currentUser ||
-  !currentProfile ||
-  currentProfile.role!=="admin"
- ){
-
-  toast(
-   "هذه الصفحة متاحة للإدارة فقط",
-   "error"
-  );
-
+function goHome(){
   showPage("home");
-  return;
+}
 
- }
+function openReport(){
 
+  if(!currentUser){
+    openAuth("login");
+    return;
+  }
 
- const {data,error} =
-  await supabaseClient
-   .from("reports")
-   .select("*")
-   .order(
-    "created_at",
-    {ascending:false}
-   );
+  showPage("report");
+}
 
+function openAbout(){
+  showPage("about");
+}
 
- if(error){
+function openSupport(){
 
-  console.warn(error);
-  return;
+  if(!currentUser){
+    openAuth("login");
+    return;
+  }
 
- }
+  showPage("support");
+}
 
+function toggleMenu(){
 
- const reports=data || [];
+  const menu =
+    document.getElementById("menu");
 
- const total=
-  reports.length;
-
- const done=
-  reports.filter(
-   r=>r.status==="done" ||
-      r.status==="completed"
-  ).length;
-
- const pending=
-  total-done;
-
-
- setText("adminTotal",total);
- setText("adminPending",pending);
- setText("adminDone",done);
-
-
- const root =
-  document.getElementById("adminReports");
-
- if(!root) return;
-
-
- root.innerHTML=
-  reports.length
-  ? reports.map(
-     adminReportRow
-    ).join("")
-  : `
-    <tr>
-     <td colspan="6">
-      لا توجد بلاغات
-     </td>
-    </tr>
-   `;
+  if(menu){
+    menu.classList.toggle("hidden");
+  }
 
 }
 
+/* ================================
+   MODAL
+================================ */
 
-function adminReportRow(report){
+function showModal(content){
 
- const score=
-  Number(report.score)||0;
+  const root =
+    document.getElementById(
+      "modalRoot"
+    );
 
- return `
+  if(!root) return;
 
- <tr>
+  root.innerHTML = `
+    <div
+      class="modal-backdrop"
+      onclick="backdropClose(event)"
+    >
+      <div
+        class="modal"
+        onclick="event.stopPropagation()"
+      >
+        ${content}
+      </div>
+    </div>
+  `;
 
-  <td>
-   ${escapeHtml(
-    report.title || "—"
-   )}
-  </td>
+  root.classList.remove("hidden");
+}
 
-  <td>
-   ${escapeHtml(
-    report.type || "—"
-   )}
-  </td>
+function backdropClose(event){
 
-  <td>
-   <span class="score-pill ${
-    score>=70
-    ? "score-high"
-    : score>=40
-    ? "score-med"
-    : "score-low"
-   }">
-    ${score}
-   </span>
-  </td>
-
-  <td>
-   ${escapeHtml(
-    report.status || "pending"
-   )}
-  </td>
-
-  <td>
-   ${formatDate(report.created_at)}
-  </td>
-
-  <td>
-
-   <button
-    class="secondary"
-    onclick="updateReportStatus('${report.id}')">
-    تحديث
-   </button>
-
-  </td>
-
- </tr>
-
- `;
+  if(
+    event.target.classList.contains(
+      "modal-backdrop"
+    )
+  ){
+    closeModal();
+  }
 
 }
 
+function closeModal(){
 
-async function updateReportStatus(id){
+  const root =
+    document.getElementById(
+      "modalRoot"
+    );
 
- const status =
-  prompt(
-   "اكتب الحالة الجديدة:\npending / in_progress / done"
-  );
-
- if(!status) return;
-
-
- try{
-
-  const {error} =
-   await supabaseClient
-    .from("reports")
-    .update({
-     status
-    })
-    .eq("id",id);
-
-  if(error) throw error;
-
-  toast(
-   "تم تحديث حالة البلاغ",
-   "success"
-  );
-
-  loadAdmin();
-
- }catch(error){
-
-  console.warn(error);
-
-  toast(
-   "تعذر تحديث البلاغ",
-   "error"
-  );
-
- }
+  if(root){
+    root.classList.add("hidden");
+    root.innerHTML = "";
+  }
 
 }
 
+/* ================================
+   AUTH
+================================ */
 
-/* =====================================================
-   HELPERS
-===================================================== */
+function openAuth(mode="login"){
 
-function setText(id,value){
+  showModal(`
 
- const el=
-  document.getElementById(id);
+    <div class="modal-head">
 
- if(el){
-  el.textContent=value;
- }
+      <div>
 
-}
+        <h2>
+          ${
+            mode === "login"
+              ? "تسجيل الدخول"
+              : "إنشاء حساب"
+          }
+        </h2>
 
+        <p
+          style="
+            color:var(--muted);
+            font-size:12px;
+            margin-top:5px
+          "
+        >
+          ${
+            mode === "login"
+              ? "أهلاً بك في عون"
+              : "انضم إلى مجتمع عون"
+          }
+        </p>
 
-function formatDate(date){
+      </div>
 
- if(!date) return "—";
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
 
- try{
+    </div>
 
-  return new Date(date)
-   .toLocaleDateString(
-    "ar-AE",
-    {
-     year:"numeric",
-     month:"short",
-     day:"numeric"
+    ${
+      mode === "login"
+        ? loginForm()
+        : signupForm()
     }
-   );
 
- }catch(e){
-
-  return "—";
-
- }
+  `);
 
 }
 
+function loginForm(){
 
-function emptyState(icon,text){
+  return `
 
- return `
+    <form
+      onsubmit="login(event)"
+    >
 
- <div class="empty">
+      <div class="field">
 
-  <div class="e-icon">
-   ${icon}
-  </div>
+        <label>
+          البريد الإلكتروني أو اسم المستخدم أو رقم الهاتف
+        </label>
 
-  <div>
-   ${text}
-  </div>
+        <input
+          id="loginIdentifier"
+          required
+          autocomplete="username"
+        >
 
- </div>
+      </div>
 
- `;
+      <div class="field">
+
+        <label>
+          كلمة المرور
+        </label>
+
+        <input
+          id="loginPassword"
+          type="password"
+          required
+          autocomplete="current-password"
+        >
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="primary"
+          type="submit"
+        >
+          دخول
+        </button>
+
+        <button
+          type="button"
+          class="secondary"
+          onclick="openForgot()"
+        >
+          نسيت كلمة المرور؟
+        </button>
+
+      </div>
+
+      <div
+        style="
+          text-align:center;
+          margin-top:18px;
+          color:var(--muted);
+          font-size:13px
+        "
+      >
+
+        ما عندك حساب؟
+
+        <button
+          type="button"
+          style="
+            border:0;
+            background:none;
+            color:var(--gold2);
+            font-weight:800
+          "
+          onclick="openAuth('signup')"
+        >
+          إنشاء حساب
+        </button>
+
+      </div>
+
+    </form>
+
+  `;
 
 }
 
+function signupForm(){
 
-function escapeHtml(value){
+  return `
 
- return String(value ?? "")
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
+    <form
+      onsubmit="signup(event)"
+    >
+
+      <div class="field">
+
+        <label>
+          الاسم الكامل
+        </label>
+
+        <input
+          id="signupName"
+          required
+          autocomplete="name"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          اسم المستخدم
+        </label>
+
+        <input
+          id="signupUsername"
+          required
+          autocomplete="username"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          البريد الإلكتروني
+        </label>
+
+        <input
+          id="signupEmail"
+          type="email"
+          required
+          autocomplete="email"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          رقم الهاتف
+        </label>
+
+        <input
+          id="signupPhone"
+          type="tel"
+          autocomplete="tel"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          كلمة المرور
+        </label>
+
+        <input
+          id="signupPassword"
+          type="password"
+          minlength="6"
+          required
+          autocomplete="new-password"
+        >
+
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="primary"
+          type="submit"
+        >
+          إنشاء الحساب
+        </button>
+
+      </div>
+
+      <div
+        style="
+          text-align:center;
+          margin-top:18px;
+          color:var(--muted);
+          font-size:13px
+        "
+      >
+
+        عندك حساب؟
+
+        <button
+          type="button"
+          style="
+            border:0;
+            background:none;
+            color:var(--gold2);
+            font-weight:800
+          "
+          onclick="openAuth('login')"
+        >
+          تسجيل الدخول
+        </button>
+
+      </div>
+
+    </form>
+
+  `;
 
 }
 
+function openForgot(){
 
-function escapeAttr(value){
+  showModal(`
 
- return escapeHtml(value);
+    <div class="modal-head">
+
+      <div>
+        <h2>استعادة كلمة المرور</h2>
+
+        <p
+          style="
+            color:var(--muted);
+            font-size:12px;
+            margin-top:5px
+          "
+        >
+          سنرسل لك رابط الاستعادة
+        </p>
+      </div>
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <form
+      onsubmit="forgotPassword(event)"
+    >
+
+      <div class="field">
+
+        <label>
+          البريد الإلكتروني
+        </label>
+
+        <input
+          id="forgotEmail"
+          type="email"
+          required
+        >
+
+      </div>
+
+      <button
+        class="primary"
+        type="submit"
+      >
+        إرسال رابط الاستعادة
+      </button>
+
+    </form>
+
+  `);
 
 }
 
+async function login(event){
 
-/* =====================================================
-   TOAST
-===================================================== */
+  event.preventDefault();
 
-function toast(message,type="success"){
+  const identifier =
+    document
+      .getElementById("loginIdentifier")
+      .value
+      .trim();
 
- const root =
-  document.getElementById("toastRoot");
+  const password =
+    document
+      .getElementById("loginPassword")
+      .value;
 
- if(!root) return;
+  try{
 
- const el=
-  document.createElement("div");
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
 
- el.className=
-  `toast ${type}`;
+        email:identifier,
+        password
 
- el.innerHTML=`
+      });
 
-  <span>
-   ${type==="success" ? "✓" : "!"}
-  </span>
+    if(error){
+      throw error;
+    }
 
-  <span>
-   ${escapeHtml(message)}
-  </span>
+    currentUser =
+      data.user;
 
- `;
+    await loadProfile();
 
- root.appendChild(el);
+    closeModal();
 
- setTimeout(
-  ()=>{
-   el.remove();
-  },
-  3500
- );
+    updateHeader();
+
+    showPage("home");
+
+    alert("تم تسجيل الدخول بنجاح ✅");
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      error?.message ||
+      "تعذر تسجيل الدخول"
+    );
+
+  }
 
 }
 
+async function signup(event){
 
-/* =====================================================
-   START
-===================================================== */
+  event.preventDefault();
 
-document.addEventListener(
- "DOMContentLoaded",
- async ()=>{
+  const name =
+    document
+      .getElementById("signupName")
+      .value
+      .trim();
 
-  await initAuth();
+  const username =
+    document
+      .getElementById("signupUsername")
+      .value
+      .trim();
 
-  await loadHomeStats();
+  const email =
+    document
+      .getElementById("signupEmail")
+      .value
+      .trim();
 
- }
-);
+  const phone =
+    document
+      .getElementById("signupPhone")
+      .value
+      .trim();
 
+  const password =
+    document
+      .getElementById("signupPassword")
+      .value;
+
+  try{
+
+    const { data, error } =
+      await supabaseClient.auth.signUp({
+
+        email,
+        password,
+
+        options:{
+          data:{
+            full_name:name,
+            username,
+            phone
+          }
+        }
+
+      });
+
+    if(error){
+      throw error;
+    }
+
+    if(data.user){
+
+      await supabaseClient
+        .from("profiles")
+        .upsert({
+
+          id:data.user.id,
+          full_name:name,
+          username,
+          email,
+          phone
+
+        });
+
+    }
+
+    alert(
+      "تم إنشاء الحساب بنجاح ✅"
+    );
+
+    openAuth("login");
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      error?.message ||
+      "تعذر إنشاء الحساب"
+    );
+
+  }
+
+}
+
+async function forgotPassword(event){
+
+  event.preventDefault();
+
+  const email =
+    document
+      .getElementById("forgotEmail")
+      .value
+      .trim();
+
+  try{
+
+    const { error } =
+      await supabaseClient.auth
+        .resetPasswordForEmail(
+          email,
+          {
+            redirectTo:
+              window.location.origin +
+              window.location.pathname
+          }
+        );
+
+    if(error){
+      throw error;
+    }
+
+    alert(
+      "تم إرسال رابط الاستعادة إلى بريدك الإلكتروني 📩"
+    );
+
+    closeModal();
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      error?.message ||
+      "تعذر إرسال رابط الاستعادة"
+    );
+
+  }
+
+}
+
+/* ================================
+   PROFILE
+================================ */
+
+async function loadProfile(){
+
+  if(!currentUser){
+    return null;
+  }
+
+  try{
+
+    const { data, error } =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id",currentUser.id)
+        .maybeSingle();
+
+    if(error){
+      throw error;
+    }
+
+    currentProfile =
+      data || null;
+
+    return currentProfile;
+
+  }catch(error){
+
+    console.error(
+      "Profile error:",
+      error
+    );
+
+    return null;
+  }
+
+}
+
+async function openProfile(){
+
+  if(!currentUser){
+
+    openAuth("login");
+
+    return;
+  }
+
+  await loadProfile();
+
+  const profile =
+    document.getElementById(
+      "profileContent"
+    );
+
+  if(profile){
+
+    profile.innerHTML = `
+
+      <h3>
+        مرحباً
+        ${
+          currentProfile?.full_name ||
+          "بك"
+        } 👋
+      </h3>
+
+      <p
+        style="
+          margin-top:12px
+        "
+      >
+        البريد:
+        ${
+          currentProfile?.email ||
+          currentUser.email ||
+          "-"
+        }
+      </p>
+
+      <p
+        style="
+          margin-top:8px
+        "
+      >
+        اسم المستخدم:
+        ${
+          currentProfile?.username ||
+          "-"
+        }
+      </p>
+
+      <p
+        style="
+          margin-top:8px
+        "
+      >
+        النقاط:
+        ${
+          currentProfile?.points ??
+          0
+        }
+      </p>
+
+      <div
+        class="actions"
+        style="margin-top:20px"
+      >
+
+        <button
+          class="primary"
+          onclick="logout()"
+        >
+          تسجيل الخروج
+        </button>
+
+      </div>
+
+    `;
+
+  }
+
+  showPage("profile");
+
+}
+
+async function logout(){
+
+  try{
+
+    await supabaseClient.auth.signOut();
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
+  currentUser = null;
+  currentProfile = null;
+
+  updateHeader();
+
+  goHome();
+
+}
+
+/* ================================
+   HEADER STATE
+================================ */
+
+function updateHeader(){
+
+  const login =
+    document.getElementById(
+      "headerLogin"
+    );
+
+  const user =
+    document.getElementById(
+      "headerUser"
+    );
+
+  if(currentUser){
+
+    if(login){
+      login.classList.add("hidden");
+    }
+
+    if(user){
+      user.classList.remove("hidden");
+    }
+
+  }else{
+
+    if(login){
+      login.classList.remove("hidden");
+    }
+
+    if(user){
+      user.classList.add("hidden");
+    }
+
+  }
+
+}
+
+/* ================================
+   REPORT HELPERS
+================================ */
+
+function requireLogin(callback){
+
+  if(!currentUser){
+
+    openAuth("login");
+
+    return;
+  }
+
+  callback();
+
+}
+
+async function submitReport(){
+
+  if(!currentUser){
+
+    openAuth("login");
+
+    return;
+  }
+
+  const title =
+    document
+      .getElementById("reportTitle")
+      .value
+      .trim();
+
+  const type =
+    document
+      .getElementById("reportType")
+      .value;
+
+  const description =
+    document
+      .getElementById("reportDescription")
+      .value
+      .trim();
+
+  const photoInput =
+    document
+      .getElementById("reportPhoto");
+
+  if(!title || !type || !description){
+
+    alert(
+      "يرجى تعبئة البيانات المطلوبة"
+    );
+
+    return;
+  }
+
+  let latitude = null;
+  let longitude = null;
+
+  try{
+
+    if(
+      navigator.geolocation
+    ){
+
+      const position =
+        await new Promise(
+          (resolve,reject)=>{
+
+            navigator
+              .geolocation
+              .getCurrentPosition(
+                resolve,
+                reject,
+                {
+                  enableHighAccuracy:true,
+                  timeout:8000
+                }
+              );
+
+          }
+        );
+
+      latitude =
+        position.coords.latitude;
+
+      longitude =
+        position.coords.longitude;
+
+    }
+
+  }catch(error){
+
+    console.log(
+      "Location unavailable"
+    );
+
+  }
+
+  let photoUrl = null;
+  let hasPhoto = false;
+
+  try{
+
+    const file =
+      photoInput?.files?.[0];
+
+    if(file){
+
+      const extension =
+        file.name
+          .split(".")
+          .pop();
+
+      const path =
+        currentUser.id +
+        "/" +
+        Date.now() +
+        "." +
+        extension;
+
+      const upload =
+        await supabaseClient
+          .storage
+          .from("reports")
+          .upload(
+            path,
+            file,
+            {
+              upsert:false
+            }
+          );
+
+      if(upload.error){
+        throw upload.error;
+      }
+
+      const publicUrl =
+        supabaseClient
+          .storage
+          .from("reports")
+          .getPublicUrl(path);
+
+      photoUrl =
+        publicUrl.data.publicUrl;
+
+      hasPhoto = true;
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Photo upload error:",
+      error
+    );
+
+    alert(
+      "تم حفظ البلاغ بدون الصورة لأن رفع الصورة تعذر."
+    );
+
+  }
+
+  const score =
+    calculateScore(
+      type,
+      description
+    );
+
+  try{
+
+    const { error } =
+      await supabaseClient
+        .from("reports")
+        .insert([{
+
+          user_id:
+            currentUser.id,
+
+          title,
+
+          type,
+
+          description,
+
+          latitude,
+
+          longitude,
+
+          score,
+
+          matches:0,
+
+          status:"new",
+
+          has_photo:hasPhoto,
+
+          photo_url:photoUrl
+
+        }]);
+
+    if(error){
+      throw error;
+    }
+
+    alert(
+      "تم إرسال البلاغ بنجاح ✅"
+    );
+
+    document
+      .getElementById(
+        "reportTitle"
+      )
+      .value = "";
+
+    document
+      .getElementById(
+        "reportType"
+      )
+      .value = "";
+
+    document
+      .getElementById(
+        "reportDescription"
+      )
+      .value = "";
+
+    if(photoInput){
+      photoInput.value = "";
+    }
+
+    goHome();
+
+    loadStats();
+
+  }catch(error){
+
+    console.error(
+      "Report error:",
+      error
+    );
+
+    alert(
+      error?.message ||
+      "تعذر إرسال البلاغ"
+    );
+
+  }
+
+}
+
+function calculateScore(
+  type,
+  description
+){
+
+  let score = 40;
+
+  if(type === "safety"){
+    score += 25;
+  }
+
+  if(type === "road"){
+    score += 15;
+  }
+
+  if(type === "lighting"){
+    score += 10;
+  }
+
+  if(type === "accessibility"){
+    score += 15;
+  }
+
+  if(
+    description.length > 120
+  ){
+    score += 10;
+  }
+
+  return Math.min(
+    100,
+    Math.max(
+      1,
+      score
+    )
+  );
+
+}
+
+/* ================================
+   SUPPORT
+================================ */
+
+async function sendSupport(){
+
+  if(!currentUser){
+
+    openAuth("login");
+
+    return;
+  }
+
+  const title =
+    document
+      .getElementById(
+        "supportTitle"
+      )
+      .value
+      .trim();
+
+  const message =
+    document
+      .getElementById(
+        "supportMessage"
+      )
+      .value
+      .trim();
+
+  if(!title || !message){
+
+    alert(
+      "يرجى تعبئة البيانات"
+    );
+
+    return;
+  }
+
+  try{
+
+    const { error } =
+      await supabaseClient
+        .from("support_messages")
+        .insert([{
+
+          user_id:
+            currentUser.id,
+
+          title,
+
+          message
+
+        }]);
+
+    if(error){
+      throw error;
+    }
+
+    alert(
+      "تم إرسال رسالتك ✅"
+    );
+
+    document
+      .getElementById(
+        "supportTitle"
+      )
+      .value = "";
+
+    document
+      .getElementById(
+        "supportMessage"
+      )
+      .value = "";
+
+  }catch(error){
+
+    console.error(error);
+
+    alert(
+      error?.message ||
+      "تعذر إرسال الرسالة"
+    );
+
+  }
+
+}
+
+/* ================================
+   STATS
+================================ */
+
+async function loadStats(){
+
+  try{
+
+    const reports =
+      await supabaseClient
+        .from("reports")
+        .select(
+          "id,status,score",
+          {
+            count:"exact"
+          }
+        );
+
+    if(
+      reports.error
+    ){
+      throw reports.error;
+    }
+
+    const rows =
+      reports.data || [];
+
+    const total =
+      rows.length;
+
+    const resolved =
+      rows.filter(
+        row =>
+          row.status ===
+          "resolved"
+      ).length;
+
+    const scores =
+      rows
+        .map(row => Number(row.score))
+        .filter(
+          score =>
+            Number.isFinite(score)
+        );
+
+    const average =
+      scores.length
+        ? Math.round(
+            scores.reduce(
+              (a,b)=>a+b,
+              0
+            ) /
+            scores.length
+          )
+        : 0;
+
+    const reportStat =
+      document.getElementById(
+        "statReports"
+      );
+
+    const resolvedStat =
+      document.getElementById(
+        "statResolved"
+      );
+
+    const scoreStat =
+      document.getElementById(
+        "statScore"
+      );
+
+    if(reportStat){
+      reportStat.textContent =
+        total;
+    }
+
+    if(resolvedStat){
+      resolvedStat.textContent =
+        resolved;
+    }
+
+    if(scoreStat){
+      scoreStat.textContent =
+        average;
+    }
+
+  }catch(error){
+
+    console.error(
+      "Stats error:",
+      error
+    );
+
+  }
+
+  try{
+
+    const users =
+      await supabaseClient
+        .from("profiles")
+        .select(
+          "id",
+          {
+            count:"exact",
+            head:true
+          }
+        );
+
+    const userStat =
+      document.getElementById(
+        "statUsers"
+      );
+
+    if(userStat){
+
+      userStat.textContent =
+        users.count || 0;
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Users stats error:",
+      error
+    );
+
+  }
+
+}
+
+/* ================================
+   SESSION
+================================ */
+
+async function init(){
+
+  try{
+
+    const {
+      data
+    } =
+      await supabaseClient
+        .auth
+        .getSession();
+
+    currentUser =
+      data?.session?.user ||
+      null;
+
+    if(currentUser){
+
+      await loadProfile();
+
+    }
+
+    updateHeader();
+
+    loadStats();
+
+  }catch(error){
+
+    console.error(
+      "Init error:",
+      error
+    );
+
+  }
+
+}
+
+supabaseClient
+  .auth
+  .onAuthStateChange(
+    async (
+      event,
+      session
+    )=>{
+
+      currentUser =
+        session?.user ||
+        null;
+
+      if(currentUser){
+
+        await loadProfile();
+
+      }else{
+
+        currentProfile =
+          null;
+
+      }
+
+      updateHeader();
+
+    }
+  );
+
+init();
 </script>
-<!-- ================================
-     END OF AWN WEBSITE
-================================ -->
-
-<script>
-/* تأكيد جاهزية الموقع */
-console.log("عون | AWN — جاهز للعمل");
-</script>
-
 </body>
 </html>

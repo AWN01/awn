@@ -1,1 +1,20 @@
-
+{
+  "name": "عون | AWN",
+  "short_name": "عون",
+  "description": "معاً.. لمجتمع أكثر أماناً",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#06141b",
+  "theme_color": "#06141b",
+  "orientation": "portrait",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "./awn-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

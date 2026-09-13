@@ -7,336 +7,3837 @@
 <meta name="description" content="عون — منصة ذكية لخدمة المجتمع">
 <link rel="manifest" href="manifest.json">
 <title>عون | معاً.. لمجتمع أكثر أماناً</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#080b0a;--panel:#101513;--panel2:#151b18;--border:rgba(255,255,255,.09);--gold:#2f80ed;--gold2:#6db6ff;--green:#4fa8ff;--red:#ff5f61;--orange:#ff9f43;--blue:#4fa8ff;--text:#f4f5f4;--muted:#9da5a1;--shadow:0 20px 60px rgba(0,0,0,.35)}
-html,body{min-height:100%;background:radial-gradient(circle at 20% 0%,rgba(79,168,255,.08),transparent 28%),radial-gradient(circle at 100% 20%,rgba(79,168,255,.07),transparent 30%),var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif}
-body{overflow-x:hidden}
-button,input,textarea,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-header{position:sticky;top:0;z-index:1000;height:76px;background:rgba(8,11,10,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav{height:100%;max-width:1250px;margin:auto;padding:0 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.logo{display:flex;align-items:center;gap:11px;cursor:pointer}.logo-mark{width:48px;height:48px;border-radius:13px;background:transparent;display:grid;place-items:center;overflow:hidden;flex-shrink:0}.logo-mark img{width:100%;height:100%;object-fit:contain;display:block}
-.logo-text strong{display:block;font-size:20px;letter-spacing:.5px}.logo-text small{color:var(--muted);font-size:10px}
-.nav-actions{display:flex;align-items:center;gap:8px}.icon-btn{width:44px;height:44px;border-radius:13px;border:1px solid var(--border);background:rgba(255,255,255,.035);color:white;display:grid;place-items:center;font-size:20px}
-.primary{border:0;color:#10100d;font-weight:800;background:linear-gradient(135deg,var(--gold2),var(--gold));padding:13px 19px;border-radius:13px;box-shadow:0 10px 25px rgba(79,168,255,.12)}.secondary{border:1px solid var(--border);color:white;background:rgba(255,255,255,.04);padding:12px 17px;border-radius:13px}
-.menu{position:fixed;top:84px;right:12px;width:min(330px,calc(100vw - 24px));max-height:calc(100vh - 98px);overflow:auto;z-index:2000;background:rgba(15,20,18,.98);border:1px solid rgba(255,255,255,.11);border-radius:22px;padding:12px;box-shadow:var(--shadow)}
-.menu-item{width:100%;border:0;background:transparent;color:white;text-align:right;padding:15px;border-radius:13px;display:flex;align-items:center;gap:12px}.menu-item:hover{background:rgba(255,255,255,.06)}.menu-item span:first-child{width:35px;text-align:center;font-size:20px}.menu-sep{height:1px;background:var(--border);margin:8px 0}
-.hero{max-width:1250px;margin:auto;padding:55px 18px 25px}.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:22px}
-.hero-main{min-height:430px;padding:45px;border-radius:30px;border:1px solid var(--border);background:linear-gradient(135deg,rgba(79,168,255,.11),transparent 45%),linear-gradient(160deg,#121815,#0d1110);position:relative;overflow:hidden}
-.hero-logo{display:flex;justify-content:center;align-items:center;margin:0 auto 18px;position:relative;z-index:2}.hero-logo img{width:118px;height:118px;object-fit:contain;display:block}
-.hero-main:after{content:"";position:absolute;width:300px;height:300px;border-radius:50%;border:1px solid rgba(79,168,255,.12);left:-120px;bottom:-150px;box-shadow:0 0 0 50px rgba(79,168,255,.025),0 0 0 100px rgba(79,168,255,.018)}
-.badge{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(79,168,255,.25);color:var(--gold2);background:rgba(79,168,255,.07);border-radius:100px;padding:8px 13px;font-size:12px;margin-bottom:22px}
-.hero h1{font-size:clamp(42px,7vw,76px);line-height:.95;margin-bottom:20px;letter-spacing:-3px}.hero h1 em{color:var(--gold2);font-style:normal}.hero p{max-width:620px;color:#bac0bd;font-size:17px;line-height:1.9;margin-bottom:28px}.hero-buttons{display:flex;flex-wrap:wrap;gap:10px}
-.hero-side{display:grid;gap:14px}.mini-card{border:1px solid var(--border);background:linear-gradient(145deg,#131917,#0e1210);border-radius:24px;padding:24px;min-height:130px}.mini-card .num{font-size:35px;font-weight:900;color:var(--gold2);margin-top:10px}.mini-card small{color:var(--muted)}
-.container{max-width:1250px;margin:auto;padding:25px 18px 70px}.section{margin-top:28px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:16px}.section-head h2{font-size:26px}.section-head p{color:var(--muted);margin-top:4px;font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:linear-gradient(145deg,#121816,#0d1110);border:1px solid var(--border);border-radius:22px;padding:22px}.feature{min-height:170px;transition:.2s}.feature:hover{transform:translateY(-3px);border-color:rgba(79,168,255,.22)}.feature-icon{width:52px;height:52px;display:grid;place-items:center;border-radius:15px;background:rgba(79,168,255,.09);font-size:25px;margin-bottom:17px}.feature h3{margin-bottom:8px}.feature p{color:var(--muted);font-size:13px;line-height:1.7}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{padding:20px;border:1px solid var(--border);border-radius:20px;background:rgba(255,255,255,.025)}.stat .value{font-size:32px;font-weight:900;margin-top:8px}.stat .label{color:var(--muted);font-size:12px}
-.form{max-width:700px;margin:auto}.field{margin-bottom:15px}.field label{display:block;font-size:13px;color:#cfd4d1;margin-bottom:7px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--border);background:#0b0f0d;color:white;border-radius:14px;padding:14px;outline:none}.field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(79,168,255,.5)}.field textarea{min-height:125px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.score-box{padding:25px;border-radius:23px;background:linear-gradient(145deg,#171b18,#0e1210);border:1px solid var(--border);text-align:center;margin:18px 0}.score-circle{width:140px;height:140px;margin:10px auto 15px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold2) var(--score,70%),rgba(255,255,255,.08) 0);position:relative}.score-circle:before{content:"";position:absolute;width:112px;height:112px;border-radius:50%;background:#0d1110}.score-number{position:relative;font-size:38px;font-weight:900}.score-label{color:var(--muted)}
-.report-list{display:grid;gap:12px}.report{border:1px solid var(--border);background:linear-gradient(145deg,#131816,#0d1110);border-radius:21px;padding:18px}.report-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.report-title{font-weight:800;font-size:17px}.report-type{color:var(--gold2);font-size:12px;margin-top:4px}.status{padding:7px 10px;border-radius:100px;background:rgba(79,168,255,.1);color:#7dc2ff;font-size:11px;white-space:nowrap}.status.done{background:rgba(79,168,255,.1);color:#68dda8}.status.critical{background:rgba(255,95,97,.1);color:#ff797b}.report-desc{color:var(--muted);font-size:13px;line-height:1.7;margin:13px 0}.report-meta{display:flex;flex-wrap:wrap;gap:7px}.meta{border:1px solid var(--border);padding:7px 10px;border-radius:10px;font-size:11px;color:#bbc1be}.score-pill{font-weight:900;padding:7px 10px;border-radius:10px}.score-high{color:#ff7779;background:rgba(255,95,97,.09)}.score-med{color:#ffb45f;background:rgba(255,159,67,.09)}.score-low{color:#68dda8;background:rgba(79,168,255,.09)}
-.map{width:100%;height:470px;border-radius:22px;overflow:hidden;border:1px solid var(--border);background:#101513}.map-tools{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.filter{border:1px solid var(--border);background:rgba(255,255,255,.04);color:white;padding:9px 12px;border-radius:11px;font-size:12px}.filter.active{background:rgba(79,168,255,.13);color:var(--gold2);border-color:rgba(79,168,255,.3)}
-.timeline{position:relative;padding-right:25px}.timeline:before{content:"";position:absolute;right:8px;top:5px;bottom:5px;width:2px;background:rgba(79,168,255,.15)}.timeline-item{position:relative;padding:0 0 22px 0}.timeline-dot{position:absolute;right:-22px;top:2px;width:14px;height:14px;border-radius:50%;background:var(--gold2);box-shadow:0 0 0 5px rgba(79,168,255,.08)}
-.empty{text-align:center;padding:45px 20px;color:var(--muted);border:1px dashed var(--border);border-radius:20px}.e-icon{font-size:40px;margin-bottom:10px}
-.modal-back{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);z-index:5000;display:flex;align-items:center;justify-content:center;padding:18px}.modal{width:min(520px,100%);max-height:90vh;overflow:auto;background:#101513;border:1px solid var(--border);border-radius:25px;padding:25px;box-shadow:var(--shadow)}
-.modal-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px}.modal-close{width:38px;height:38px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:white;border-radius:11px}
-.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%);z-index:7000;background:#151b18;border:1px solid var(--border);border-radius:15px;padding:13px 17px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);min-width:220px;justify-content:center}.toast.success{border-color:rgba(79,168,255,.25)}.toast.error{border-color:rgba(255,95,97,.3)}
-.dashboard{display:grid;grid-template-columns:230px 1fr;gap:18px}.sidebar{border:1px solid var(--border);background:#101513;border-radius:22px;padding:12px;height:max-content;position:sticky;top:95px}.side-item{width:100%;padding:13px;border:0;background:transparent;color:white;text-align:right;border-radius:12px;margin-bottom:5px}.side-item.active,.side-item:hover{background:rgba(79,168,255,.1);color:var(--gold2)}.admin-content{min-width:0}.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:20px}table{width:100%;border-collapse:collapse;min-width:700px}th,td{padding:13px;text-align:right;border-bottom:1px solid var(--border);font-size:12px}th{color:var(--gold2);background:rgba(255,255,255,.025)}td{color:#d4d8d6}
-.desktop-login{display:block}
-@media(max-width:850px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.dashboard{grid-template-columns:1fr}.sidebar{position:static}.hero-main{padding:30px 22px}.hero-logo img{width:100px;height:100px}}
-@media(max-width:560px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}.logo-text small{display:none}.desktop-login{display:none}.hero{padding-top:25px}.hero h1{font-size:48px}.hero p{font-size:15px}.stats{grid-template-columns:1fr 1fr}.mini-card{min-height:110px;padding:18px}}
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
+
+:root{
+ --bg:#080b0a;
+ --panel:#101513;
+ --panel2:#151b18;
+ --border:rgba(255,255,255,.09);
+ --gold:#c9a24e;
+ --gold2:#e6c86a;
+ --green:#4fae78;
+ --red:#ff5f61;
+ --orange:#ff9f43;
+ --blue:#4fae78;
+ --text:#f4f5f4;
+ --muted:#9da5a1;
+ --shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+html,body{
+ min-height:100%;
+ background:
+ radial-gradient(circle at 20% 0%,rgba(201,162,78,.08),transparent 28%),
+ radial-gradient(circle at 100% 20%,rgba(201,162,78,.07),transparent 30%),
+ var(--bg);
+ color:var(--text);
+ font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
+}
+
+body{
+ overflow-x:hidden;
+}
+
+button,input,textarea,select{
+ font:inherit;
+}
+
+button{
+ cursor:pointer;
+}
+
+.hidden{
+ display:none!important;
+}
+
+/* HEADER */
+
+header{
+ position:sticky;
+ top:0;
+ z-index:1000;
+ height:76px;
+ background:rgba(8,11,10,.88);
+ backdrop-filter:blur(20px);
+ border-bottom:1px solid var(--border);
+}
+
+.nav{
+ height:100%;
+ max-width:1250px;
+ margin:auto;
+ padding:0 18px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:15px;
+}
+
+.logo{
+ display:flex;
+ align-items:center;
+ gap:11px;
+ cursor:pointer;
+}
+
+.logo-mark{
+ width:48px;
+ height:48px;
+ border-radius:13px;
+ background:transparent;
+ display:grid;
+ place-items:center;
+ overflow:hidden;
+ flex-shrink:0;
+}
+
+.logo-mark img{
+ width:100%;
+ height:100%;
+ object-fit:contain;
+ display:block;
+}
+
+.logo-text strong{
+ display:block;
+ font-size:20px;
+ letter-spacing:.5px;
+}
+
+.logo-text small{
+ color:var(--muted);
+ font-size:10px;
+}
+
+.nav-actions{
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+
+.icon-btn{
+ width:44px;
+ height:44px;
+ border-radius:13px;
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.035);
+ color:white;
+ display:grid;
+ place-items:center;
+ font-size:20px;
+}
+
+.primary{
+ border:0;
+ color:#10100d;
+ font-weight:800;
+ background:linear-gradient(135deg,var(--gold2),var(--gold));
+ padding:13px 19px;
+ border-radius:13px;
+ box-shadow:0 10px 25px rgba(201,162,78,.12);
+}
+
+.secondary{
+ border:1px solid var(--border);
+ color:white;
+ background:rgba(255,255,255,.04);
+ padding:12px 17px;
+ border-radius:13px;
+}
+
+.menu{
+ position:fixed;
+ top:84px;
+ right:12px;
+ width:min(330px,calc(100vw - 24px));
+ max-height:calc(100vh - 98px);
+ overflow:auto;
+ z-index:2000;
+ background:rgba(15,20,18,.98);
+ border:1px solid rgba(255,255,255,.11);
+ border-radius:22px;
+ padding:12px;
+ box-shadow:var(--shadow);
+}
+
+.menu-item{
+ width:100%;
+ border:0;
+ background:transparent;
+ color:white;
+ text-align:right;
+ padding:15px;
+ border-radius:13px;
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+
+.menu-item:hover{
+ background:rgba(255,255,255,.06);
+}
+
+.menu-item span:first-child{
+ width:35px;
+ text-align:center;
+ font-size:20px;
+}
+
+.menu-sep{
+ height:1px;
+ background:var(--border);
+ margin:8px 0;
+}
+
+/* HERO */
+
+.hero{
+ max-width:1250px;
+ margin:auto;
+ padding:55px 18px 25px;
+}
+
+.hero-grid{
+ display:grid;
+ grid-template-columns:1.35fr .65fr;
+ gap:22px;
+}
+
+.hero-main{
+ min-height:430px;
+ padding:45px;
+ border-radius:30px;
+ border:1px solid var(--border);
+ background:
+ linear-gradient(135deg,rgba(201,162,78,.11),transparent 45%),
+ linear-gradient(160deg,#121815,#0d1110);
+ position:relative;
+ overflow:hidden;
+}
+
+.hero-logo{
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ margin:0 auto 18px;
+ position:relative;
+ z-index:2;
+}
+
+.hero-logo img{
+ width:118px;
+ height:118px;
+ object-fit:contain;
+ display:block;
+}
+
+.hero-main:after{
+ content:"";
+ position:absolute;
+ width:300px;
+ height:300px;
+ border-radius:50%;
+ border:1px solid rgba(201,162,78,.12);
+ left:-120px;
+ bottom:-150px;
+ box-shadow:0 0 0 50px rgba(201,162,78,.025),
+ 0 0 0 100px rgba(201,162,78,.018);
+}
+
+.badge{
+ display:inline-flex;
+ align-items:center;
+ gap:7px;
+ border:1px solid rgba(201,162,78,.25);
+ color:var(--gold2);
+ background:rgba(201,162,78,.07);
+ border-radius:100px;
+ padding:8px 13px;
+ font-size:12px;
+ margin-bottom:22px;
+}
+
+.hero h1{
+ font-size:clamp(42px,7vw,76px);
+ line-height:.95;
+ margin-bottom:20px;
+ letter-spacing:-3px;
+}
+
+.hero h1 em{
+ color:var(--gold2);
+ font-style:normal;
+}
+
+.hero p{
+ max-width:620px;
+ color:#bac0bd;
+ font-size:17px;
+ line-height:1.9;
+ margin-bottom:28px;
+}
+
+.hero-buttons{
+ display:flex;
+ flex-wrap:wrap;
+ gap:10px;
+}
+
+.hero-side{
+ display:grid;
+ gap:14px;
+}
+
+.mini-card{
+ border:1px solid var(--border);
+ background:linear-gradient(145deg,#131917,#0e1210);
+ border-radius:24px;
+ padding:24px;
+ min-height:130px;
+}
+
+.mini-card .num{
+ font-size:35px;
+ font-weight:900;
+ color:var(--gold2);
+ margin-top:10px;
+}
+
+.mini-card small{
+ color:var(--muted);
+}
+
+/* SECTIONS */
+
+.container{
+ max-width:1250px;
+ margin:auto;
+ padding:25px 18px 70px;
+}
+
+.section{
+ margin-top:28px;
+}
+
+.section-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:end;
+ gap:15px;
+ margin-bottom:16px;
+}
+
+.section-head h2{
+ font-size:26px;
+}
+
+.section-head p{
+ color:var(--muted);
+ margin-top:4px;
+ font-size:13px;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:14px;
+}
+
+.card{
+ background:linear-gradient(145deg,#121816,#0d1110);
+ border:1px solid var(--border);
+ border-radius:22px;
+ padding:22px;
+}
+
+.feature{
+ min-height:170px;
+ transition:.2s;
+}
+
+.feature:hover{
+ transform:translateY(-3px);
+ border-color:rgba(201,162,78,.22);
+}
+
+.feature-icon{
+ width:52px;
+ height:52px;
+ display:grid;
+ place-items:center;
+ border-radius:15px;
+ background:rgba(201,162,78,.09);
+ font-size:25px;
+ margin-bottom:17px;
+}
+
+.feature h3{
+ margin-bottom:8px;
+}
+
+.feature p{
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.7;
+}
+
+/* STATS */
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:12px;
+}
+
+.stat{
+ padding:20px;
+ border:1px solid var(--border);
+ border-radius:20px;
+ background:rgba(255,255,255,.025);
+}
+
+.stat .value{
+ font-size:32px;
+ font-weight:900;
+ margin-top:8px;
+}
+
+.stat .label{
+ color:var(--muted);
+ font-size:12px;
+}
+
+/* FORMS */
+
+.form{
+ max-width:700px;
+ margin:auto;
+}
+
+.field{
+ margin-bottom:15px;
+}
+
+.field label{
+ display:block;
+ font-size:13px;
+ color:#cfd4d1;
+ margin-bottom:7px;
+}
+
+.field input,
+.field textarea,
+.field select{
+ width:100%;
+ border:1px solid var(--border);
+ background:#0b0f0d;
+ color:white;
+ border-radius:14px;
+ padding:14px;
+ outline:none;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+ border-color:rgba(201,162,78,.5);
+}
+
+.field textarea{
+ min-height:125px;
+ resize:vertical;
+}
+
+.row{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+
+.actions{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-top:10px;
+}
+
+/* SCORE */
+
+.score-box{
+ padding:25px;
+ border-radius:23px;
+ background:linear-gradient(145deg,#171b18,#0e1210);
+ border:1px solid var(--border);
+ text-align:center;
+ margin:18px 0;
+}
+
+.score-circle{
+ width:140px;
+ height:140px;
+ margin:10px auto 15px;
+ border-radius:50%;
+ display:grid;
+ place-items:center;
+ background:
+ conic-gradient(var(--gold2) var(--score,70%),rgba(255,255,255,.08) 0);
+ position:relative;
+}
+
+.score-circle:before{
+ content:"";
+ position:absolute;
+ width:112px;
+ height:112px;
+ border-radius:50%;
+ background:#0d1110;
+}
+
+.score-number{
+ position:relative;
+ font-size:38px;
+ font-weight:900;
+}
+
+.score-label{
+ color:var(--muted);
+}
+
+/* REPORT CARDS */
+
+.report-list{
+ display:grid;
+ gap:12px;
+}
+
+.report{
+ border:1px solid var(--border);
+ background:linear-gradient(145deg,#131816,#0d1110);
+ border-radius:21px;
+ padding:18px;
+}
+
+.report-top{
+ display:flex;
+ align-items:flex-start;
+ justify-content:space-between;
+ gap:10px;
+}
+
+.report-title{
+ font-weight:800;
+ font-size:17px;
+}
+
+.report-type{
+ color:var(--gold2);
+ font-size:12px;
+ margin-top:4px;
+}
+
+.status{
+ padding:7px 10px;
+ border-radius:100px;
+ background:rgba(201,162,78,.1);
+ color:#e6c86a;
+ font-size:11px;
+ white-space:nowrap;
+}
+
+.status.done{
+ background:rgba(201,162,78,.1);
+ color:#6fd3a0;
+}
+
+.status.critical{
+ background:rgba(255,95,97,.1);
+ color:#ff797b;
+}
+
+.report-desc{
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.7;
+ margin:13px 0;
+}
+
+.report-meta{
+ display:flex;
+ flex-wrap:wrap;
+ gap:7px;
+}
+
+.meta{
+ border:1px solid var(--border);
+ padding:7px 10px;
+ border-radius:10px;
+ font-size:11px;
+ color:#bbc1be;
+}
+
+.score-pill{
+ font-weight:900;
+ padding:7px 10px;
+ border-radius:10px;
+}
+
+.score-high{
+ color:#ff7779;
+ background:rgba(255,95,97,.09);
+}
+
+.score-med{
+ color:#e6b35b;
+ background:rgba(255,159,67,.09);
+}
+
+.score-low{
+ color:#6fd3a0;
+ background:rgba(201,162,78,.09);
+}
+
+/* MAP */
+
+.map{
+ width:100%;
+ height:470px;
+ border-radius:22px;
+ overflow:hidden;
+ border:1px solid var(--border);
+ background:#101513;
+}
+
+.map-tools{
+ display:flex;
+ gap:7px;
+ flex-wrap:wrap;
+ margin-bottom:12px;
+}
+
+.filter{
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.04);
+ color:white;
+ padding:9px 12px;
+ border-radius:11px;
+ font-size:12px;
+}
+
+.filter.active{
+ background:rgba(201,162,78,.13);
+ color:var(--gold2);
+ border-color:rgba(201,162,78,.3);
+}
+
+/* TIMELINE */
+
+.timeline{
+ position:relative;
+ padding-right:25px;
+}
+
+.timeline:before{
+ content:"";
+ position:absolute;
+ right:8px;
+ top:5px;
+ bottom:5px;
+ width:2px;
+ background:rgba(201,162,78,.15);
+}
+
+.timeline-item{
+ position:relative;
+ padding:0 0 22px 0;
+}
+
+.timeline-dot{
+ position:absolute;
+ right:-22px;
+ top:2px;
+ width:14px;
+ height:14px;
+ border-radius:50%;
+ background:var(--gold2);
+ box-shadow:0 0 0 5px rgba(201,162,78,.08);
+}
+
+/* EMPTY */
+
+.empty{
+ text-align:center;
+ padding:45px 20px;
+ color:var(--muted);
+ border:1px dashed var(--border);
+ border-radius:20px;
+}
+
+.e-icon{
+ font-size:40px;
+ margin-bottom:10px;
+}
+
+/* MODAL */
+
+.modal-back{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.7);
+ backdrop-filter:blur(8px);
+ z-index:5000;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:18px;
+}
+
+.modal{
+ width:min(520px,100%);
+ max-height:90vh;
+ overflow:auto;
+ background:#101513;
+ border:1px solid var(--border);
+ border-radius:25px;
+ padding:25px;
+ box-shadow:var(--shadow);
+}
+
+.modal-head{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+ margin-bottom:18px;
+}
+
+.modal-close{
+ width:38px;
+ height:38px;
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.04);
+ color:white;
+ border-radius:11px;
+}
+
+/* TOAST */
+
+.toast{
+ position:fixed;
+ left:50%;
+ bottom:25px;
+ transform:translateX(-50%);
+ z-index:7000;
+ background:#151b18;
+ border:1px solid var(--border);
+ border-radius:15px;
+ padding:13px 17px;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ box-shadow:var(--shadow);
+ min-width:220px;
+ justify-content:center;
+}
+
+.toast.success{
+ border-color:rgba(201,162,78,.25);
+}
+
+.toast.error{
+ border-color:rgba(255,95,97,.3);
+}
+
+/* ADMIN */
+
+.dashboard{
+ display:grid;
+ grid-template-columns:230px 1fr;
+ gap:18px;
+}
+
+.sidebar{
+ border:1px solid var(--border);
+ background:#101513;
+ border-radius:22px;
+ padding:12px;
+ height:max-content;
+ position:sticky;
+ top:95px;
+}
+
+.side-item{
+ width:100%;
+ padding:13px;
+ border:0;
+ background:transparent;
+ color:white;
+ text-align:right;
+ border-radius:12px;
+ margin-bottom:5px;
+}
+
+.side-item.active,
+.side-item:hover{
+ background:rgba(201,162,78,.1);
+ color:var(--gold2);
+}
+
+.admin-content{
+ min-width:0;
+}
+
+.table-wrap{
+ overflow:auto;
+ border:1px solid var(--border);
+ border-radius:20px;
+}
+
+table{
+ width:100%;
+ border-collapse:collapse;
+ min-width:700px;
+}
+
+th,td{
+ padding:13px;
+ text-align:right;
+ border-bottom:1px solid var(--border);
+ font-size:12px;
+}
+
+th{
+ color:var(--gold2);
+ background:rgba(255,255,255,.025);
+}
+
+td{
+ color:#d4d8d6;
+}
+
+.desktop-login{
+ display:block;
+}
+
+@media(max-width:850px){
+
+ .hero-grid{
+  grid-template-columns:1fr;
+ }
+
+ .grid{
+  grid-template-columns:1fr 1fr;
+ }
+
+ .stats{
+  grid-template-columns:1fr 1fr;
+ }
+
+ .dashboard{
+  grid-template-columns:1fr;
+ }
+
+ .sidebar{
+  position:static;
+ }
+
+ .hero-main{
+  padding:30px 22px;
+ }
+
+ .hero-logo img{
+  width:100px;
+  height:100px;
+ }
+
+}
+
+@media(max-width:560px){
+
+ .grid{
+  grid-template-columns:1fr;
+ }
+
+ .row{
+  grid-template-columns:1fr;
+ }
+
+ .logo-text small{
+  display:none;
+ }
+
+ .desktop-login{
+  display:none;
+ }
+
+ .hero{
+  padding-top:25px;
+ }
+
+ .hero h1{
+  font-size:48px;
+ }
+
+ .hero p{
+  font-size:15px;
+ }
+
+ .stats{
+  grid-template-columns:1fr 1fr;
+ }
+
+ .mini-card{
+  min-height:110px;
+  padding:18px;
+ }
+
+}
 </style>
 </head>
+
 <body>
+
 <header>
 <div class="nav">
+
 <div class="logo" onclick="goHome()">
-<div class="logo-mark"><img src="./awn-logo.png" alt="عون"></div>
-<div class="logo-text"><strong>عون</strong><small>معاً.. لمجتمع أكثر أماناً</small></div>
+
+<div class="logo-mark">
+<img src="./awn-logo.png" alt="عون">
 </div>
+
+<div class="logo-text">
+<strong>عون</strong>
+<small>معاً.. لمجتمع أكثر أماناً</small>
+</div>
+
+</div>
+
 <div class="nav-actions">
-<button id="headerLogin" class="primary desktop-login" onclick="openAuth('login')">تسجيل الدخول</button>
-<button id="headerUser" class="icon-btn hidden" onclick="openProfile()">👤</button>
-<button class="icon-btn" onclick="toggleMenu()">☰</button>
+
+<button id="headerLogin"
+class="primary desktop-login"
+onclick="openAuth('login')">
+تسجيل الدخول
+</button>
+
+<button id="headerUser"
+class="icon-btn hidden"
+onclick="openProfile()">
+👤
+</button>
+
+<button class="icon-btn"
+onclick="toggleMenu()">
+☰
+</button>
+
 </div>
+
 </div>
 </header>
+
 <div id="menu" class="menu hidden">
-<button class="menu-item" onclick="goHome();toggleMenu()"><span>🏠</span><span>الرئيسية</span></button>
-<button class="menu-item" onclick="requireLogin(openReport);toggleMenu()"><span>📢</span><span>رفع بلاغ</span></button>
-<button class="menu-item" onclick="showPage('map');toggleMenu()"><span>🗺️</span><span>خريطة عون</span></button>
-<button class="menu-item" onclick="showPage('assistant');toggleMenu()"><span>🤖</span><span>مساعد عون</span></button>
-<button class="menu-item" onclick="showPage('pulse');toggleMenu()"><span>📊</span><span>نبض المجتمع</span></button>
+
+<button class="menu-item"
+onclick="goHome();toggleMenu()">
+<span>🏠</span>
+<span>الرئيسية</span>
+</button>
+
+<button class="menu-item"
+onclick="requireLogin(openReport);toggleMenu()">
+<span>📢</span>
+<span>رفع بلاغ</span>
+</button>
+
+<button class="menu-item"
+onclick="showPage('map');toggleMenu()">
+<span>🗺️</span>
+<span>خريطة عون</span>
+</button>
+
+<button class="menu-item"
+onclick="showPage('assistant');toggleMenu()">
+<span>🤖</span>
+<span>مساعد عون</span>
+</button>
+
+<button class="menu-item"
+onclick="showPage('pulse');toggleMenu()">
+<span>📊</span>
+<span>نبض المجتمع</span>
+</button>
+
 <div class="menu-sep"></div>
-<button class="menu-item" onclick="requireLogin(()=>showPage('myreports'));toggleMenu()"><span>📋</span><span>بلاغاتي</span></button>
-<button class="menu-item" onclick="requireLogin(()=>showPage('achievements'));toggleMenu()"><span>🏆</span><span>نقاطي وإنجازاتي</span></button>
-<button class="menu-item" onclick="requireLogin(openNotifications);toggleMenu()"><span>🔔</span><span>الإشعارات</span></button>
-<button class="menu-item" onclick="openSupport();toggleMenu()"><span>💬</span><span>الدعم والمساعدة</span></button>
-<button class="menu-item" onclick="openSuggestion();toggleMenu()"><span>💡</span><span>اقتراح فكرة</span></button>
+
+<button class="menu-item"
+onclick="requireLogin(()=>showPage('myreports'));toggleMenu()">
+<span>📋</span>
+<span>بلاغاتي</span>
+</button>
+
+<button class="menu-item"
+onclick="requireLogin(()=>showPage('achievements'));toggleMenu()">
+<span>🏆</span>
+<span>نقاطي وإنجازاتي</span>
+</button>
+
+<button class="menu-item"
+onclick="requireLogin(openNotifications);toggleMenu()">
+<span>🔔</span>
+<span>الإشعارات</span>
+</button>
+
+<button class="menu-item"
+onclick="openSupport();toggleMenu()">
+<span>💬</span>
+<span>الدعم والمساعدة</span>
+</button>
+
+<button class="menu-item"
+onclick="openSuggestion();toggleMenu()">
+<span>💡</span>
+<span>اقتراح فكرة</span>
+</button>
+
 <div class="menu-sep"></div>
-<button id="adminMenu" class="menu-item hidden" onclick="showPage('admin');toggleMenu()"><span>👑</span><span>لوحة تحكم الإدارة</span></button>
-<button id="logoutMenu" class="menu-item hidden" onclick="logout();toggleMenu()"><span>↪️</span><span>تسجيل الخروج</span></button>
+
+<button id="adminMenu"
+class="menu-item hidden"
+onclick="showPage('admin');toggleMenu()">
+<span>👑</span>
+<span>لوحة تحكم الإدارة</span>
+</button>
+
+<button id="logoutMenu"
+class="menu-item hidden"
+onclick="logout();toggleMenu()">
+<span>↪️</span>
+<span>تسجيل الخروج</span>
+</button>
+
 </div>
+
 <div id="app"></div>
 <div id="modalRoot"></div>
 <div id="toastRoot"></div>
+
 <script>
-const SUPABASE_URL="https://ftamcnweyimjefjajhcp.supabase.co";
-const SUPABASE_KEY="sb_publishable_z7cfsDCEV7Z3gmGD09oGpw_qEdd4WQM";
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-let currentUser=null,currentProfile=null,reports=[],mapInstance=null;
-const categories={road:"الطرق",streetlight:"الإنارة",facility:"المرافق العامة",accessibility:"إمكانية الوصول",safety:"السلامة",other:"أخرى"};
-const statusFlow=["تم استلام البلاغ","قيد المراجعة","تمت المعالجة"];
-function toggleMenu(){document.getElementById("menu").classList.toggle("hidden")}
-function goHome(){showPage("home")}
+
+const SUPABASE_URL=
+"https://ftamcnweyimjefjajhcp.supabase.co";
+
+const SUPABASE_KEY=
+"sb_publishable_z7cfsDCEV7Z3gmGD09oGpw_qEdd4WQM";
+
+const supabaseClient=
+window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY
+);
+
+let currentUser=null;
+let currentProfile=null;
+let reports=[];
+let mapInstance=null;
+
+const categories={
+ road:"الطرق",
+ streetlight:"الإنارة",
+ facility:"المرافق العامة",
+ accessibility:"إمكانية الوصول",
+ safety:"السلامة",
+ other:"أخرى"
+};
+
+const statusFlow=[
+ "تم استلام البلاغ",
+ "قيد المراجعة",
+ "تمت المعالجة"
+];
+
+function toggleMenu(){
+ document
+ .getElementById("menu")
+ .classList.toggle("hidden");
+}
+
+function goHome(){
+ showPage("home");
+}
+
 function showPage(page){
-document.getElementById("menu").classList.add("hidden");
-if(page==="home")renderHome();
-else if(page==="map")renderMapPage();
-else if(page==="assistant")renderAssistant();
-else if(page==="pulse")renderPulse();
-else if(page==="myreports")renderMyReports();
-else if(page==="achievements")renderAchievements();
-else if(page==="admin")renderAdmin();
-else if(page==="report")renderReportPage();
+
+ document
+ .getElementById("menu")
+ .classList.add("hidden");
+
+ if(page==="home")
+  renderHome();
+
+ else if(page==="map")
+  renderMapPage();
+
+ else if(page==="assistant")
+  renderAssistant();
+
+ else if(page==="pulse")
+  renderPulse();
+
+ else if(page==="myreports")
+  renderMyReports();
+
+ else if(page==="achievements")
+  renderAchievements();
+
+ else if(page==="admin")
+  renderAdmin();
+
+ else if(page==="report")
+  renderReportPage();
+
 }
+
 function renderHome(){
-document.getElementById("app").innerHTML=`
-<section class="hero"><div class="hero-grid">
-<div class="hero-main">
-<div class="hero-logo"><img src="./awn-logo.png" alt="شعار عون"></div>
-<div class="badge">✦ منصة ذكية لخدمة المجتمع</div>
-<h1>خلّك <em>عون.</em><br>للمجتمع.</h1>
-<p>صوّر المشكلة، حدّد موقعها، وخَلّ عون يساعد في تصنيفها وترتيب أولويتها وربطها بالجهة المناسبة.</p>
-<div class="hero-buttons">
-<button class="primary" onclick="requireLogin(openReport)">📢 ارفع بلاغ</button>
-<button class="secondary" onclick="showPage('map')">🗺️ خريطة عون</button>
-</div>
-</div>
-<div class="hero-side">
-<div class="mini-card"><small>بلاغات المجتمع</small><div class="num">${reports.length}</div></div>
-<div class="mini-card"><small>البلاغات عالية الأولوية</small><div class="num">${reports.filter(r=>(r.score||0)>=80).length}</div></div>
-<div class="mini-card"><small>تمت معالجتها</small><div class="num">${reports.filter(r=>r.status==="تمت المعالجة").length}</div></div>
-</div>
-</div></section>
-<section class="container">
-<div class="section-head"><div><h2>كيف يعمل عون؟</h2><p>من البلاغ إلى المتابعة بطريقة أبسط.</p></div></div>
-<div class="grid">
-<div class="card feature"><div class="feature-icon">📸</div><h3>صوّر المشكلة</h3><p>ارفع صورة واضحة للمشكلة في المكان العام.</p></div>
-<div class="card feature"><div class="feature-icon">📍</div><h3>حدّد الموقع</h3><p>أضف الموقع والوصف حتى يكون البلاغ أوضح.</p></div>
-<div class="card feature"><div class="feature-icon">🤖</div><h3>عون يحلل</h3><p>يتم تصنيف البلاغ وحساب درجة الأولوية.</p></div>
-<div class="card feature"><div class="feature-icon">🔗</div><h3>مطابقة البلاغات</h3><p>البلاغات المتشابهة يمكن تجميعها لتقليل التكرار.</p></div>
-<div class="card feature"><div class="feature-icon">🗺️</div><h3>خريطة عون</h3><p>شاهد القضايا حسب الموقع ودرجة الأولوية.</p></div>
-<div class="card feature"><div class="feature-icon">📊</div><h3>نبض المجتمع</h3><p>تعرف على أكثر أنواع البلاغات انتشاراً.</p></div>
-</div>
-</section>`;
+
+ document.getElementById("app").innerHTML=`
+
+ <section class="hero">
+
+  <div class="hero-grid">
+
+   <div class="hero-main">
+
+    <div class="hero-logo">
+     <img src="./awn-logo.png" alt="شعار عون">
+    </div>
+
+    <div class="badge">
+     ✦ منصة ذكية لخدمة المجتمع
+    </div>
+
+    <h1>
+     خلّك <em>عون.</em><br>
+     للمجتمع.
+    </h1>
+
+    <p>
+     صوّر المشكلة، حدّد موقعها، وخَلّ عون يساعد في تصنيفها وترتيب أولويتها وربطها بالجهة المناسبة.
+    </p>
+
+    <div class="hero-buttons">
+
+     <button
+      class="primary"
+      onclick="requireLogin(openReport)">
+      📢 ارفع بلاغ
+     </button>
+
+     <button
+      class="secondary"
+      onclick="showPage('map')">
+      🗺️ خريطة عون
+     </button>
+
+    </div>
+
+   </div>
+
+   <div class="hero-side">
+
+    <div class="mini-card">
+     <small>بلاغات المجتمع</small>
+     <div class="num">${reports.length}</div>
+    </div>
+
+    <div class="mini-card">
+     <small>البلاغات عالية الأولوية</small>
+     <div class="num">
+      ${reports.filter(r=>(r.score||0)>=80).length}
+     </div>
+    </div>
+
+    <div class="mini-card">
+     <small>تمت معالجتها</small>
+     <div class="num">
+      ${reports.filter(r=>r.status==="تمت المعالجة").length}
+     </div>
+    </div>
+
+   </div>
+
+  </div>
+
+ </section>
+
+ <section class="container">
+
+  <div class="section-head">
+
+   <div>
+    <h2>كيف يعمل عون؟</h2>
+    <p>من البلاغ إلى المتابعة بطريقة أبسط.</p>
+   </div>
+
+  </div>
+
+  <div class="grid">
+
+   <div class="card feature">
+    <div class="feature-icon">📸</div>
+    <h3>صوّر المشكلة</h3>
+    <p>
+     ارفع صورة واضحة للمشكلة في المكان العام.
+    </p>
+   </div>
+
+   <div class="card feature">
+    <div class="feature-icon">📍</div>
+    <h3>حدّد الموقع</h3>
+    <p>
+     أضف الموقع والوصف حتى يكون البلاغ أوضح.
+    </p>
+   </div>
+
+   <div class="card feature">
+    <div class="feature-icon">🤖</div>
+    <h3>عون يحلل</h3>
+    <p>
+     يتم تصنيف البلاغ وحساب درجة الأولوية.
+    </p>
+   </div>
+
+   <div class="card feature">
+    <div class="feature-icon">🔗</div>
+    <h3>مطابقة البلاغات</h3>
+    <p>
+     البلاغات المتشابهة يمكن تجميعها لتقليل التكرار.
+    </p>
+   </div>
+
+   <div class="card feature">
+    <div class="feature-icon">🗺️</div>
+    <h3>خريطة عون</h3>
+    <p>
+     شاهد القضايا حسب الموقع ودرجة الأولوية.
+    </p>
+   </div>
+
+   <div class="card feature">
+    <div class="feature-icon">📊</div>
+    <h3>نبض المجتمع</h3>
+    <p>
+     تعرف على أكثر أنواع البلاغات انتشاراً.
+    </p>
+   </div>
+
+  </div>
+
+ </section>
+ `;
 }
+
 function scoreReport(type,description){
-let score=30;
-const text=(description||"").toLowerCase();
-if(type==="safety")score+=30;
-if(type==="road")score+=20;
-if(type==="streetlight")score+=15;
-if(type==="accessibility")score+=20;
-if(text.includes("خطر")||text.includes("حادث")||text.includes("عاجل"))score+=20;
-if(text.length>100)score+=5;
-return Math.min(100,score);
+
+ let score=30;
+
+ const text=
+ (description||"").toLowerCase();
+
+ if(type==="safety")
+  score+=30;
+
+ if(type==="road")
+  score+=20;
+
+ if(type==="streetlight")
+  score+=15;
+
+ if(type==="accessibility")
+  score+=20;
+
+ if(
+  text.includes("خطر")||
+  text.includes("حادث")||
+  text.includes("عاجل")
+ )
+  score+=20;
+
+ if(text.length>100)
+  score+=5;
+
+ return Math.min(100,score);
 }
-function openReport(){showPage("report")}
+
+function openReport(){
+ showPage("report");
+}
+
 function renderReportPage(){
-document.getElementById("app").innerHTML=`
-<section class="container">
-<div class="section-head"><div><h2>📢 رفع بلاغ</h2><p>ساعدنا في تحسين المكان من حولك.</p></div></div>
-<div class="card form">
-<div class="row">
-<div class="field"><label>عنوان البلاغ</label><input id="reportTitle" placeholder="مثال: إنارة شارع متعطلة"></div>
-<div class="field"><label>نوع البلاغ</label><select id="reportType">${Object.entries(categories).map(([k,v])=>`<option value="${k}">${v}</option>`).join("")}</select></div>
-</div>
-<div class="field"><label>الوصف</label><textarea id="reportDescription" placeholder="اشرح المشكلة بالتفصيل..."></textarea></div>
-<div class="row">
-<div class="field"><label>الموقع</label><input id="reportLocation" placeholder="اسم المنطقة أو المكان"></div>
-<div class="field"><label>رابط الصورة</label><input id="reportImage" placeholder="اختياري"></div>
-</div>
-<div class="score-box"><div class="score-label">الأولوية التقديرية</div><div class="score-circle" id="liveScore"><div class="score-number" id="scoreNumber">30</div></div><div class="score-label">تتغير حسب نوع ووصف البلاغ</div></div>
-<div class="actions"><button class="primary" onclick="submitReport()">إرسال البلاغ</button><button class="secondary" onclick="goHome()">إلغاء</button></div>
-</div>
-</section>`;
-document.getElementById("reportType").addEventListener("change",updateLiveScore);
-document.getElementById("reportDescription").addEventListener("input",updateLiveScore);
+
+ document.getElementById("app").innerHTML=`
+
+ <section class="container">
+
+  <div class="section-head">
+
+   <div>
+    <h2>📢 رفع بلاغ</h2>
+    <p>ساعدنا في تحسين المكان من حولك.</p>
+   </div>
+
+  </div>
+
+  <div class="card form">
+
+   <div class="row">
+
+    <div class="field">
+     <label>عنوان البلاغ</label>
+     <input
+      id="reportTitle"
+      placeholder="مثال: إنارة شارع متعطلة">
+    </div>
+
+    <div class="field">
+     <label>نوع البلاغ</label>
+
+     <select id="reportType">
+
+      ${Object.entries(categories)
+      .map(([k,v])=>
+       `<option value="${k}">${v}</option>`
+      ).join("")}
+
+     </select>
+
+    </div>
+
+   </div>
+
+   <div class="field">
+
+    <label>الوصف</label>
+
+    <textarea
+     id="reportDescription"
+     placeholder="اشرح المشكلة بالتفصيل...">
+    </textarea>
+
+   </div>
+
+   <div class="row">
+
+    <div class="field">
+     <label>الموقع</label>
+
+     <input
+      id="reportLocation"
+      placeholder="اسم المنطقة أو المكان">
+
+    </div>
+
+    <div class="field">
+
+     <label>رابط الصورة</label>
+
+     <input
+      id="reportImage"
+      placeholder="اختياري">
+
+    </div>
+
+   </div>
+
+   <div class="score-box">
+
+    <div class="score-label">
+     الأولوية التقديرية
+    </div>
+
+    <div
+     class="score-circle"
+     id="liveScore">
+
+     <div
+      class="score-number"
+      id="scoreNumber">
+      30
+     </div>
+
+    </div>
+
+    <div class="score-label">
+     تتغير حسب نوع ووصف البلاغ
+    </div>
+
+   </div>
+
+   <div class="actions">
+
+    <button
+     class="primary"
+     onclick="submitReport()">
+     إرسال البلاغ
+    </button>
+
+    <button
+     class="secondary"
+     onclick="goHome()">
+     إلغاء
+    </button>
+
+   </div>
+
+  </div>
+
+ </section>
+ `;
+
+ document
+ .getElementById("reportType")
+ .addEventListener(
+  "change",
+  updateLiveScore
+ );
+
+ document
+ .getElementById("reportDescription")
+ .addEventListener(
+  "input",
+  updateLiveScore
+ );
 }
+
 function updateLiveScore(){
-const type=document.getElementById("reportType")?.value||"other";
-const desc=document.getElementById("reportDescription")?.value||"";
-const score=scoreReport(type,desc);
-const circle=document.getElementById("liveScore");
-const number=document.getElementById("scoreNumber");
-if(circle){circle.style.setProperty("--score",score+"%");number.textContent=score}
+
+ const type=
+ document.getElementById("reportType")?.value||
+ "other";
+
+ const desc=
+ document.getElementById("reportDescription")?.value||
+ "";
+
+ const score=
+ scoreReport(type,desc);
+
+ const circle=
+ document.getElementById("liveScore");
+
+ const number=
+ document.getElementById("scoreNumber");
+
+ if(circle){
+
+  circle.style.setProperty(
+   "--score",
+   score+"%"
+  );
+
+  number.textContent=score;
+ }
 }
+
 async function submitReport(){
-if(!currentUser){openAuth("login");return}
-const title=document.getElementById("reportTitle").value.trim();
-const type=document.getElementById("reportType").value;
-const description=document.getElementById("reportDescription").value.trim();
-const location=document.getElementById("reportLocation").value.trim();
-const image_url=document.getElementById("reportImage").value.trim();
-if(!title||!description){showToast("اكتب عنوان ووصف البلاغ","error");return}
-const score=scoreReport(type,description);
-const item={user_id:currentUser.id,title,type,description,location,image_url,score,status:"تم استلام البلاغ"};
-reports.unshift({...item,id:"local-"+Date.now(),created_at:new Date().toISOString()});
-saveLocalReports();
-try{const {error}=await supabaseClient.from("reports").insert([item]);if(error)console.log(error)}catch(err){console.log(err)}
-showToast("تم إرسال البلاغ بنجاح ✓","success");
-showPage("myreports");
+
+ if(!currentUser){
+  openAuth("login");
+  return;
+ }
+
+ const title=
+ document
+ .getElementById("reportTitle")
+ .value
+ .trim();
+
+ const type=
+ document
+ .getElementById("reportType")
+ .value;
+
+ const description=
+ document
+ .getElementById("reportDescription")
+ .value
+ .trim();
+
+ const location=
+ document
+ .getElementById("reportLocation")
+ .value
+ .trim();
+
+ const image_url=
+ document
+ .getElementById("reportImage")
+ .value
+ .trim();
+
+ if(!title||!description){
+
+  showToast(
+   "اكتب عنوان ووصف البلاغ",
+   "error"
+  );
+
+  return;
+ }
+
+ const score=
+ scoreReport(type,description);
+
+ const item={
+
+  user_id:currentUser.id,
+  title,
+  type,
+  description,
+  location,
+  image_url,
+  score,
+  status:"تم استلام البلاغ"
+
+ };
+
+ reports.unshift({
+
+  ...item,
+  id:"local-"+Date.now(),
+  created_at:new Date().toISOString()
+
+ });
+
+ saveLocalReports();
+
+ try{
+
+  const {error}=
+   await supabaseClient
+   .from("reports")
+   .insert([item]);
+
+  if(error)
+   console.log(error);
+
+ }catch(err){
+  console.log(err);
+ }
+
+ showToast(
+  "تم إرسال البلاغ بنجاح ✓",
+  "success"
+ );
+
+ showPage("myreports");
 }
-function saveLocalReports(){localStorage.setItem("awn_reports",JSON.stringify(reports))}
-function loadLocalReports(){try{reports=JSON.parse(localStorage.getItem("awn_reports")||"[]")}catch{reports=[]}}
+
+function saveLocalReports(){
+
+ localStorage.setItem(
+  "awn_reports",
+  JSON.stringify(reports)
+ );
+
+}
+
+function loadLocalReports(){
+
+ try{
+
+  reports=
+   JSON.parse(
+    localStorage.getItem("awn_reports")||"[]"
+   );
+
+ }catch{
+  reports=[];
+ }
+
+}
+
 async function loadReports(){
-loadLocalReports();
-try{const {data,error}=await supabaseClient.from("reports").select("*").order("created_at",{ascending:false});if(!error&&data){const local=reports.filter(r=>String(r.id).startsWith("local-"));reports=[...data,...local]}}catch(err){console.log(err)}
+
+ loadLocalReports();
+
+ try{
+
+  const {data,error}=
+   await supabaseClient
+   .from("reports")
+   .select("*")
+   .order(
+    "created_at",
+    {ascending:false}
+   );
+
+  if(!error&&data){
+
+   const local=
+    reports.filter(
+     r=>String(r.id).startsWith("local-")
+    );
+
+   reports=[
+    ...data,
+    ...local
+   ];
+  }
+
+ }catch(err){
+  console.log(err);
+ }
+
 }
+
 function renderMapPage(){
-document.getElementById("app").innerHTML=`
-<section class="container"><div class="section-head"><div><h2>🗺️ خريطة عون</h2><p>استكشف البلاغات حسب الأولوية.</p></div></div>
-<div class="map-tools"><button class="filter active" onclick="filterMap('all',this)">الكل</button><button class="filter" onclick="filterMap('high',this)">حرجة</button><button class="filter" onclick="filterMap('medium',this)">متوسطة</button><button class="filter" onclick="filterMap('low',this)">منخفضة</button></div>
-<div id="map" class="map"></div></section>`;
-setTimeout(initMap,50);
+
+ document.getElementById("app").innerHTML=`
+
+ <section class="container">
+
+  <div class="section-head">
+
+   <div>
+    <h2>🗺️ خريطة عون</h2>
+    <p>
+     استكشف البلاغات حسب الأولوية.
+    </p>
+   </div>
+
+  </div>
+
+  <div class="map-tools">
+
+   <button
+    class="filter active"
+    onclick="filterMap('all',this)">
+    الكل
+   </button>
+
+   <button
+    class="filter"
+    onclick="filterMap('high',this)">
+    حرجة
+   </button>
+
+   <button
+    class="filter"
+    onclick="filterMap('medium',this)">
+    متوسطة
+   </button>
+
+   <button
+    class="filter"
+    onclick="filterMap('low',this)">
+    منخفضة
+   </button>
+
+  </div>
+
+  <div
+   id="map"
+   class="map">
+  </div>
+
+ </section>
+ `;
+
+ setTimeout(
+  initMap,
+  50
+ );
 }
+
 function initMap(){
-if(mapInstance){mapInstance.remove();mapInstance=null}
-const map=document.getElementById("map");if(!map||typeof L==="undefined")return;
-mapInstance=L.map(map).setView([24.2075,55.7447],11);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"© OpenStreetMap"}).addTo(mapInstance);
-const valid=reports.filter(r=>r.lat&&r.lng);
-valid.forEach(r=>L.marker([r.lat,r.lng]).addTo(mapInstance).bindPopup(`<strong>${escapeHtml(r.title||"بلاغ")}</strong><br>${escapeHtml(r.description||"")}<br><b>${r.score||0}/100</b>`));
+
+ if(mapInstance){
+
+  mapInstance.remove();
+  mapInstance=null;
+
+ }
+
+ const map=
+ document.getElementById("map");
+
+ if(
+  !map||
+  typeof L==="undefined"
+ )
+  return;
+
+ mapInstance=
+ L.map(map)
+ .setView(
+  [24.2075,55.7447],
+  11
+ );
+
+ L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+   attribution:"© OpenStreetMap"
+  }
+ )
+ .addTo(mapInstance);
+
+ const valid=
+ reports.filter(
+  r=>r.lat&&r.lng
+ );
+
+ valid.forEach(r=>{
+
+  L.marker([
+   r.lat,
+   r.lng
+  ])
+  .addTo(mapInstance)
+  .bindPopup(`
+   <strong>
+    ${escapeHtml(r.title||"بلاغ")}
+   </strong>
+   <br>
+   ${escapeHtml(r.description||"")}
+   <br>
+   <b>${r.score||0}/100</b>
+  `);
+
+ });
+
 }
+
 function filterMap(level,button){
-document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));button.classList.add("active");
-if(!mapInstance)return;
-mapInstance.eachLayer(layer=>{if(layer instanceof L.Marker)mapInstance.removeLayer(layer)});
-reports.filter(r=>r.lat&&r.lng&&(level==="all"||(level==="high"&&r.score>=80)||(level==="medium"&&r.score>=50&&r.score<80)||(level==="low"&&r.score<50))).forEach(r=>L.marker([r.lat,r.lng]).addTo(mapInstance).bindPopup(`<strong>${escapeHtml(r.title||"بلاغ")}</strong><br>${r.score||0}/100`));
+
+ document
+ .querySelectorAll(".filter")
+ .forEach(
+  x=>x.classList.remove("active")
+ );
+
+ button.classList.add("active");
+
+ if(!mapInstance)
+  return;
+
+ mapInstance.eachLayer(
+  layer=>{
+
+   if(layer instanceof L.Marker)
+    mapInstance.removeLayer(layer);
+
+  }
+ );
+
+ reports
+ .filter(
+  r=>
+   r.lat&&
+   r.lng&&
+   (
+    level==="all"||
+    (
+     level==="high"&&
+     r.score>=80
+    )||
+    (
+     level==="medium"&&
+     r.score>=50&&
+     r.score<80
+    )||
+    (
+     level==="low"&&
+     r.score<50
+    )
+   )
+ )
+ .forEach(r=>{
+
+  L.marker([
+   r.lat,
+   r.lng
+  ])
+  .addTo(mapInstance)
+  .bindPopup(`
+   <strong>
+    ${escapeHtml(r.title||"بلاغ")}
+   </strong>
+   <br>
+   ${r.score||0}/100
+  `);
+
+ });
+
 }
+
 function renderAssistant(){
-document.getElementById("app").innerHTML=`
-<section class="container"><div class="section-head"><div><h2>🤖 مساعد عون</h2><p>مساعد بسيط يساعدك على فهم البلاغ ورفع الأولوية المناسبة.</p></div></div>
-<div class="card form"><div class="field"><label>وش المشكلة؟</label><textarea id="assistantText" placeholder="مثال: حفرة كبيرة في شارع مزدحم..."></textarea></div><button class="primary" onclick="runAssistant()">تحليل المشكلة</button><div id="assistantResult" style="margin-top:18px"></div></div></section>`;
+
+ document.getElementById("app").innerHTML=`
+
+ <section class="container">
+
+  <div class="section-head">
+
+   <div>
+    <h2>🤖 مساعد عون</h2>
+
+    <p>
+     مساعد بسيط يساعدك على فهم البلاغ ورفع الأولوية المناسبة.
+    </p>
+
+   </div>
+
+  </div>
+
+  <div class="card form">
+
+   <div class="field">
+
+    <label>وش المشكلة؟</label>
+
+    <textarea
+     id="assistantText"
+     placeholder="مثال: حفرة كبيرة في شارع مزدحم...">
+    </textarea>
+
+   </div>
+
+   <button
+    class="primary"
+    onclick="runAssistant()">
+    تحليل المشكلة
+   </button>
+
+   <div
+    id="assistantResult"
+    style="margin-top:18px">
+   </div>
+
+  </div>
+
+ </section>
+ `;
 }
+
 function runAssistant(){
-const text=document.getElementById("assistantText").value.trim();if(!text)return;
-let type="other";if(/شارع|طريق|حفرة/.test(text))type="road";else if(/نور|إنارة|لمبة/.test(text))type="streetlight";else if(/خطر|حادث|سلامة/.test(text))type="safety";else if(/كرسي|إعاقة|منحدر/.test(text))type="accessibility";
-const score=scoreReport(type,text);
-document.getElementById("assistantResult").innerHTML=`<div class="score-box"><h3>تحليل عون</h3><div class="score-circle" style="--score:${score}%"><div class="score-number">${score}</div></div><p class="score-label">التصنيف المقترح: ${categories[type]}</p><p style="margin-top:10px;color:#bac0bd">الأولوية تعتمد على نوع المشكلة ووصفها وتأثيرها المحتمل.</p></div>`;
+
+ const text=
+ document
+ .getElementById("assistantText")
+ .value
+ .trim();
+
+ if(!text)
+  return;
+
+ let type="other";
+
+ if(/شارع|طريق|حفرة/.test(text))
+  type="road";
+
+ else if(/نور|إنارة|لمبة/.test(text))
+  type="streetlight";
+
+ else if(/خطر|حادث|سلامة/.test(text))
+  type="safety";
+
+ else if(/كرسي|إعاقة|منحدر/.test(text))
+  type="accessibility";
+
+ const score=
+ scoreReport(type,text);
+
+ document
+ .getElementById("assistantResult")
+ .innerHTML=`
+
+ <div class="score-box">
+
+  <h3>تحليل عون</h3>
+
+  <div
+   class="score-circle"
+   style="--score:${score}%">
+
+   <div class="score-number">
+    ${score}
+   </div>
+
+  </div>
+
+  <p class="score-label">
+   التصنيف المقترح:
+   ${categories[type]}
+  </p>
+
+  <p
+   style="margin-top:10px;color:#bac0bd">
+   الأولوية تعتمد على نوع المشكلة ووصفها وتأثيرها المحتمل.
+  </p>
+
+ </div>
+
+ `;
+
 }
+
 function renderPulse(){
-const counts={};reports.forEach(r=>{const t=categories[r.type]||r.type||"أخرى";counts[t]=(counts[t]||0)+1});
-const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-document.getElementById("app").innerHTML=`<section class="container"><div class="section-head"><div><h2>📊 نبض المجتمع</h2><p>أكثر أنواع البلاغات انتشاراً.</p></div></div><div class="card">${sorted.length?sorted.map(([n,c])=>`<div style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:12px"><span>${escapeHtml(n)}</span><strong>${c}</strong></div><div style="height:10px;background:#232824;border-radius:100px;overflow:hidden"><div style="width:${Math.min(100,c/reports.length*100)}%;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2))"></div></div></div>`).join(""):`<div class="empty">لا توجد بيانات بعد</div>`}</div></section>`;
+
+ const counts={};
+
+ reports.forEach(r=>{
+
+  const t=
+   categories[r.type]||
+   r.type||
+   "أخرى";
+
+  counts[t]=
+   (counts[t]||0)+1;
+
+ });
+
+ const sorted=
+ Object
+ .entries(counts)
+ .sort(
+  (a,b)=>b[1]-a[1]
+ );
+
+ document.getElementById("app").innerHTML=`
+
+ <section class="container">
+
+  <div class="section-head">
+
+   <div>
+    <h2>📊 نبض المجتمع</h2>
+    <p>
+     أكثر أنواع البلاغات انتشاراً.
+    </p>
+   </div>
+
+  </div>
+
+  <div class="card">
+
+   ${
+    sorted.length
+    ?
+    sorted.map(
+     ([n,c])=>`
+
+      <div style="margin-bottom:18px">
+
+       <div
+        style="
+         display:flex;
+         justify-content:space-between;
+         margin-bottom:7px;
+         font-size:12px
+        ">
+
+        <span>
+         ${escapeHtml(n)}
+        </span>
+
+        <strong>
+         ${c}
+        </strong>
+
+       </div>
+
+       <div
+        style="
+         height:10px;
+         background:#232824;
+         border-radius:100px;
+         overflow:hidden
+        ">
+
+        <div
+         style="
+          width:${Math.min(
+           100,
+           c/reports.length*100
+          )}%;
+          height:100%;
+          background:
+           linear-gradient(
+            90deg,
+            var(--gold),
+            var(--gold2)
+           )
+         ">
+        </div>
+
+       </div>
+
+      </div>
+
+     `
+    ).join("")
+    :
+    `
+    <div class="empty">
+     لا توجد بيانات بعد
+    </div>
+    `
+   }
+
+  </div>
+
+ </section>
+ `;
+
 }
+
 function renderMyReports(){
-const mine=currentUser?reports.filter(r=>r.user_id===currentUser.id):[];
-document.getElementById("app").innerHTML=`<section class="container"><div class="section-head"><div><h2>📋 بلاغاتي</h2><p>تابع البلاغات التي رفعتها.</p></div></div><div class="report-list">${mine.length?mine.map(reportCard).join(""):`<div class="empty"><div class="e-icon">📋</div><h3>لا توجد بلاغات</h3><p style="margin-top:8px">لم ترفع أي بلاغ حتى الآن.</p></div>`}</div></section>`;
+
+ const mine=
+ currentUser
+ ?
+ reports.filter(
+  r=>r.user_id===currentUser.id
+ )
+ :
+ [];
+
+ document.getElementById("app").innerHTML=`
+
+ <section class="container">
+
+  <div class="section-head">
+
+   <div>
+    <h2>📋 بلاغاتي</h2>
+    <p>
+     تابع البلاغات التي رفعتها.
+    </p>
+   </div>
+
+  </div>
+
+  <div class="report-list">
+
+   ${
+    mine.length
+    ?
+    mine.map(reportCard).join("")
+    :
+    `
+    <div class="empty">
+
+     <div class="e-icon">
+      📋
+     </div>
+
+     <h3>
+      لا توجد بلاغات
+     </h3>
+
+     <p style="margin-top:8px">
+      لم ترفع أي بلاغ حتى الآن.
+     </p>
+
+    </div>
+    `
+   }
+
+  </div>
+
+ </section>
+ `;
+
 }
+
 function reportCard(r){
-return `<div class="report"><div class="report-top"><div><div class="report-title">${escapeHtml(r.title||"بلاغ")}</div><div class="report-type">${categories[r.type]||r.type||"أخرى"}</div></div><span class="score-pill ${r.score>=80?"score-high":r.score>=50?"score-med":"score-low"}">${r.score||0}/100</span></div><p class="report-desc">${escapeHtml(r.description||"")}</p><div class="report-meta"><span class="status ${r.status==="تمت المعالجة"?"done":r.score>=80?"critical":""}">${escapeHtml(r.status||"تم استلام البلاغ")}</span><span class="meta">📍 ${escapeHtml(r.location||"بدون موقع")}</span><span class="meta">${formatDate(r.created_at)}</span></div></div>`;
+
+ return `
+
+ <div class="report">
+
+  <div class="report-top">
+
+   <div>
+
+    <div class="report-title">
+     ${escapeHtml(r.title||"بلاغ")}
+    </div>
+
+    <div class="report-type">
+     ${categories[r.type]||r.type||"أخرى"}
+    </div>
+
+   </div>
+
+   <span
+    class="score-pill ${
+     r.score>=80
+     ?"score-high"
+     :
+     r.score>=50
+     ?"score-med"
+     :
+     "score-low"
+    }">
+
+    ${r.score||0}/100
+
+   </span>
+
+  </div>
+
+  <p class="report-desc">
+   ${escapeHtml(r.description||"")}
+  </p>
+
+  <div class="report-meta">
+
+   <span
+    class="status ${
+     r.status==="تمت المعالجة"
+     ?"done"
+     :
+     r.score>=80
+     ?"critical"
+     :
+     ""
+    }">
+
+    ${escapeHtml(
+     r.status||
+     "تم استلام البلاغ"
+    )}
+
+   </span>
+
+   <span class="meta">
+    📍 ${escapeHtml(
+     r.location||
+     "بدون موقع"
+    )}
+   </span>
+
+   <span class="meta">
+    ${formatDate(r.created_at)}
+   </span>
+
+  </div>
+
+ </div>
+
+ `;
+
 }
+
 function renderAchievements(){
-const points=currentProfile?.points||reports.filter(r=>r.user_id===currentUser?.id).length*10;
-document.getElementById("app").innerHTML=`<section class="container"><div class="section-head"><div><h2>🏆 نقاطي وإنجازاتي</h2><p>مساهمتك تصنع فرقاً.</p></div></div><div class="stats"><div class="stat"><div class="label">النقاط</div><div class="value">${points}</div></div><div class="stat"><div class="label">البلاغات</div><div class="value">${reports.filter(r=>r.user_id===currentUser?.id).length}</div></div><div class="stat"><div class="label">المعالجة</div><div class="value">${reports.filter(r=>r.user_id===currentUser?.id&&r.status==="تمت المعالجة").length}</div></div><div class="stat"><div class="label">المستوى</div><div class="value">${points>=100?"⭐":"🌱"}</div></div></div></section>`;
+
+ const points=
+ currentProfile?.points||
+ reports.filter(
+  r=>r.user_id===currentUser?.id
+ ).length*10;
+
+ document.getElementById("app").innerHTML=`
+
+ <section class="container">
+
+  <div class="section-head">
+
+   <div>
+    <h2>🏆 نقاطي وإنجازاتي</h2>
+
+    <p>
+     مساهمتك تصنع فرقاً.
+    </p>
+
+   </div>
+
+  </div>
+
+  <div class="stats">
+
+   <div class="stat">
+    <div class="label">النقاط</div>
+    <div class="value">
+     ${points}
+    </div>
+   </div>
+
+   <div class="stat">
+    <div class="label">البلاغات</div>
+    <div class="value">
+     ${
+      reports.filter(
+       r=>r.user_id===currentUser?.id
+      ).length
+     }
+    </div>
+   </div>
+
+   <div class="stat">
+    <div class="label">المعالجة</div>
+    <div class="value">
+     ${
+      reports.filter(
+       r=>
+        r.user_id===currentUser?.id&&
+        r.status==="تمت المعالجة"
+      ).length
+     }
+    </div>
+   </div>
+
+   <div class="stat">
+    <div class="label">المستوى</div>
+    <div class="value">
+     ${points>=100?"⭐":"🌱"}
+    </div>
+   </div>
+
+  </div>
+
+ </section>
+ `;
+
 }
+
 function openNotifications(){
-if(!currentUser){openAuth("login");return}
-showModal(`<div class="modal-head"><h2>🔔 الإشعارات</h2><button class="modal-close" onclick="closeModal()">×</button></div><div class="empty">لا توجد إشعارات جديدة.</div>`);
+
+ if(!currentUser){
+  openAuth("login");
+  return;
+ }
+
+ showModal(`
+
+ <div class="modal-head">
+
+  <h2>🔔 الإشعارات</h2>
+
+  <button
+   class="modal-close"
+   onclick="closeModal()">
+   ×
+  </button>
+
+ </div>
+
+ <div class="empty">
+  لا توجد إشعارات جديدة.
+ </div>
+
+ `);
+
 }
+
 function openSupport(){
-showModal(`<div class="modal-head"><h2>💬 الدعم والمساعدة</h2><button class="modal-close" onclick="closeModal()">×</button></div><div class="field"><label>رسالتك</label><textarea id="supportText" placeholder="اكتب استفسارك أو المشكلة التي تواجهها..."></textarea></div><button class="primary" onclick="sendSupport()">إرسال</button>`);
+
+ showModal(`
+
+ <div class="modal-head">
+
+  <h2>💬 الدعم والمساعدة</h2>
+
+  <button
+   class="modal-close"
+   onclick="closeModal()">
+   ×
+  </button>
+
+ </div>
+
+ <div class="field">
+
+  <label>رسالتك</label>
+
+  <textarea
+   id="supportText"
+   placeholder="اكتب استفسارك أو المشكلة التي تواجهها...">
+  </textarea>
+
+ </div>
+
+ <button
+  class="primary"
+  onclick="sendSupport()">
+  إرسال
+ </button>
+
+ `);
+
 }
+
 async function sendSupport(){
-const message=document.getElementById("supportText").value.trim();if(!message)return;
-try{await supabaseClient.from("support_messages").insert([{user_id:currentUser?.id||null,message}])}catch{}
-closeModal();showToast("تم إرسال رسالتك للدعم ✓","success");
+
+ const message=
+ document
+ .getElementById("supportText")
+ .value
+ .trim();
+
+ if(!message)
+  return;
+
+ try{
+
+  await supabaseClient
+  .from("support_messages")
+  .insert([
+   {
+    user_id:currentUser?.id||null,
+    message
+   }
+  ]);
+
+ }catch{}
+
+ closeModal();
+
+ showToast(
+  "تم إرسال رسالتك للدعم ✓",
+  "success"
+ );
+
 }
+
 function openSuggestion(){
-showModal(`<div class="modal-head"><h2>💡 اقتراح فكرة</h2><button class="modal-close" onclick="closeModal()">×</button></div><div class="field"><label>اقتراحك</label><textarea id="suggestionText" placeholder="كيف نقدر نطور عون؟"></textarea></div><button class="primary" onclick="sendSuggestion()">إرسال الاقتراح</button>`);
+
+ showModal(`
+
+ <div class="modal-head">
+
+  <h2>💡 اقتراح فكرة</h2>
+
+  <button
+   class="modal-close"
+   onclick="closeModal()">
+   ×
+  </button>
+
+ </div>
+
+ <div class="field">
+
+  <label>اقتراحك</label>
+
+  <textarea
+   id="suggestionText"
+   placeholder="كيف نقدر نطور عون؟">
+  </textarea>
+
+ </div>
+
+ <button
+  class="primary"
+  onclick="sendSuggestion()">
+  إرسال الاقتراح
+ </button>
+
+ `);
+
 }
+
 async function sendSuggestion(){
-const message=document.getElementById("suggestionText").value.trim();if(!message)return;
-try{await supabaseClient.from("suggestions").insert([{user_id:currentUser?.id||null,message}])}catch{}
-closeModal();showToast("شكراً! تم استلام اقتراحك 💡","success");
+
+ const message=
+ document
+ .getElementById("suggestionText")
+ .value
+ .trim();
+
+ if(!message)
+  return;
+
+ try{
+
+  await supabaseClient
+  .from("suggestions")
+  .insert([
+   {
+    user_id:currentUser?.id||null,
+    message
+   }
+  ]);
+
+ }catch{}
+
+ closeModal();
+
+ showToast(
+  "شكراً! تم استلام اقتراحك 💡",
+  "success"
+ );
+
 }
+
 function openAuth(mode="login"){
-showModal(`<div class="modal-head"><h2>${mode==="register"?"إنشاء حساب":"تسجيل الدخول"}</h2><button class="modal-close" onclick="closeModal()">×</button></div><div class="field"><label>البريد الإلكتروني</label><input id="authEmail" type="email" placeholder="name@example.com"></div><div class="field"><label>كلمة المرور</label><input id="authPassword" type="password" placeholder="••••••••"></div>${mode==="register"?`<div class="field"><label>الاسم</label><input id="authName" placeholder="الاسم الكامل"></div>`:""}<div class="actions"><button class="primary" onclick="${mode==="register"?"registerUser()":"loginUser()"}">${mode==="register"?"إنشاء الحساب":"دخول"}</button><button class="secondary" onclick="openAuth('${mode==="register"?"login":"register"}')">${mode==="register"?"لدي حساب":"إنشاء حساب جديد"}</button></div>`);
+
+ showModal(`
+
+ <div class="modal-head">
+
+  <h2>
+   ${
+    mode==="register"
+    ?"إنشاء حساب"
+    :
+    "تسجيل الدخول"
+   }
+  </h2>
+
+  <button
+   class="modal-close"
+   onclick="closeModal()">
+   ×
+  </button>
+
+ </div>
+
+ <div class="field">
+
+  <label>
+   البريد الإلكتروني
+  </label>
+
+  <input
+   id="authEmail"
+   type="email"
+   placeholder="name@example.com">
+
+ </div>
+
+ <div class="field">
+
+  <label>
+   كلمة المرور
+  </label>
+
+  <input
+   id="authPassword"
+   type="password"
+   placeholder="••••••••">
+
+ </div>
+
+ ${
+  mode==="login"
+  ?
+  `
+  <div style="text-align:right;margin:-4px 0 15px">
+
+   <button
+    onclick="openForgotPassword()"
+    style="
+     border:0;
+     background:transparent;
+     color:var(--gold2);
+     font-size:12px;
+     padding:0;
+    ">
+    نسيت كلمة المرور؟
+   </button>
+
+  </div>
+  `
+  :
+  ""
+ }
+
+ ${
+  mode==="register"
+  ?
+  `
+  <div class="field">
+
+   <label>الاسم</label>
+
+   <input
+    id="authName"
+    placeholder="الاسم الكامل">
+
+  </div>
+  `
+  :
+  ""
+ }
+
+ <div class="actions">
+
+  <button
+   class="primary"
+   onclick="${
+    mode==="register"
+    ?"registerUser()"
+    :
+    "loginUser()"
+   }">
+
+   ${
+    mode==="register"
+    ?"إنشاء الحساب"
+    :
+    "دخول"
+   }
+
+  </button>
+
+  <button
+   class="secondary"
+   onclick="openAuth('${
+    mode==="register"
+    ?"login"
+    :
+    "register"
+   }')">
+
+   ${
+    mode==="register"
+    ?"لدي حساب"
+    :
+    "إنشاء حساب جديد"
+   }
+
+  </button>
+
+ </div>
+
+ `);
+
 }
+
+function openForgotPassword(){
+
+ showModal(`
+
+ <div class="modal-head">
+
+  <h2>🔐 استعادة كلمة المرور</h2>
+
+  <button
+   class="modal-close"
+   onclick="closeModal()">
+   ×
+  </button>
+
+ </div>
+
+ <div class="field">
+
+  <label>
+   البريد الإلكتروني
+  </label>
+
+  <input
+   id="forgotEmail"
+   type="email"
+   placeholder="name@example.com">
+
+ </div>
+
+ <p
+  style="
+   color:var(--muted);
+   font-size:12px;
+   line-height:1.7;
+   margin-bottom:15px;
+  ">
+
+  بنرسل لك رابط لإعادة تعيين كلمة المرور على بريدك الإلكتروني.
+
+ </p>
+
+ <button
+  class="primary"
+  onclick="sendResetPassword()">
+
+  إرسال رابط الاستعادة
+
+ </button>
+
+ <button
+  class="secondary"
+  style="margin-top:10px"
+  onclick="openAuth('login')">
+
+  العودة لتسجيل الدخول
+
+ </button>
+
+ `);
+
+}
+
+async function sendResetPassword(){
+
+ const email=
+ document
+ .getElementById("forgotEmail")
+ .value
+ .trim();
+
+ if(!email){
+
+  showToast(
+   "أدخل بريدك الإلكتروني",
+   "error"
+  );
+
+  return;
+ }
+
+ try{
+
+  const {error}=
+   await supabaseClient
+   .auth
+   .resetPasswordForEmail(
+    email,
+    {
+     redirectTo:
+      window.location.origin+
+      window.location.pathname
+    }
+   );
+
+  if(error){
+
+   showToast(
+    error.message,
+    "error"
+   );
+
+   return;
+  }
+
+  closeModal();
+
+  showToast(
+   "تم إرسال رابط استعادة كلمة المرور ✓",
+   "success"
+  );
+
+ }catch(err){
+
+  showToast(
+   "حدث خطأ، حاول مرة أخرى",
+   "error"
+  );
+
+ }
+
+}
+
 async function loginUser(){
-const email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value;
-if(!email||!password){showToast("أدخل البريد وكلمة المرور","error");return}
-const {error}=await supabaseClient.auth.signInWithPassword({email,password});
-if(error){showToast(error.message,"error");return}
-closeModal();showToast("تم تسجيل الدخول ✓","success");
+
+ const email=
+ document
+ .getElementById("authEmail")
+ .value
+ .trim();
+
+ const password=
+ document
+ .getElementById("authPassword")
+ .value;
+
+ if(!email||!password){
+
+  showToast(
+   "أدخل البريد وكلمة المرور",
+   "error"
+  );
+
+  return;
+ }
+
+ const {error}=
+ await supabaseClient
+ .auth
+ .signInWithPassword({
+  email,
+  password
+ });
+
+ if(error){
+
+  showToast(
+   error.message,
+   "error"
+  );
+
+  return;
+ }
+
+ closeModal();
+
+ showToast(
+  "تم تسجيل الدخول ✓",
+  "success"
+ );
+
 }
+
 async function registerUser(){
-const email=document.getElementById("authEmail").value.trim(),password=document.getElementById("authPassword").value,name=document.getElementById("authName").value.trim();
-if(!email||!password){showToast("أدخل البيانات المطلوبة","error");return}
-const {data,error}=await supabaseClient.auth.signUp({email,password});
-if(error){showToast(error.message,"error");return}
-if(data.user){try{await supabaseClient.from("profiles").upsert([{id:data.user.id,email,full_name:name}])}catch{}}
-closeModal();showToast("تم إنشاء الحساب ✓","success");
+
+ const email=
+ document
+ .getElementById("authEmail")
+ .value
+ .trim();
+
+ const password=
+ document
+ .getElementById("authPassword")
+ .value;
+
+ const name=
+ document
+ .getElementById("authName")
+ .value
+ .trim();
+
+ if(!email||!password){
+
+  showToast(
+   "أدخل البيانات المطلوبة",
+   "error"
+  );
+
+  return;
+ }
+
+ const {data,error}=
+ await supabaseClient
+ .auth
+ .signUp({
+  email,
+  password
+ });
+
+ if(error){
+
+  showToast(
+   error.message,
+   "error"
+  );
+
+  return;
+ }
+
+ if(data.user){
+
+  try{
+
+   await supabaseClient
+   .from("profiles")
+   .upsert([
+    {
+     id:data.user.id,
+     email,
+     full_name:name
+    }
+   ]);
+
+  }catch{}
+
+ }
+
+ closeModal();
+
+ showToast(
+  "تم إنشاء الحساب ✓",
+  "success"
+ );
+
 }
+
 async function loadProfile(){
-if(!currentUser)return;
-try{const {data,error}=await supabaseClient.from("profiles").select("*").eq("id",currentUser.id).single();if(!error)currentProfile=data}catch{}
+
+ if(!currentUser)
+  return;
+
+ try{
+
+  const {data,error}=
+   await supabaseClient
+   .from("profiles")
+   .select("*")
+   .eq("id",currentUser.id)
+   .single();
+
+  if(!error)
+   currentProfile=data;
+
+ }catch{}
+
 }
+
 function updateHeader(){
-const login=document.getElementById("headerLogin"),user=document.getElementById("headerUser"),admin=document.getElementById("adminMenu"),logout=document.getElementById("logoutMenu");
-if(currentUser){login?.classList.add("hidden");user?.classList.remove("hidden");logout?.classList.remove("hidden");admin?.classList.toggle("hidden",!isAdmin())}else{login?.classList.remove("hidden");user?.classList.add("hidden");logout?.classList.add("hidden");admin?.classList.add("hidden")}
+
+ const login=
+  document.getElementById(
+   "headerLogin"
+  );
+
+ const user=
+  document.getElementById(
+   "headerUser"
+  );
+
+ const admin=
+  document.getElementById(
+   "adminMenu"
+  );
+
+ const logout=
+  document.getElementById(
+   "logoutMenu"
+  );
+
+ if(currentUser){
+
+  login?.classList.add("hidden");
+
+  user?.classList.remove("hidden");
+
+  logout?.classList.remove("hidden");
+
+  admin?.classList.toggle(
+   "hidden",
+   !isAdmin()
+  );
+
+ }else{
+
+  login?.classList.remove("hidden");
+
+  user?.classList.add("hidden");
+
+  logout?.classList.add("hidden");
+
+  admin?.classList.add("hidden");
+
+ }
+
 }
+
 function openProfile(){
-showModal(`<div class="modal-head"><h2>👤 حسابي</h2><button class="modal-close" onclick="closeModal()">×</button></div><div class="card"><p>${escapeHtml(currentProfile?.full_name||currentUser?.email||"مستخدم")}</p><p style="color:var(--muted);margin-top:8px">${escapeHtml(currentUser?.email||"")}</p></div><div class="actions" style="margin-top:15px"><button class="primary" onclick="logout();closeModal()">تسجيل الخروج</button></div>`);
+
+ showModal(`
+
+ <div class="modal-head">
+
+  <h2>👤 حسابي</h2>
+
+  <button
+   class="modal-close"
+   onclick="closeModal()">
+   ×
+  </button>
+
+ </div>
+
+ <div class="card">
+
+  <p>
+   ${escapeHtml(
+    currentProfile?.full_name||
+    currentUser?.email||
+    "مستخدم"
+   )}
+  </p>
+
+  <p
+   style="
+    color:var(--muted);
+    margin-top:8px
+   ">
+
+   ${escapeHtml(
+    currentUser?.email||""
+   )}
+
+  </p>
+
+ </div>
+
+ <div
+  class="actions"
+  style="margin-top:15px">
+
+  <button
+   class="primary"
+   onclick="logout();closeModal()">
+   تسجيل الخروج
+  </button>
+
+ </div>
+
+ `);
+
 }
-async function logout(){try{await supabaseClient.auth.signOut()}catch{}currentUser=null;currentProfile=null;updateHeader();goHome();showToast("تم تسجيل الخروج","success")}
-function isAdmin(){return currentProfile?.role==="admin"}
+
+async function logout(){
+
+ try{
+  await supabaseClient
+  .auth
+  .signOut();
+ }catch{}
+
+ currentUser=null;
+ currentProfile=null;
+
+ updateHeader();
+ goHome();
+
+ showToast(
+  "تم تسجيل الخروج",
+  "success"
+ );
+
+}
+
+function isAdmin(){
+
+ return currentProfile?.role==="admin";
+
+}
+
 function renderAdmin(){
-if(!isAdmin()){showToast("غير مصرح","error");return}
-const total=reports.length,critical=reports.filter(r=>r.score>=80).length,resolved=reports.filter(r=>r.status==="تمت المعالجة").length,users=new Set(reports.map(r=>r.user_id).filter(Boolean)).size;
-document.getElementById("app").innerHTML=`<section class="container"><div class="dashboard"><aside class="sidebar"><button class="side-item active" onclick="adminSection('overview',this)">📊 الرئيسية</button><button class="side-item" onclick="adminSection('reports',this)">📢 البلاغات</button><button class="side-item" onclick="adminSection('users',this)">👥 المستخدمون</button><button class="side-item" onclick="adminSection('analytics',this)">📈 التحليلات</button><button class="side-item" onclick="showPage('map')">🗺️ الخريطة</button></aside><div class="admin-content" id="adminContent">${adminOverview(total,critical,resolved,users)}</div></div></section>`;
+
+ if(!isAdmin()){
+
+  showToast(
+   "غير مصرح",
+   "error"
+  );
+
+  return;
+ }
+
+ const total=
+  reports.length;
+
+ const critical=
+  reports.filter(
+   r=>r.score>=80
+  ).length;
+
+ const resolved=
+  reports.filter(
+   r=>r.status==="تمت المعالجة"
+  ).length;
+
+ const users=
+  new Set(
+   reports
+   .map(r=>r.user_id)
+   .filter(Boolean)
+  ).size;
+
+ document.getElementById("app").innerHTML=`
+
+ <section class="container">
+
+  <div class="dashboard">
+
+   <aside class="sidebar">
+
+    <button
+     class="side-item active"
+     onclick="adminSection('overview',this)">
+     📊 الرئيسية
+    </button>
+
+    <button
+     class="side-item"
+     onclick="adminSection('reports',this)">
+     📢 البلاغات
+    </button>
+
+    <button
+     class="side-item"
+     onclick="adminSection('users',this)">
+     👥 المستخدمون
+    </button>
+
+    <button
+     class="side-item"
+     onclick="adminSection('analytics',this)">
+     📈 التحليلات
+    </button>
+
+    <button
+     class="side-item"
+     onclick="showPage('map')">
+     🗺️ الخريطة
+    </button>
+
+   </aside>
+
+   <div
+    class="admin-content"
+    id="adminContent">
+
+    ${adminOverview(
+     total,
+     critical,
+     resolved,
+     users
+    )}
+
+   </div>
+
+  </div>
+
+ </section>
+
+ `;
+
 }
-function adminOverview(total,critical,resolved,users){
-return `<div class="section-head"><div><h2>👑 أهلاً بك في لوحة تحكم عون</h2><p>هنا تقدر تتابع البلاغات والمستخدمين وأداء المنصة.</p></div></div><div class="stats"><div class="stat"><div class="label">إجمالي البلاغات</div><div class="value">${total}</div></div><div class="stat"><div class="label">بلاغات حرجة</div><div class="value">${critical}</div></div><div class="stat"><div class="label">تمت معالجتها</div><div class="value">${resolved}</div></div><div class="stat"><div class="label">مستخدمون مشاركون</div><div class="value">${users}</div></div></div><div class="section"><div class="card"><h3>🚨 أعلى البلاغات أولوية</h3><div class="report-list" style="margin-top:12px">${[...reports].sort((a,b)=>(b.score||0)-(a.score||0)).slice(0,5).map(reportCard).join("")||`<div class="empty">لا توجد بلاغات</div>`}</div></div></div>`;
+
+function adminOverview(
+ total,
+ critical,
+ resolved,
+ users
+){
+
+ return `
+
+ <div class="section-head">
+
+  <div>
+
+   <h2>
+    👑 أهلاً بك في لوحة تحكم عون
+   </h2>
+
+   <p>
+    هنا تقدر تتابع البلاغات والمستخدمين وأداء المنصة.
+   </p>
+
+  </div>
+
+ </div>
+
+ <div class="stats">
+
+  <div class="stat">
+   <div class="label">
+    إجمالي البلاغات
+   </div>
+   <div class="value">
+    ${total}
+   </div>
+  </div>
+
+  <div class="stat">
+   <div class="label">
+    بلاغات حرجة
+   </div>
+   <div class="value">
+    ${critical}
+   </div>
+  </div>
+
+  <div class="stat">
+   <div class="label">
+    تمت معالجتها
+   </div>
+   <div class="value">
+    ${resolved}
+   </div>
+  </div>
+
+  <div class="stat">
+   <div class="label">
+    مستخدمون مشاركون
+   </div>
+   <div class="value">
+    ${users}
+   </div>
+  </div>
+
+ </div>
+
+ <div class="section">
+
+  <div class="card">
+
+   <h3>
+    🚨 أعلى البلاغات أولوية
+   </h3>
+
+   <div
+    class="report-list"
+    style="margin-top:12px">
+
+    ${
+     [...reports]
+     .sort(
+      (a,b)=>
+       (b.score||0)-
+       (a.score||0)
+     )
+     .slice(0,5)
+     .map(reportCard)
+     .join("")
+     ||
+     `
+     <div class="empty">
+      لا توجد بلاغات
+     </div>
+     `
+    }
+
+   </div>
+
+  </div>
+
+ </div>
+
+ `;
+
 }
-function adminSection(section,button){
-document.querySelectorAll(".side-item").forEach(x=>x.classList.remove("active"));if(button)button.classList.add("active");const box=document.getElementById("adminContent");
-if(section==="overview"){box.innerHTML=adminOverview(reports.length,reports.filter(r=>r.score>=80).length,reports.filter(r=>r.status==="تمت المعالجة").length,new Set(reports.map(r=>r.user_id)).size);return}
-if(section==="reports"){renderAdminReports(box);return}if(section==="users"){renderAdminUsers(box);return}if(section==="analytics"){renderAdminAnalytics(box)}
+
+function adminSection(
+ section,
+ button
+){
+
+ document
+ .querySelectorAll(".side-item")
+ .forEach(
+  x=>x.classList.remove("active")
+ );
+
+ if(button)
+  button.classList.add("active");
+
+ const box=
+ document.getElementById(
+  "adminContent"
+ );
+
+ if(section==="overview"){
+
+  box.innerHTML=
+   adminOverview(
+    reports.length,
+    reports.filter(
+     r=>r.score>=80
+    ).length,
+    reports.filter(
+     r=>r.status==="تمت المعالجة"
+    ).length,
+    new Set(
+     reports.map(
+      r=>r.user_id
+     )
+    ).size
+   );
+
+  return;
+ }
+
+ if(section==="reports"){
+
+  renderAdminReports(box);
+  return;
+
+ }
+
+ if(section==="users"){
+
+  renderAdminUsers(box);
+  return;
+
+ }
+
+ if(section==="analytics"){
+
+  renderAdminAnalytics(box);
+
+ }
+
 }
+
 function renderAdminReports(box){
-box.innerHTML=`<div class="section-head"><div><h2>📢 إدارة البلاغات</h2><p>عرض ومتابعة جميع البلاغات.</p></div></div><div class="report-list">${[...reports].sort((a,b)=>(b.score||0)-(a.score||0)).map(r=>`<div class="report"><div class="report-top"><div><div class="report-title">${escapeHtml(r.title||"بلاغ")}</div><div class="report-type">${categories[r.type]||r.type}</div></div><span class="score-pill ${r.score>=80?"score-high":r.score>=50?"score-med":"score-low"}">${r.score||0}/100</span></div><p class="report-desc">${escapeHtml(r.description||"")}</p><div class="row"><div class="field"><label>الحالة</label><select onchange="adminUpdateStatus('${r.id}',this.value)">${statusFlow.map(s=>`<option ${r.status===s?"selected":""}>${s}</option>`).join("")}</select></div><div class="field"><label>الأولوية</label><input value="${r.score||0}" disabled></div></div></div>`).join("")}</div>`;
+
+ box.innerHTML=`
+
+ <div class="section-head">
+
+  <div>
+
+   <h2>
+    📢 إدارة البلاغات
+   </h2>
+
+   <p>
+    عرض ومتابعة جميع البلاغات.
+   </p>
+
+  </div>
+
+ </div>
+
+ <div class="report-list">
+
+  ${
+   [...reports]
+   .sort(
+    (a,b)=>
+     (b.score||0)-
+     (a.score||0)
+   )
+   .map(
+    r=>`
+
+     <div class="report">
+
+      <div class="report-top">
+
+       <div>
+
+        <div class="report-title">
+         ${escapeHtml(
+          r.title||"بلاغ"
+         )}
+        </div>
+
+        <div class="report-type">
+         ${categories[r.type]||r.type}
+        </div>
+
+       </div>
+
+       <span
+        class="score-pill ${
+         r.score>=80
+         ?"score-high"
+         :
+         r.score>=50
+         ?"score-med"
+         :
+         "score-low"
+        }">
+
+        ${r.score||0}/100
+
+       </span>
+
+      </div>
+
+      <p class="report-desc">
+       ${escapeHtml(
+        r.description||""
+       )}
+      </p>
+
+      <div class="row">
+
+       <div class="field">
+
+        <label>الحالة</label>
+
+        <select
+         onchange="
+          adminUpdateStatus(
+           '${r.id}',
+           this.value
+          )">
+
+         ${statusFlow.map(
+          s=>`
+
+           <option
+            ${r.status===s?"selected":""}>
+
+            ${s}
+
+           </option>
+
+          `
+         ).join("")}
+
+        </select>
+
+       </div>
+
+       <div class="field">
+
+        <label>الأولوية</label>
+
+        <input
+         value="${r.score||0}"
+         disabled>
+
+       </div>
+
+      </div>
+
+     </div>
+
+    `
+   ).join("")
+  }
+
+ </div>
+
+ `;
+
 }
-async function adminUpdateStatus(id,status){
-const local=reports.find(r=>String(r.id)===String(id));if(local){local.status=status;local.updated_at=new Date().toISOString()}saveLocalReports();
-try{await supabaseClient.from("reports").update({status,updated_at:new Date().toISOString()}).eq("id",id)}catch(err){console.log(err)}
-showToast("تم تحديث حالة البلاغ","success");
+
+async function adminUpdateStatus(
+ id,
+ status
+){
+
+ const local=
+ reports.find(
+  r=>String(r.id)===
+     String(id)
+ );
+
+ if(local){
+
+  local.status=status;
+
+  local.updated_at=
+   new Date()
+   .toISOString();
+
+ }
+
+ saveLocalReports();
+
+ try{
+
+  await supabaseClient
+   .from("reports")
+   .update({
+    status,
+    updated_at:
+     new Date().toISOString()
+   })
+   .eq("id",id);
+
+ }catch(err){
+
+  console.log(err);
+
+ }
+
+ showToast(
+  "تم تحديث حالة البلاغ",
+  "success"
+ );
+
 }
+
 async function renderAdminUsers(box){
-let users=[];try{const {data,error}=await supabaseClient.from("profiles").select("*").order("created_at",{ascending:false});if(!error&&data)users=data}catch{}
-if(!users.length){box.innerHTML=`<div class="empty"><div class="e-icon">👥</div><h3>لا توجد بيانات مستخدمين</h3><p style="margin-top:8px">تأكد من وجود بيانات profiles في Supabase.</p></div>`;return}
-box.innerHTML=`<div class="section-head"><div><h2>👥 المستخدمون</h2><p>بيانات الحسابات المسجلة في عون.</p></div></div><div class="table-wrap"><table><thead><tr><th>الاسم</th><th>اسم المستخدم</th><th>الهاتف</th><th>البريد</th><th>الدور</th><th>النقاط</th></tr></thead><tbody>${users.map(u=>`<tr><td>${escapeHtml(u.full_name||"—")}</td><td>${escapeHtml(u.username||"—")}</td><td>${escapeHtml(u.phone||"—")}</td><td>${escapeHtml(u.email||"—")}</td><td>${u.role==="admin"?"👑 Admin":"مستخدم"}</td><td>${u.points||0}</td></tr>`).join("")}</tbody></table></div>`;
+
+ let users=[];
+
+ try{
+
+  const {data,error}=
+   await supabaseClient
+   .from("profiles")
+   .select("*")
+   .order(
+    "created_at",
+    {ascending:false}
+   );
+
+  if(!error&&data)
+   users=data;
+
+ }catch{}
+
+ if(!users.length){
+
+  box.innerHTML=`
+
+   <div class="empty">
+
+    <div class="e-icon">
+     👥
+    </div>
+
+    <h3>
+     لا توجد بيانات مستخدمين
+    </h3>
+
+    <p style="margin-top:8px">
+     تأكد من وجود بيانات profiles في Supabase.
+    </p>
+
+   </div>
+
+  `;
+
+  return;
+
+ }
+
+ box.innerHTML=`
+
+ <div class="section-head">
+
+  <div>
+
+   <h2>
+    👥 المستخدمون
+   </h2>
+
+   <p>
+    بيانات الحسابات المسجلة في عون.
+   </p>
+
+  </div>
+
+ </div>
+
+ <div class="table-wrap">
+
+  <table>
+
+   <thead>
+
+    <tr>
+
+     <th>الاسم</th>
+     <th>اسم المستخدم</th>
+     <th>الهاتف</th>
+     <th>البريد</th>
+     <th>الدور</th>
+     <th>النقاط</th>
+
+    </tr>
+
+   </thead>
+
+   <tbody>
+
+    ${
+     users.map(
+      u=>`
+
+       <tr>
+
+        <td>
+         ${escapeHtml(
+          u.full_name||"—"
+         )}
+        </td>
+
+        <td>
+         ${escapeHtml(
+          u.username||"—"
+         )}
+        </td>
+
+        <td>
+         ${escapeHtml(
+          u.phone||"—"
+         )}
+        </td>
+
+        <td>
+         ${escapeHtml(
+          u.email||"—"
+         )}
+        </td>
+
+        <td>
+         ${
+          u.role==="admin"
+          ?"👑 Admin"
+          :
+          "مستخدم"
+         }
+        </td>
+
+        <td>
+         ${u.points||0}
+        </td>
+
+       </tr>
+
+      `
+     ).join("")
+    }
+
+   </tbody>
+
+  </table>
+
+ </div>
+
+ `;
+
 }
+
 function renderAdminAnalytics(box){
-const counts={};reports.forEach(r=>{const t=categories[r.type]||r.type||"أخرى";counts[t]=(counts[t]||0)+1});const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-box.innerHTML=`<div class="section-head"><div><h2>📈 تحليلات عون</h2><p>أكثر أنواع البلاغات انتشاراً.</p></div></div><div class="card">${sorted.length?sorted.map(([name,count])=>`<div style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;margin-bottom:7px;font-size:12px"><span>${name}</span><strong>${count}</strong></div><div style="height:10px;background:#232824;border-radius:100px;overflow:hidden"><div style="width:${Math.min(100,count/reports.length*100)}%;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2))"></div></div></div>`).join(""):`<div class="empty">لا توجد بيانات بعد</div>`}</div>`;
+
+ const counts={};
+
+ reports.forEach(r=>{
+
+  const t=
+   categories[r.type]||
+   r.type||
+   "أخرى";
+
+  counts[t]=
+   (counts[t]||0)+1;
+
+ });
+
+ const sorted=
+  Object
+  .entries(counts)
+  .sort(
+   (a,b)=>b[1]-a[1]
+  );
+
+ box.innerHTML=`
+
+ <div class="section-head">
+
+  <div>
+
+   <h2>
+    📈 تحليلات عون
+   </h2>
+
+   <p>
+    أكثر أنواع البلاغات انتشاراً.
+   </p>
+
+  </div>
+
+ </div>
+
+ <div class="card">
+
+  ${
+   sorted.length
+   ?
+   sorted.map(
+    ([name,count])=>`
+
+     <div style="margin-bottom:18px">
+
+      <div
+       style="
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:7px;
+        font-size:12px
+       ">
+
+       <span>
+        ${name}
+       </span>
+
+       <strong>
+        ${count}
+       </strong>
+
+      </div>
+
+      <div
+       style="
+        height:10px;
+        background:#232824;
+        border-radius:100px;
+        overflow:hidden
+       ">
+
+       <div
+        style="
+         width:${Math.min(
+          100,
+          count/reports.length*100
+         )}%;
+         height:100%;
+         background:
+          linear-gradient(
+           90deg,
+           var(--gold),
+           var(--gold2)
+          )
+        ">
+       </div>
+
+      </div>
+
+     </div>
+
+    `
+   ).join("")
+   :
+   `
+   <div class="empty">
+    لا توجد بيانات بعد
+   </div>
+   `
+  }
+
+ </div>
+
+ `;
+
 }
-function showModal(html){document.getElementById("modalRoot").innerHTML=`<div class="modal-back" onclick="modalOutside(event)"><div class="modal">${html}</div></div>`}
-function modalOutside(e){if(e.target.classList.contains("modal-back"))closeModal()}
-function closeModal(){document.getElementById("modalRoot").innerHTML=""}
-function showToast(message,type="success"){const root=document.getElementById("toastRoot");root.innerHTML=`<div class="toast ${type}"><span style="font-size:19px">${type==="success"?"✓":"!"}</span><span>${escapeHtml(message)}</span></div>`;setTimeout(()=>{root.innerHTML=""},3500)}
-function requireLogin(callback){if(!currentUser){openAuth("login");return}callback()}
-function formatDate(date){if(!date)return"—";try{return new Date(date).toLocaleDateString("ar-AE",{year:"numeric",month:"short",day:"numeric"})}catch{return"—"}}
-function escapeHtml(value){return String(value??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
-supabaseClient.auth.onAuthStateChange(async(event,session)=>{currentUser=session?.user||null;if(currentUser)await loadProfile();else currentProfile=null;updateHeader()});
-loadReports().then(()=>{renderHome();updateHeader()});
+
+/* MODALS / TOAST */
+
+function showModal(html){
+
+ document.getElementById(
+  "modalRoot"
+ ).innerHTML=`
+
+ <div
+  class="modal-back"
+  onclick="modalOutside(event)">
+
+  <div class="modal">
+   ${html}
+  </div>
+
+ </div>
+
+ `;
+
+}
+
+function modalOutside(e){
+
+ if(
+  e.target.classList
+  .contains("modal-back")
+ )
+  closeModal();
+
+}
+
+function closeModal(){
+
+ document.getElementById(
+  "modalRoot"
+ ).innerHTML="";
+
+}
+
+function showToast(
+ message,
+ type="success"
+){
+
+ const root=
+ document.getElementById(
+  "toastRoot"
+ );
+
+ root.innerHTML=`
+
+ <div class="toast ${type}">
+
+  <span style="font-size:19px">
+   ${
+    type==="success"
+    ?"✓"
+    :
+    "!"
+   }
+  </span>
+
+  <span>
+   ${escapeHtml(message)}
+  </span>
+
+ </div>
+
+ `;
+
+ setTimeout(
+  ()=>{
+   root.innerHTML="";
+  },
+  3500
+ );
+
+}
+
+/* REQUIRE LOGIN */
+
+function requireLogin(callback){
+
+ if(!currentUser){
+
+  openAuth("login");
+  return;
+
+ }
+
+ callback();
+
+}
+
+/* HELPERS */
+
+function formatDate(date){
+
+ if(!date)
+  return "—";
+
+ try{
+
+  return new Date(date)
+  .toLocaleDateString(
+   "ar-AE",
+   {
+    year:"numeric",
+    month:"short",
+    day:"numeric"
+   }
+  );
+
+ }catch{
+
+  return "—";
+
+ }
+
+}
+
+function escapeHtml(value){
+
+ return String(value??"")
+ .replace(
+  /&/g,
+  "&amp;"
+ )
+ .replace(
+  /</g,
+  "&lt;"
+ )
+ .replace(
+  />/g,
+  "&gt;"
+ )
+ .replace(
+  /"/g,
+  "&quot;"
+ )
+ .replace(
+  /'/g,
+  "&#039;"
+ );
+
+}
+
+/* ROUTER PATCH */
+
+const originalShowPage=
+ showPage;
+
+showPage=function(page){
+
+ if(page==="report"){
+
+  renderReportPage();
+  return;
+
+ }
+
+ originalShowPage(page);
+
+};
+
+/* AUTH EVENTS */
+
+supabaseClient.auth.onAuthStateChange(
+ async (
+  event,
+  session
+ )=>{
+
+  currentUser=
+   session?.user||null;
+
+  if(currentUser)
+   await loadProfile();
+
+  else
+   currentProfile=null;
+
+  updateHeader();
+
+ }
+);
+
+/* START */
+
+loadReports()
+.then(
+ ()=>{
+
+  renderHome();
+  updateHeader();
+
+ }
+);
+
 </script>
+
 <script>
-if("serviceWorker"in navigator){window.addEventListener("load",()=>{navigator.serviceWorker.register("./service-worker.js").catch(()=>{})})}
+
+if(
+ "serviceWorker"
+ in navigator
+){
+
+ window.addEventListener(
+  "load",
+  ()=>{
+   navigator
+   .serviceWorker
+   .register(
+    "./service-worker.js"
+   )
+   .catch(
+    ()=>{}
+   );
+  }
+ );
+
+}
+
 </script>
+
 </body>
 </html>

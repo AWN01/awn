@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#0b0f0e">
 <meta name="description" content="عون — منصة ذكية لخدمة المجتمع">
-<link rel="manifest" href="manifest.json">
 <title>عون | معاً.. لمجتمع أكثر أماناً</title>
 
 <link rel="stylesheet"
@@ -26,12 +25,12 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
  --panel:#101513;
  --panel2:#151b18;
  --border:rgba(255,255,255,.09);
- --gold:#c9a24e;
- --gold2:#e6c86a;
- --green:#4fae78;
+ --gold:#48c78e;
+ --gold2:#68dda8;
+ --green:#48c78e;
  --red:#ff5f61;
  --orange:#ff9f43;
- --blue:#4fae78;
+ --blue:#48c78e;
  --text:#f4f5f4;
  --muted:#9da5a1;
  --shadow:0 20px 60px rgba(0,0,0,.35);
@@ -40,8 +39,8 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 html,body{
  min-height:100%;
  background:
- radial-gradient(circle at 20% 0%,rgba(201,162,78,.08),transparent 28%),
- radial-gradient(circle at 100% 20%,rgba(201,162,78,.07),transparent 30%),
+ radial-gradient(circle at 20% 0%,rgba(72,199,142,.08),transparent 28%),
+ radial-gradient(circle at 100% 20%,rgba(72,199,142,.07),transparent 30%),
  var(--bg);
  color:var(--text);
  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
@@ -94,21 +93,16 @@ header{
 }
 
 .logo-mark{
- width:48px;
- height:48px;
+ width:43px;
+ height:43px;
  border-radius:13px;
- background:transparent;
+ background:linear-gradient(145deg,var(--gold2),var(--gold));
+ color:#111;
  display:grid;
  place-items:center;
- overflow:hidden;
- flex-shrink:0;
-}
-
-.logo-mark img{
- width:100%;
- height:100%;
- object-fit:contain;
- display:block;
+ font-size:23px;
+ font-weight:900;
+ box-shadow:0 8px 25px rgba(72,199,142,.18);
 }
 
 .logo-text strong{
@@ -147,7 +141,7 @@ header{
  background:linear-gradient(135deg,var(--gold2),var(--gold));
  padding:13px 19px;
  border-radius:13px;
- box-shadow:0 10px 25px rgba(201,162,78,.12);
+ box-shadow:0 10px 25px rgba(72,199,142,.12);
 }
 
 .secondary{
@@ -222,26 +216,10 @@ header{
  border-radius:30px;
  border:1px solid var(--border);
  background:
- linear-gradient(135deg,rgba(201,162,78,.11),transparent 45%),
+ linear-gradient(135deg,rgba(72,199,142,.11),transparent 45%),
  linear-gradient(160deg,#121815,#0d1110);
  position:relative;
  overflow:hidden;
-}
-
-.hero-logo{
- display:flex;
- justify-content:center;
- align-items:center;
- margin:0 auto 18px;
- position:relative;
- z-index:2;
-}
-
-.hero-logo img{
- width:118px;
- height:118px;
- object-fit:contain;
- display:block;
 }
 
 .hero-main:after{
@@ -250,31 +228,29 @@ header{
  width:300px;
  height:300px;
  border-radius:50%;
- border:1px solid rgba(201,162,78,.12);
+ border:1px solid rgba(72,199,142,.12);
  left:-120px;
  bottom:-150px;
- box-shadow:0 0 0 50px rgba(201,162,78,.025),
- 0 0 0 100px rgba(201,162,78,.018);
 }
 
 .badge{
  display:inline-flex;
  align-items:center;
  gap:7px;
- border:1px solid rgba(201,162,78,.25);
+ background:rgba(72,199,142,.10);
+ border:1px solid rgba(72,199,142,.22);
  color:var(--gold2);
- background:rgba(201,162,78,.07);
+ padding:8px 12px;
  border-radius:100px;
- padding:8px 13px;
  font-size:12px;
- margin-bottom:22px;
+ font-weight:800;
 }
 
 .hero h1{
- font-size:clamp(42px,7vw,76px);
- line-height:.95;
- margin-bottom:20px;
- letter-spacing:-3px;
+ margin-top:22px;
+ font-size:64px;
+ line-height:1.05;
+ letter-spacing:-2px;
 }
 
 .hero h1 em{
@@ -283,115 +259,337 @@ header{
 }
 
 .hero p{
- max-width:620px;
- color:#bac0bd;
- font-size:17px;
+ margin-top:20px;
+ max-width:650px;
+ color:var(--muted);
  line-height:1.9;
- margin-bottom:28px;
+ font-size:16px;
 }
 
 .hero-buttons{
  display:flex;
- flex-wrap:wrap;
  gap:10px;
+ flex-wrap:wrap;
+ margin-top:27px;
 }
 
 .hero-side{
  display:grid;
- gap:14px;
+ gap:12px;
 }
 
 .mini-card{
  border:1px solid var(--border);
- background:linear-gradient(145deg,#131917,#0e1210);
- border-radius:24px;
- padding:24px;
- min-height:130px;
-}
-
-.mini-card .num{
- font-size:35px;
- font-weight:900;
- color:var(--gold2);
- margin-top:10px;
+ border-radius:22px;
+ padding:25px;
+ background:linear-gradient(145deg,#111714,#0d1110);
 }
 
 .mini-card small{
  color:var(--muted);
+ font-size:12px;
 }
 
-/* SECTIONS */
+.mini-card .num{
+ font-size:36px;
+ font-weight:900;
+ color:var(--gold2);
+ margin-top:8px;
+}
+
+/* CONTAINERS */
 
 .container{
  max-width:1250px;
  margin:auto;
- padding:25px 18px 70px;
+ padding:25px 18px 55px;
 }
 
 .section{
- margin-top:28px;
+ margin-top:30px;
 }
 
 .section-head{
  display:flex;
+ align-items:center;
  justify-content:space-between;
- align-items:end;
  gap:15px;
- margin-bottom:16px;
+ margin-bottom:17px;
 }
 
 .section-head h2{
- font-size:26px;
+ font-size:25px;
 }
 
 .section-head p{
  color:var(--muted);
- margin-top:4px;
+ margin-top:5px;
  font-size:13px;
 }
 
 .grid{
  display:grid;
  grid-template-columns:repeat(3,1fr);
- gap:14px;
+ gap:13px;
 }
 
 .card{
- background:linear-gradient(145deg,#121816,#0d1110);
  border:1px solid var(--border);
- border-radius:22px;
- padding:22px;
+ background:linear-gradient(145deg,#111714,#0d1110);
+ border-radius:20px;
+ padding:21px;
 }
 
 .feature{
- min-height:170px;
- transition:.2s;
-}
-
-.feature:hover{
- transform:translateY(-3px);
- border-color:rgba(201,162,78,.22);
+ min-height:180px;
 }
 
 .feature-icon{
- width:52px;
- height:52px;
+ width:46px;
+ height:46px;
+ border-radius:14px;
  display:grid;
  place-items:center;
- border-radius:15px;
- background:rgba(201,162,78,.09);
- font-size:25px;
- margin-bottom:17px;
+ background:rgba(72,199,142,.10);
+ border:1px solid rgba(72,199,142,.18);
+ font-size:23px;
+ margin-bottom:14px;
 }
 
 .feature h3{
- margin-bottom:8px;
+ font-size:17px;
 }
 
 .feature p{
  color:var(--muted);
+ line-height:1.8;
  font-size:13px;
- line-height:1.7;
+ margin-top:8px;
+}
+
+/* FORMS */
+
+.form{
+ max-width:850px;
+ margin:auto;
+}
+
+.field{
+ margin-bottom:16px;
+}
+
+.field label{
+ display:block;
+ font-size:13px;
+ margin-bottom:8px;
+ color:#d9dedb;
+}
+
+.field input,
+.field textarea,
+.field select{
+ width:100%;
+ border:1px solid var(--border);
+ background:#0b0f0d;
+ color:var(--text);
+ border-radius:13px;
+ padding:13px 14px;
+ outline:none;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+ border-color:var(--gold);
+ box-shadow:0 0 0 3px rgba(72,199,142,.08);
+}
+
+.field textarea{
+ min-height:130px;
+ resize:vertical;
+}
+
+.field select{
+ appearance:auto;
+}
+
+.actions{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-top:18px;
+}
+
+/* MAP */
+
+.map{
+ width:100%;
+ height:500px;
+ border-radius:20px;
+ overflow:hidden;
+ border:1px solid var(--border);
+ background:#101513;
+}
+
+.map-tools{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-bottom:12px;
+}
+
+.filter{
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.04);
+ color:white;
+ padding:9px 13px;
+ border-radius:100px;
+ font-size:12px;
+}
+
+.filter.active{
+ color:var(--gold2);
+ border-color:rgba(72,199,142,.3);
+ background:rgba(72,199,142,.08);
+}
+
+/* SCORE */
+
+.score-box{
+ border:1px solid var(--border);
+ background:linear-gradient(145deg,#111714,#0d1110);
+ border-radius:20px;
+ padding:25px;
+ text-align:center;
+ margin-top:15px;
+}
+
+.score-circle{
+ --score:70%;
+ width:125px;
+ height:125px;
+ margin:15px auto;
+ border-radius:50%;
+ display:grid;
+ place-items:center;
+ position:relative;
+ background:
+ conic-gradient(var(--gold2) var(--score),#252c28 0);
+}
+
+.score-circle:after{
+ content:"";
+ position:absolute;
+ inset:9px;
+ border-radius:50%;
+ background:#101513;
+}
+
+.score-number{
+ position:relative;
+ z-index:2;
+ font-size:34px;
+ font-weight:900;
+}
+
+.score-label{
+ color:var(--muted);
+ font-size:13px;
+}
+
+/* REPORTS */
+
+.report-list{
+ display:grid;
+ gap:12px;
+}
+
+.report{
+ border:1px solid var(--border);
+ background:linear-gradient(145deg,#111714,#0d1110);
+ border-radius:20px;
+ padding:20px;
+}
+
+.report-top{
+ display:flex;
+ justify-content:space-between;
+ align-items:flex-start;
+ gap:15px;
+}
+
+.report-title{
+ font-size:18px;
+ font-weight:900;
+}
+
+.report-type{
+ color:var(--gold2);
+ font-size:12px;
+ margin-top:6px;
+}
+
+.report-desc{
+ color:var(--muted);
+ line-height:1.8;
+ margin-top:13px;
+ font-size:13px;
+}
+
+.report-meta{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ align-items:center;
+ margin-top:15px;
+}
+
+.score-pill{
+ display:inline-flex;
+ align-items:center;
+ gap:4px;
+ padding:6px 9px;
+ border-radius:100px;
+ font-size:11px;
+ font-weight:800;
+}
+
+.score-high{
+ background:rgba(255,95,97,.10);
+ color:#ff8587;
+}
+
+.score-med{
+ background:rgba(255,159,67,.10);
+ color:#ffb86b;
+}
+
+.score-low{
+ background:rgba(72,199,142,.10);
+ color:#68dda8;
+}
+
+.meta{
+ color:var(--muted);
+ font-size:11px;
+}
+
+.status{
+ padding:6px 10px;
+ border-radius:100px;
+ background:rgba(255,255,255,.05);
+ color:var(--muted);
+ font-size:11px;
+}
+
+.status.done{
+ color:#68dda8;
+ background:rgba(72,199,142,.10);
+}
+
+.status.critical{
+ color:#ff8587;
+ background:rgba(255,95,97,.10);
 }
 
 /* STATS */
@@ -403,16 +601,10 @@ header{
 }
 
 .stat{
- padding:20px;
  border:1px solid var(--border);
  border-radius:20px;
- background:rgba(255,255,255,.025);
-}
-
-.stat .value{
- font-size:32px;
- font-weight:900;
- margin-top:8px;
+ padding:20px;
+ background:linear-gradient(145deg,#111714,#0d1110);
 }
 
 .stat .label{
@@ -420,378 +612,90 @@ header{
  font-size:12px;
 }
 
-/* FORMS */
-
-.form{
- max-width:700px;
- margin:auto;
-}
-
-.field{
- margin-bottom:15px;
-}
-
-.field label{
- display:block;
- font-size:13px;
- color:#cfd4d1;
- margin-bottom:7px;
-}
-
-.field input,
-.field textarea,
-.field select{
- width:100%;
- border:1px solid var(--border);
- background:#0b0f0d;
- color:white;
- border-radius:14px;
- padding:14px;
- outline:none;
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus{
- border-color:rgba(201,162,78,.5);
-}
-
-.field textarea{
- min-height:125px;
- resize:vertical;
-}
-
-.row{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
-}
-
-.actions{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
- margin-top:10px;
-}
-
-/* SCORE */
-
-.score-box{
- padding:25px;
- border-radius:23px;
- background:linear-gradient(145deg,#171b18,#0e1210);
- border:1px solid var(--border);
- text-align:center;
- margin:18px 0;
-}
-
-.score-circle{
- width:140px;
- height:140px;
- margin:10px auto 15px;
- border-radius:50%;
- display:grid;
- place-items:center;
- background:
- conic-gradient(var(--gold2) var(--score,70%),rgba(255,255,255,.08) 0);
- position:relative;
-}
-
-.score-circle:before{
- content:"";
- position:absolute;
- width:112px;
- height:112px;
- border-radius:50%;
- background:#0d1110;
-}
-
-.score-number{
- position:relative;
- font-size:38px;
+.stat .value{
+ margin-top:9px;
+ font-size:30px;
  font-weight:900;
-}
-
-.score-label{
- color:var(--muted);
-}
-
-/* REPORT CARDS */
-
-.report-list{
- display:grid;
- gap:12px;
-}
-
-.report{
- border:1px solid var(--border);
- background:linear-gradient(145deg,#131816,#0d1110);
- border-radius:21px;
- padding:18px;
-}
-
-.report-top{
- display:flex;
- align-items:flex-start;
- justify-content:space-between;
- gap:10px;
-}
-
-.report-title{
- font-weight:800;
- font-size:17px;
-}
-
-.report-type{
  color:var(--gold2);
- font-size:12px;
- margin-top:4px;
-}
-
-.status{
- padding:7px 10px;
- border-radius:100px;
- background:rgba(201,162,78,.1);
- color:#e6c86a;
- font-size:11px;
- white-space:nowrap;
-}
-
-.status.done{
- background:rgba(201,162,78,.1);
- color:#6fd3a0;
-}
-
-.status.critical{
- background:rgba(255,95,97,.1);
- color:#ff797b;
-}
-
-.report-desc{
- color:var(--muted);
- font-size:13px;
- line-height:1.7;
- margin:13px 0;
-}
-
-.report-meta{
- display:flex;
- flex-wrap:wrap;
- gap:7px;
-}
-
-.meta{
- border:1px solid var(--border);
- padding:7px 10px;
- border-radius:10px;
- font-size:11px;
- color:#bbc1be;
-}
-
-.score-pill{
- font-weight:900;
- padding:7px 10px;
- border-radius:10px;
-}
-
-.score-high{
- color:#ff7779;
- background:rgba(255,95,97,.09);
-}
-
-.score-med{
- color:#e6b35b;
- background:rgba(255,159,67,.09);
-}
-
-.score-low{
- color:#6fd3a0;
- background:rgba(201,162,78,.09);
-}
-
-/* MAP */
-
-.map{
- width:100%;
- height:470px;
- border-radius:22px;
- overflow:hidden;
- border:1px solid var(--border);
- background:#101513;
-}
-
-.map-tools{
- display:flex;
- gap:7px;
- flex-wrap:wrap;
- margin-bottom:12px;
-}
-
-.filter{
- border:1px solid var(--border);
- background:rgba(255,255,255,.04);
- color:white;
- padding:9px 12px;
- border-radius:11px;
- font-size:12px;
-}
-
-.filter.active{
- background:rgba(201,162,78,.13);
- color:var(--gold2);
- border-color:rgba(201,162,78,.3);
-}
-
-/* TIMELINE */
-
-.timeline{
- position:relative;
- padding-right:25px;
-}
-
-.timeline:before{
- content:"";
- position:absolute;
- right:8px;
- top:5px;
- bottom:5px;
- width:2px;
- background:rgba(201,162,78,.15);
-}
-
-.timeline-item{
- position:relative;
- padding:0 0 22px 0;
-}
-
-.timeline-dot{
- position:absolute;
- right:-22px;
- top:2px;
- width:14px;
- height:14px;
- border-radius:50%;
- background:var(--gold2);
- box-shadow:0 0 0 5px rgba(201,162,78,.08);
 }
 
 /* EMPTY */
 
 .empty{
  text-align:center;
- padding:45px 20px;
- color:var(--muted);
+ padding:55px 20px;
  border:1px dashed var(--border);
  border-radius:20px;
+ color:var(--muted);
 }
 
 .e-icon{
- font-size:40px;
- margin-bottom:10px;
+ font-size:42px;
+ margin-bottom:15px;
 }
 
-/* MODAL */
+/* TIMELINE */
 
-.modal-back{
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.7);
- backdrop-filter:blur(8px);
- z-index:5000;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:18px;
+.timeline{
+ border-right:2px solid #29302c;
+ padding-right:18px;
 }
 
-.modal{
- width:min(520px,100%);
- max-height:90vh;
- overflow:auto;
- background:#101513;
- border:1px solid var(--border);
- border-radius:25px;
- padding:25px;
- box-shadow:var(--shadow);
+.timeline-item{
+ position:relative;
+ padding-bottom:20px;
 }
 
-.modal-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:10px;
- margin-bottom:18px;
+.timeline-dot{
+ position:absolute;
+ right:-27px;
+ top:2px;
+ width:14px;
+ height:14px;
+ border-radius:50%;
+ border:2px solid #101513;
 }
 
-.modal-close{
- width:38px;
- height:38px;
- border:1px solid var(--border);
- background:rgba(255,255,255,.04);
- color:white;
- border-radius:11px;
+.timeline-item h4{
+ font-size:14px;
 }
 
-/* TOAST */
-
-.toast{
- position:fixed;
- left:50%;
- bottom:25px;
- transform:translateX(-50%);
- z-index:7000;
- background:#151b18;
- border:1px solid var(--border);
- border-radius:15px;
- padding:13px 17px;
- display:flex;
- align-items:center;
- gap:10px;
- box-shadow:var(--shadow);
- min-width:220px;
- justify-content:center;
+.timeline-item p{
+ color:var(--muted);
+ font-size:11px;
+ margin-top:5px;
 }
 
-.toast.success{
- border-color:rgba(201,162,78,.25);
-}
-
-.toast.error{
- border-color:rgba(255,95,97,.3);
-}
-
-/* ADMIN */
+/* DASHBOARD */
 
 .dashboard{
  display:grid;
  grid-template-columns:230px 1fr;
- gap:18px;
+ gap:15px;
 }
 
 .sidebar{
  border:1px solid var(--border);
  background:#101513;
- border-radius:22px;
- padding:12px;
+ border-radius:20px;
+ padding:10px;
  height:max-content;
- position:sticky;
- top:95px;
 }
 
 .side-item{
  width:100%;
- padding:13px;
  border:0;
  background:transparent;
- color:white;
+ color:#c7ceca;
  text-align:right;
+ padding:13px;
  border-radius:12px;
- margin-bottom:5px;
+ margin-bottom:4px;
 }
 
-.side-item.active,
-.side-item:hover{
- background:rgba(201,162,78,.1);
+.side-item:hover,
+.side-item.active{
+ background:rgba(72,199,142,.09);
  color:var(--gold2);
 }
 
@@ -802,318 +706,877 @@ header{
 .table-wrap{
  overflow:auto;
  border:1px solid var(--border);
- border-radius:20px;
+ border-radius:18px;
 }
 
 table{
  width:100%;
  border-collapse:collapse;
- min-width:700px;
+ min-width:650px;
 }
 
 th,td{
  padding:13px;
- text-align:right;
  border-bottom:1px solid var(--border);
+ text-align:right;
  font-size:12px;
 }
 
 th{
+ background:#151b18;
  color:var(--gold2);
- background:rgba(255,255,255,.025);
 }
 
 td{
- color:#d4d8d6;
+ color:#c7ceca;
 }
+
+/* MODAL */
+
+.modal-back{
+ position:fixed;
+ inset:0;
+ z-index:5000;
+ background:rgba(0,0,0,.72);
+ backdrop-filter:blur(10px);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:15px;
+}
+
+.modal{
+ width:min(600px,100%);
+ max-height:90vh;
+ overflow:auto;
+ border:1px solid var(--border);
+ border-radius:24px;
+ background:#101513;
+ padding:23px;
+ box-shadow:var(--shadow);
+}
+
+.modal-head{
+ display:flex;
+ align-items:flex-start;
+ justify-content:space-between;
+ gap:15px;
+ margin-bottom:20px;
+}
+
+.close{
+ width:38px;
+ height:38px;
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.04);
+ color:white;
+ border-radius:11px;
+ font-size:24px;
+}
+
+.toast{
+ position:fixed;
+ left:50%;
+ bottom:22px;
+ transform:translateX(-50%);
+ z-index:6000;
+ min-width:min(390px,calc(100vw - 30px));
+ border:1px solid var(--border);
+ background:#111714;
+ color:white;
+ border-radius:15px;
+ padding:13px 15px;
+ display:flex;
+ align-items:center;
+ gap:9px;
+ box-shadow:var(--shadow);
+}
+
+.toast.success{
+ border-color:rgba(72,199,142,.25);
+}
+
+.toast.error{
+ border-color:rgba(255,95,97,.25);
+}
+
+/* FOOTER */
+
+footer{
+ border-top:1px solid var(--border);
+ padding:30px 18px;
+ text-align:center;
+ color:var(--muted);
+ font-size:12px;
+}
+
+/* AUTH */
+
+.auth-tabs{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:7px;
+ margin-bottom:18px;
+}
+
+.auth-tab{
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.04);
+ color:var(--muted);
+ border-radius:12px;
+ padding:11px;
+}
+
+.auth-tab.active{
+ color:var(--gold2);
+ border-color:rgba(72,199,142,.3);
+ background:rgba(72,199,142,.08);
+}
+
+.auth-note{
+ color:var(--muted);
+ font-size:11px;
+ line-height:1.7;
+ margin-top:10px;
+}
+
+.link-btn{
+ border:0;
+ background:none;
+ color:var(--gold2);
+ padding:0;
+ font-size:12px;
+}
+
+/* SETTINGS */
+
+.settings-colors{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:9px;
+ margin-top:10px;
+}
+
+.color-choice{
+ border:2px solid transparent;
+ border-radius:12px;
+ min-height:42px;
+ font-size:11px;
+ font-weight:800;
+ color:white;
+ padding:8px 4px;
+}
+
+.color-choice.selected{
+ border-color:var(--text);
+ box-shadow:0 0 0 2px rgba(255,255,255,.7) inset;
+}
+
+.settings-preview{
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:14px;
+ margin-top:14px;
+}
+
+.attachment-actions{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:9px;
+ margin-top:9px;
+}
+
+.attachment-btn{
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.04);
+ color:var(--text);
+ border-radius:13px;
+ padding:12px 8px;
+ text-align:center;
+}
+
+.attachment-preview{
+ display:none;
+ margin-top:12px;
+ border:1px solid var(--border);
+ border-radius:16px;
+ padding:10px;
+ overflow:hidden;
+}
+
+.attachment-preview img{
+ width:100%;
+ max-height:260px;
+ object-fit:cover;
+ border-radius:12px;
+}
+
+.attachment-file{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:10px;
+}
+
+/* FULL-SCREEN MAP */
+
+body.map-mode{
+ overflow:hidden;
+}
+
+body.map-mode #app{
+ height:100vh;
+}
+
+body.map-mode footer{
+ display:none;
+}
+
+.map-screen{
+ position:fixed;
+ inset:0;
+ z-index:900;
+ background:#101513;
+}
+
+.map-screen .map{
+ position:absolute;
+ inset:0;
+ width:100%;
+ height:100%;
+ border:0;
+ border-radius:0;
+}
+
+.map-screen .map-overlay{
+ position:absolute;
+ top:18px;
+ right:18px;
+ left:18px;
+ z-index:1000;
+ display:flex;
+ justify-content:flex-start;
+ gap:7px;
+ flex-wrap:wrap;
+ pointer-events:none;
+}
+
+.map-screen .map-overlay .filter{
+ pointer-events:auto;
+ background:rgba(15,20,18,.90);
+ backdrop-filter:blur(12px);
+}
+
+.map-screen .map-overlay .filter.active{
+ color:var(--gold2);
+}
+
+/* LIGHT THEME */
+
+body.light-theme{
+ --bg:#f7f8f6;
+ --panel:#ffffff;
+ --panel2:#f0f3f1;
+ --border:rgba(20,30,25,.12);
+ --text:#17221d;
+ --muted:#66716b;
+ background:#f7f8f6;
+ color:var(--text);
+}
+
+body.light-theme header{
+ background:rgba(255,255,255,.92);
+}
+
+body.light-theme .icon-btn,
+body.light-theme .secondary,
+body.light-theme .filter{
+ color:var(--text);
+ background:rgba(0,0,0,.035);
+}
+
+body.light-theme .menu{
+ background:rgba(255,255,255,.98);
+ border-color:rgba(20,30,25,.12);
+}
+
+body.light-theme .menu-item{
+ color:var(--text);
+}
+
+body.light-theme .menu-item:hover{
+ background:rgba(0,0,0,.05);
+}
+
+body.light-theme .hero-main{
+ background:
+ linear-gradient(135deg,rgba(72,199,142,.10),transparent 45%),
+ linear-gradient(160deg,#ffffff,#eef2ef);
+}
+
+body.light-theme .mini-card,
+body.light-theme .card,
+body.light-theme .report,
+body.light-theme .score-box,
+body.light-theme .stat{
+ background:linear-gradient(145deg,#ffffff,#f0f3f1);
+}
+
+body.light-theme .field input,
+body.light-theme .field textarea,
+body.light-theme .field select{
+ background:#ffffff;
+ color:var(--text);
+}
+
+body.light-theme .field label{
+ color:#45514b;
+}
+
+body.light-theme .modal{
+ background:#ffffff;
+}
+
+body.light-theme .close{
+ color:var(--text);
+ background:rgba(0,0,0,.035);
+}
+
+body.light-theme .sidebar{
+ background:#ffffff;
+}
+
+body.light-theme .side-item{
+ color:#4c5752;
+}
+
+body.light-theme th{
+ background:#eef2ef;
+}
+
+body.light-theme td{
+ color:#4c5752;
+}
+
+body.light-theme .map-screen{
+ background:#f0f3f1;
+}
+
+body.light-theme .map-screen .map-overlay .filter{
+ background:rgba(255,255,255,.92);
+ color:var(--text);
+}
+
+body.light-theme .score-circle:after{
+ background:#ffffff;
+}
+
+body.light-theme .attachment-btn{
+ background:rgba(0,0,0,.035);
+ color:var(--text);
+}
+
+/* RESPONSIVE */
 
 .desktop-login{
  display:block;
 }
 
-@media(max-width:850px){
-
+@media(max-width:900px){
  .hero-grid{
   grid-template-columns:1fr;
  }
 
  .grid{
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(2,1fr);
  }
 
  .stats{
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(2,1fr);
  }
 
  .dashboard{
   grid-template-columns:1fr;
  }
+}
 
- .sidebar{
-  position:static;
+@media(max-width:600px){
+ .desktop-login{
+  display:none;
+ }
+
+ .nav{
+  padding:0 12px;
+ }
+
+ .logo-mark{
+  width:39px;
+  height:39px;
+ }
+
+ .logo-text strong{
+  font-size:17px;
+ }
+
+ .hero{
+  padding-top:30px;
  }
 
  .hero-main{
-  padding:30px 22px;
+  border-radius:23px;
+  padding:25px 20px;
  }
 
- .hero-logo img{
-  width:100px;
-  height:100px;
+ .hero h1{
+  font-size:46px;
  }
 
-}
-
-@media(max-width:560px){
+ .hero p{
+  font-size:14px;
+ }
 
  .grid{
   grid-template-columns:1fr;
  }
 
- .row{
+ .stats{
+  gap:8px;
+ }
+
+ .stat{
+  padding:15px;
+ }
+
+ .stat .value{
+  font-size:26px;
+ }
+
+ .container{
+  padding-left:12px;
+  padding-right:12px;
+ }
+
+ .settings-colors{
+  grid-template-columns:repeat(4,1fr);
+ }
+
+ .attachment-actions{
   grid-template-columns:1fr;
  }
 
- .logo-text small{
-  display:none;
+ .map-screen .map-overlay{
+  top:10px;
+  right:10px;
+  left:10px;
  }
-
- .desktop-login{
-  display:block;
- }
-
- .hero{
-  padding-top:25px;
- }
-
- .hero h1{
-  font-size:48px;
- }
-
- .hero p{
-  font-size:15px;
- }
-
- .stats{
-  grid-template-columns:1fr 1fr;
- }
-
- .mini-card{
-  min-height:110px;
-  padding:18px;
- }
-
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="nav">
+ <div class="nav">
 
-<div class="logo" onclick="goHome()">
+  <div class="logo" onclick="goHome()">
+   <div class="logo-mark">ع</div>
+   <div class="logo-text">
+    <strong>عون</strong>
+    <small>معاً.. لمجتمع أكثر أماناً</small>
+   </div>
+  </div>
 
-<div class="logo-mark">
-<img src="./awn-logo.png" alt="عون">
-</div>
+  <div class="nav-actions">
 
-<div class="logo-text">
-<strong>عون</strong>
-<small>معاً.. لمجتمع أكثر أماناً</small>
-</div>
+   <button id="headerLogin"
+    class="primary desktop-login"
+    onclick="openAuth('login')">
+    تسجيل الدخول
+   </button>
 
-</div>
+   <button id="headerUser"
+    class="icon-btn hidden"
+    onclick="openProfile()">
+    👤
+   </button>
 
-<div class="nav-actions">
+   <button class="icon-btn"
+    onclick="toggleMenu()">
+    ☰
+   </button>
 
-<button id="headerLogin"
-class="primary desktop-login"
-onclick="openAuth('login')">
-تسجيل الدخول
-</button>
-
-<button id="headerUser"
-class="icon-btn hidden"
-onclick="openProfile()">
-👤
-</button>
-
-<button class="icon-btn"
-onclick="toggleMenu()">
-☰
-</button>
-
-</div>
-
-</div>
+  </div>
+ </div>
 </header>
 
 <div id="menu" class="menu hidden">
 
-<button class="menu-item"
-onclick="goHome();toggleMenu()">
-<span>🏠</span>
-<span>الرئيسية</span>
-</button>
+ <button class="menu-item" onclick="goHome();toggleMenu()">
+  <span>🏠</span><span>الرئيسية</span>
+ </button>
 
-<button class="menu-item"
-onclick="requireLogin(openReport);toggleMenu()">
-<span>📢</span>
-<span>رفع بلاغ</span>
-</button>
+ <button class="menu-item" onclick="requireLogin(openReport);toggleMenu()">
+  <span>📢</span><span>رفع بلاغ</span>
+ </button>
 
-<button class="menu-item"
-onclick="showPage('map');toggleMenu()">
-<span>🗺️</span>
-<span>خريطة عون</span>
-</button>
+ <button class="menu-item" onclick="showPage('map');toggleMenu()">
+  <span>🗺️</span><span>خريطة عون</span>
+ </button>
 
-<button class="menu-item"
-onclick="showPage('assistant');toggleMenu()">
-<span>🤖</span>
-<span>مساعد عون</span>
-</button>
+ <button class="menu-item" onclick="showPage('assistant');toggleMenu()">
+  <span>🤖</span><span>مساعد عون</span>
+ </button>
 
-<button class="menu-item"
-onclick="showPage('pulse');toggleMenu()">
-<span>📊</span>
-<span>نبض المجتمع</span>
-</button>
+ <button class="menu-item" onclick="showPage('pulse');toggleMenu()">
+  <span>📊</span><span>نبض المجتمع</span>
+ </button>
 
-<div class="menu-sep"></div>
+ <div class="menu-sep"></div>
 
-<button class="menu-item"
-onclick="requireLogin(()=>showPage('myreports'));toggleMenu()">
-<span>📋</span>
-<span>بلاغاتي</span>
-</button>
+ <button class="menu-item" onclick="requireLogin(()=>showPage('myreports'));toggleMenu()">
+  <span>📋</span><span>بلاغاتي</span>
+ </button>
 
-<button class="menu-item"
-onclick="requireLogin(()=>showPage('achievements'));toggleMenu()">
-<span>🏆</span>
-<span>نقاطي وإنجازاتي</span>
-</button>
+ <button class="menu-item" onclick="requireLogin(()=>showPage('achievements'));toggleMenu()">
+  <span>🏆</span><span>نقاطي وإنجازاتي</span>
+ </button>
 
-<button class="menu-item"
-onclick="requireLogin(openNotifications);toggleMenu()">
-<span>🔔</span>
-<span>الإشعارات</span>
-</button>
+ <button class="menu-item" onclick="requireLogin(openNotifications);toggleMenu()">
+  <span>🔔</span><span>الإشعارات</span>
+ </button>
 
-<button class="menu-item"
-onclick="openSupport();toggleMenu()">
-<span>💬</span>
-<span>الدعم والمساعدة</span>
-</button>
+ <button class="menu-item" onclick="openSupport();toggleMenu()">
+  <span>💬</span><span>الدعم والمساعدة</span>
+ </button>
 
-<button class="menu-item"
-onclick="openSuggestion();toggleMenu()">
-<span>💡</span>
-<span>اقتراح فكرة</span>
-</button>
+ <button class="menu-item" onclick="openSuggestion();toggleMenu()">
+  <span>💡</span><span>اقتراح فكرة</span>
+ </button>
 
-<div class="menu-sep"></div>
+ <button class="menu-item" onclick="openSettings();toggleMenu()">
+  <span>⚙️</span><span>الإعدادات</span>
+ </button>
 
-<button id="adminMenu"
-class="menu-item hidden"
-onclick="showPage('admin');toggleMenu()">
-<span>👑</span>
-<span>لوحة تحكم الإدارة</span>
-</button>
+ <div class="menu-sep"></div>
 
-<button id="logoutMenu"
-class="menu-item hidden"
-onclick="logout();toggleMenu()">
-<span>↪️</span>
-<span>تسجيل الخروج</span>
-</button>
+ <button id="adminMenu"
+  class="menu-item hidden"
+  onclick="showPage('admin');toggleMenu()">
+  <span>👑</span><span>لوحة الإدارة</span>
+ </button>
+
+ <button id="authMenu"
+  class="menu-item"
+  onclick="openAuth('login');toggleMenu()">
+  <span>🔐</span><span>تسجيل الدخول</span>
+ </button>
+
+ <button id="logoutMenu"
+  class="menu-item hidden"
+  onclick="logout();toggleMenu()">
+  <span>🚪</span><span>تسجيل الخروج</span>
+ </button>
 
 </div>
 
 <div id="app"></div>
+
+<footer>
+ © 2026 عون | AWN — معاً.. لمجتمع أكثر أماناً
+</footer>
+
 <div id="modalRoot"></div>
 <div id="toastRoot"></div>
 
 <script>
 
-const SUPABASE_URL=
-"https://ftamcnweyimjefjajhcp.supabase.co";
+const SUPABASE_URL =
+ "https://ftamcnweyimjefjajhcp.supabase.co";
 
-const SUPABASE_KEY=
-"sb_publishable_z7cfsDCEV7Z3gmGD09oGpw_qEdd4WQM";
+const SUPABASE_KEY =
+ "sb_publishable_z7cfsDCEV7Z3gmGD09oGpw_qEdd4WQM";
 
-const supabaseClient=
-window.supabase.createClient(
- SUPABASE_URL,
- SUPABASE_KEY
-);
+const supabaseClient =
+ window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+ );
 
 let currentUser=null;
 let currentProfile=null;
+
 let reports=[];
-let mapInstance=null;
+
+let map=null;
+let markersLayer=null;
+
+let reportMap=null;
+
+let selectedLat=null;
+let selectedLng=null;
+
+let selectedAttachmentFile=null;
+
+const STORAGE_KEY="awn_reports";
 
 const categories={
  road:"الطرق",
- streetlight:"الإنارة",
+ light:"الإنارة",
+ cleanliness:"النظافة",
  facility:"المرافق العامة",
- accessibility:"إمكانية الوصول",
  safety:"السلامة",
+ accessibility:"إتاحة الوصول",
+ environment:"البيئة",
  other:"أخرى"
 };
 
 const statusFlow=[
- "تم استلام البلاغ",
+ "تم الاستلام",
  "قيد المراجعة",
+ "تم التوجيه",
+ "قيد المعالجة",
  "تمت المعالجة"
 ];
 
-function toggleMenu(){
- document
- .getElementById("menu")
- .classList.toggle("hidden");
+/* =====================================================
+   START
+===================================================== */
+
+document.addEventListener("DOMContentLoaded",async()=>{
+
+ loadTheme();
+
+ loadLocalReports();
+
+ await loadSession();
+
+ renderHome();
+
+});
+
+async function loadSession(){
+
+ const {data} =
+ await supabaseClient.auth.getSession();
+
+ currentUser =
+ data.session?.user || null;
+
+ if(currentUser){
+  await loadProfile();
+ }
+
+ updateHeader();
+}
+
+async function loadProfile(){
+
+ if(!currentUser) return;
+
+ const {data,error} =
+ await supabaseClient
+ .from("profiles")
+ .select("*")
+ .eq("id",currentUser.id)
+ .maybeSingle();
+
+ if(!error && data){
+
+  currentProfile=data;
+
+ }else{
+
+  currentProfile={
+   id:currentUser.id,
+   full_name:
+    currentUser.user_metadata?.full_name ||
+    "مستخدم عون",
+   username:
+    currentUser.user_metadata?.username || "",
+   email:currentUser.email || "",
+   phone:
+    currentUser.user_metadata?.phone || "",
+   role:"user",
+   points:0,
+   badge:"عضو جديد"
+  };
+
+ }
+
+ updateHeader();
+}
+
+function updateHeader(){
+
+ const login =
+ document.getElementById("headerLogin");
+
+ const user =
+ document.getElementById("headerUser");
+
+ const admin =
+ document.getElementById("adminMenu");
+
+ const auth =
+ document.getElementById("authMenu");
+
+ const logoutBtn =
+ document.getElementById("logoutMenu");
+
+ if(!login) return;
+
+ if(currentUser){
+
+  login.classList.add("hidden");
+  user.classList.remove("hidden");
+
+  auth.classList.add("hidden");
+  logoutBtn.classList.remove("hidden");
+
+  if(currentProfile?.role==="admin"){
+   admin.classList.remove("hidden");
+  }else{
+   admin.classList.add("hidden");
+  }
+
+ }else{
+
+  login.classList.remove("hidden");
+  user.classList.add("hidden");
+
+  auth.classList.remove("hidden");
+  logoutBtn.classList.add("hidden");
+  admin.classList.add("hidden");
+
+ }
+}
+
+/* =====================================================
+   LOCAL FALLBACK
+===================================================== */
+
+function loadLocalReports(){
+
+ try{
+
+  reports=
+   JSON.parse(
+    localStorage.getItem(STORAGE_KEY)||"[]"
+   );
+
+ }catch{
+
+  reports=[];
+
+ }
+}
+
+function saveLocalReports(){
+
+ localStorage.setItem(
+  STORAGE_KEY,
+  JSON.stringify(reports)
+ );
+}
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function setMapMode(enabled){
+
+ document.body.classList.toggle(
+  "map-mode",
+  !!enabled
+ );
+
+ const header =
+  document.querySelector("header");
+
+ if(header){
+  header.classList.toggle(
+   "hidden",
+   !!enabled
+  );
+ }
+
 }
 
 function goHome(){
- showPage("home");
+
+ setMapMode(false);
+
+ renderHome();
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
+
 }
 
 function showPage(page){
 
- document
- .getElementById("menu")
- .classList.add("hidden");
+ setMapMode(page==="map");
 
- if(page==="home")
-  renderHome();
+ switch(page){
 
- else if(page==="map")
-  renderMapPage();
+  case "map":
+   renderMapPage();
+   break;
 
- else if(page==="assistant")
-  renderAssistant();
+  case "assistant":
+   renderAssistant();
+   break;
 
- else if(page==="pulse")
-  renderPulse();
+  case "pulse":
+   renderPulse();
+   break;
 
- else if(page==="myreports")
-  renderMyReports();
+  case "myreports":
+   renderMyReports();
+   break;
 
- else if(page==="achievements")
-  renderAchievements();
+  case "achievements":
+   renderAchievements();
+   break;
 
- else if(page==="admin")
-  renderAdmin();
+  case "admin":
+   if(isAdmin()){
+    renderAdmin();
+   }else{
+    showToast(
+     "هذه الصفحة مخصصة للإدارة فقط",
+     "error"
+    );
+   }
+   break;
 
- else if(page==="report")
-  renderReportPage();
+  default:
+   renderHome();
+
+ }
 
 }
 
+function toggleMenu(){
+
+ document
+  .getElementById("menu")
+  .classList.toggle("hidden");
+
+}
+
+/* =====================================================
+   HOME
+===================================================== */
+
 function renderHome(){
 
- document.getElementById("app").innerHTML=`
+ setMapMode(false);
+
+ document.getElementById("app").innerHTML = `
 
  <section class="hero">
 
@@ -1121,35 +1584,36 @@ function renderHome(){
 
    <div class="hero-main">
 
-    <div class="hero-logo">
-     <img src="./awn-logo.png" alt="شعار عون">
-    </div>
-
     <div class="badge">
-     ✦ منصة ذكية لخدمة المجتمع
+     ✦ منصة مجتمعية ذكية
     </div>
 
     <h1>
-     خلّك <em>عون.</em><br>
-     للمجتمع.
+     <em>عون</em><br>
+     لصوت المجتمع.
     </h1>
 
     <p>
-     صوّر المشكلة، حدّد موقعها، وخَلّ عون يساعد في تصنيفها وترتيب أولويتها وربطها بالجهة المناسبة.
+     صوّر المشكلة، حدّد موقعها، وخَلّ عون يساعد في
+     تقييم الأولوية وتنظيم البلاغات للوصول إلى مجتمع
+     أكثر أماناً وجودة.
     </p>
 
     <div class="hero-buttons">
 
-     <button
-      class="primary"
+     <button class="primary"
       onclick="requireLogin(openReport)">
       📢 ارفع بلاغ
      </button>
 
-     <button
-      class="secondary"
+     <button class="secondary"
       onclick="showPage('map')">
       🗺️ خريطة عون
+     </button>
+
+     <button class="secondary"
+      onclick="showPage('assistant')">
+      🤖 مساعد عون
      </button>
 
     </div>
@@ -1159,22 +1623,18 @@ function renderHome(){
    <div class="hero-side">
 
     <div class="mini-card">
-     <small>بلاغات المجتمع</small>
-     <div class="num">${reports.length}</div>
+     <small>إجمالي البلاغات</small>
+     <div class="num" id="homeReports">0</div>
     </div>
 
     <div class="mini-card">
-     <small>البلاغات عالية الأولوية</small>
-     <div class="num">
-      ${reports.filter(r=>(r.score||0)>=80).length}
-     </div>
+     <small>البلاغات المعالجة</small>
+     <div class="num" id="homeResolved">0%</div>
     </div>
 
     <div class="mini-card">
-     <small>تمت معالجتها</small>
-     <div class="num">
-      ${reports.filter(r=>r.status==="تمت المعالجة").length}
-     </div>
+     <small>أعلى أولوية حالياً</small>
+     <div class="num" id="homeCritical">—</div>
     </div>
 
    </div>
@@ -1185,178 +1645,343 @@ function renderHome(){
 
  <section class="container">
 
-  <div class="section-head">
+  <div class="section">
 
-   <div>
-    <h2>كيف يعمل عون؟</h2>
-    <p>من البلاغ إلى المتابعة بطريقة أبسط.</p>
+   <div class="section-head">
+    <div>
+     <h2>كيف يعمل عون؟</h2>
+     <p>من المشكلة إلى الحل بطريقة أبسط وأذكى.</p>
+    </div>
+   </div>
+
+   <div class="grid">
+
+    <div class="card feature">
+     <div class="feature-icon">📸</div>
+     <h3>1. صوّر المشكلة</h3>
+     <p>
+      التقط صورة للمشكلة الموجودة في المكان
+      وارفعها بسهولة.
+     </p>
+    </div>
+
+    <div class="card feature">
+     <div class="feature-icon">🤖</div>
+     <h3>2. عون يحلل</h3>
+     <p>
+      النظام يحدد نوع المشكلة ويحسب درجة
+      الأولوية من 1 إلى 100.
+     </p>
+    </div>
+
+    <div class="card feature">
+     <div class="feature-icon">🗺️</div>
+     <h3>3. تظهر على الخريطة</h3>
+     <p>
+      يتم تنظيم البلاغات حسب الموقع
+      ومستوى الأولوية.
+     </p>
+    </div>
+
    </div>
 
   </div>
 
-  <div class="grid">
+  <div class="section">
 
-   <div class="card feature">
-    <div class="feature-icon">📸</div>
-    <h3>صوّر المشكلة</h3>
-    <p>
-     ارفع صورة واضحة للمشكلة في المكان العام.
-    </p>
+   <div class="section-head">
+    <div>
+     <h2>مميزات عون</h2>
+     <p>أدوات مصممة لخدمة المجتمع.</p>
+    </div>
    </div>
 
-   <div class="card feature">
-    <div class="feature-icon">📍</div>
-    <h3>حدّد الموقع</h3>
-    <p>
-     أضف الموقع والوصف حتى يكون البلاغ أوضح.
-    </p>
-   </div>
+   <div class="grid">
 
-   <div class="card feature">
-    <div class="feature-icon">🤖</div>
-    <h3>عون يحلل</h3>
-    <p>
-     يتم تصنيف البلاغ وحساب درجة الأولوية.
-    </p>
-   </div>
+    <div class="card feature">
+     <div class="feature-icon">🔥</div>
+     <h3>Awn Score</h3>
+     <p>
+      درجة ذكية من 1 إلى 100 تساعد على
+      معرفة البلاغات الأكثر أولوية.
+     </p>
+    </div>
 
-   <div class="card feature">
-    <div class="feature-icon">🔗</div>
-    <h3>مطابقة البلاغات</h3>
-    <p>
-     البلاغات المتشابهة يمكن تجميعها لتقليل التكرار.
-    </p>
-   </div>
+    <div class="card feature">
+     <div class="feature-icon">👥</div>
+     <h3>تجميع البلاغات</h3>
+     <p>
+      اكتشاف البلاغات المتشابهة وربطها
+      لتجنب التكرار.
+     </p>
+    </div>
 
-   <div class="card feature">
-    <div class="feature-icon">🗺️</div>
-    <h3>خريطة عون</h3>
-    <p>
-     شاهد القضايا حسب الموقع ودرجة الأولوية.
-    </p>
-   </div>
+    <div class="card feature">
+     <div class="feature-icon">📊</div>
+     <h3>نبض المجتمع</h3>
+     <p>
+      إحصائيات تساعد على فهم أكثر المشاكل
+      انتشاراً وأولوية.
+     </p>
+    </div>
 
-   <div class="card feature">
-    <div class="feature-icon">📊</div>
-    <h3>نبض المجتمع</h3>
-    <p>
-     تعرف على أكثر أنواع البلاغات انتشاراً.
-    </p>
+    <div class="card feature">
+     <div class="feature-icon">♿</div>
+     <h3>مجتمع شامل</h3>
+     <p>
+      دعم قضايا الوصول والمرافق والخدمات
+      لجميع أفراد المجتمع.
+     </p>
+    </div>
+
+    <div class="card feature">
+     <div class="feature-icon">🏛️</div>
+     <h3>توجيه ذكي</h3>
+     <p>
+      تصنيف البلاغ مبدئياً وربطه بالجهة
+      المختصة.
+     </p>
+    </div>
+
+    <div class="card feature">
+     <div class="feature-icon">🌱</div>
+     <h3>أثر مجتمعي</h3>
+     <p>
+      كل بلاغ يساهم في تكوين صورة أوضح
+      عن احتياجات المجتمع.
+     </p>
+    </div>
+
    </div>
 
   </div>
 
  </section>
  `;
+
+ updateHomeStats();
+
 }
 
-function scoreReport(type,description){
+function updateHomeStats(){
 
- let score=30;
+ const total=reports.length;
 
- const text=
- (description||"").toLowerCase();
+ const resolved=
+  reports.filter(
+   r=>r.status==="تمت المعالجة"
+  ).length;
 
- if(type==="safety")
-  score+=30;
+ const critical=
+  reports.filter(
+   r=>r.score>=80
+  ).length;
 
- if(type==="road")
-  score+=20;
+ const homeReports=
+  document.getElementById("homeReports");
 
- if(type==="streetlight")
-  score+=15;
+ const homeResolved=
+  document.getElementById("homeResolved");
 
- if(type==="accessibility")
-  score+=20;
+ const homeCritical=
+  document.getElementById("homeCritical");
 
- if(
-  text.includes("خطر")||
-  text.includes("حادث")||
-  text.includes("عاجل")
- )
-  score+=20;
+ if(homeReports)
+  homeReports.textContent=total;
 
- if(text.length>100)
-  score+=5;
+ if(homeResolved)
+  homeResolved.textContent=
+   total
+   ?Math.round((resolved/total)*100)+"%"
+   :"0%";
 
- return Math.min(100,score);
+ if(homeCritical)
+  homeCritical.textContent=critical;
+
 }
+
+/* =====================================================
+   REPORT
+===================================================== */
 
 function openReport(){
- showPage("report");
+
+ requireLogin(()=>{
+
+  renderReportPage();
+
+ });
+
 }
 
 function renderReportPage(){
 
- document.getElementById("app").innerHTML=`
+ setMapMode(false);
+
+ document.getElementById("app").innerHTML = `
 
  <section class="container">
 
   <div class="section-head">
 
    <div>
-    <h2>📢 رفع بلاغ</h2>
-    <p>ساعدنا في تحسين المكان من حولك.</p>
+    <h2>📢 رفع بلاغ جديد</h2>
+    <p>
+     ساعدنا في معرفة المشكلة، والباقي على عون.
+    </p>
    </div>
 
   </div>
 
-  <div class="card form">
+  <div class="form">
 
-   <div class="row">
+   <div class="card">
 
     <div class="field">
      <label>عنوان البلاغ</label>
-     <input
-      id="reportTitle"
-      placeholder="مثال: إنارة شارع متعطلة">
+
+     <input id="reportTitle"
+      placeholder="مثال: إنارة شارع لا تعمل"
+      required>
     </div>
 
     <div class="field">
-     <label>نوع البلاغ</label>
+
+     <label>نوع المشكلة</label>
 
      <select id="reportType">
 
-      ${Object.entries(categories)
-      .map(([k,v])=>
-       `<option value="${k}">${v}</option>`
-      ).join("")}
+      <option value="road">الطرق</option>
+      <option value="light">الإنارة</option>
+      <option value="cleanliness">النظافة</option>
+      <option value="facility">المرافق العامة</option>
+      <option value="safety">السلامة</option>
+      <option value="accessibility">إتاحة الوصول</option>
+      <option value="environment">البيئة</option>
+      <option value="other">أخرى</option>
 
      </select>
 
     </div>
 
-   </div>
-
-   <div class="field">
-
-    <label>الوصف</label>
-
-    <textarea
-     id="reportDescription"
-     placeholder="اشرح المشكلة بالتفصيل...">
-    </textarea>
-
-   </div>
-
-   <div class="row">
-
     <div class="field">
-     <label>الموقع</label>
 
-     <input
-      id="reportLocation"
-      placeholder="اسم المنطقة أو المكان">
+     <label>وصف المشكلة</label>
+
+     <textarea id="reportDescription"
+      placeholder="اشرح المشكلة وماذا يحدث..."></textarea>
 
     </div>
 
     <div class="field">
 
-     <label>رابط الصورة</label>
+     <label>
+      مرفق البلاغ
+      <span style="color:var(--muted)">
+       (اختياري)
+      </span>
+     </label>
+
+     <div class="attachment-actions">
+
+      <button
+       type="button"
+       class="attachment-btn"
+       onclick="document.getElementById('reportPhoto').click()">
+       📷 اختيار صورة
+      </button>
+
+      <button
+       type="button"
+       class="attachment-btn"
+       onclick="document.getElementById('reportCamera').click()">
+       📸 فتح الكاميرا
+      </button>
+
+      <button
+       type="button"
+       class="attachment-btn"
+       onclick="document.getElementById('reportFile').click()">
+       📎 اختيار ملف
+      </button>
+
+     </div>
 
      <input
-      id="reportImage"
-      placeholder="اختياري">
+      id="reportPhoto"
+      type="file"
+      accept="image/*"
+      onchange="handleAttachmentChange(event)"
+      style="display:none">
+
+     <input
+      id="reportCamera"
+      type="file"
+      accept="image/*"
+      capture="environment"
+      onchange="handleAttachmentChange(event)"
+      style="display:none">
+
+     <input
+      id="reportFile"
+      type="file"
+      accept="*/*"
+      onchange="handleAttachmentChange(event)"
+      style="display:none">
+
+     <div
+      id="attachmentPreview"
+      class="attachment-preview">
+     </div>
+
+     <p style="
+      color:var(--muted);
+      font-size:11px;
+      margin-top:8px">
+      يمكنك إرفاق صورة أو ملف، والمرفق اختياري.
+     </p>
+
+    </div>
+
+   </div>
+
+   <div class="card"
+    style="margin-top:14px">
+
+    <h3>📍 موقع المشكلة</h3>
+
+    <p style="
+     color:var(--muted);
+     font-size:12px;
+     margin:7px 0 14px">
+     اضغط على الخريطة لتحديد مكان المشكلة.
+    </p>
+
+    <div
+     id="reportMap"
+     class="map">
+    </div>
+
+    <div style="
+     margin-top:12px;
+     display:flex;
+     justify-content:space-between;
+     align-items:center;
+     gap:10px">
+
+     <span
+      id="locationStatus"
+      style="
+       color:var(--muted);
+       font-size:12px">
+      لم يتم تحديد الموقع
+     </span>
+
+     <button
+      class="secondary"
+      onclick="useMyLocation()">
+      📍 موقعي
+     </button>
 
     </div>
 
@@ -1364,24 +1989,29 @@ function renderReportPage(){
 
    <div class="score-box">
 
-    <div class="score-label">
-     الأولوية التقديرية
+    <div style="
+     font-size:13px;
+     color:var(--muted)">
+     المعاينة الذكية
     </div>
 
     <div
      class="score-circle"
-     id="liveScore">
+     id="previewScore"
+     style="--score:70%">
 
-     <div
+     <span
       class="score-number"
-      id="scoreNumber">
-      30
-     </div>
+      id="previewScoreNumber">
+      —
+     </span>
 
     </div>
 
-    <div class="score-label">
-     تتغير حسب نوع ووصف البلاغ
+    <div
+     id="previewLabel"
+     class="score-label">
+     اكتب وصف المشكلة لمعرفة الأولوية
     </div>
 
    </div>
@@ -1391,7 +2021,7 @@ function renderReportPage(){
     <button
      class="primary"
      onclick="submitReport()">
-     إرسال البلاغ
+     🚀 إرسال البلاغ
     </button>
 
     <button
@@ -1407,618 +2037,1012 @@ function renderReportPage(){
  </section>
  `;
 
- document
- .getElementById("reportType")
- .addEventListener(
-  "change",
-  updateLiveScore
- );
-
- document
- .getElementById("reportDescription")
- .addEventListener(
-  "input",
-  updateLiveScore
- );
-}
-
-function updateLiveScore(){
-
- const type=
- document.getElementById("reportType")?.value||
- "other";
-
- const desc=
- document.getElementById("reportDescription")?.value||
- "";
-
- const score=
- scoreReport(type,desc);
-
- const circle=
- document.getElementById("liveScore");
-
- const number=
- document.getElementById("scoreNumber");
-
- if(circle){
-
-  circle.style.setProperty(
-   "--score",
-   score+"%"
-  );
-
-  number.textContent=score;
- }
-}
-
-async function submitReport(){
-
- if(!currentUser){
-  openAuth("login");
-  return;
- }
-
- const title=
- document
- .getElementById("reportTitle")
- .value
- .trim();
-
- const type=
- document
- .getElementById("reportType")
- .value;
+ initReportMap();
 
  const description=
- document
- .getElementById("reportDescription")
- .value
- .trim();
+  document.getElementById(
+   "reportDescription"
+  );
 
- const location=
- document
- .getElementById("reportLocation")
- .value
- .trim();
+ description.addEventListener(
+  "input",
+  previewAI
+ );
 
- const image_url=
  document
- .getElementById("reportImage")
- .value
- .trim();
+  .getElementById("reportType")
+  .addEventListener(
+   "change",
+   previewAI
+  );
 
- if(!title||!description){
+}
+
+function renderReportPageWrapper(){
+ renderReportPage();
+}
+
+function handleAttachmentChange(e){
+
+ const file=e.target.files?.[0];
+
+ if(!file) return;
+
+ selectedAttachmentFile=file;
+
+ [
+  "reportPhoto",
+  "reportCamera",
+  "reportFile"
+ ].forEach(id=>{
+
+  const input=
+   document.getElementById(id);
+
+  if(
+   input &&
+   input!==e.target
+  ){
+   input.value="";
+  }
+
+ });
+
+ const preview=
+  document.getElementById(
+   "attachmentPreview"
+  );
+
+ if(!preview) return;
+
+ preview.style.display="block";
+
+ if(file.type.startsWith("image/")){
+
+  const reader=
+   new FileReader();
+
+  reader.onload=()=>{
+
+   preview.innerHTML=`
+
+    <img
+     src="${reader.result}"
+     alt="معاينة المرفق">
+
+    <div class="attachment-file">
+
+     <span>🖼️</span>
+
+     <span>
+      ${escapeHtml(file.name)}
+     </span>
+
+     <button
+      type="button"
+      class="secondary"
+      style="
+       margin-right:auto;
+       padding:8px 10px"
+      onclick="clearAttachment()">
+      حذف
+     </button>
+
+    </div>
+
+   `;
+
+  };
+
+  reader.readAsDataURL(file);
+
+ }else{
+
+  preview.innerHTML=`
+
+   <div class="attachment-file">
+
+    <span style="font-size:28px">
+     📎
+    </span>
+
+    <div>
+
+     <strong>
+      ${escapeHtml(file.name)}
+     </strong>
+
+     <div style="
+      color:var(--muted);
+      font-size:11px;
+      margin-top:4px">
+
+      ${formatFileSize(file.size)}
+
+     </div>
+
+    </div>
+
+    <button
+     type="button"
+     class="secondary"
+     style="
+      margin-right:auto;
+      padding:8px 10px"
+     onclick="clearAttachment()">
+     حذف
+    </button>
+
+   </div>
+
+  `;
+
+ }
+
+}
+
+function formatFileSize(bytes){
+
+ if(!bytes) return "0 B";
+
+ const units=[
+  "B","KB","MB","GB"
+ ];
+
+ const i=
+  Math.min(
+   Math.floor(
+    Math.log(bytes)/
+    Math.log(1024)
+   ),
+   units.length-1
+  );
+
+ return (
+  bytes/
+  Math.pow(1024,i)
+ ).toFixed(i?1:0)
+ +" "+
+ units[i];
+
+}
+
+function clearAttachment(){
+
+ selectedAttachmentFile=null;
+
+ [
+  "reportPhoto",
+  "reportCamera",
+  "reportFile"
+ ].forEach(id=>{
+
+  const input=
+   document.getElementById(id);
+
+  if(input)
+   input.value="";
+
+ });
+
+ const preview=
+  document.getElementById(
+   "attachmentPreview"
+  );
+
+ if(preview){
+
+  preview.innerHTML="";
+
+  preview.style.display="none";
+
+ }
+
+}
+
+function initReportMap(){
+
+ reportMap=
+  L.map("reportMap")
+  .setView(
+   [24.2075,55.7447],
+   13
+  );
+
+ L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+   maxZoom:19,
+   attribution:"© OpenStreetMap"
+  }
+ ).addTo(reportMap);
+
+ reportMap.on(
+  "click",
+  e=>{
+
+   selectedLat=
+    e.latlng.lat;
+
+   selectedLng=
+    e.latlng.lng;
+
+   L.marker([
+    selectedLat,
+    selectedLng
+   ]).addTo(reportMap);
+
+   document
+    .getElementById(
+     "locationStatus"
+    )
+    .textContent=
+     "تم تحديد موقع المشكلة ✓";
+
+  }
+ );
+
+}
+
+function useMyLocation(){
+
+ if(!navigator.geolocation){
 
   showToast(
-   "اكتب عنوان ووصف البلاغ",
+   "الموقع غير متاح في جهازك",
    "error"
   );
 
   return;
+
  }
 
- const score=
- scoreReport(type,description);
+ navigator.geolocation.getCurrentPosition(
 
- const item={
+  pos=>{
 
-  user_id:currentUser.id,
+   selectedLat=
+    pos.coords.latitude;
+
+   selectedLng=
+    pos.coords.longitude;
+
+   if(reportMap){
+
+    reportMap.setView(
+     [
+      selectedLat,
+      selectedLng
+     ],
+     16
+    );
+
+    L.marker([
+     selectedLat,
+     selectedLng
+    ]).addTo(reportMap);
+
+   }
+
+   document
+    .getElementById(
+     "locationStatus"
+    )
+    .textContent=
+     "تم تحديد موقعك ✓";
+
+  },
+
+  ()=>{
+
+   showToast(
+    "لم نتمكن من الوصول إلى موقعك. يمكنك تحديده من الخريطة.",
+    "error"
+   );
+
+  },
+
+  {
+   enableHighAccuracy:true,
+   timeout:10000
+  }
+
+ );
+
+}
+
+/* =====================================================
+   AI / SCORE
+===================================================== */
+
+function analyzeIssue(
+ type,
+ description
+){
+
+ const text=
+  (description||"").toLowerCase();
+
+ let score=35;
+
+ const criticalWords=[
+  "حادث",
+  "حريق",
+  "خطر",
+  "خطير",
+  "سقوط",
+  "مكشوف",
+  "كهرباء",
+  "ماس",
+  "حفرة كبيرة",
+  "انهيار",
+  "تسرب",
+  "تصادم",
+  "دخان",
+  "طوارئ"
+ ];
+
+ const mediumWords=[
+  "مكسور",
+  "تالف",
+  "لا يعمل",
+  "مشكلة",
+  "ازدحام",
+  "ماء",
+  "تسريب",
+  "مزعج",
+  "متضرر"
+ ];
+
+ criticalWords.forEach(w=>{
+  if(text.includes(w))
+   score+=10;
+ });
+
+ mediumWords.forEach(w=>{
+  if(text.includes(w))
+   score+=5;
+ });
+
+ const typeBonus={
+  safety:18,
+  road:14,
+  light:10,
+  accessibility:12,
+  facility:8,
+  environment:7,
+  cleanliness:4,
+  other:5
+ };
+
+ score+=
+  typeBonus[type]||5;
+
+ if(text.length>120)
+  score+=5;
+
+ if(!selectedLat)
+  score-=5;
+
+ score=
+  Math.max(
+   1,
+   Math.min(
+    100,
+    score
+   )
+  );
+
+ let label="منخفض";
+
+ if(score>=80)
+  label="حرج";
+ else if(score>=60)
+  label="مرتفع";
+ else if(score>=40)
+  label="متوسط";
+
+ return{
+  score,
+  label,
+  authority:getAuthority(type)
+ };
+
+}
+
+function getAuthority(type){
+
+ const map={
+  road:"جهة الطرق والصيانة",
+  light:"جهة الإنارة والصيانة",
+  cleanliness:"جهة النظافة والبلدية",
+  facility:"جهة المرافق والخدمات",
+  safety:"جهة السلامة والطوارئ",
+  accessibility:
+   "جهة الخدمات المجتمعية وإتاحة الوصول",
+  environment:"جهة البيئة",
+  other:"الجهة المختصة"
+ };
+
+ return map[type]||map.other;
+
+}
+
+function previewAI(){
+
+ const type=
+  document.getElementById(
+   "reportType"
+  )?.value;
+
+ const desc=
+  document.getElementById(
+   "reportDescription"
+  )?.value||"";
+
+ if(!type) return;
+
+ const result=
+  analyzeIssue(
+   type,
+   desc
+  );
+
+ const circle=
+  document.getElementById(
+   "previewScore"
+  );
+
+ const num=
+  document.getElementById(
+   "previewScoreNumber"
+  );
+
+ const label=
+  document.getElementById(
+   "previewLabel"
+  );
+
+ if(circle)
+  circle.style.setProperty(
+   "--score",
+   result.score+"%"
+  );
+
+ if(num)
+  num.textContent=
+   result.score;
+
+ if(label)
+  label.innerHTML=
+   `${result.label} — ${result.authority}`;
+
+}
+
+/* =====================================================
+   SUBMIT REPORT
+===================================================== */
+
+async function submitReport(){
+
+ if(!currentUser){
+
+  openAuth("login");
+
+  return;
+
+ }
+
+ const title=
+  document
+   .getElementById(
+    "reportTitle"
+   )
+   .value
+   .trim();
+
+ const type=
+  document
+   .getElementById(
+    "reportType"
+   )
+   .value;
+
+ const description=
+  document
+   .getElementById(
+    "reportDescription"
+   )
+   .value
+   .trim();
+
+ const photoInput=
+  document.getElementById(
+   "reportPhoto"
+  );
+
+ const attachment=
+  selectedAttachmentFile ||
+  photoInput?.files?.[0] ||
+  null;
+
+ if(!title){
+
+  showToast(
+   "اكتب عنوان البلاغ",
+   "error"
+  );
+
+  return;
+
+ }
+
+ if(!selectedLat || !selectedLng){
+
+  showToast(
+   "حدد موقع المشكلة من الخريطة",
+   "error"
+  );
+
+  return;
+
+ }
+
+ const ai=
+  analyzeIssue(
+   type,
+   description
+  );
+
+ let photoUrl=null;
+
+ if(attachment){
+
+  try{
+
+   const file=attachment;
+
+   const safeName=
+    file.name
+     .replace(
+      /[^a-zA-Z0-9._-]/g,
+      "_"
+     );
+
+   const path=
+    `${currentUser.id}/${Date.now()}_${safeName}`;
+
+   const upload=
+    await supabaseClient
+     .storage
+     .from("reports")
+     .upload(
+      path,
+      file,
+      {
+       upsert:false
+      }
+     );
+
+   if(upload.error){
+
+    console.log(
+     "Photo upload:",
+     upload.error
+    );
+
+    showToast(
+     "تعذر رفع المرفق، حاول مرة أخرى",
+     "error"
+    );
+
+    return;
+
+   }
+
+   const pub=
+    supabaseClient
+     .storage
+     .from("reports")
+     .getPublicUrl(path);
+
+   photoUrl=
+    pub.data.publicUrl;
+
+  }catch(err){
+
+   console.log(
+    "Photo upload:",
+    err
+   );
+
+   showToast(
+    "تعذر رفع المرفق، حاول مرة أخرى",
+    "error"
+   );
+
+   return;
+
+  }
+
+ }
+
+ const newReport={
+
+  id:"local_"+Date.now(),
+
+  user_id:
+   currentUser.id,
+
   title,
   type,
   description,
-  location,
-  image_url,
-  score,
-  status:"تم استلام البلاغ"
+
+  latitude:
+   selectedLat,
+
+  longitude:
+   selectedLng,
+
+  score:
+   ai.score,
+
+  priority_label:
+   ai.label,
+
+  authority:
+   ai.authority,
+
+  matches:
+   findMatches(
+    type,
+    selectedLat,
+    selectedLng
+   ),
+
+  affected_count:1,
+
+  status:"تم الاستلام",
+
+  has_photo:
+   !!photoUrl,
+
+  photo_url:
+   photoUrl,
+
+  created_at:
+   new Date().toISOString(),
+
+  updated_at:
+   new Date().toISOString(),
+
+  ai_summary:
+   `تم تصنيف البلاغ كـ ${ai.label} وتوجيهه مبدئياً إلى ${ai.authority}.`
 
  };
 
- reports.unshift({
-
-  ...item,
-  id:"local-"+Date.now(),
-  created_at:new Date().toISOString()
-
- });
-
- saveLocalReports();
-
- try{
-
-  const {error}=
-   await supabaseClient
-   .from("reports")
-   .insert([item]);
-
-  if(error)
-   console.log(error);
-
- }catch(err){
-  console.log(err);
- }
-
- showToast(
-  "تم إرسال البلاغ بنجاح ✓",
-  "success"
- );
-
- showPage("myreports");
-}
-
-function saveLocalReports(){
-
- localStorage.setItem(
-  "awn_reports",
-  JSON.stringify(reports)
- );
-
-}
-
-function loadLocalReports(){
-
- try{
-
-  reports=
-   JSON.parse(
-    localStorage.getItem("awn_reports")||"[]"
-   );
-
- }catch{
-  reports=[];
- }
-
-}
-
-async function loadReports(){
-
- loadLocalReports();
+ let savedOnline=false;
 
  try{
 
   const {data,error}=
    await supabaseClient
-   .from("reports")
-   .select("*")
-   .order(
-    "created_at",
-    {ascending:false}
+    .from("reports")
+    .insert([{
+
+     user_id:
+      newReport.user_id,
+
+     title:
+      newReport.title,
+
+     type:
+      newReport.type,
+
+     description:
+      newReport.description,
+
+     latitude:
+      newReport.latitude,
+
+     longitude:
+      newReport.longitude,
+
+     score:
+      newReport.score,
+
+     matches:
+      newReport.matches,
+
+     status:
+      newReport.status,
+
+     has_photo:
+      newReport.has_photo,
+
+     photo_url:
+      newReport.photo_url
+
+    }])
+    .select()
+    .single();
+
+  if(!error && data){
+
+   newReport.id=
+    data.id;
+
+   savedOnline=true;
+
+  }else{
+
+   console.log(
+    "Supabase report insert:",
+    error
    );
 
-  if(!error&&data){
-
-   const local=
-    reports.filter(
-     r=>String(r.id).startsWith("local-")
-    );
-
-   reports=[
-    ...data,
-    ...local
-   ];
   }
 
  }catch(err){
-  console.log(err);
+
+  console.log(
+   "Supabase:",
+   err
+  );
+
  }
+
+ reports.unshift(
+  newReport
+ );
+
+ saveLocalReports();
+
+ if(currentProfile){
+
+  const newPoints=
+   (currentProfile.points||0)+10;
+
+  currentProfile.points=
+   newPoints;
+
+  try{
+
+   await supabaseClient
+    .from("profiles")
+    .update({
+     points:newPoints
+    })
+    .eq(
+     "id",
+     currentUser.id
+    );
+
+  }catch{}
+
+ }
+
+ selectedLat=null;
+ selectedLng=null;
+
+ clearAttachment();
+
+ showSuccessModal(
+  newReport
+ );
 
 }
 
-function renderMapPage(){
+function findMatches(
+ type,
+ lat,
+ lng
+){
 
- document.getElementById("app").innerHTML=`
+ return reports.filter(
+  r=>{
 
- <section class="container">
+   if(r.type!==type)
+    return false;
 
-  <div class="section-head">
+   if(!r.latitude ||
+      !r.longitude)
+    return false;
 
-   <div>
-    <h2>🗺️ خريطة عون</h2>
-    <p>
-     استكشف البلاغات حسب الأولوية.
-    </p>
-   </div>
+   const distance=
+    getDistanceKm(
+     lat,
+     lng,
+     r.latitude,
+     r.longitude
+    );
 
-  </div>
+   return distance<=0.3;
 
-  <div class="map-tools">
+  }
+ ).length;
 
-   <button
-    class="filter active"
-    onclick="filterMap('all',this)">
-    الكل
-   </button>
+}
 
-   <button
-    class="filter"
-    onclick="filterMap('high',this)">
-    حرجة
-   </button>
+function getDistanceKm(
+ lat1,
+ lon1,
+ lat2,
+ lon2
+){
 
-   <button
-    class="filter"
-    onclick="filterMap('medium',this)">
-    متوسطة
-   </button>
+ const R=6371;
 
-   <button
-    class="filter"
-    onclick="filterMap('low',this)">
-    منخفضة
-   </button>
+ const dLat=
+  (lat2-lat1)*
+  Math.PI/180;
 
-  </div>
+ const dLon=
+  (lon2-lon1)*
+  Math.PI/180;
+
+ const a=
+  Math.sin(dLat/2)**2+
+  Math.cos(
+   lat1*Math.PI/180
+  )*
+  Math.cos(
+   lat2*Math.PI/180
+  )*
+  Math.sin(
+   dLon/2
+  )**2;
+
+ return R*
+  2*
+  Math.atan2(
+   Math.sqrt(a),
+   Math.sqrt(1-a)
+  );
+
+}
+
+/* =====================================================
+   SUCCESS
+===================================================== */
+
+function showSuccessModal(
+ report
+){
+
+ showModal(`
 
   <div
-   id="map"
-   class="map">
-  </div>
+   style="
+    text-align:center;
+    padding:10px">
 
- </section>
- `;
-
- setTimeout(
-  initMap,
-  50
- );
-}
-
-function initMap(){
-
- if(mapInstance){
-
-  mapInstance.remove();
-  mapInstance=null;
-
- }
-
- const map=
- document.getElementById("map");
-
- if(
-  !map||
-  typeof L==="undefined"
- )
-  return;
-
- mapInstance=
- L.map(map)
- .setView(
-  [24.2075,55.7447],
-  11
- );
-
- L.tileLayer(
-  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  {
-   attribution:"© OpenStreetMap"
-  }
- )
- .addTo(mapInstance);
-
- const valid=
- reports.filter(
-  r=>r.lat&&r.lng
- );
-
- valid.forEach(r=>{
-
-  L.marker([
-   r.lat,
-   r.lng
-  ])
-  .addTo(mapInstance)
-  .bindPopup(`
-   <strong>
-    ${escapeHtml(r.title||"بلاغ")}
-   </strong>
-   <br>
-   ${escapeHtml(r.description||"")}
-   <br>
-   <b>${r.score||0}/100</b>
-  `);
-
- });
-
-}
-
-function filterMap(level,button){
-
- document
- .querySelectorAll(".filter")
- .forEach(
-  x=>x.classList.remove("active")
- );
-
- button.classList.add("active");
-
- if(!mapInstance)
-  return;
-
- mapInstance.eachLayer(
-  layer=>{
-
-   if(layer instanceof L.Marker)
-    mapInstance.removeLayer(layer);
-
-  }
- );
-
- reports
- .filter(
-  r=>
-   r.lat&&
-   r.lng&&
-   (
-    level==="all"||
-    (
-     level==="high"&&
-     r.score>=80
-    )||
-    (
-     level==="medium"&&
-     r.score>=50&&
-     r.score<80
-    )||
-    (
-     level==="low"&&
-     r.score<50
-    )
-   )
- )
- .forEach(r=>{
-
-  L.marker([
-   r.lat,
-   r.lng
-  ])
-  .addTo(mapInstance)
-  .bindPopup(`
-   <strong>
-    ${escapeHtml(r.title||"بلاغ")}
-   </strong>
-   <br>
-   ${r.score||0}/100
-  `);
-
- });
-
-}
-
-function renderAssistant(){
-
- document.getElementById("app").innerHTML=`
-
- <section class="container">
-
-  <div class="section-head">
-
-   <div>
-    <h2>🤖 مساعد عون</h2>
-
-    <p>
-     مساعد بسيط يساعدك على فهم البلاغ ورفع الأولوية المناسبة.
-    </p>
-
+   <div style="
+    width:82px;
+    height:82px;
+    border-radius:50%;
+    margin:5px auto 20px;
+    background:rgba(72,199,142,.12);
+    border:1px solid rgba(72,199,142,.25);
+    display:grid;
+    place-items:center;
+    font-size:40px">
+    ✓
    </div>
 
-  </div>
+   <h2 style="font-size:28px">
+    تم إرسال البلاغ بنجاح
+   </h2>
 
-  <div class="card form">
+   <p style="
+    color:var(--muted);
+    line-height:1.8;
+    margin:12px 0 20px">
+    شكراً لمساهمتك في تحسين المجتمع.
+    <br>
+    تم تحليل البلاغ وتحديد درجة الأولوية.
+   </p>
 
-   <div class="field">
+   <div class="score-box">
 
-    <label>وش المشكلة؟</label>
+    <div style="
+     color:var(--muted);
+     font-size:12px">
+     Awn Score
+    </div>
 
-    <textarea
-     id="assistantText"
-     placeholder="مثال: حفرة كبيرة في شارع مزدحم...">
-    </textarea>
+    <div style="
+     font-size:52px;
+     font-weight:900;
+     color:var(--gold2);
+     margin:5px 0">
+     ${report.score}
+    </div>
+
+    <div style="
+     color:var(--muted)">
+     ${report.priority_label}
+    </div>
 
    </div>
-
-   <button
-    class="primary"
-    onclick="runAssistant()">
-    تحليل المشكلة
-   </button>
 
    <div
-    id="assistantResult"
-    style="margin-top:18px">
+    class="actions"
+    style="justify-content:center">
+
+    <button
+     class="primary"
+     onclick="
+      closeModal();
+      showPage('myreports')">
+     📋 مشاهدة بلاغاتي
+    </button>
+
+    <button
+     class="secondary"
+     onclick="
+      closeModal();
+      goHome()">
+     الرئيسية
+    </button>
+
    </div>
 
   </div>
 
- </section>
- `;
-}
-
-function runAssistant(){
-
- const text=
- document
- .getElementById("assistantText")
- .value
- .trim();
-
- if(!text)
-  return;
-
- let type="other";
-
- if(/شارع|طريق|حفرة/.test(text))
-  type="road";
-
- else if(/نور|إنارة|لمبة/.test(text))
-  type="streetlight";
-
- else if(/خطر|حادث|سلامة/.test(text))
-  type="safety";
-
- else if(/كرسي|إعاقة|منحدر/.test(text))
-  type="accessibility";
-
- const score=
- scoreReport(type,text);
-
- document
- .getElementById("assistantResult")
- .innerHTML=`
-
- <div class="score-box">
-
-  <h3>تحليل عون</h3>
-
-  <div
-   class="score-circle"
-   style="--score:${score}%">
-
-   <div class="score-number">
-    ${score}
-   </div>
-
-  </div>
-
-  <p class="score-label">
-   التصنيف المقترح:
-   ${categories[type]}
-  </p>
-
-  <p
-   style="margin-top:10px;color:#bac0bd">
-   الأولوية تعتمد على نوع المشكلة ووصفها وتأثيرها المحتمل.
-  </p>
-
- </div>
-
- `;
+ `);
 
 }
 
-function renderPulse(){
+/* =====================================================
+   MY REPORTS
+===================================================== */
 
- const counts={};
+async function renderMyReports(){
 
- reports.forEach(r=>{
+ let mine=
+  reports.filter(
+   r=>r.user_id===currentUser?.id
+  );
 
-  const t=
-   categories[r.type]||
-   r.type||
-   "أخرى";
+ try{
 
-  counts[t]=
-   (counts[t]||0)+1;
+  const {data,error}=
+   await supabaseClient
+    .from("reports")
+    .select("*")
+    .eq(
+     "user_id",
+     currentUser.id
+    )
+    .order(
+     "created_at",
+     {ascending:false}
+    );
 
- });
+  if(!error && data){
 
- const sorted=
- Object
- .entries(counts)
- .sort(
-  (a,b)=>b[1]-a[1]
- );
+   const ids=
+    new Set(
+     mine.map(
+      r=>String(r.id)
+     )
+    );
 
- document.getElementById("app").innerHTML=`
+   data.forEach(r=>{
 
- <section class="container">
+    if(!ids.has(String(r.id)))
+     mine.push(r);
 
-  <div class="section-head">
+   });
 
-   <div>
-    <h2>📊 نبض المجتمع</h2>
-    <p>
-     أكثر أنواع البلاغات انتشاراً.
-    </p>
-   </div>
+  }
 
-  </div>
+ }catch{}
 
-  <div class="card">
-
-   ${
-    sorted.length
-    ?
-    sorted.map(
-     ([n,c])=>`
-
-      <div style="margin-bottom:18px">
-
-       <div
-        style="
-         display:flex;
-         justify-content:space-between;
-         margin-bottom:7px;
-         font-size:12px
-        ">
-
-        <span>
-         ${escapeHtml(n)}
-        </span>
-
-        <strong>
-         ${c}
-        </strong>
-
-       </div>
-
-       <div
-        style="
-         height:10px;
-         background:#232824;
-         border-radius:100px;
-         overflow:hidden
-        ">
-
-        <div
-         style="
-          width:${Math.min(
-           100,
-           c/reports.length*100
-          )}%;
-          height:100%;
-          background:
-           linear-gradient(
-            90deg,
-            var(--gold),
-            var(--gold2)
-           )
-         ">
-        </div>
-
-       </div>
-
-      </div>
-
-     `
-    ).join("")
-    :
-    `
-    <div class="empty">
-     لا توجد بيانات بعد
-    </div>
-    `
-   }
-
-  </div>
-
- </section>
- `;
-
-}
-
-function renderMyReports(){
-
- const mine=
- currentUser
- ?
- reports.filter(
-  r=>r.user_id===currentUser.id
- )
- :
- [];
-
- document.getElementById("app").innerHTML=`
+ document.getElementById(
+  "app"
+ ).innerHTML=`
 
  <section class="container">
 
@@ -2027,46 +3051,72 @@ function renderMyReports(){
    <div>
     <h2>📋 بلاغاتي</h2>
     <p>
-     تابع البلاغات التي رفعتها.
+     هنا تشوف البلاغات التي رفعتها أنت فقط.
     </p>
    </div>
 
+   <button
+    class="primary"
+    onclick="openReport()">
+    + بلاغ جديد
+   </button>
+
   </div>
 
-  <div class="report-list">
+  ${
+   mine.length
 
-   ${
-    mine.length
-    ?
-    mine.map(reportCard).join("")
-    :
-    `
-    <div class="empty">
+   ? `<div class="report-list">
+      ${mine.map(reportCard).join("")}
+     </div>`
 
-     <div class="e-icon">
-      📋
+   : `
+
+     <div class="empty">
+
+      <div class="e-icon">📭</div>
+
+      <h3>
+       ما عندك بلاغات حتى الآن
+      </h3>
+
+      <p style="margin-top:7px">
+       كن أول شخص يساهم في تحسين مجتمعه.
+      </p>
+
+      <button
+       class="primary"
+       style="margin-top:18px"
+       onclick="openReport()">
+       رفع أول بلاغ
+      </button>
+
      </div>
 
-     <h3>
-      لا توجد بلاغات
-     </h3>
-
-     <p style="margin-top:8px">
-      لم ترفع أي بلاغ حتى الآن.
-     </p>
-
-    </div>
     `
-   }
-
-  </div>
+  }
 
  </section>
+
  `;
 
 }
 
 function reportCard(r){
+
+ const scoreClass=
+  r.score>=80
+  ?"score-high"
+  :r.score>=50
+  ?"score-med"
+  :"score-low";
+
+ const statusClass=
+  r.status==="تمت المعالجة"
+  ?"done"
+  :r.score>=80
+  ?"critical"
+  :"";
 
  return `
 
@@ -2077,66 +3127,84 @@ function reportCard(r){
    <div>
 
     <div class="report-title">
-     ${escapeHtml(r.title||"بلاغ")}
+     ${escapeHtml(
+      r.title||"بلاغ"
+     )}
     </div>
 
     <div class="report-type">
-     ${categories[r.type]||r.type||"أخرى"}
+     ${
+      categories[r.type]||
+      r.type||
+      "أخرى"
+     }
     </div>
 
    </div>
 
    <span
-    class="score-pill ${
-     r.score>=80
-     ?"score-high"
-     :
-     r.score>=50
-     ?"score-med"
-     :
-     "score-low"
-    }">
-
-    ${r.score||0}/100
-
+    class="status ${statusClass}">
+    ${escapeHtml(
+     r.status||
+     "تم الاستلام"
+    )}
    </span>
 
   </div>
 
-  <p class="report-desc">
-   ${escapeHtml(r.description||"")}
-  </p>
+  <div class="report-desc">
+   ${escapeHtml(
+    r.description||
+    "لا يوجد وصف"
+   )}
+  </div>
+
+  ${
+   r.photo_url
+   ? `
+    <div style="
+     margin-top:13px;
+     overflow:hidden;
+     border-radius:14px">
+     <img
+      src="${escapeHtml(r.photo_url)}"
+      alt="مرفق البلاغ"
+      style="
+       width:100%;
+       max-height:230px;
+       object-fit:cover;
+       display:block">
+    </div>
+   `
+   :""
+  }
 
   <div class="report-meta">
 
    <span
-    class="status ${
-     r.status==="تمت المعالجة"
-     ?"done"
-     :
-     r.score>=80
-     ?"critical"
-     :
-     ""
-    }">
-
-    ${escapeHtml(
-     r.status||
-     "تم استلام البلاغ"
-    )}
-
+    class="score-pill ${scoreClass}">
+    🔥 ${r.score||0}/100
    </span>
 
    <span class="meta">
-    📍 ${escapeHtml(
-     r.location||
-     "بدون موقع"
-    )}
+    👥 ${r.matches||0} مشابه
    </span>
 
    <span class="meta">
-    ${formatDate(r.created_at)}
+    📅 ${formatDate(r.created_at)}
    </span>
+
+  </div>
+
+  <div class="actions">
+
+   <button
+    class="secondary"
+    onclick='showReportDetails(${JSON.stringify(
+     safeReport(r)
+    )})'>
+    التفاصيل
+   </button>
 
   </div>
 
@@ -2146,25 +3214,739 @@ function reportCard(r){
 
 }
 
-function renderAchievements(){
+function safeReport(r){
 
- const points=
- currentProfile?.points||
- reports.filter(
-  r=>r.user_id===currentUser?.id
- ).length*10;
+ return{
 
- document.getElementById("app").innerHTML=`
+  id:r.id,
+  title:r.title,
+  type:r.type,
+  description:r.description,
+  score:r.score,
+  priority_label:
+   r.priority_label,
+  authority:r.authority,
+  status:r.status,
+  matches:r.matches,
+  created_at:r.created_at,
+  photo_url:r.photo_url
+
+ };
+
+}
+
+function showReportDetails(r){
+
+ showModal(`
+
+  <div class="modal-head">
+
+   <div>
+
+    <h2>
+     ${escapeHtml(
+      r.title||"بلاغ"
+     )}
+    </h2>
+
+    <p style="
+     color:var(--gold2);
+     font-size:12px">
+     ${
+      categories[r.type]||
+      r.type
+     }
+    </p>
+
+   </div>
+
+   <button
+    class="close"
+    onclick="closeModal()">
+    ×
+   </button>
+
+  </div>
+
+  <div class="score-box">
+
+   <div
+    class="score-circle"
+    style="--score:${r.score}%">
+
+    <span class="score-number">
+     ${r.score||0}
+    </span>
+
+   </div>
+
+   <div class="score-label">
+    درجة الأولوية —
+    ${r.priority_label||"—"}
+   </div>
+
+  </div>
+
+  <div class="card">
+
+   <p style="line-height:1.8">
+    ${escapeHtml(
+     r.description||
+     "لا يوجد وصف"
+    )}
+   </p>
+
+   ${
+    r.photo_url
+    ? `
+     <div style="
+      margin-top:15px;
+      overflow:hidden;
+      border-radius:14px">
+      <img
+       src="${escapeHtml(r.photo_url)}"
+       alt="مرفق البلاغ"
+       style="
+        width:100%;
+        max-height:300px;
+        object-fit:cover">
+     </div>
+    `
+    :""
+   }
+
+   <div
+    class="report-meta"
+    style="margin-top:15px">
+
+    <span class="meta">
+     🏛️ ${
+      escapeHtml(
+       r.authority||
+       "الجهة المختصة"
+      )
+     }
+    </span>
+
+    <span class="meta">
+     👥 ${r.matches||0}
+     بلاغ مشابه
+    </span>
+
+   </div>
+
+  </div>
+
+  <div style="margin-top:20px">
+
+   <h3 style="margin-bottom:15px">
+    متابعة البلاغ
+   </h3>
+
+   <div class="timeline">
+
+    ${statusFlow.map(
+     (s,i)=>`
+
+      <div class="timeline-item">
+
+       <div
+        class="timeline-dot"
+        style="
+         background:
+         ${
+          statusFlow.indexOf(
+           r.status
+          )>=i
+          ?"var(--gold2)"
+          :"#343b37"
+         }
+        ">
+       </div>
+
+       <h4>
+        ${s}
+       </h4>
+
+       <p>
+        ${
+         statusFlow.indexOf(
+          r.status
+         )>=i
+         ?"تم الوصول لهذه المرحلة"
+         :"بانتظار الانتقال لهذه المرحلة"
+        }
+       </p>
+
+      </div>
+
+     `
+    ).join("")}
+
+   </div>
+
+  </div>
+
+ `);
+
+}
+
+/* =====================================================
+   MAP
+===================================================== */
+
+async function renderMapPage(){
+
+ setMapMode(true);
+
+ document.getElementById(
+  "app"
+ ).innerHTML=`
+
+ <section class="map-screen">
+
+  <div class="map-overlay">
+
+   <button
+    class="filter active"
+    onclick="filterMap('all',this)">
+    الكل
+   </button>
+
+   <button
+    class="filter"
+    onclick="filterMap('critical',this)">
+    🔴 حرجة
+   </button>
+
+   <button
+    class="filter"
+    onclick="filterMap('medium',this)">
+    🟠 متوسطة
+   </button>
+
+   <button
+    class="filter"
+    onclick="filterMap('low',this)">
+    🟢 منخفضة
+   </button>
+
+   <button
+    class="filter"
+    onclick="filterMap('road',this)">
+    الطرق
+   </button>
+
+   <button
+    class="filter"
+    onclick="filterMap('light',this)">
+    الإنارة
+   </button>
+
+   <button
+    class="filter"
+    onclick="filterMap('safety',this)">
+    السلامة
+   </button>
+
+  </div>
+
+  <div
+   id="mainMap"
+   class="map">
+  </div>
+
+ </section>
+
+ `;
+
+ setTimeout(
+  initMainMap,
+  100
+ );
+
+}
+
+function initMainMap(){
+
+ map=
+  L.map("mainMap")
+  .setView(
+   [24.2075,55.7447],
+   12
+  );
+
+ L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+   maxZoom:19,
+   attribution:"© OpenStreetMap"
+  }
+ ).addTo(map);
+
+ markersLayer=
+  L.layerGroup().addTo(map);
+
+ drawMarkers(reports);
+
+}
+
+function drawMarkers(list){
+
+ if(!markersLayer)
+  return;
+
+ markersLayer.clearLayers();
+
+ list.forEach(r=>{
+
+  if(
+   !r.latitude ||
+   !r.longitude
+  )
+   return;
+
+  let color=
+   "#48c78e";
+
+  if(r.score>=80)
+   color="#ff5f61";
+
+  else if(r.score>=50)
+   color="#ff9f43";
+
+  const icon=
+   L.divIcon({
+
+    className:"",
+
+    html:`
+
+     <div style="
+      width:17px;
+      height:17px;
+      border-radius:50%;
+      background:${color};
+      border:3px solid white;
+      box-shadow:
+       0 3px 12px rgba(0,0,0,.4);
+     "></div>
+
+    `,
+
+    iconSize:[17,17]
+
+   });
+
+  L.marker(
+   [
+    r.latitude,
+    r.longitude
+   ],
+   {icon}
+  )
+  .bindPopup(`
+
+   <div
+    dir="rtl"
+    style="min-width:190px">
+
+    <strong>
+     ${escapeHtml(
+      r.title||
+      "بلاغ"
+     )}
+    </strong>
+
+    <br>
+
+    <small>
+     ${
+      categories[r.type]||
+      r.type||
+      "أخرى"
+     }
+    </small>
+
+    <br><br>
+
+    <strong>
+     الأولوية:
+     ${r.score||0}/100
+    </strong>
+
+    <br>
+
+    <small>
+     ${escapeHtml(
+      r.status||
+      "تم الاستلام"
+     )}
+    </small>
+
+   </div>
+
+  `)
+  .addTo(
+   markersLayer
+  );
+
+ });
+
+}
+
+function filterMap(
+ filter,
+ button
+){
+
+ document
+  .querySelectorAll(
+   ".filter"
+  )
+  .forEach(
+   x=>x.classList.remove(
+    "active"
+   )
+  );
+
+ button.classList.add(
+  "active"
+ );
+
+ let list=reports;
+
+ if(filter==="critical")
+  list=
+   reports.filter(
+    r=>r.score>=80
+   );
+
+ if(filter==="medium")
+  list=
+   reports.filter(
+    r=>r.score>=50 &&
+    r.score<80
+   );
+
+ if(filter==="low")
+  list=
+   reports.filter(
+    r=>r.score<50
+   );
+
+ if(
+  ["road","light","safety"]
+   .includes(filter)
+ )
+  list=
+   reports.filter(
+    r=>r.type===filter
+   );
+
+ drawMarkers(list);
+
+}
+
+/* =====================================================
+   ASSISTANT
+===================================================== */
+
+function renderAssistant(){
+
+ setMapMode(false);
+
+ document.getElementById(
+  "app"
+ ).innerHTML=`
 
  <section class="container">
 
   <div class="section-head">
 
    <div>
-    <h2>🏆 نقاطي وإنجازاتي</h2>
+
+    <h2>🤖 مساعد عون</h2>
 
     <p>
-     مساهمتك تصنع فرقاً.
+     اشرح المشكلة بكلماتك،
+     وعون يساعدك في فهمها.
+    </p>
+
+   </div>
+
+  </div>
+
+  <div class="form">
+
+   <div class="card">
+
+    <div class="field">
+
+     <label>
+      ما المشكلة التي شاهدتها؟
+     </label>
+
+     <textarea
+      id="assistantText"
+      placeholder="مثال: توجد حفرة كبيرة في الشارع وقد تسبب خطراً على السيارات..."></textarea>
+
+    </div>
+
+    <button
+     class="primary"
+     onclick="runAssistant()">
+     ✨ تحليل المشكلة
+    </button>
+
+   </div>
+
+   <div
+    id="assistantResult"
+    style="margin-top:15px">
+   </div>
+
+  </div>
+
+ </section>
+
+ `;
+
+}
+
+function runAssistant(){
+
+ const text=
+  document
+   .getElementById(
+    "assistantText"
+   )
+   .value
+   .trim();
+
+ if(!text){
+
+  showToast(
+   "اكتب المشكلة أولاً",
+   "error"
+  );
+
+  return;
+
+ }
+
+ let type="other";
+
+ if(
+  /شارع|طريق|حفرة|رصيف/
+   .test(text)
+ )
+  type="road";
+
+ else if(
+  /إنارة|لمبة|مصباح|نور/
+   .test(text)
+ )
+  type="light";
+
+ else if(
+  /نظافة|قمامة|مخلفات|زبالة/
+   .test(text)
+ )
+  type="cleanliness";
+
+ else if(
+  /خطر|حادث|كهرباء|حريق/
+   .test(text)
+ )
+  type="safety";
+
+ else if(
+  /كرسي|منحدر|ذوي الإعاقة|إعاقة|وصول/
+   .test(text)
+ )
+  type="accessibility";
+
+ else if(
+  /حديقة|مرفق|دورة مياه|ملعب/
+   .test(text)
+ )
+  type="facility";
+
+ const ai=
+  analyzeIssue(
+   type,
+   text
+  );
+
+ document.getElementById(
+  "assistantResult"
+ ).innerHTML=`
+
+ <div class="card">
+
+  <div class="badge">
+   تحليل عون
+  </div>
+
+  <h2 style="margin-top:14px">
+   ${
+    categories[type]||
+    "أخرى"
+   }
+  </h2>
+
+  <p style="
+   color:var(--muted);
+   line-height:1.8;
+   margin:10px 0">
+   ${escapeHtml(
+    ai.authority
+   )}
+  </p>
+
+  <div class="score-box">
+
+   <div
+    class="score-circle"
+    style="--score:${ai.score}%">
+
+    <span class="score-number">
+     ${ai.score}
+    </span>
+
+   </div>
+
+   <strong>
+    ${ai.label}
+   </strong>
+
+  </div>
+
+  <div class="card">
+
+   <h3>
+    💡 اقتراح عون
+   </h3>
+
+   <p style="
+    color:var(--muted);
+    line-height:1.8;
+    margin-top:8px">
+
+    ${
+     ai.score>=80
+     ?"هذه المشكلة قد تحتاج إلى تعامل سريع بسبب مستوى الأولوية المرتفع."
+     :ai.score>=50
+     ?"يفضل رفع البلاغ مع صورة ووصف واضح لمساعدة الجهة المختصة."
+     :"يمكن رفع البلاغ للمساهمة في تحسين المكان ومتابعة المشكلة."
+    }
+
+   </p>
+
+  </div>
+
+  <button
+   class="primary"
+   style="margin-top:15px"
+   onclick="openReportFromAssistant('${type}')">
+   📢 ارفع البلاغ
+  </button>
+
+ </div>
+
+ `;
+
+}
+
+function openReportFromAssistant(
+ type
+){
+
+ requireLogin(()=>{
+
+  renderReportPage();
+
+  setTimeout(()=>{
+
+   const select=
+    document.getElementById(
+     "reportType"
+    );
+
+   if(select){
+
+    select.value=type;
+
+    previewAI();
+
+   }
+
+  },100);
+
+ });
+
+}
+
+/* =====================================================
+   COMMUNITY PULSE
+===================================================== */
+
+function renderPulse(){
+
+ setMapMode(false);
+
+ const total=
+  reports.length;
+
+ const resolved=
+  reports.filter(
+   r=>r.status==="تمت المعالجة"
+  ).length;
+
+ const critical=
+  reports.filter(
+   r=>r.score>=80
+  ).length;
+
+ const percentage=
+  total
+  ?Math.round(
+   (resolved/total)*100
+  )
+  :0;
+
+ const typeCounts={};
+
+ reports.forEach(r=>{
+
+  typeCounts[r.type]=
+   (typeCounts[r.type]||0)+1;
+
+ });
+
+ const mostReported=
+  Object.entries(
+   typeCounts
+  )
+  .sort(
+   (a,b)=>b[1]-a[1]
+  )[0];
+
+ document.getElementById(
+  "app"
+ ).innerHTML=`
+
+ <section class="container">
+
+  <div class="section-head">
+
+   <div>
+
+    <h2>📊 نبض المجتمع</h2>
+
+    <p>
+     صورة مبسطة عن حالة البلاغات في عون.
     </p>
 
    </div>
@@ -2174,209 +3956,587 @@ function renderAchievements(){
   <div class="stats">
 
    <div class="stat">
-    <div class="label">النقاط</div>
+    <div class="label">
+     إجمالي البلاغات
+    </div>
     <div class="value">
-     ${points}
+     ${total}
     </div>
    </div>
 
    <div class="stat">
-    <div class="label">البلاغات</div>
+    <div class="label">
+     نسبة المعالجة
+    </div>
     <div class="value">
+     ${percentage}%
+    </div>
+   </div>
+
+   <div class="stat">
+    <div class="label">
+     بلاغات حرجة
+    </div>
+    <div class="value">
+     ${critical}
+    </div>
+   </div>
+
+   <div class="stat">
+
+    <div class="label">
+     أكثر نوع بلاغ
+    </div>
+
+    <div
+     class="value"
+     style="font-size:20px">
+
      ${
-      reports.filter(
-       r=>r.user_id===currentUser?.id
-      ).length
+      mostReported
+      ?categories[
+       mostReported[0]
+      ]||
+       mostReported[0]
+      :"—"
      }
+
     </div>
+
    </div>
 
-   <div class="stat">
-    <div class="label">المعالجة</div>
-    <div class="value">
-     ${
-      reports.filter(
-       r=>
-        r.user_id===currentUser?.id&&
-        r.status==="تمت المعالجة"
-      ).length
-     }
-    </div>
-   </div>
+  </div>
 
-   <div class="stat">
-    <div class="label">المستوى</div>
-    <div class="value">
-     ${points>=100?"⭐":"🌱"}
+  <div class="section">
+
+   <div class="card">
+
+    <h3>
+     🌱 مساهمة المجتمع
+    </h3>
+
+    <p style="
+     color:var(--muted);
+     line-height:1.8;
+     margin-top:9px">
+
+     كل بلاغ موثق يساعد على تكوين صورة أفضل
+     عن احتياجات المجتمع وترتيب الأولويات.
+
+    </p>
+
+    <div style="margin-top:20px">
+
+     <div style="
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:7px;
+      font-size:12px">
+
+      <span>
+       المعالجة
+      </span>
+
+      <strong>
+       ${percentage}%
+      </strong>
+
+     </div>
+
+     <div style="
+      height:10px;
+      border-radius:100px;
+      background:#222825;
+      overflow:hidden">
+
+      <div style="
+       width:${percentage}%;
+       height:100%;
+       background:
+        linear-gradient(
+         90deg,
+         var(--green),
+         var(--gold2)
+        );
+      "></div>
+
+     </div>
+
     </div>
+
    </div>
 
   </div>
 
  </section>
+
  `;
 
 }
 
+/* =====================================================
+   ACHIEVEMENTS
+===================================================== */
+
+function renderAchievements(){
+
+ setMapMode(false);
+
+ const points=
+  currentProfile?.points||0;
+
+ const achievements=[
+
+  {
+   icon:"🌱",
+   title:"بداية العون",
+   desc:
+    "أكملت أول مساهمة في المجتمع",
+   done:
+    reports.some(
+     r=>r.user_id===currentUser.id
+    )
+  },
+
+  {
+   icon:"📢",
+   title:"صوت المجتمع",
+   desc:
+    "رفعت 5 بلاغات",
+   done:
+    reports.filter(
+     r=>r.user_id===currentUser.id
+    ).length>=5
+  },
+
+  {
+   icon:"🔥",
+   title:"عين عون",
+   desc:
+    "رفعت بلاغاً عالي الأولوية",
+   done:
+    reports.some(
+     r=>
+      r.user_id===currentUser.id &&
+      r.score>=80
+    )
+  },
+
+  {
+   icon:"🏆",
+   title:"عضو فعال",
+   desc:
+    "جمعت 100 نقطة",
+   done:
+    points>=100
+  }
+
+ ];
+
+ document.getElementById(
+  "app"
+ ).innerHTML=`
+
+ <section class="container">
+
+  <div class="section-head">
+
+   <div>
+    <h2>
+     🏆 نقاطي وإنجازاتي
+    </h2>
+
+    <p>
+     مساهمتك تصنع فرقاً.
+    </p>
+
+   </div>
+
+  </div>
+
+  <div
+   class="card"
+   style="
+    text-align:center;
+    margin-bottom:15px">
+
+   <div style="
+    font-size:52px;
+    font-weight:900;
+    color:var(--gold2)">
+
+    ${points}
+
+   </div>
+
+   <div style="color:var(--muted)">
+    نقطة عون
+   </div>
+
+   <div
+    class="badge"
+    style="
+     margin-top:15px;
+     margin-bottom:0">
+
+    ${
+     currentProfile?.badge||
+     "عضو جديد"
+    }
+
+   </div>
+
+  </div>
+
+  <div class="grid">
+
+   ${achievements.map(
+    a=>`
+
+     <div
+      class="card feature"
+      style="${
+       a.done
+       ?"border-color:rgba(72,199,142,.3)"
+       :""
+      }">
+
+      <div class="feature-icon">
+       ${a.icon}
+      </div>
+
+      <h3>
+       ${a.title}
+      </h3>
+
+      <p>
+       ${a.desc}
+      </p>
+
+      <div style="
+       margin-top:14px;
+       color:${
+        a.done
+        ?"var(--green)"
+        :"var(--muted)"
+       };
+       font-size:12px">
+
+       ${
+        a.done
+        ?"✓ مكتمل"
+        :"🔒 غير مكتمل"
+       }
+
+      </div>
+
+     </div>
+
+    `
+   ).join("")}
+
+  </div>
+
+ </section>
+
+ `;
+
+}
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
 function openNotifications(){
 
+ showModal(`
+
+  <div class="modal-head">
+
+   <h2>
+    🔔 الإشعارات
+   </h2>
+
+   <button
+    class="close"
+    onclick="closeModal()">
+    ×
+   </button>
+
+  </div>
+
+  <div class="empty">
+
+   <div class="e-icon">
+    🔔
+   </div>
+
+   <h3>
+    لا توجد إشعارات جديدة
+   </h3>
+
+   <p style="margin-top:8px">
+    ستظهر هنا تحديثات بلاغاتك.
+   </p>
+
+  </div>
+
+ `);
+
+}
+
+/* =====================================================
+   SUPPORT
+===================================================== */
+
+function openSupport(){
+
  if(!currentUser){
+
   openAuth("login");
+
   return;
+
  }
 
  showModal(`
 
- <div class="modal-head">
+  <div class="modal-head">
 
-  <h2>🔔 الإشعارات</h2>
+   <div>
 
-  <button
-   class="modal-close"
-   onclick="closeModal()">
-   ×
-  </button>
+    <h2>
+     💬 الدعم والمساعدة
+    </h2>
 
- </div>
+    <p style="
+     color:var(--muted);
+     font-size:12px">
+     نحن نسمعك.
+    </p>
 
- <div class="empty">
-  لا توجد إشعارات جديدة.
- </div>
+   </div>
+
+   <button
+    class="close"
+    onclick="closeModal()">
+    ×
+   </button>
+
+  </div>
+
+  <form
+   onsubmit="sendSupport(event)">
+
+   <div class="field">
+
+    <label>
+     عنوان الرسالة
+    </label>
+
+    <input
+     id="supportTitle"
+     required>
+
+   </div>
+
+   <div class="field">
+
+    <label>
+     رسالتك
+    </label>
+
+    <textarea
+     id="supportMessage"
+     required>
+    </textarea>
+
+   </div>
+
+   <button class="primary">
+    إرسال الرسالة
+   </button>
+
+  </form>
 
  `);
 
 }
 
-function openSupport(){
+async function sendSupport(e){
 
- showModal(`
+ e.preventDefault();
 
- <div class="modal-head">
-
-  <h2>💬 الدعم والمساعدة</h2>
-
-  <button
-   class="modal-close"
-   onclick="closeModal()">
-   ×
-  </button>
-
- </div>
-
- <div class="field">
-
-  <label>رسالتك</label>
-
-  <textarea
-   id="supportText"
-   placeholder="اكتب استفسارك أو المشكلة التي تواجهها...">
-  </textarea>
-
- </div>
-
- <button
-  class="primary"
-  onclick="sendSupport()">
-  إرسال
- </button>
-
- `);
-
-}
-
-async function sendSupport(){
+ const title=
+  document
+   .getElementById(
+    "supportTitle"
+   )
+   .value
+   .trim();
 
  const message=
- document
- .getElementById("supportText")
- .value
- .trim();
-
- if(!message)
-  return;
+  document
+   .getElementById(
+    "supportMessage"
+   )
+   .value
+   .trim();
 
  try{
 
-  await supabaseClient
-  .from("support_messages")
-  .insert([
-   {
-    user_id:currentUser?.id||null,
-    message
-   }
-  ]);
+  const {error}=
+   await supabaseClient
+    .from(
+     "support_messages"
+    )
+    .insert({
 
- }catch{}
+     user_id:
+      currentUser.id,
+
+     title,
+
+     message
+
+    });
+
+  if(error)
+   throw error;
+
+ }catch(err){
+
+  console.log(err);
+
+ }
 
  closeModal();
 
  showToast(
-  "تم إرسال رسالتك للدعم ✓",
+  "تم إرسال رسالتك إلى فريق عون",
   "success"
  );
 
 }
 
+/* =====================================================
+   SUGGESTION
+===================================================== */
+
 function openSuggestion(){
+
+ if(!currentUser){
+
+  openAuth("login");
+
+  return;
+
+ }
 
  showModal(`
 
- <div class="modal-head">
+  <div class="modal-head">
 
-  <h2>💡 اقتراح فكرة</h2>
+   <div>
 
-  <button
-   class="modal-close"
-   onclick="closeModal()">
-   ×
-  </button>
+    <h2>
+     💡 اقتراح فكرة
+    </h2>
 
- </div>
+    <p style="
+     color:var(--muted);
+     font-size:12px">
+     أفكاركم جزء من تطوير عون.
+    </p>
 
- <div class="field">
+   </div>
 
-  <label>اقتراحك</label>
+   <button
+    class="close"
+    onclick="closeModal()">
+    ×
+   </button>
 
-  <textarea
-   id="suggestionText"
-   placeholder="كيف نقدر نطور عون؟">
-  </textarea>
+  </div>
 
- </div>
+  <form
+   onsubmit="sendSuggestion(event)">
 
- <button
-  class="primary"
-  onclick="sendSuggestion()">
-  إرسال الاقتراح
- </button>
+   <div class="field">
+
+    <label>
+     عنوان الاقتراح
+    </label>
+
+    <input
+     id="suggestionTitle"
+     required>
+
+   </div>
+
+   <div class="field">
+
+    <label>
+     فكرة الاقتراح
+    </label>
+
+    <textarea
+     id="suggestionMessage"
+     required>
+    </textarea>
+
+   </div>
+
+   <button class="primary">
+    إرسال الاقتراح
+   </button>
+
+  </form>
 
  `);
 
 }
 
-async function sendSuggestion(){
+async function sendSuggestion(e){
+
+ e.preventDefault();
+
+ const title=
+  document
+   .getElementById(
+    "suggestionTitle"
+   )
+   .value
+   .trim();
 
  const message=
- document
- .getElementById("suggestionText")
- .value
- .trim();
-
- if(!message)
-  return;
+  document
+   .getElementById(
+    "suggestionMessage"
+   )
+   .value
+   .trim();
 
  try{
 
   await supabaseClient
-  .from("suggestions")
-  .insert([
-   {
-    user_id:currentUser?.id||null,
-    message
-   }
-  ]);
+   .from("suggestions")
+   .insert({
 
- }catch{}
+    user_id:
+     currentUser.id,
+
+    title,
+
+    message
+
+   });
+
+ }catch(err){
+
+  console.log(err);
+
+ }
 
  closeModal();
 
@@ -2387,533 +4547,9 @@ async function sendSuggestion(){
 
 }
 
-function openAuth(mode="login"){
-
- showModal(`
-
- <div class="modal-head">
-
-  <h2>
-   ${
-    mode==="register"
-    ?"إنشاء حساب"
-    :
-    "تسجيل الدخول"
-   }
-  </h2>
-
-  <button
-   class="modal-close"
-   onclick="closeModal()">
-   ×
-  </button>
-
- </div>
-
- <div class="field">
-
-  <label>
-   البريد الإلكتروني
-  </label>
-
-  <input
-   id="authEmail"
-   type="email"
-   placeholder="name@example.com">
-
- </div>
-
- <div class="field">
-
-  <label>
-   كلمة المرور
-  </label>
-
-  <input
-   id="authPassword"
-   type="password"
-   placeholder="••••••••">
-
- </div>
-
- ${
-  mode==="login"
-  ?
-  `
-  <div style="text-align:right;margin:-4px 0 15px">
-
-   <button
-    onclick="openForgotPassword()"
-    style="
-     border:0;
-     background:transparent;
-     color:var(--gold2);
-     font-size:12px;
-     padding:0;
-    ">
-    نسيت كلمة المرور؟
-   </button>
-
-  </div>
-  `
-  :
-  ""
- }
-
- ${
-  mode==="register"
-  ?
-  `
-  <div class="field">
-
-   <label>الاسم</label>
-
-   <input
-    id="authName"
-    placeholder="الاسم الكامل">
-
-  </div>
-  `
-  :
-  ""
- }
-
- <div class="actions">
-
-  <button
-   class="primary"
-   onclick="${
-    mode==="register"
-    ?"registerUser()"
-    :
-    "loginUser()"
-   }">
-
-   ${
-    mode==="register"
-    ?"إنشاء الحساب"
-    :
-    "دخول"
-   }
-
-  </button>
-
-  <button
-   class="secondary"
-   onclick="openAuth('${
-    mode==="register"
-    ?"login"
-    :
-    "register"
-   }')">
-
-   ${
-    mode==="register"
-    ?"لدي حساب"
-    :
-    "إنشاء حساب جديد"
-   }
-
-  </button>
-
- </div>
-
- `);
-
-}
-
-function openForgotPassword(){
-
- showModal(`
-
- <div class="modal-head">
-
-  <h2>🔐 استعادة كلمة المرور</h2>
-
-  <button
-   class="modal-close"
-   onclick="closeModal()">
-   ×
-  </button>
-
- </div>
-
- <div class="field">
-
-  <label>
-   البريد الإلكتروني
-  </label>
-
-  <input
-   id="forgotEmail"
-   type="email"
-   placeholder="name@example.com">
-
- </div>
-
- <p
-  style="
-   color:var(--muted);
-   font-size:12px;
-   line-height:1.7;
-   margin-bottom:15px;
-  ">
-
-  بنرسل لك رابط لإعادة تعيين كلمة المرور على بريدك الإلكتروني.
-
- </p>
-
- <button
-  class="primary"
-  onclick="sendResetPassword()">
-
-  إرسال رابط الاستعادة
-
- </button>
-
- <button
-  class="secondary"
-  style="margin-top:10px"
-  onclick="openAuth('login')">
-
-  العودة لتسجيل الدخول
-
- </button>
-
- `);
-
-}
-
-async function sendResetPassword(){
-
- const email=
- document
- .getElementById("forgotEmail")
- .value
- .trim();
-
- if(!email){
-
-  showToast(
-   "أدخل بريدك الإلكتروني",
-   "error"
-  );
-
-  return;
- }
-
- try{
-
-  const {error}=
-   await supabaseClient
-   .auth
-   .resetPasswordForEmail(
-    email,
-    {
-     redirectTo:
-      window.location.origin+
-      window.location.pathname
-    }
-   );
-
-  if(error){
-
-   showToast(
-    error.message,
-    "error"
-   );
-
-   return;
-  }
-
-  closeModal();
-
-  showToast(
-   "تم إرسال رابط استعادة كلمة المرور ✓",
-   "success"
-  );
-
- }catch(err){
-
-  showToast(
-   "حدث خطأ، حاول مرة أخرى",
-   "error"
-  );
-
- }
-
-}
-
-async function loginUser(){
-
- const email=
- document
- .getElementById("authEmail")
- .value
- .trim();
-
- const password=
- document
- .getElementById("authPassword")
- .value;
-
- if(!email||!password){
-
-  showToast(
-   "أدخل البريد وكلمة المرور",
-   "error"
-  );
-
-  return;
- }
-
- const {error}=
- await supabaseClient
- .auth
- .signInWithPassword({
-  email,
-  password
- });
-
- if(error){
-
-  showToast(
-   error.message,
-   "error"
-  );
-
-  return;
- }
-
- closeModal();
-
- showToast(
-  "تم تسجيل الدخول ✓",
-  "success"
- );
-
-}
-
-async function registerUser(){
-
- const email=
- document
- .getElementById("authEmail")
- .value
- .trim();
-
- const password=
- document
- .getElementById("authPassword")
- .value;
-
- const name=
- document
- .getElementById("authName")
- .value
- .trim();
-
- if(!email||!password){
-
-  showToast(
-   "أدخل البيانات المطلوبة",
-   "error"
-  );
-
-  return;
- }
-
- const {data,error}=
- await supabaseClient
- .auth
- .signUp({
-  email,
-  password
- });
-
- if(error){
-
-  showToast(
-   error.message,
-   "error"
-  );
-
-  return;
- }
-
- if(data.user){
-
-  try{
-
-   await supabaseClient
-   .from("profiles")
-   .upsert([
-    {
-     id:data.user.id,
-     email,
-     full_name:name
-    }
-   ]);
-
-  }catch{}
-
- }
-
- closeModal();
-
- showToast(
-  "تم إنشاء الحساب ✓",
-  "success"
- );
-
-}
-
-async function loadProfile(){
-
- if(!currentUser)
-  return;
-
- try{
-
-  const {data,error}=
-   await supabaseClient
-   .from("profiles")
-   .select("*")
-   .eq("id",currentUser.id)
-   .single();
-
-  if(!error)
-   currentProfile=data;
-
- }catch{}
-
-}
-
-function updateHeader(){
-
- const login=
-  document.getElementById(
-   "headerLogin"
-  );
-
- const user=
-  document.getElementById(
-   "headerUser"
-  );
-
- const admin=
-  document.getElementById(
-   "adminMenu"
-  );
-
- const logout=
-  document.getElementById(
-   "logoutMenu"
-  );
-
- if(currentUser){
-
-  login?.classList.add("hidden");
-
-  user?.classList.remove("hidden");
-
-  logout?.classList.remove("hidden");
-
-  admin?.classList.toggle(
-   "hidden",
-   !isAdmin()
-  );
-
- }else{
-
-  login?.classList.remove("hidden");
-
-  user?.classList.add("hidden");
-
-  logout?.classList.add("hidden");
-
-  admin?.classList.add("hidden");
-
- }
-
-}
-
-function openProfile(){
-
- showModal(`
-
- <div class="modal-head">
-
-  <h2>👤 حسابي</h2>
-
-  <button
-   class="modal-close"
-   onclick="closeModal()">
-   ×
-  </button>
-
- </div>
-
- <div class="card">
-
-  <p>
-   ${escapeHtml(
-    currentProfile?.full_name||
-    currentUser?.email||
-    "مستخدم"
-   )}
-  </p>
-
-  <p
-   style="
-    color:var(--muted);
-    margin-top:8px
-   ">
-
-   ${escapeHtml(
-    currentUser?.email||""
-   )}
-
-  </p>
-
- </div>
-
- <div
-  class="actions"
-  style="margin-top:15px">
-
-  <button
-   class="primary"
-   onclick="logout();closeModal()">
-   تسجيل الخروج
-  </button>
-
- </div>
-
- `);
-
-}
-
-async function logout(){
-
- try{
-  await supabaseClient
-  .auth
-  .signOut();
- }catch{}
-
- currentUser=null;
- currentProfile=null;
-
- updateHeader();
- goHome();
-
- showToast(
-  "تم تسجيل الخروج",
-  "success"
- );
-
-}
+/* =====================================================
+   ADMIN
+===================================================== */
 
 function isAdmin(){
 
@@ -2923,6 +4559,8 @@ function isAdmin(){
 
 function renderAdmin(){
 
+ setMapMode(false);
+
  if(!isAdmin()){
 
   showToast(
@@ -2931,6 +4569,7 @@ function renderAdmin(){
   );
 
   return;
+
  }
 
  const total=
@@ -2949,11 +4588,13 @@ function renderAdmin(){
  const users=
   new Set(
    reports
-   .map(r=>r.user_id)
-   .filter(Boolean)
+    .map(r=>r.user_id)
+    .filter(Boolean)
   ).size;
 
- document.getElementById("app").innerHTML=`
+ document.getElementById(
+  "app"
+ ).innerHTML=`
 
  <section class="container">
 
@@ -2963,31 +4604,48 @@ function renderAdmin(){
 
     <button
      class="side-item active"
-     onclick="adminSection('overview',this)">
+     onclick="
+      adminSection(
+       'overview',
+       this
+      )">
      📊 الرئيسية
     </button>
 
     <button
      class="side-item"
-     onclick="adminSection('reports',this)">
+     onclick="
+      adminSection(
+       'reports',
+       this
+      )">
      📢 البلاغات
     </button>
 
     <button
      class="side-item"
-     onclick="adminSection('users',this)">
+     onclick="
+      adminSection(
+       'users',
+       this
+      )">
      👥 المستخدمون
     </button>
 
     <button
      class="side-item"
-     onclick="adminSection('analytics',this)">
+     onclick="
+      adminSection(
+       'analytics',
+       this
+      )">
      📈 التحليلات
     </button>
 
     <button
      class="side-item"
-     onclick="showPage('map')">
+     onclick="
+      showPage('map')">
      🗺️ الخريطة
     </button>
 
@@ -3032,7 +4690,7 @@ function adminOverview(
    </h2>
 
    <p>
-    هنا تقدر تتابع البلاغات والمستخدمين وأداء المنصة.
+    متابعة البلاغات ومؤشرات المجتمع.
    </p>
 
   </div>
@@ -3042,73 +4700,49 @@ function adminOverview(
  <div class="stats">
 
   <div class="stat">
+
    <div class="label">
     إجمالي البلاغات
    </div>
+
    <div class="value">
     ${total}
    </div>
+
   </div>
 
   <div class="stat">
+
    <div class="label">
-    بلاغات حرجة
+    البلاغات الحرجة
    </div>
+
    <div class="value">
     ${critical}
    </div>
+
   </div>
 
   <div class="stat">
+
    <div class="label">
     تمت معالجتها
    </div>
+
    <div class="value">
     ${resolved}
    </div>
+
   </div>
 
   <div class="stat">
+
    <div class="label">
-    مستخدمون مشاركون
+    المستخدمون
    </div>
+
    <div class="value">
     ${users}
-   </div>
-  </div>
-
- </div>
-
- <div class="section">
-
-  <div class="card">
-
-   <h3>
-    🚨 أعلى البلاغات أولوية
-   </h3>
-
-   <div
-    class="report-list"
-    style="margin-top:12px">
-
-    ${
-     [...reports]
-     .sort(
-      (a,b)=>
-       (b.score||0)-
-       (a.score||0)
-     )
-     .slice(0,5)
-     .map(reportCard)
-     .join("")
-     ||
-     `
-     <div class="empty">
-      لا توجد بلاغات
-     </div>
-     `
-    }
-
    </div>
 
   </div>
@@ -3125,22 +4759,30 @@ function adminSection(
 ){
 
  document
- .querySelectorAll(".side-item")
- .forEach(
-  x=>x.classList.remove("active")
- );
+  .querySelectorAll(
+   ".side-item"
+  )
+  .forEach(
+   x=>x.classList.remove(
+    "active"
+   )
+  );
 
  if(button)
-  button.classList.add("active");
+  button.classList.add(
+   "active"
+  );
 
- const box=
- document.getElementById(
-  "adminContent"
- );
+ const root=
+  document.getElementById(
+   "adminContent"
+  );
+
+ if(!root) return;
 
  if(section==="overview"){
 
-  box.innerHTML=
+  root.innerHTML=
    adminOverview(
     reports.length,
     reports.filter(
@@ -3150,248 +4792,121 @@ function adminSection(
      r=>r.status==="تمت المعالجة"
     ).length,
     new Set(
-     reports.map(
-      r=>r.user_id
-     )
+     reports
+      .map(r=>r.user_id)
+      .filter(Boolean)
     ).size
    );
 
   return;
+
  }
 
  if(section==="reports"){
 
-  renderAdminReports(box);
+  root.innerHTML=`
+
+   <div class="section-head">
+
+    <div>
+
+     <h2>
+      📢 جميع البلاغات
+     </h2>
+
+     <p>
+      متابعة البلاغات المسجلة في عون.
+     </p>
+
+    </div>
+
+   </div>
+
+   ${
+    reports.length
+    ?`
+
+     <div class="report-list">
+
+      ${reports
+       .map(reportCard)
+       .join("")}
+
+     </div>
+
+    `
+    :`
+
+     <div class="empty">
+      لا توجد بلاغات.
+     </div>
+
+    `
+   }
+
+  `;
+
   return;
 
  }
 
  if(section==="users"){
 
-  renderAdminUsers(box);
-  return;
+  const userIds=
+   [
+    ...new Set(
+     reports
+      .map(r=>r.user_id)
+      .filter(Boolean)
+    )
+   ];
 
- }
+  root.innerHTML=`
 
- if(section==="analytics"){
+   <div class="section-head">
 
-  renderAdminAnalytics(box);
+    <div>
 
- }
+     <h2>
+      👥 المستخدمون
+     </h2>
 
-}
+     <p>
+      المستخدمون الذين لديهم بلاغات.
+     </p>
 
-function renderAdminReports(box){
-
- box.innerHTML=`
-
- <div class="section-head">
-
-  <div>
-
-   <h2>
-    📢 إدارة البلاغات
-   </h2>
-
-   <p>
-    عرض ومتابعة جميع البلاغات.
-   </p>
-
-  </div>
-
- </div>
-
- <div class="report-list">
-
-  ${
-   [...reports]
-   .sort(
-    (a,b)=>
-     (b.score||0)-
-     (a.score||0)
-   )
-   .map(
-    r=>`
-
-     <div class="report">
-
-      <div class="report-top">
-
-       <div>
-
-        <div class="report-title">
-         ${escapeHtml(
-          r.title||"بلاغ"
-         )}
-        </div>
-
-        <div class="report-type">
-         ${categories[r.type]||r.type}
-        </div>
-
-       </div>
-
-       <span
-        class="score-pill ${
-         r.score>=80
-         ?"score-high"
-         :
-         r.score>=50
-         ?"score-med"
-         :
-         "score-low"
-        }">
-
-        ${r.score||0}/100
-
-       </span>
-
-      </div>
-
-      <p class="report-desc">
-       ${escapeHtml(
-        r.description||""
-       )}
-      </p>
-
-      <div class="row">
-
-       <div class="field">
-
-        <label>الحالة</label>
-
-        <select
-         onchange="
-          adminUpdateStatus(
-           '${r.id}',
-           this.value
-          )">
-
-         ${statusFlow.map(
-          s=>`
-
-           <option
-            ${r.status===s?"selected":""}>
-
-            ${s}
-
-           </option>
-
-          `
-         ).join("")}
-
-        </select>
-
-       </div>
-
-       <div class="field">
-
-        <label>الأولوية</label>
-
-        <input
-         value="${r.score||0}"
-         disabled>
-
-       </div>
-
-      </div>
-
-     </div>
-
-    `
-   ).join("")
-  }
-
- </div>
-
- `;
-
-}
-
-async function adminUpdateStatus(
- id,
- status
-){
-
- const local=
- reports.find(
-  r=>String(r.id)===
-     String(id)
- );
-
- if(local){
-
-  local.status=status;
-
-  local.updated_at=
-   new Date()
-   .toISOString();
-
- }
-
- saveLocalReports();
-
- try{
-
-  await supabaseClient
-   .from("reports")
-   .update({
-    status,
-    updated_at:
-     new Date().toISOString()
-   })
-   .eq("id",id);
-
- }catch(err){
-
-  console.log(err);
-
- }
-
- showToast(
-  "تم تحديث حالة البلاغ",
-  "success"
- );
-
-}
-
-async function renderAdminUsers(box){
-
- let users=[];
-
- try{
-
-  const {data,error}=
-   await supabaseClient
-   .from("profiles")
-   .select("*")
-   .order(
-    "created_at",
-    {ascending:false}
-   );
-
-  if(!error&&data)
-   users=data;
-
- }catch{}
-
- if(!users.length){
-
-  box.innerHTML=`
-
-   <div class="empty">
-
-    <div class="e-icon">
-     👥
     </div>
 
-    <h3>
-     لا توجد بيانات مستخدمين
-    </h3>
+   </div>
 
-    <p style="margin-top:8px">
-     تأكد من وجود بيانات profiles في Supabase.
-    </p>
+   <div class="card">
+
+    ${
+     userIds.length
+     ?userIds
+      .map(
+       id=>`
+
+        <div style="
+         padding:12px 0;
+         border-bottom:
+          1px solid var(--border)">
+
+         <strong>
+          ${escapeHtml(id)}
+         </strong>
+
+        </div>
+
+       `
+      )
+      .join("")
+     :`
+      <div class="empty">
+       لا توجد بيانات.
+      </div>
+     `
+    }
 
    </div>
 
@@ -3401,210 +4916,318 @@ async function renderAdminUsers(box){
 
  }
 
- box.innerHTML=`
+ if(section==="analytics"){
 
- <div class="section-head">
+  const typeCounts={};
 
-  <div>
+  reports.forEach(r=>{
 
-   <h2>
-    👥 المستخدمون
-   </h2>
+   typeCounts[r.type]=
+    (typeCounts[r.type]||0)+1;
 
-   <p>
-    بيانات الحسابات المسجلة في عون.
-   </p>
+  });
 
-  </div>
+  root.innerHTML=`
 
- </div>
+   <div class="section-head">
 
- <div class="table-wrap">
+    <div>
 
-  <table>
+     <h2>
+      📈 التحليلات
+     </h2>
 
-   <thead>
+     <p>
+      توزيع البلاغات حسب النوع.
+     </p>
 
-    <tr>
+    </div>
 
-     <th>الاسم</th>
-     <th>اسم المستخدم</th>
-     <th>الهاتف</th>
-     <th>البريد</th>
-     <th>الدور</th>
-     <th>النقاط</th>
+   </div>
 
-    </tr>
-
-   </thead>
-
-   <tbody>
+   <div class="grid">
 
     ${
-     users.map(
-      u=>`
+     Object.entries(
+      typeCounts
+     ).map(
+      ([type,count])=>`
 
-       <tr>
+       <div class="card">
 
-        <td>
-         ${escapeHtml(
-          u.full_name||"—"
-         )}
-        </td>
+        <div style="
+         color:var(--gold2);
+         font-weight:800">
 
-        <td>
-         ${escapeHtml(
-          u.username||"—"
-         )}
-        </td>
-
-        <td>
-         ${escapeHtml(
-          u.phone||"—"
-         )}
-        </td>
-
-        <td>
-         ${escapeHtml(
-          u.email||"—"
-         )}
-        </td>
-
-        <td>
          ${
-          u.role==="admin"
-          ?"👑 Admin"
-          :
-          "مستخدم"
+          categories[type]||
+          type
          }
-        </td>
 
-        <td>
-         ${u.points||0}
-        </td>
+        </div>
 
-       </tr>
+        <div style="
+         font-size:32px;
+         font-weight:900;
+         margin-top:8px">
+
+         ${count}
+
+        </div>
+
+       </div>
 
       `
      ).join("")
     }
 
-   </tbody>
+   </div>
 
-  </table>
+  `;
 
- </div>
-
- `;
+ }
 
 }
 
-function renderAdminAnalytics(box){
+/* =====================================================
+   PROFILE
+===================================================== */
 
- const counts={};
+function openProfile(){
 
- reports.forEach(r=>{
+ if(!currentUser){
 
-  const t=
-   categories[r.type]||
-   r.type||
-   "أخرى";
+  openAuth("login");
 
-  counts[t]=
-   (counts[t]||0)+1;
+  return;
 
- });
+ }
 
- const sorted=
-  Object
-  .entries(counts)
-  .sort(
-   (a,b)=>b[1]-a[1]
+ const profile=
+  currentProfile||{};
+
+ showModal(`
+
+  <div class="modal-head">
+
+   <div>
+
+    <h2>
+     👤 حسابي
+    </h2>
+
+    <p style="
+     color:var(--muted);
+     font-size:12px">
+     معلومات حسابك في عون.
+    </p>
+
+   </div>
+
+   <button
+    class="close"
+    onclick="closeModal()">
+    ×
+   </button>
+
+  </div>
+
+  <div class="card">
+
+   <div class="field">
+
+    <label>
+     الاسم
+    </label>
+
+    <input
+     id="profileName"
+     value="${escapeHtml(
+      profile.full_name||
+      ""
+     )}">
+
+   </div>
+
+   <div class="field">
+
+    <label>
+     اسم المستخدم
+    </label>
+
+    <input
+     id="profileUsername"
+     value="${escapeHtml(
+      profile.username||
+      ""
+     )}">
+
+   </div>
+
+   <div class="field">
+
+    <label>
+     البريد الإلكتروني
+    </label>
+
+    <input
+     value="${escapeHtml(
+      profile.email||
+      currentUser.email||
+      ""
+     )}"
+     disabled>
+
+   </div>
+
+   <div class="field">
+
+    <label>
+     رقم الهاتف
+    </label>
+
+    <input
+     id="profilePhone"
+     value="${escapeHtml(
+      profile.phone||
+      ""
+     )}">
+
+   </div>
+
+   <button
+    class="primary"
+    onclick="saveProfile()">
+    حفظ التغييرات
+   </button>
+
+  </div>
+
+ `);
+
+}
+
+async function saveProfile(){
+
+ const full_name=
+  document
+   .getElementById(
+    "profileName"
+   )
+   .value
+   .trim();
+
+ const username=
+  document
+   .getElementById(
+    "profileUsername"
+   )
+   .value
+   .trim();
+
+ const phone=
+  document
+   .getElementById(
+    "profilePhone"
+   )
+   .value
+   .trim();
+
+ try{
+
+  const {error}=
+   await supabaseClient
+    .from("profiles")
+    .update({
+
+     full_name,
+     username,
+     phone
+
+    })
+    .eq(
+     "id",
+     currentUser.id
+    );
+
+  if(error)
+   throw error;
+
+  currentProfile={
+   ...currentProfile,
+   full_name,
+   username,
+   phone
+  };
+
+  closeModal();
+
+  showToast(
+   "تم حفظ بياناتك",
+   "success"
   );
 
- box.innerHTML=`
+ }catch(err){
 
- <div class="section-head">
+  console.log(err);
+
+  showToast(
+   "تعذر حفظ البيانات",
+   "error"
+  );
+
+ }
+
+}
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+function openAuth(
+ mode="login"
+){
+
+ const render=
+  mode==="register"
+  ?renderRegister
+  :renderLogin;
+
+ showModal(
+  render()
+ );
+
+}
+
+function authHeader(
+ title,
+ subtitle
+){
+
+ return `
+
+ <div class="modal-head">
 
   <div>
 
    <h2>
-    📈 تحليلات عون
+    ${title}
    </h2>
 
-   <p>
-    أكثر أنواع البلاغات انتشاراً.
+   <p style="
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px">
+    ${subtitle}
    </p>
 
   </div>
 
- </div>
-
- <div class="card">
-
-  ${
-   sorted.length
-   ?
-   sorted.map(
-    ([name,count])=>`
-
-     <div style="margin-bottom:18px">
-
-      <div
-       style="
-        display:flex;
-        justify-content:space-between;
-        margin-bottom:7px;
-        font-size:12px
-       ">
-
-       <span>
-        ${name}
-       </span>
-
-       <strong>
-        ${count}
-       </strong>
-
-      </div>
-
-      <div
-       style="
-        height:10px;
-        background:#232824;
-        border-radius:100px;
-        overflow:hidden
-       ">
-
-       <div
-        style="
-         width:${Math.min(
-          100,
-          count/reports.length*100
-         )}%;
-         height:100%;
-         background:
-          linear-gradient(
-           90deg,
-           var(--gold),
-           var(--gold2)
-          )
-        ">
-       </div>
-
-      </div>
-
-     </div>
-
-    `
-   ).join("")
-   :
-   `
-   <div class="empty">
-    لا توجد بيانات بعد
-   </div>
-   `
-  }
+  <button
+   class="close"
+   onclick="closeModal()">
+   ×
+  </button>
 
  </div>
 
@@ -3612,7 +5235,869 @@ function renderAdminAnalytics(box){
 
 }
 
-/* MODALS / TOAST */
+function renderLogin(){
+
+ return `
+
+ ${authHeader(
+  "🔐 تسجيل الدخول",
+  "ادخل إلى حسابك في عون."
+ )}
+
+ <div class="auth-tabs">
+
+  <button
+   class="auth-tab active"
+   onclick="openAuth('login')">
+   تسجيل الدخول
+  </button>
+
+  <button
+   class="auth-tab"
+   onclick="openAuth('register')">
+   إنشاء حساب
+  </button>
+
+ </div>
+
+ <form
+  onsubmit="loginUser(event)">
+
+  <div class="field">
+
+   <label>
+    البريد الإلكتروني
+   </label>
+
+   <input
+    id="loginEmail"
+    type="email"
+    required
+    autocomplete="email">
+
+  </div>
+
+  <div class="field">
+
+   <label>
+    كلمة المرور
+   </label>
+
+   <input
+    id="loginPassword"
+    type="password"
+    required
+    autocomplete="current-password">
+
+  </div>
+
+  <button
+   class="primary"
+   style="width:100%">
+   تسجيل الدخول
+  </button>
+
+ </form>
+
+ <div style="
+  text-align:center;
+  margin-top:14px">
+
+  <button
+   class="link-btn"
+   onclick="openForgotPassword()">
+   نسيت كلمة المرور؟
+  </button>
+
+ </div>
+
+ `;
+
+}
+
+function renderRegister(){
+
+ return `
+
+ ${authHeader(
+  "✨ إنشاء حساب",
+  "انضم إلى مجتمع عون."
+ )}
+
+ <div class="auth-tabs">
+
+  <button
+   class="auth-tab"
+   onclick="openAuth('login')">
+   تسجيل الدخول
+  </button>
+
+  <button
+   class="auth-tab active"
+   onclick="openAuth('register')">
+   إنشاء حساب
+  </button>
+
+ </div>
+
+ <form
+  onsubmit="registerUser(event)">
+
+  <div class="field">
+
+   <label>
+    الاسم
+   </label>
+
+   <input
+    id="registerName"
+    required>
+
+  </div>
+
+  <div class="field">
+
+   <label>
+    اسم المستخدم
+   </label>
+
+   <input
+    id="registerUsername"
+    required>
+
+  </div>
+
+  <div class="field">
+
+   <label>
+    البريد الإلكتروني
+   </label>
+
+   <input
+    id="registerEmail"
+    type="email"
+    required>
+
+  </div>
+
+  <div class="field">
+
+   <label>
+    رقم الهاتف
+   </label>
+
+   <input
+    id="registerPhone"
+    type="tel">
+
+  </div>
+
+  <div class="field">
+
+   <label>
+    كلمة المرور
+   </label>
+
+   <input
+    id="registerPassword"
+    type="password"
+    minlength="6"
+    required>
+
+  </div>
+
+  <button
+   class="primary"
+   style="width:100%">
+   إنشاء الحساب
+  </button>
+
+  <div class="auth-note">
+   باستخدامك عون أنت توافق على استخدام المنصة لخدمة المجتمع.
+  </div>
+
+ </form>
+
+ `;
+
+}
+
+async function loginUser(e){
+
+ e.preventDefault();
+
+ const email=
+  document
+   .getElementById(
+    "loginEmail"
+   )
+   .value
+   .trim();
+
+ const password=
+  document
+   .getElementById(
+    "loginPassword"
+   )
+   .value;
+
+ try{
+
+  const {data,error}=
+   await supabaseClient
+    .auth
+    .signInWithPassword({
+     email,
+     password
+    });
+
+  if(error)
+   throw error;
+
+  currentUser=
+   data.user;
+
+  await loadProfile();
+
+  closeModal();
+
+  updateHeader();
+
+  showToast(
+   "تم تسجيل الدخول بنجاح",
+   "success"
+  );
+
+ }catch(err){
+
+  console.log(err);
+
+  showToast(
+   "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+   "error"
+  );
+
+ }
+
+}
+
+async function registerUser(e){
+
+ e.preventDefault();
+
+ const full_name=
+  document
+   .getElementById(
+    "registerName"
+   )
+   .value
+   .trim();
+
+ const username=
+  document
+   .getElementById(
+    "registerUsername"
+   )
+   .value
+   .trim();
+
+ const email=
+  document
+   .getElementById(
+    "registerEmail"
+   )
+   .value
+   .trim();
+
+ const phone=
+  document
+   .getElementById(
+    "registerPhone"
+   )
+   .value
+   .trim();
+
+ const password=
+  document
+   .getElementById(
+    "registerPassword"
+   )
+   .value;
+
+ try{
+
+  const {data,error}=
+   await supabaseClient
+    .auth
+    .signUp({
+
+     email,
+     password,
+
+     options:{
+      data:{
+       full_name,
+       username,
+       phone
+      }
+     }
+
+    });
+
+  if(error)
+   throw error;
+
+  if(data.user){
+
+   try{
+
+    await supabaseClient
+     .from("profiles")
+     .upsert({
+
+      id:data.user.id,
+      full_name,
+      username,
+      email,
+      phone,
+      role:"user",
+      points:0,
+      badge:"عضو جديد"
+
+     });
+
+   }catch(err){
+
+    console.log(
+     "Profile create:",
+     err
+    );
+
+   }
+
+  }
+
+  closeModal();
+
+  showToast(
+   "تم إنشاء الحساب بنجاح",
+   "success"
+  );
+
+ }catch(err){
+
+  console.log(err);
+
+  showToast(
+   "تعذر إنشاء الحساب. تأكد من البيانات.",
+   "error"
+  );
+
+ }
+
+}
+
+function openForgotPassword(){
+
+ showModal(`
+
+  ${authHeader(
+   "🔑 استعادة كلمة المرور",
+   "أدخل بريدك الإلكتروني لإرسال رابط الاستعادة."
+  )}
+
+  <form
+   onsubmit="sendResetPassword(event)">
+
+   <div class="field">
+
+    <label>
+     البريد الإلكتروني
+    </label>
+
+    <input
+     id="resetEmail"
+     type="email"
+     required>
+
+   </div>
+
+   <button
+    class="primary"
+    style="width:100%">
+    إرسال رابط الاستعادة
+   </button>
+
+  </form>
+
+ `);
+
+}
+
+async function sendResetPassword(e){
+
+ e.preventDefault();
+
+ const email=
+  document
+   .getElementById(
+    "resetEmail"
+   )
+   .value
+   .trim();
+
+ try{
+
+  const {error}=
+   await supabaseClient
+    .auth
+    .resetPasswordForEmail(
+     email,
+     {
+      redirectTo:
+       window.location.origin+
+       window.location.pathname
+     }
+    );
+
+  if(error)
+   throw error;
+
+  closeModal();
+
+  showToast(
+   "تم إرسال رابط الاستعادة إلى بريدك",
+   "success"
+  );
+
+ }catch(err){
+
+  console.log(err);
+
+  showToast(
+   "تعذر إرسال رابط الاستعادة",
+   "error"
+  );
+
+ }
+
+}
+
+async function logout(){
+
+ try{
+
+  await supabaseClient
+   .auth
+   .signOut();
+
+ }catch{}
+
+ currentUser=null;
+ currentProfile=null;
+
+ updateHeader();
+
+ goHome();
+
+ showToast(
+  "تم تسجيل الخروج",
+  "success"
+ );
+
+}
+
+supabaseClient.auth.onAuthStateChange(
+ async(event,session)=>{
+
+  currentUser=
+   session?.user||null;
+
+  if(currentUser)
+   await loadProfile();
+  else{
+   currentProfile=null;
+   updateHeader();
+  }
+
+ }
+);
+ <script>
+
+/* =====================================================
+   SETTINGS / THEME
+===================================================== */
+
+const AWN_COLORS={
+
+ green:[
+  "#48c78e",
+  "#68dda8"
+ ],
+
+ blue:[
+  "#4fa8ff",
+  "#7dc2ff"
+ ],
+
+ purple:[
+  "#9b6cff",
+  "#bd9dff"
+ ],
+
+ red:[
+  "#ff5f61",
+  "#ff8587"
+ ],
+
+ orange:[
+  "#ff9f43",
+  "#ffc078"
+ ],
+
+ pink:[
+  "#ec6aa6",
+  "#f49bc4"
+ ],
+
+ yellow:[
+  "#d9ad42",
+  "#f1cc69"
+ ],
+
+ cyan:[
+  "#32c6d9",
+  "#70e0ec"
+ ],
+
+ brown:[
+  "#a9784d",
+  "#c99a6b"
+ ],
+
+ gray:[
+  "#7f8b86",
+  "#aeb7b2"
+ ]
+
+};
+
+function loadTheme(){
+
+ let settings={
+  background:"black",
+  color:"green"
+ };
+
+ try{
+
+  settings=
+   JSON.parse(
+    localStorage.getItem(
+     "awn_settings"
+    )||
+    JSON.stringify(settings)
+   );
+
+ }catch{}
+
+ applyTheme(
+  settings.background,
+  settings.color
+ );
+
+}
+
+function applyTheme(
+ background="black",
+ color="green"
+){
+
+ const pair=
+  AWN_COLORS[color]||
+  AWN_COLORS.green;
+
+ document.documentElement
+  .style
+  .setProperty(
+   "--gold",
+   pair[0]
+  );
+
+ document.documentElement
+  .style
+  .setProperty(
+   "--gold2",
+   pair[1]
+  );
+
+ document.documentElement
+  .style
+  .setProperty(
+   "--blue",
+   pair[0]
+  );
+
+ document.body.classList.toggle(
+  "light-theme",
+  background==="white"
+ );
+
+ try{
+
+  localStorage.setItem(
+   "awn_settings",
+   JSON.stringify({
+    background,
+    color
+   })
+  );
+
+ }catch{}
+
+}
+
+function getThemeSettings(){
+
+ try{
+
+  return JSON.parse(
+   localStorage.getItem(
+    "awn_settings"
+   )||
+   '{"background":"black","color":"green"}'
+  );
+
+ }catch{
+
+  return{
+   background:"black",
+   color:"green"
+  };
+
+ }
+
+}
+
+function chooseThemeBackground(
+ value
+){
+
+ const settings=
+  getThemeSettings();
+
+ settings.background=
+  value;
+
+ applyTheme(
+  settings.background,
+  settings.color
+ );
+
+ openSettings();
+
+}
+
+function chooseThemeColor(
+ value
+){
+
+ const settings=
+  getThemeSettings();
+
+ settings.color=
+  value;
+
+ applyTheme(
+  settings.background,
+  settings.color
+ );
+
+ openSettings();
+
+}
+
+function openSettings(){
+
+ const settings=
+  getThemeSettings();
+
+ const names={
+
+  green:"أخضر",
+  blue:"أزرق",
+  purple:"بنفسجي",
+  red:"أحمر",
+  orange:"برتقالي",
+  pink:"وردي",
+  yellow:"أصفر",
+  cyan:"سماوي",
+  brown:"بني",
+  gray:"رمادي"
+
+ };
+
+ showModal(`
+
+  <div class="modal-head">
+
+   <div>
+
+    <h2>
+     ⚙️ الإعدادات
+    </h2>
+
+    <p style="
+     color:var(--muted);
+     font-size:12px;
+     margin-top:5px">
+
+     خصّص شكل عون بالطريقة التي تناسبك.
+
+    </p>
+
+   </div>
+
+   <button
+    class="close"
+    onclick="closeModal()">
+    ×
+   </button>
+
+  </div>
+
+  <div class="settings-preview">
+
+   <h3>
+    الخلفية
+   </h3>
+
+   <div
+    class="actions"
+    style="margin-top:10px">
+
+    <button
+     class="${
+      settings.background==="black"
+      ?"primary"
+      :"secondary"
+     }"
+     onclick="
+      chooseThemeBackground(
+       'black'
+      )">
+
+     🌑 أسود
+
+    </button>
+
+    <button
+     class="${
+      settings.background==="white"
+      ?"primary"
+      :"secondary"
+     }"
+     onclick="
+      chooseThemeBackground(
+       'white'
+      )">
+
+     ☀️ أبيض
+
+    </button>
+
+   </div>
+
+  </div>
+
+  <div class="settings-preview">
+
+   <h3>
+    لون الأزرار والعناصر
+   </h3>
+
+   <p style="
+    color:var(--muted);
+    font-size:12px;
+    margin-top:5px">
+
+    اختر اللون الذي تريده للون عون الأساسي.
+
+   </p>
+
+   <div class="settings-colors">
+
+    ${
+     Object.entries(
+      AWN_COLORS
+     )
+     .map(
+      ([key,pair])=>`
+
+       <button
+        class="
+         color-choice
+         ${
+          settings.color===key
+          ?"selected"
+          :""
+         }
+        "
+        style="
+         background:
+          linear-gradient(
+           135deg,
+           ${pair[1]},
+           ${pair[0]}
+          )"
+        onclick="
+         chooseThemeColor(
+          '${key}'
+         )">
+
+        ${names[key]}
+
+       </button>
+
+      `
+     )
+     .join("")
+    }
+
+   </div>
+
+  </div>
+
+  <div
+   class="settings-preview"
+   style="text-align:center">
+
+   <p style="
+    color:var(--muted);
+    font-size:12px">
+
+    الإعدادات تُحفظ تلقائياً على جهازك.
+
+   </p>
+
+   <button
+    class="primary"
+    style="margin-top:12px"
+    onclick="closeModal()">
+
+    تم
+
+   </button>
+
+  </div>
+
+ `);
+
+}
+
+/* =====================================================
+   MODALS / TOAST
+===================================================== */
 
 function showModal(html){
 
@@ -3625,7 +6110,9 @@ function showModal(html){
   onclick="modalOutside(event)">
 
   <div class="modal">
+
    ${html}
+
   </div>
 
  </div>
@@ -3637,8 +6124,9 @@ function showModal(html){
 function modalOutside(e){
 
  if(
-  e.target.classList
-  .contains("modal-back")
+  e.target.classList.contains(
+   "modal-back"
+  )
  )
   closeModal();
 
@@ -3658,9 +6146,9 @@ function showToast(
 ){
 
  const root=
- document.getElementById(
-  "toastRoot"
- );
+  document.getElementById(
+   "toastRoot"
+  );
 
  root.innerHTML=`
 
@@ -3670,8 +6158,7 @@ function showToast(
    ${
     type==="success"
     ?"✓"
-    :
-    "!"
+    :"!"
    }
   </span>
 
@@ -3683,22 +6170,26 @@ function showToast(
 
  `;
 
- setTimeout(
-  ()=>{
-   root.innerHTML="";
-  },
-  3500
- );
+ setTimeout(()=>{
+
+  root.innerHTML="";
+
+ },3500);
 
 }
 
-/* REQUIRE LOGIN */
+/* =====================================================
+   REQUIRE LOGIN
+===================================================== */
 
-function requireLogin(callback){
+function requireLogin(
+ callback
+){
 
  if(!currentUser){
 
   openAuth("login");
+
   return;
 
  }
@@ -3707,9 +6198,13 @@ function requireLogin(callback){
 
 }
 
-/* HELPERS */
+/* =====================================================
+   HELPERS
+===================================================== */
 
-function formatDate(date){
+function formatDate(
+ date
+){
 
  if(!date)
   return "—";
@@ -3717,14 +6212,14 @@ function formatDate(date){
  try{
 
   return new Date(date)
-  .toLocaleDateString(
-   "ar-AE",
-   {
-    year:"numeric",
-    month:"short",
-    day:"numeric"
-   }
-  );
+   .toLocaleDateString(
+    "ar-AE",
+    {
+     year:"numeric",
+     month:"short",
+     day:"numeric"
+    }
+   );
 
  }catch{
 
@@ -3734,9 +6229,13 @@ function formatDate(date){
 
 }
 
-function escapeHtml(value){
+function escapeHtml(
+ value
+){
 
- return String(value??"")
+ return String(
+  value??""
+ )
  .replace(
   /&/g,
   "&amp;"
@@ -3760,7 +6259,9 @@ function escapeHtml(value){
 
 }
 
-/* ROUTER PATCH */
+/* =====================================================
+   ROUTER PATCH
+===================================================== */
 
 const originalShowPage=
  showPage;
@@ -3769,19 +6270,26 @@ showPage=function(page){
 
  if(page==="report"){
 
+  setMapMode(false);
+
   renderReportPage();
+
   return;
 
  }
 
- originalShowPage(page);
+ originalShowPage(
+  page
+ );
 
 };
 
-/* AUTH EVENTS */
+/* =====================================================
+   EXTRA AUTH LISTENER
+===================================================== */
 
 supabaseClient.auth.onAuthStateChange(
- async (
+ async(
   event,
   session
  )=>{
@@ -3789,55 +6297,1174 @@ supabaseClient.auth.onAuthStateChange(
   currentUser=
    session?.user||null;
 
-  if(currentUser)
+  if(currentUser){
+
    await loadProfile();
 
-  else
+  }else{
+
    currentProfile=null;
 
-  updateHeader();
+   updateHeader();
 
- }
-);
-
-/* START */
-
-loadReports()
-.then(
- ()=>{
-
-  renderHome();
-  updateHeader();
-
- }
-);
-
-</script>
-
-<script>
-
-if(
- "serviceWorker"
- in navigator
-){
-
- window.addEventListener(
-  "load",
-  ()=>{
-   navigator
-   .serviceWorker
-   .register(
-    "./service-worker.js"
-   )
-   .catch(
-    ()=>{}
-   );
   }
- );
 
-}
+ }
+);
 
 </script>
 
 </body>
 </html>
+}
+}
+
+function formatFileSize(bytes){
+ if(!bytes) return "0 B";
+ const units=["B","KB","MB","GB"];
+ const i=Math.min(Math.floor(Math.log(bytes)/Math.log(1024)),units.length-1);
+ return (bytes/Math.pow(1024,i)).toFixed(i?1:0)+" "+units[i];
+}
+
+function clearAttachment(){
+ selectedAttachmentFile=null;
+ ["reportPhoto","reportCamera","reportFile"].forEach(id=>{
+  const input=document.getElementById(id);
+  if(input) input.value="";
+ });
+ const preview=document.getElementById("attachmentPreview");
+ if(preview){preview.innerHTML="";preview.style.display="none";}
+}
+
+function initReportMap(){
+
+ reportMap =
+  L.map("reportMap")
+  .setView([24.2075,55.7447],13);
+
+ L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+   maxZoom:19,
+   attribution:"© OpenStreetMap"
+  }
+ ).addTo(reportMap);
+
+ reportMap.on("click",e=>{
+
+  selectedLat=e.latlng.lat;
+  selectedLng=e.latlng.lng;
+
+  L.marker([
+   selectedLat,
+   selectedLng
+  ]).addTo(reportMap);
+
+  document
+   .getElementById("locationStatus")
+   .textContent="تم تحديد موقع المشكلة ✓";
+
+ });
+}
+
+
+function useMyLocation(){
+
+ if(!navigator.geolocation){
+  showToast("الموقع غير متاح في جهازك","error");
+  return;
+ }
+
+ navigator.geolocation.getCurrentPosition(
+
+  pos=>{
+
+   selectedLat=pos.coords.latitude;
+   selectedLng=pos.coords.longitude;
+
+   if(reportMap){
+
+    reportMap.setView(
+     [selectedLat,selectedLng],
+     16
+    );
+
+    L.marker(
+     [selectedLat,selectedLng]
+    ).addTo(reportMap);
+
+   }
+
+   document
+    .getElementById("locationStatus")
+    .textContent="تم تحديد موقعك ✓";
+
+  },
+
+  ()=>{
+   showToast(
+    "لم نتمكن من الوصول إلى موقعك. يمكنك تحديده من الخريطة.",
+    "error"
+   );
+  },
+
+  {
+   enableHighAccuracy:true,
+   timeout:10000
+  }
+ );
+}
+
+
+/* =====================================================
+   AI / SCORE
+===================================================== */
+
+function analyzeIssue(type,description){
+
+ const text =
+ (description||"").toLowerCase();
+
+ let score=35;
+
+ const criticalWords = [
+  "حادث","حريق","خطر","خطير",
+  "سقوط","مكشوف","كهرباء","ماس",
+  "حفرة كبيرة","انهيار","تسرب",
+  "تصادم","دخان","طوارئ"
+ ];
+
+ const mediumWords = [
+  "مكسور","تالف","لا يعمل",
+  "مشكلة","ازدحام","ماء",
+  "تسريب","مزعج","متضرر"
+ ];
+
+ criticalWords.forEach(w=>{
+  if(text.includes(w)) score+=10;
+ });
+
+ mediumWords.forEach(w=>{
+  if(text.includes(w)) score+=5;
+ });
+
+ const typeBonus = {
+  safety:18,
+  road:14,
+  light:10,
+  accessibility:12,
+  facility:8,
+  environment:7,
+  cleanliness:4,
+  other:5
+ };
+
+ score += typeBonus[type] || 5;
+
+ if(text.length>120) score+=5;
+
+ if(!selectedLat) score-=5;
+
+ score=Math.max(1,Math.min(100,score));
+
+ let label="منخفض";
+
+ if(score>=80) label="حرج";
+ else if(score>=60) label="مرتفع";
+ else if(score>=40) label="متوسط";
+
+ return {
+  score,
+  label,
+  authority:getAuthority(type)
+ };
+}
+
+
+function getAuthority(type){
+
+ const map={
+  road:"جهة الطرق والصيانة",
+  light:"جهة الإنارة والصيانة",
+  cleanliness:"جهة النظافة والبلدية",
+  facility:"جهة المرافق والخدمات",
+  safety:"جهة السلامة والطوارئ",
+  accessibility:"جهة الخدمات المجتمعية وإتاحة الوصول",
+  environment:"جهة البيئة",
+  other:"الجهة المختصة"
+ };
+
+ return map[type] || map.other;
+}
+
+
+function previewAI(){
+
+ const type =
+ document.getElementById("reportType")?.value;
+
+ const desc =
+ document.getElementById("reportDescription")?.value || "";
+
+ if(!type) return;
+
+ const result =
+ analyzeIssue(type,desc);
+
+ const circle =
+ document.getElementById("previewScore");
+
+ const num =
+ document.getElementById("previewScoreNumber");
+
+ const label =
+ document.getElementById("previewLabel");
+
+ if(circle)
+  circle.style.setProperty(
+   "--score",
+   result.score+"%"
+  );
+
+ if(num)
+  num.textContent=result.score;
+
+ if(label)
+  label.innerHTML =
+   `${result.label} — ${result.authority}`;
+}
+
+
+/* =====================================================
+   SUBMIT REPORT
+===================================================== */
+
+async function submitReport(){
+
+ if(!currentUser){
+  openAuth("login");
+  return;
+ }
+
+ const title =
+  document.getElementById("reportTitle").value.trim();
+
+ const type =
+  document.getElementById("reportType").value;
+
+ const description =
+  document.getElementById("reportDescription").value.trim();
+
+ const photoInput =
+  document.getElementById("reportPhoto");
+
+ const attachment =
+  selectedAttachmentFile || photoInput?.files?.[0] || null;
+
+ if(!title){
+  showToast("اكتب عنوان البلاغ","error");
+  return;
+ }
+
+ if(!selectedLat || !selectedLng){
+  showToast("حدد موقع المشكلة من الخريطة","error");
+  return;
+ }
+
+ const ai =
+  analyzeIssue(type,description);
+
+ let photoUrl=null;
+
+ /* upload photo */
+
+ if(attachment){
+
+  try{
+
+   const file=attachment;
+
+   const path=
+    `${currentUser.id}/${Date.now()}_${file.name}`;
+
+   const upload =
+    await supabaseClient
+    .storage
+    .from("reports")
+    .upload(path,file,{
+     upsert:false
+    });
+
+   if(!upload.error){
+
+    const pub =
+     supabaseClient
+     .storage
+     .from("reports")
+     .getPublicUrl(path);
+
+    photoUrl=pub.data.publicUrl;
+
+   }
+
+  }catch(err){
+   console.log("Photo upload:",err);
+  }
+ }
+
+
+ const newReport={
+
+  id:"local_"+Date.now(),
+
+  user_id:currentUser.id,
+
+  title,
+  type,
+  description,
+
+  latitude:selectedLat,
+  longitude:selectedLng,
+
+  score:ai.score,
+  priority_label:ai.label,
+
+  authority:ai.authority,
+
+  matches:findMatches(type,selectedLat,selectedLng),
+
+  affected_count:1,
+
+  status:"تم الاستلام",
+
+  has_photo:!!photoUrl,
+  photo_url:photoUrl,
+
+  created_at:new Date().toISOString(),
+  updated_at:new Date().toISOString(),
+
+  ai_summary:
+   `تم تصنيف البلاغ كـ ${ai.label} وتوجيهه مبدئياً إلى ${ai.authority}.`
+
+ };
+
+
+ /* Try Supabase */
+
+ let savedOnline=false;
+
+ try{
+
+  const {data,error} =
+   await supabaseClient
+   .from("reports")
+   .insert([{
+    user_id:newReport.user_id,
+    title:newReport.title,
+    type:newReport.type,
+    description:newReport.description,
+    latitude:newReport.latitude,
+    longitude:newReport.longitude,
+    score:newReport.score,
+    matches:newReport.matches,
+    status:newReport.status,
+    has_photo:newReport.has_photo,
+    photo_url:newReport.photo_url
+   }])
+   .select()
+   .single();
+
+  if(!error && data){
+
+   newReport.id=data.id;
+   savedOnline=true;
+
+  }else{
+   console.log("Supabase report insert:",error);
+  }
+
+ }catch(err){
+  console.log("Supabase:",err);
+ }
+
+
+ /* Always keep local backup */
+
+ reports.unshift(newReport);
+
+ saveLocalReports();
+
+ if(currentProfile){
+
+  const newPoints =
+   (currentProfile.points||0)+10;
+
+  currentProfile.points=newPoints;
+
+  try{
+
+   await supabaseClient
+    .from("profiles")
+    .update({
+     points:newPoints
+    })
+    .eq("id",currentUser.id);
+
+  }catch{}
+
+ }
+
+
+ selectedLat=null;
+ selectedLng=null;
+ selectedAttachmentFile=null;
+
+ showSuccessModal(newReport);
+
+}
+
+
+function findMatches(type,lat,lng){
+
+ return reports.filter(r=>{
+
+  if(r.type!==type) return false;
+
+  if(!r.latitude || !r.longitude) return false;
+
+  const distance=
+   getDistanceKm(
+    lat,lng,
+    r.latitude,r.longitude
+   );
+
+  return distance<=0.3;
+
+ }).length;
+}
+
+
+function getDistanceKm(lat1,lon1,lat2,lon2){
+
+ const R=6371;
+
+ const dLat=(lat2-lat1)*Math.PI/180;
+ const dLon=(lon2-lon1)*Math.PI/180;
+
+ const a=
+  Math.sin(dLat/2)**2+
+  Math.cos(lat1*Math.PI/180)*
+  Math.cos(lat2*Math.PI/180)*
+  Math.sin(dLon/2)**2;
+
+ return R*2*Math.atan2(
+  Math.sqrt(a),
+  Math.sqrt(1-a)
+ );
+}
+
+
+/* =====================================================
+   SUCCESS
+===================================================== */
+
+function showSuccessModal(report){
+
+ showModal(`
+
+ <div style="text-align:center;padding:10px">
+
+  <div style="
+   width:82px;
+   height:82px;
+   border-radius:50%;
+   margin:5px auto 20px;
+   background:rgba(72,199,142,.12);
+   border:1px solid rgba(72,199,142,.25);
+   display:grid;
+   place-items:center;
+   font-size:40px;
+  ">
+   ✓
+  </div>
+
+  <h2 style="font-size:28px">
+   تم إرسال البلاغ بنجاح
+  </h2>
+
+  <p style="
+   color:var(--muted);
+   line-height:1.8;
+   margin:12px 0 20px
+  ">
+   شكراً لمساهمتك في تحسين المجتمع.
+   <br>
+   تم تحليل البلاغ وتحديد درجة الأولوية.
+  </p>
+
+  <div class="score-box">
+
+   <div style="color:var(--muted);font-size:12px">
+    Awn Score
+   </div>
+
+   <div style="
+    font-size:52px;
+    font-weight:900;
+    color:var(--gold2);
+    margin:5px 0
+   ">
+    ${report.score}
+   </div>
+
+   <div style="color:var(--muted)">
+    ${report.priority_label}
+   </div>
+
+  </div>
+
+  <div class="actions"
+   style="justify-content:center">
+
+   <button class="primary"
+    onclick="closeModal();showPage('myreports')">
+    📋 مشاهدة بلاغاتي
+   </button>
+
+   <button class="secondary"
+    onclick="closeModal();goHome()">
+    الرئيسية
+   </button>
+
+  </div>
+
+ </div>
+
+ `);
+}
+
+
+/* =====================================================
+   MY REPORTS
+===================================================== */
+
+async function renderMyReports(){
+
+ let mine =
+  reports.filter(
+   r=>r.user_id===currentUser?.id
+  );
+
+ try{
+
+  const {data,error} =
+   await supabaseClient
+   .from("reports")
+   .select("*")
+   .eq("user_id",currentUser.id)
+   .order("created_at",{ascending:false});
+
+  if(!error && data){
+
+   const ids=new Set(
+    mine.map(r=>String(r.id))
+   );
+
+   data.forEach(r=>{
+    if(!ids.has(String(r.id))){
+     mine.push(r);
+    }
+   });
+
+  }
+
+ }catch{}
+
+ document.getElementById("app").innerHTML = `
+
+ <section class="container">
+
+  <div class="section-head">
+   <div>
+    <h2>📋 بلاغاتي</h2>
+    <p>هنا تشوف البلاغات التي رفعتها أنت فقط.</p>
+   </div>
+
+   <button class="primary"
+    onclick="openReport()">
+    + بلاغ جديد
+   </button>
+  </div>
+
+  ${
+   mine.length
+   ? `<div class="report-list">
+       ${mine.map(reportCard).join("")}
+      </div>`
+   : `
+      <div class="empty">
+       <div class="e-icon">📭</div>
+       <h3>ما عندك بلاغات حتى الآن</h3>
+       <p style="margin-top:7px">
+        كن أول شخص يساهم في تحسين مجتمعه.
+       </p>
+       <button class="primary"
+        style="margin-top:18px"
+        onclick="openReport()">
+        رفع أول بلاغ
+       </button>
+      </div>
+     `
+  }
+
+ </section>
+ `;
+}
+
+
+function reportCard(r){
+
+ const scoreClass =
+  r.score>=80
+  ?"score-high"
+  :r.score>=50
+  ?"score-med"
+  :"score-low";
+
+ const statusClass =
+  r.status==="تمت المعالجة"
+  ?"done"
+  :r.score>=80
+  ?"critical"
+  :"";
+
+ return `
+
+ <div class="report">
+
+  <div class="report-top">
+
+   <div>
+    <div class="report-title">
+     ${escapeHtml(r.title||"بلاغ")}
+    </div>
+
+    <div class="report-type">
+     ${categories[r.type]||r.type||"أخرى"}
+    </div>
+   </div>
+
+   <span class="status ${statusClass}">
+    ${escapeHtml(r.status||"تم الاستلام")}
+   </span>
+
+  </div>
+
+  <div class="report-desc">
+   ${escapeHtml(r.description||"لا يوجد وصف")}
+  </div>
+
+  <div class="report-meta">
+
+   <span class="score-pill ${scoreClass}">
+    🔥 ${r.score||0}/100
+   </span>
+
+   <span class="meta">
+    👥 ${r.matches||0} مشابه
+   </span>
+
+   <span class="meta">
+    📅 ${formatDate(r.created_at)}
+   </span>
+
+  </div>
+
+  <div class="actions">
+
+   <button class="secondary"
+    onclick='showReportDetails(${JSON.stringify(safeReport(r))})'>
+    التفاصيل
+   </button>
+
+  </div>
+
+ </div>
+ `;
+}
+
+
+function safeReport(r){
+
+ return {
+  id:r.id,
+  title:r.title,
+  type:r.type,
+  description:r.description,
+  score:r.score,
+  priority_label:r.priority_label,
+  authority:r.authority,
+  status:r.status,
+  matches:r.matches,
+  created_at:r.created_at,
+  photo_url:r.photo_url
+ };
+}
+
+
+function showReportDetails(r){
+
+ showModal(`
+
+ <div class="modal-head">
+
+  <div>
+   <h2>${escapeHtml(r.title||"بلاغ")}</h2>
+   <p style="color:var(--gold2);font-size:12px">
+    ${categories[r.type]||r.type}
+   </p>
+  </div>
+
+  <button class="close"
+   onclick="closeModal()">×</button>
+
+ </div>
+
+ <div class="score-box">
+
+  <div class="score-circle"
+   style="--score:${r.score}%">
+
+   <span class="score-number">
+    ${r.score||0}
+   </span>
+
+  </div>
+
+  <div class="score-label">
+   درجة الأولوية — ${r.priority_label||"—"}
+  </div>
+
+ </div>
+
+ <div class="card">
+
+  <p style="line-height:1.8">
+   ${escapeHtml(r.description||"لا يوجد وصف")}
+  </p>
+
+  <div class="report-meta"
+   style="margin-top:15px">
+
+   <span class="meta">
+    🏛️ ${escapeHtml(r.authority||"الجهة المختصة")}
+   </span>
+
+   <span class="meta">
+    👥 ${r.matches||0} بلاغ مشابه
+   </span>
+
+  </div>
+
+ </div>
+
+ <div style="margin-top:20px">
+
+  <h3 style="margin-bottom:15px">
+   متابعة البلاغ
+  </h3>
+
+  <div class="timeline">
+
+   ${statusFlow.map((s,i)=>`
+
+    <div class="timeline-item">
+
+     <div class="timeline-dot"
+      style="
+       background:
+       ${
+        statusFlow.indexOf(r.status)>=i
+        ?"var(--gold2)"
+        :"#343b37"
+       }
+      ">
+     </div>
+
+     <h4>${s}</h4>
+
+     <p>
+      ${
+       statusFlow.indexOf(r.status)>=i
+       ?"تم الوصول لهذه المرحلة"
+       :"بانتظار الانتقال لهذه المرحلة"
+      }
+     </p>
+
+    </div>
+
+   `).join("")}
+
+  </div>
+
+ </div>
+
+ `);
+}
+
+
+/* =====================================================
+   MAP
+===================================================== */
+
+async function renderMapPage(){
+
+ setMapMode(true);
+
+ document.getElementById("app").innerHTML = `
+
+ <section class="map-screen">
+
+  <div class="map-overlay">
+
+   <button class="filter active"
+    onclick="filterMap('all',this)">
+    الكل
+   </button>
+
+   <button class="filter"
+    onclick="filterMap('critical',this)">
+    🔴 حرجة
+   </button>
+
+   <button class="filter"
+    onclick="filterMap('medium',this)">
+    🟠 متوسطة
+   </button>
+
+   <button class="filter"
+    onclick="filterMap('low',this)">
+    🟢 منخفضة
+   </button>
+
+   <button class="filter"
+    onclick="filterMap('road',this)">
+    الطرق
+   </button>
+
+   <button class="filter"
+    onclick="filterMap('light',this)">
+    الإنارة
+   </button>
+
+   <button class="filter"
+    onclick="filterMap('safety',this)">
+    السلامة
+   </button>
+
+  </div>
+
+  <div id="mainMap" class="map"></div>
+
+ </section>
+ `;
+
+ setTimeout(initMainMap,100);
+}
+
+
+function initMainMap(){
+
+ map =
+  L.map("mainMap")
+  .setView([24.2075,55.7447],12);
+
+ L.tileLayer(
+  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  {
+   maxZoom:19,
+   attribution:"© OpenStreetMap"
+  }
+ ).addTo(map);
+
+ markersLayer=L.layerGroup().addTo(map);
+
+ drawMarkers(reports);
+}
+
+
+function drawMarkers(list){
+
+ if(!markersLayer) return;
+
+ markersLayer.clearLayers();
+
+ list.forEach(r=>{
+
+  if(!r.latitude || !r.longitude) return;
+
+  let color="#48c78e";
+
+  if(r.score>=80) color="#ff5f61";
+  else if(r.score>=50) color="#ff9f43";
+
+  const icon =
+   L.divIcon({
+    className:"",
+    html:`
+     <div style="
+      width:17px;
+      height:17px;
+      border-radius:50%;
+      background:${color};
+      border:3px solid white;
+      box-shadow:0 3px 12px rgba(0,0,0,.4);
+     "></div>
+    `,
+    iconSize:[17,17]
+   });
+
+  L.marker(
+   [r.latitude,r.longitude],
+   {icon}
+  )
+  .bindPopup(`
+   <div dir="rtl" style="min-width:190px">
+    <strong>${escapeHtml(r.title||"بلاغ")}</strong>
+    <br>
+    <small>
+     ${categories[r.type]||r.type||"أخرى"}
+    </small>
+    <br><br>
+    <strong>الأولوية: ${r.score||0}/100</strong>
+    <br>
+    <small>${escapeHtml(r.status||"تم الاستلام")}</small>
+   </div>
+  `)
+  .addTo(markersLayer);
+
+ });
+}
+
+
+function filterMap(filter,button){
+
+ document
+  .querySelectorAll(".filter")
+  .forEach(x=>x.classList.remove("active"));
+
+ button.classList.add("active");
+
+ let list=reports;
+
+ if(filter==="critical")
+  list=reports.filter(r=>r.score>=80);
+
+ if(filter==="medium")
+  list=reports.filter(r=>r.score>=50&&r.score<80);
+
+ if(filter==="low")
+  list=reports.filter(r=>r.score<50);
+
+ if(["road","light","safety"].includes(filter))
+  list=reports.filter(r=>r.type===filter);
+
+ drawMarkers(list);
+}
+
+
+/* =====================================================
+   ASSISTANT
+===================================================== */
+
+function renderAssistant(){
+
+ document.getElementById("app").innerHTML = `
+
+ <section class="container">
+
+  <div class="section-head">
+   <div>
+    <h2>🤖 مساعد عون</h2>
+    <p>
+     اشرح المشكلة بكلماتك، وعون يساعدك في فهمها.
+    </p>
+   </div>
+  </div>
+
+  <div class="form">
+
+   <div class="card">
+
+    <div class="field">
+     <label>ما المشكلة التي شاهدتها؟</label>
+
+     <textarea
+      id="assistantText"
+      placeholder="مثال: توجد حفرة كبيرة في الشارع وقد تسبب خطراً على السيارات..."></textarea>
+    </div>
+
+    <button class="primary"
+     onclick="runAssistant()">
+     ✨ تحليل المشكلة
+    </button>
+
+   </div>
+
+   <div id="assistantResult"
+    style="margin-top:15px">
+   </div>
+
+  </div>
+
+ </section>
+ `;
+}
+
+
+function runAssistant(){
+
+ const text =
+  document.getElementById("assistantText").value.trim();
+
+ if(!text){
+  showToast("اكتب المشكلة أولاً","error");
+  return;
+ }
+
+ let type="other";
+
+ if(/شارع|طريق|حفرة|رصيف/.test(text))
+  type="road";
+
+ else if(/إنارة|لمبة|مصباح|نور/.test(text))
+  type="light";
+
+ else if(/نظافة|قمامة|مخلفات|زبالة/.test(text))
+  type="cleanliness";
+
+ else if(/خطر|حادث|كهرباء|حريق/.test(text))
+  type="safety";
+
+ else if(/كرسي|منحدر|ذوي الإعاقة|إعاقة|وصول/.test(text))
+  type="accessibility";
+
+ else if(/حديقة|مرفق|دورة مياه|ملعب/.test(text))
+  type="facility";
+
+ const ai=analyzeIssue(type,text);
+
+ document.getElementById("assistantResult").innerHTML=`
+
+ <div class="card">
+
+  <div class="badge">
+   تحليل عون
+  </div>
+
+  <h2>
+   ${categories[type]||"أخرى"}
+  </h2>
+
+  <p style="
+   color:var(--muted);
+   line-height:1.8;
+   margin:10px 0
+  ">
+   ${escapeHtml(ai.authority)}
+  </p>
+
+  <div class="score-box">
+
+   <div class="score-circle"
+    style="--score:${ai.score}%">
+
+    <span class="score-number">
+     ${ai.score}
+    </span>
+
+   </div>
+
+   <strong>${ai.label}</strong>
+
+  </div>
+
+  <div class="card">
+
+   <h3>💡 اقتراح عون</h3>
+
+   <p style="
+    color:var(--muted);
+    line-height:1.8;
+    margin-top:8px
+   ">
+    ${
+     ai.score>=80
+     ?"هذه المشكلة قد تحتاج إلى تعامل سريع بسبب مستوى الأولوية المرتفع."
+     :ai.score>=50
+     ?"يفضل رفع البلاغ مع صورة ووصف واضح لمساعدة الجهة المختصة."
+     :"يمكن رفع البلاغ للمساهمة في تحسين المكان ومتابعة المشكلة."
+    }
+   </p>
+
+  </div>
+
+  <button class="primary"
+   style="margin-top:15px"
+   onclick="openReportFromAssistant('${type}')">
+   📢 ارفع البلاغ
+  </button>
+
+ </div>
+ `;
+}
+
+
+function openReportFromAssistant(type){
+
+ requireLogin(()=>{
+
+  renderReportPage();
+
+  setTimeout(()=>{
+
+   const select =
+    document.getElementById("reportType");
+
+   if(select){
+    select.value=type;
+    previewAI();
+   }
+
+  },100);
+
+ });
+}
+
+
+/* =====================================================
+   COMMUNITY PULSE
+===================================================== */
+
+function renderPulse(){
+
+ const total=reports.length;
+
+ const resolved =
+  reports.filter(
+   r=>r.status==="تمت المعالجة"
+  ).length;
+
+ const critical =
+  reports.filter(r=>r.score>=80).length;
+
+ const percentage =
+  total
+  ? Math.round((resolved/total)*100)
+  :0;
+
+ const typeCounts={};
+
+ reports.forEach(r=>{
+  typeCounts[r.type]=
+   (typeCounts[r.type]||0)+1;

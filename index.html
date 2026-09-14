@@ -3841,3 +3841,1854 @@ if(
 
 </body>
 </html>
+<!-- =========================
+     إضافات عون | AWN
+     الصق هذا الجزء بعد </html>
+========================= -->
+
+<style>
+
+/* ===== تحسين تسجيل الدخول على الآيباد ===== */
+
+@media (max-width:850px){
+ .desktop-login{
+  display:block!important;
+ }
+}
+
+@media (max-width:560px){
+ .desktop-login{
+  display:block!important;
+  padding:10px 12px!important;
+  font-size:12px!important;
+ }
+}
+
+
+/* ===== المرفقات ===== */
+
+.attachment-actions{
+ display:flex;
+ flex-wrap:wrap;
+ gap:8px;
+ margin-top:8px;
+}
+
+.attachment-btn{
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.04);
+ color:white;
+ padding:11px 13px;
+ border-radius:12px;
+ cursor:pointer;
+ font-size:12px;
+}
+
+.attachment-btn:hover{
+ background:rgba(201,162,78,.1);
+ border-color:rgba(201,162,78,.3);
+}
+
+.attachment-preview{
+ margin-top:10px;
+}
+
+.attachment-preview img{
+ width:100%;
+ max-height:220px;
+ object-fit:cover;
+ border-radius:15px;
+ border:1px solid var(--border);
+}
+
+.attachment-file{
+ padding:12px;
+ border:1px solid var(--border);
+ border-radius:13px;
+ background:rgba(255,255,255,.03);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+}
+
+
+/* ===== الإعدادات ===== */
+
+.settings-grid{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ margin-top:10px;
+}
+
+.settings-option{
+ border:1px solid var(--border);
+ background:rgba(255,255,255,.035);
+ color:white;
+ border-radius:15px;
+ padding:14px;
+ cursor:pointer;
+ text-align:center;
+ transition:.2s;
+}
+
+.settings-option:hover{
+ transform:translateY(-2px);
+ border-color:rgba(201,162,78,.4);
+}
+
+.settings-option.active{
+ border-color:var(--gold2);
+ box-shadow:0 0 0 1px var(--gold2);
+}
+
+.color-dot{
+ width:28px;
+ height:28px;
+ border-radius:50%;
+ margin:0 auto 7px;
+ border:2px solid rgba(255,255,255,.25);
+}
+
+
+/* ===== الخريطة ملء الشاشة ===== */
+
+body.awn-map-fullscreen{
+ overflow:hidden!important;
+}
+
+body.awn-map-fullscreen header{
+ display:none!important;
+}
+
+body.awn-map-fullscreen .map-screen{
+ position:fixed!important;
+ inset:0!important;
+ z-index:4000!important;
+ width:100vw!important;
+ height:100vh!important;
+}
+
+.map-screen{
+ position:relative;
+ width:100%;
+}
+
+.map-screen .map{
+ width:100%;
+ height:calc(100vh - 120px);
+ min-height:500px;
+}
+
+body.awn-map-fullscreen .map-screen .map{
+ height:100vh!important;
+ min-height:100vh!important;
+ border:0!important;
+ border-radius:0!important;
+}
+
+.map-overlay{
+ position:absolute;
+ top:15px;
+ right:15px;
+ z-index:500;
+ background:rgba(15,20,18,.94);
+ backdrop-filter:blur(15px);
+ border:1px solid rgba(255,255,255,.12);
+ border-radius:18px;
+ padding:10px;
+ box-shadow:var(--shadow);
+}
+
+.map-overlay .filter{
+ margin:2px;
+}
+
+
+/* ===== الثيم الفاتح ===== */
+
+body.light-theme{
+ --bg:#f5f7f5;
+ --panel:#ffffff;
+ --panel2:#f0f3f0;
+ --border:rgba(20,30,25,.12);
+ --text:#17221d;
+ --muted:#68736d;
+
+ background:
+ radial-gradient(
+  circle at 20% 0%,
+  rgba(201,162,78,.12),
+  transparent 28%
+ ),
+ #f5f7f5;
+
+ color:var(--text);
+}
+
+body.light-theme header{
+ background:rgba(255,255,255,.92);
+}
+
+body.light-theme .menu,
+body.light-theme .modal,
+body.light-theme .sidebar,
+body.light-theme .card,
+body.light-theme .feature,
+body.light-theme .report,
+body.light-theme .mini-card,
+body.light-theme .hero-main{
+ background:#ffffff;
+ color:#17221d;
+}
+
+body.light-theme .menu-item,
+body.light-theme .side-item,
+body.light-theme .icon-btn{
+ color:#17221d;
+}
+
+body.light-theme .secondary,
+body.light-theme .filter,
+body.light-theme .attachment-btn,
+body.light-theme .settings-option{
+ color:#17221d;
+ background:#f3f5f3;
+}
+
+body.light-theme .field input,
+body.light-theme .field textarea,
+body.light-theme .field select{
+ background:#f8faf8;
+ color:#17221d;
+}
+
+body.light-theme .hero p,
+body.light-theme .report-desc{
+ color:#68736d;
+}
+
+body.light-theme .score-circle:before{
+ background:#ffffff;
+}
+
+body.light-theme .stat{
+ background:#ffffff;
+}
+
+body.light-theme .table-wrap{
+ background:#ffffff;
+}
+
+body.light-theme th{
+ background:#f2f4f2;
+}
+
+body.light-theme td{
+ color:#303a35;
+}
+
+
+/* ===== ألوان الإعدادات ===== */
+
+.awn-color-green{
+ --awn-c:#4fae78;
+ --awn-c2:#75d99d;
+}
+
+.awn-color-blue{
+ --awn-c:#4fa8ff;
+ --awn-c2:#7dc2ff;
+}
+
+.awn-color-purple{
+ --awn-c:#9b6cff;
+ --awn-c2:#bd9dff;
+}
+
+.awn-color-red{
+ --awn-c:#ff5f61;
+ --awn-c2:#ff8587;
+}
+
+.awn-color-orange{
+ --awn-c:#ff9f43;
+ --awn-c2:#ffc078;
+}
+
+.awn-color-pink{
+ --awn-c:#ec6aa6;
+ --awn-c2:#f49bc4;
+}
+
+.awn-color-yellow{
+ --awn-c:#d9ad42;
+ --awn-c2:#f1cc69;
+}
+
+.awn-color-cyan{
+ --awn-c:#32c6d9;
+ --awn-c2:#70e0ec;
+}
+
+.awn-color-brown{
+ --awn-c:#a9784d;
+ --awn-c2:#c99a6b;
+}
+
+.awn-color-gray{
+ --awn-c:#7f8b86;
+ --awn-c2:#aeb7b2;
+}
+
+</style>
+
+
+<script>
+
+(function(){
+
+"use strict";
+
+
+/* =====================================
+   إعدادات عون
+===================================== */
+
+const AWN_SETTINGS_KEY="awn_settings";
+
+const AWN_COLORS={
+ green:["#4fae78","#75d99d"],
+ blue:["#4fa8ff","#7dc2ff"],
+ purple:["#9b6cff","#bd9dff"],
+ red:["#ff5f61","#ff8587"],
+ orange:["#ff9f43","#ffc078"],
+ pink:["#ec6aa6","#f49bc4"],
+ yellow:["#d9ad42","#f1cc69"],
+ cyan:["#32c6d9","#70e0ec"],
+ brown:["#a9784d","#c99a6b"],
+ gray:["#7f8b86","#aeb7b2"]
+};
+
+
+let awnSettings={
+ background:"black",
+ color:"green"
+};
+
+
+try{
+
+ const saved=
+  JSON.parse(
+   localStorage.getItem(
+    AWN_SETTINGS_KEY
+   )||"null"
+  );
+
+ if(saved){
+
+  awnSettings={
+   ...awnSettings,
+   ...saved
+  };
+
+ }
+
+}catch{}
+
+
+/* =====================================
+   تطبيق الثيم
+===================================== */
+
+function applyAwnTheme(){
+
+ const color=
+  AWN_COLORS[
+   awnSettings.color
+  ]||
+  AWN_COLORS.green;
+
+ document.documentElement
+  .style
+  .setProperty(
+   "--gold",
+   color[0]
+  );
+
+ document.documentElement
+  .style
+  .setProperty(
+   "--gold2",
+   color[1]
+  );
+
+ document.documentElement
+  .style
+  .setProperty(
+   "--blue",
+   color[0]
+  );
+
+ document.body.classList.toggle(
+  "light-theme",
+  awnSettings.background==="white"
+ );
+
+ try{
+
+  localStorage.setItem(
+   AWN_SETTINGS_KEY,
+   JSON.stringify(awnSettings)
+  );
+
+ }catch{}
+
+}
+
+
+window.applyAwnTheme=
+ applyAwnTheme;
+
+
+/* =====================================
+   نافذة الإعدادات
+===================================== */
+
+window.openSettings=function(){
+
+ showModal(`
+
+  <div class="modal-head">
+
+   <h2>⚙️ الإعدادات</h2>
+
+   <button
+    class="modal-close"
+    onclick="closeModal()">
+    ×
+   </button>
+
+  </div>
+
+
+  <h3 style="margin-bottom:8px">
+   شكل الموقع
+  </h3>
+
+  <div class="settings-grid">
+
+   <button
+    class="settings-option ${
+     awnSettings.background==="black"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.background='black';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    🌙
+    <br>
+    الوضع الداكن
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.background==="white"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.background='white';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    ☀️
+    <br>
+    الوضع الفاتح
+
+   </button>
+
+  </div>
+
+
+  <h3 style="margin:22px 0 8px">
+   لون عون
+  </h3>
+
+
+  <div class="settings-grid">
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="green"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='green';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#4fae78">
+    </div>
+
+    أخضر
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="blue"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='blue';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#4fa8ff">
+    </div>
+
+    أزرق
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="purple"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='purple';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#9b6cff">
+    </div>
+
+    بنفسجي
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="red"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='red';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#ff5f61">
+    </div>
+
+    أحمر
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="orange"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='orange';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#ff9f43">
+    </div>
+
+    برتقالي
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="pink"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='pink';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#ec6aa6">
+    </div>
+
+    وردي
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="yellow"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='yellow';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#d9ad42">
+    </div>
+
+    ذهبي
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="cyan"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='cyan';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#32c6d9">
+    </div>
+
+    سماوي
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="brown"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='brown';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#a9784d">
+    </div>
+
+    بني
+
+   </button>
+
+
+   <button
+    class="settings-option ${
+     awnSettings.color==="gray"
+     ?"active"
+     :""
+    }"
+    onclick="
+     awnSettings.color='gray';
+     applyAwnTheme();
+     openSettings();
+    ">
+
+    <div
+     class="color-dot"
+     style="background:#7f8b86">
+    </div>
+
+    رمادي
+
+   </button>
+
+  </div>
+
+ `);
+
+};
+
+
+/* =====================================
+   إضافة الإعدادات للقائمة
+===================================== */
+
+function addSettingsToMenu(){
+
+ const menu=
+  document.getElementById("menu");
+
+ if(!menu)
+  return;
+
+ if(
+  document.getElementById(
+   "awnSettingsMenu"
+  )
+ )
+  return;
+
+ const button=
+  document.createElement("button");
+
+ button.id="awnSettingsMenu";
+
+ button.className="menu-item";
+
+ button.innerHTML=`
+  <span>⚙️</span>
+  <span>الإعدادات</span>
+ `;
+
+ button.onclick=function(){
+
+  openSettings();
+  toggleMenu();
+
+ };
+
+ const separator=
+  menu.querySelector(".menu-sep");
+
+ if(separator)
+  menu.insertBefore(
+   button,
+   separator
+  );
+ else
+  menu.appendChild(button);
+
+}
+
+
+/* =====================================
+   المرفقات
+===================================== */
+
+let awnSelectedAttachment=null;
+
+
+function formatAwnFileSize(bytes){
+
+ if(!bytes)
+  return "0 B";
+
+ const units=[
+  "B",
+  "KB",
+  "MB",
+  "GB"
+ ];
+
+ let i=0;
+ let size=bytes;
+
+ while(
+  size>=1024&&
+  i<units.length-1
+ ){
+
+  size/=1024;
+  i++;
+
+ }
+
+ return size.toFixed(
+  size>=10||i===0?0:1
+ )+
+ " "+
+ units[i];
+
+}
+
+
+window.clearAwnAttachment=function(){
+
+ awnSelectedAttachment=null;
+
+ const input=
+  document.getElementById(
+   "awnAttachment"
+  );
+
+ const preview=
+  document.getElementById(
+   "attachmentPreview"
+  );
+
+ if(input)
+  input.value="";
+
+ if(preview)
+  preview.innerHTML="";
+
+};
+
+
+window.handleAwnAttachment=function(event){
+
+ const file=
+  event.target.files?.[0];
+
+ if(!file)
+  return;
+
+ awnSelectedAttachment=file;
+
+ const preview=
+  document.getElementById(
+   "attachmentPreview"
+  );
+
+ if(!preview)
+  return;
+
+ if(file.type.startsWith("image/")){
+
+  const reader=
+   new FileReader();
+
+  reader.onload=function(e){
+
+   preview.innerHTML=`
+
+    <div>
+
+     <img
+      src="${e.target.result}"
+      alt="معاينة المرفق">
+
+     <button
+      type="button"
+      class="secondary"
+      style="margin-top:8px"
+      onclick="clearAwnAttachment()">
+
+      إزالة المرفق
+
+     </button>
+
+    </div>
+
+   `;
+
+  };
+
+  reader.readAsDataURL(file);
+
+ }else{
+
+  preview.innerHTML=`
+
+   <div class="attachment-file">
+
+    <span>
+     📎 ${escapeHtml(file.name)}
+    </span>
+
+    <span style="color:var(--muted)">
+     ${formatAwnFileSize(file.size)}
+    </span>
+
+   </div>
+
+   <button
+    type="button"
+    class="secondary"
+    style="margin-top:8px"
+    onclick="clearAwnAttachment()">
+
+    إزالة المرفق
+
+   </button>
+
+  `;
+
+ }
+
+};
+
+
+/* =====================================
+   استبدال صفحة رفع البلاغ
+===================================== */
+
+const awnOriginalRenderReportPage=
+ window.renderReportPage;
+
+
+window.renderReportPage=function(){
+
+ document.getElementById("app").innerHTML=`
+
+  <section class="container">
+
+   <div class="section-head">
+
+    <div>
+
+     <h2>📢 رفع بلاغ</h2>
+
+     <p>
+      ساعدنا في تحسين المكان من حولك.
+     </p>
+
+    </div>
+
+   </div>
+
+
+   <div class="card form">
+
+    <div class="row">
+
+     <div class="field">
+
+      <label>
+       عنوان البلاغ
+      </label>
+
+      <input
+       id="reportTitle"
+       placeholder="مثال: إنارة شارع متعطلة">
+
+     </div>
+
+
+     <div class="field">
+
+      <label>
+       نوع البلاغ
+      </label>
+
+      <select id="reportType">
+
+       ${Object.entries(categories)
+        .map(
+         ([k,v])=>
+          `<option value="${k}">
+           ${v}
+          </option>`
+        )
+        .join("")
+       }
+
+      </select>
+
+     </div>
+
+    </div>
+
+
+    <div class="field">
+
+     <label>
+      الوصف
+     </label>
+
+     <textarea
+      id="reportDescription"
+      placeholder="اشرح المشكلة بالتفصيل...">
+     </textarea>
+
+    </div>
+
+
+    <div class="field">
+
+     <label>
+      الموقع
+     </label>
+
+     <input
+      id="reportLocation"
+      placeholder="اسم المنطقة أو المكان">
+
+    </div>
+
+
+    <div class="field">
+
+     <label>
+      رابط الصورة
+      <span style="color:var(--muted)">
+       (اختياري)
+      </span>
+     </label>
+
+     <input
+      id="reportImage"
+      placeholder="يمكنك وضع رابط للصورة">
+
+    </div>
+
+
+    <!-- المرفق -->
+
+    <div class="field">
+
+     <label>
+      مرفق البلاغ
+      <span style="color:var(--muted)">
+       (اختياري)
+      </span>
+     </label>
+
+
+     <div class="attachment-actions">
+
+      <button
+       type="button"
+       class="attachment-btn"
+       onclick="
+        document
+        .getElementById('awnAttachment')
+        .click()
+       ">
+
+       📷 اختيار صورة
+
+      </button>
+
+
+      <button
+       type="button"
+       class="attachment-btn"
+       onclick="
+        document
+        .getElementById('awnCamera')
+        .click()
+       ">
+
+       📸 فتح الكاميرا
+
+      </button>
+
+
+      <button
+       type="button"
+       class="attachment-btn"
+       onclick="
+        document
+        .getElementById('awnFile')
+        .click()
+       ">
+
+       📎 اختيار ملف
+
+      </button>
+
+     </div>
+
+
+     <input
+      id="awnAttachment"
+      type="file"
+      accept="image/*"
+      onchange="handleAwnAttachment(event)"
+      style="display:none">
+
+
+     <input
+      id="awnCamera"
+      type="file"
+      accept="image/*"
+      capture="environment"
+      onchange="handleAwnAttachment(event)"
+      style="display:none">
+
+
+     <input
+      id="awnFile"
+      type="file"
+      accept="*/*"
+      onchange="handleAwnAttachment(event)"
+      style="display:none">
+
+
+     <div
+      id="attachmentPreview"
+      class="attachment-preview">
+     </div>
+
+
+     <p
+      style="
+       color:var(--muted);
+       font-size:11px;
+       margin-top:7px;
+      ">
+
+      يمكنك إرفاق صورة أو ملف، والمرفق اختياري.
+
+     </p>
+
+    </div>
+
+
+    <div class="score-box">
+
+     <div class="score-label">
+      الأولوية التقديرية
+     </div>
+
+
+     <div
+      class="score-circle"
+      id="liveScore">
+
+      <div
+       class="score-number"
+       id="scoreNumber">
+       30
+      </div>
+
+     </div>
+
+
+     <div class="score-label">
+      تتغير حسب نوع ووصف البلاغ
+     </div>
+
+    </div>
+
+
+    <div class="actions">
+
+     <button
+      class="primary"
+      onclick="submitReport()">
+
+      إرسال البلاغ
+
+     </button>
+
+
+     <button
+      class="secondary"
+      onclick="goHome()">
+
+      إلغاء
+
+     </button>
+
+    </div>
+
+   </div>
+
+  </section>
+
+ `;
+
+
+ document
+  .getElementById("reportType")
+  ?.addEventListener(
+   "change",
+   updateLiveScore
+  );
+
+
+ document
+  .getElementById("reportDescription")
+  ?.addEventListener(
+   "input",
+   updateLiveScore
+  );
+
+
+ updateLiveScore();
+
+};
+
+
+/* =====================================
+   إرسال البلاغ مع المرفق
+===================================== */
+
+const awnOriginalSubmitReport=
+ window.submitReport;
+
+
+window.submitReport=async function(){
+
+ if(!currentUser){
+
+  openAuth("login");
+  return;
+
+ }
+
+
+ const title=
+  document
+   .getElementById("reportTitle")
+   ?.value
+   .trim()||"";
+
+
+ const type=
+  document
+   .getElementById("reportType")
+   ?.value||
+  "other";
+
+
+ const description=
+  document
+   .getElementById("reportDescription")
+   ?.value
+   .trim()||"";
+
+
+ const location=
+  document
+   .getElementById("reportLocation")
+   ?.value
+   .trim()||"";
+
+
+ let image_url=
+  document
+   .getElementById("reportImage")
+   ?.value
+   .trim()||"";
+
+
+ if(!title||!description){
+
+  showToast(
+   "اكتب عنوان ووصف البلاغ",
+   "error"
+  );
+
+  return;
+
+ }
+
+
+ const score=
+  scoreReport(
+   type,
+   description
+  );
+
+
+ /* رفع المرفق إلى Supabase Storage */
+
+ if(awnSelectedAttachment){
+
+  try{
+
+   const file=
+    awnSelectedAttachment;
+
+   const safeName=
+    file.name
+     .replace(
+      /[^a-zA-Z0-9._-]/g,
+      "_"
+     );
+
+
+   const path=
+    `${currentUser.id}/${Date.now()}_${safeName}`;
+
+
+   const upload=
+    await supabaseClient
+     .storage
+     .from("reports")
+     .upload(
+      path,
+      file,
+      {
+       upsert:false
+      }
+     );
+
+
+   if(
+    !upload.error
+   ){
+
+    const publicUrl=
+     supabaseClient
+      .storage
+      .from("reports")
+      .getPublicUrl(path);
+
+
+    image_url=
+     publicUrl
+      .data
+      .publicUrl||
+     image_url;
+
+   }
+
+  }catch(err){
+
+   console.log(
+    "Attachment upload:",
+    err
+   );
+
+  }
+
+ }
+
+
+ const item={
+
+  user_id:currentUser.id,
+
+  title,
+
+  type,
+
+  description,
+
+  location,
+
+  image_url,
+
+  score,
+
+  status:"تم استلام البلاغ"
+
+ };
+
+
+ reports.unshift({
+
+  ...item,
+
+  id:"local-"+Date.now(),
+
+  created_at:
+   new Date()
+    .toISOString()
+
+ });
+
+
+ saveLocalReports();
+
+
+ try{
+
+  const {error}=
+   await supabaseClient
+    .from("reports")
+    .insert([
+     item
+    ]);
+
+  if(error)
+   console.log(error);
+
+ }catch(err){
+
+  console.log(err);
+
+ }
+
+
+ clearAwnAttachment();
+
+
+ showToast(
+  "تم إرسال البلاغ بنجاح ✓",
+  "success"
+ );
+
+
+ showPage(
+  "myreports"
+ );
+
+};
+
+
+/* =====================================
+   خريطة عون — وضع كامل الشاشة
+===================================== */
+
+const awnOriginalRenderMapPage=
+ window.renderMapPage;
+
+
+window.renderMapPage=function(){
+
+ document.body
+  .classList
+  .add("awn-map-fullscreen");
+
+
+ document.getElementById("app").innerHTML=`
+
+  <section class="map-screen">
+
+   <div class="map-overlay">
+
+    <div
+     class="map-tools"
+     style="margin:0">
+
+     <button
+      class="filter active"
+      onclick="filterMap('all',this)">
+      الكل
+     </button>
+
+     <button
+      class="filter"
+      onclick="filterMap('high',this)">
+      حرجة
+     </button>
+
+     <button
+      class="filter"
+      onclick="filterMap('medium',this)">
+      متوسطة
+     </button>
+
+     <button
+      class="filter"
+      onclick="filterMap('low',this)">
+      منخفضة
+     </button>
+
+     <button
+      class="filter"
+      onclick="
+       setAwnMapFullscreen(false);
+       goHome();
+      ">
+      ✕ خروج
+     </button>
+
+    </div>
+
+   </div>
+
+
+   <div
+    id="map"
+    class="map">
+   </div>
+
+  </section>
+
+ `;
+
+
+ setTimeout(
+  initMap,
+  50
+ );
+
+};
+
+
+/* =====================================
+   التحكم بالخريطة
+===================================== */
+
+window.setAwnMapFullscreen=
+ function(enabled){
+
+  document.body
+   .classList
+   .toggle(
+    "awn-map-fullscreen",
+    !!enabled
+   );
+
+ };
+
+
+/* =====================================
+   تعديل goHome
+===================================== */
+
+const awnOriginalGoHome=
+ window.goHome;
+
+
+window.goHome=function(){
+
+ document.body
+  .classList
+  .remove(
+   "awn-map-fullscreen"
+  );
+
+ awnOriginalGoHome();
+
+};
+
+
+/* =====================================
+   تعديل showPage
+===================================== */
+
+const awnOriginalShowPage=
+ window.showPage;
+
+
+window.showPage=function(page){
+
+ if(
+  page!=="map"
+ ){
+
+  document.body
+   .classList
+   .remove(
+    "awn-map-fullscreen"
+   );
+
+ }
+
+ awnOriginalShowPage(page);
+
+};
+
+
+/* =====================================
+   فتح المرفق داخل تفاصيل البلاغ
+===================================== */
+
+const awnOriginalReportCard=
+ window.reportCard;
+
+
+window.reportCard=function(r){
+
+ const oldCard=
+  awnOriginalReportCard(r);
+
+
+ if(
+  !r.image_url
+ )
+  return oldCard;
+
+
+ return oldCard.replace(
+  "</div>\n\n </div>",
+  `
+
+   <div
+    style="
+     margin-top:12px;
+     padding-top:12px;
+     border-top:1px solid var(--border);
+    ">
+
+    <a
+     href="${escapeHtml(r.image_url)}"
+     target="_blank"
+     rel="noopener"
+     style="
+      color:var(--gold2);
+      text-decoration:none;
+      font-size:12px;
+     ">
+
+     📎 فتح المرفق
+
+    </a>
+
+   </div>
+
+  </div>`
+ );
+
+};
+
+
+/* =====================================
+   إضافة الإعدادات عند التشغيل
+===================================== */
+
+applyAwnTheme();
+
+
+setTimeout(
+ function(){
+
+  addSettingsToMenu();
+
+ },
+ 100
+);
+
+
+/* =====================================
+   إعادة إضافة الإعدادات إذا تغيّرت الصفحة
+===================================== */
+
+const awnOldToggleMenu=
+ window.toggleMenu;
+
+
+window.toggleMenu=function(){
+
+ addSettingsToMenu();
+
+ awnOldToggleMenu();
+
+};
+
+
+/* =====================================
+   عند تحميل الموقع
+===================================== */
+
+window.addEventListener(
+ "load",
+ function(){
+
+  applyAwnTheme();
+
+  addSettingsToMenu();
+
+ }
+);
+
+})();
+
+</script>
+
+<!-- =========================
+     نهاية إضافات عون
+========================= -->
+<style>
+/* ================================
+   AWN — وضع الخريطة الكامل
+   ================================ */
+
+body.awn-map-mode {
+  overflow: hidden !important;
+}
+
+body.awn-map-mode header,
+body.awn-map-mode nav,
+body.awn-map-mode .header,
+body.awn-map-mode .navbar,
+body.awn-map-mode #header,
+body.awn-map-mode #menu,
+body.awn-map-mode .menu,
+body.awn-map-mode .menu-btn,
+body.awn-map-mode .hamburger {
+  display: none !important;
+}
+
+body.awn-map-mode #app {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 999999 !important;
+}
+
+body.awn-map-mode #map {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 999999 !important;
+  border-radius: 0 !important;
+}
+
+/* زر الخروج من الخريطة */
+.awn-map-exit {
+  position: fixed !important;
+  top: 18px !important;
+  right: 18px !important;
+  z-index: 1000001 !important;
+
+  border: 1px solid rgba(255,255,255,.15) !important;
+  background: rgba(8,11,10,.92) !important;
+  color: #fff !important;
+
+  padding: 11px 17px !important;
+  border-radius: 13px !important;
+
+  font-family: Tahoma,Arial,sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+
+  box-shadow: 0 8px 25px rgba(0,0,0,.35) !important;
+  backdrop-filter: blur(10px);
+}
+</style>
+
+<script>
+/* =========================================
+   AWN — فتح الخريطة كصفحة مستقلة بالكامل
+   ========================================= */
+
+(function(){
+
+  const awnOldRenderMapPage = window.renderMapPage;
+
+  window.renderMapPage = function(){
+
+    document.body.classList.add("awn-map-mode");
+
+    if(typeof awnOldRenderMapPage === "function"){
+      awnOldRenderMapPage();
+    }
+
+    setTimeout(function(){
+
+      const app = document.getElementById("app");
+      if(!app) return;
+
+      /* حذف أي عناصر إضافية حول الخريطة */
+      const all = app.children;
+
+      for(let i = all.length - 1; i >= 0; i--){
+        const el = all[i];
+
+        if(
+          el.id !== "map" &&
+          !el.contains(document.getElementById("map"))
+        ){
+          /* نخلي العنصر الذي يحتوي الخريطة فقط */
+          if(!el.querySelector || !el.querySelector("#map")){
+            el.style.display = "none";
+          }
+        }
+      }
+
+      /* زر الخروج */
+      let exitBtn = document.getElementById("awnMapExit");
+
+      if(!exitBtn){
+
+        exitBtn = document.createElement("button");
+
+        exitBtn.id = "awnMapExit";
+        exitBtn.className = "awn-map-exit";
+        exitBtn.textContent = "✕ خروج";
+
+        exitBtn.onclick = function(){
+          document.body.classList.remove("awn-map-mode");
+
+          exitBtn.remove();
+
+          if(typeof goHome === "function"){
+            goHome();
+          }else if(typeof showPage === "function"){
+            showPage("home");
+          }
+
+          setTimeout(function(){
+            if(typeof updateHeader === "function"){
+              updateHeader();
+            }
+          },100);
+        };
+
+        document.body.appendChild(exitBtn);
+      }
+
+      /* إعادة ضبط الخريطة بعد ملء الشاشة */
+      setTimeout(function(){
+        if(typeof mapInstance !== "undefined" && mapInstance){
+          try{
+            mapInstance.invalidateSize();
+          }catch(e){}
+        }
+      },300);
+
+    },100);
+  };
+
+
+  /* إذا رجع المستخدم للرئيسية */
+  const awnOldGoHome = window.goHome;
+
+  window.goHome = function(){
+
+    document.body.classList.remove("awn-map-mode");
+
+    const exitBtn = document.getElementById("awnMapExit");
+    if(exitBtn) exitBtn.remove();
+
+    if(typeof awnOldGoHome === "function"){
+      awnOldGoHome();
+    }
+  };
+
+
+  /* أي انتقال من الخريطة لصفحة ثانية يلغي وضع الخريطة */
+  const awnOldShowPage = window.showPage;
+
+  window.showPage = function(page){
+
+    if(page !== "map"){
+      document.body.classList.remove("awn-map-mode");
+
+      const exitBtn = document.getElementById("awnMapExit");
+      if(exitBtn) exitBtn.remove();
+    }
+
+    if(typeof awnOldShowPage === "function"){
+      return awnOldShowPage(page);
+    }
+  };
+
+})();
+</script>

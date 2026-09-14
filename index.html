@@ -3841,3 +3841,61 @@ if(
 
 </body>
 </html>
+/* =====================================================
+   AWN SAFE START FIX
+   لا يغير التصميم أو وظائف الموقع
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  setTimeout(()=>{
+
+    const app = document.getElementById("app");
+
+    if(!app) return;
+
+    // إذا الصفحة الرئيسية ما ظهرت، حاول تشغيلها مرة ثانية
+    if(!app.innerHTML.trim()){
+
+      try{
+
+        if(typeof loadTheme === "function")
+          loadTheme();
+
+        if(typeof loadLocalReports === "function")
+          loadLocalReports();
+
+        if(typeof renderHome === "function")
+          renderHome();
+
+        if(typeof updateHeader === "function")
+          updateHeader();
+
+      }catch(error){
+
+        console.error("AWN startup error:", error);
+
+        app.innerHTML = `
+          <section class="container" style="padding-top:80px;text-align:center">
+            <div class="card">
+              <div style="font-size:45px">⚠️</div>
+              <h2 style="margin-top:15px">تعذر تحميل عون</h2>
+              <p style="color:var(--muted);margin-top:10px">
+                حاول تحديث الصفحة مرة ثانية.
+              </p>
+              <button class="primary"
+                style="margin-top:18px"
+                onclick="location.reload()">
+                🔄 تحديث الصفحة
+              </button>
+            </div>
+          </section>
+        `;
+
+      }
+
+    }
+
+  },1500);
+
+});

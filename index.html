@@ -7468,3 +7468,29 @@ function renderPulse(){
  reports.forEach(r=>{
   typeCounts[r.type]=
    (typeCounts[r.type]||0)+1;
+<script>
+...
+كل كود الموقع
+...
+
+/* INIT الجديد هنا */
+document.addEventListener("DOMContentLoaded", async ()=>{
+  loadTheme();
+  loadLocalReports();
+  renderHome();
+
+  try{
+    await Promise.race([
+      loadSession(),
+      new Promise(resolve=>setTimeout(resolve,5000))
+    ]);
+  }catch(err){
+    console.log("Session init:",err);
+  }
+
+  updateHeader();
+});
+</script>
+
+</body>
+</html>

@@ -6469,3 +6469,435 @@ body[class*="awn-theme-"] .nav-item.active{
 })();
 
 </script>
+<script>
+/* ================================
+   AWN — GLOBAL ACCENT COLORS FIX
+   ================================ */
+
+(function(){
+
+  const AWN_COLORS = {
+    green: {
+      main:"#4fae78",
+      light:"#78d69d"
+    },
+    blue: {
+      main:"#4f8cff",
+      light:"#7aaaff"
+    },
+    purple: {
+      main:"#9b6cff",
+      light:"#b99aff"
+    },
+    red: {
+      main:"#ff5f61",
+      light:"#ff8587"
+    },
+    orange: {
+      main:"#ff9f43",
+      light:"#ffb86b"
+    },
+    pink: {
+      main:"#ff5fa2",
+      light:"#ff8fbe"
+    },
+    gold: {
+      main:"#c9a24e",
+      light:"#e6c86a"
+    },
+    cyan: {
+      main:"#35c7d9",
+      light:"#70e0ed"
+    },
+    brown: {
+      main:"#a87952",
+      light:"#c99b75"
+    },
+    gray: {
+      main:"#8d9893",
+      light:"#b5bdb9"
+    }
+  };
+
+  /* إضافة متغيرات عامة */
+  const style = document.createElement("style");
+
+  style.textContent = `
+    :root{
+      --awn-accent:#4fae78;
+      --awn-accent-light:#78d69d;
+    }
+
+    /* العناصر التي تستخدم اللون الأساسي */
+    button.primary,
+    .primary,
+    button[type="submit"],
+    .accent,
+    .active,
+    .selected,
+    .nav-link.active,
+    .menu-item.active{
+      background:var(--awn-accent) !important;
+      border-color:var(--awn-accent) !important;
+    }
+
+    /* النصوص البارزة */
+    a,
+    .accent-text,
+    .gold,
+    .highlight,
+    .score-value,
+    .priority-value{
+      color:var(--awn-accent) !important;
+    }
+
+    /* الحدود */
+    input:focus,
+    textarea:focus,
+    select:focus,
+    button:focus,
+    .card.active,
+    .report-card.active{
+      border-color:var(--awn-accent) !important;
+      box-shadow:0 0 0 2px color-mix(
+        in srgb,
+        var(--awn-accent) 18%,
+        transparent
+      ) !important;
+    }
+
+    /* مؤشرات وتفاصيل */
+    .dot,
+    .status-dot,
+    .progress-bar,
+    .progress-fill,
+    .score-bar,
+    .priority-bar{
+      background:var(--awn-accent) !important;
+    }
+
+    /* SVG icons */
+    svg.accent,
+    .accent svg,
+    .menu-icon.active{
+      color:var(--awn-accent) !important;
+      fill:var(--awn-accent) !important;
+      stroke:var(--awn-accent) !important;
+    }
+
+    /* Hover */
+    button.primary:hover,
+    .primary:hover{
+      background:var(--awn-accent-light) !important;
+      border-color:var(--awn-accent-light) !important;
+    }
+
+    /* لون اختيار اللون */
+    .awn-color-option{
+      transition:
+        transform .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease;
+    }
+
+    .awn-color-option:hover{
+      transform:scale(1.06);
+    }
+
+    .awn-color-option.awn-color-selected{
+      border:3px solid #fff !important;
+      box-shadow:
+        0 0 0 2px var(--awn-accent),
+        0 8px 20px rgba(0,0,0,.25) !important;
+      transform:scale(1.05);
+    }
+  `;
+
+  document.head.appendChild(style);
+
+
+  /* تغيير اللون في الموقع كامل */
+  function awnApplyColor(name){
+
+    const color = AWN_COLORS[name];
+
+    if(!color) return;
+
+    document.documentElement.style.setProperty(
+      "--awn-accent",
+      color.main
+    );
+
+    document.documentElement.style.setProperty(
+      "--awn-accent-light",
+      color.light
+    );
+
+    /* نخلي متغيرات المشروع الأصلية تتبع اللون المختار */
+    document.documentElement.style.setProperty(
+      "--gold",
+      color.main
+    );
+
+    document.documentElement.style.setProperty(
+      "--gold2",
+      color.light
+    );
+
+    document.documentElement.style.setProperty(
+      "--green",
+      color.main
+    );
+
+    document.documentElement.style.setProperty(
+      "--blue",
+      color.main
+    );
+
+    /* حفظ الاختيار */
+    localStorage.setItem(
+      "awn_accent_color",
+      name
+    );
+
+    /* تحديث الأزرار */
+    document.querySelectorAll(
+      ".awn-color-option"
+    ).forEach(btn=>{
+      btn.classList.toggle(
+        "awn-color-selected",
+        btn.dataset.color === name
+      );
+    });
+
+    /* تحديث العناصر التي تستخدم style مباشر */
+    document.querySelectorAll(
+      "[data-awn-accent]"
+    ).forEach(el=>{
+      el.style.color = color.main;
+    });
+
+    document.querySelectorAll(
+      "[data-awn-accent-bg]"
+    ).forEach(el=>{
+      el.style.backgroundColor = color.main;
+    });
+
+  }
+
+
+  /* إنشاء لوحة الألوان */
+  function awnCreateColorPanel(){
+
+    if(document.getElementById("awnColorPanel")){
+      return;
+    }
+
+    const panel = document.createElement("div");
+
+    panel.id = "awnColorPanel";
+
+    panel.innerHTML = `
+      <div style="
+        margin-top:20px;
+        padding:18px;
+        border:1px solid rgba(255,255,255,.09);
+        border-radius:18px;
+        background:#101513;
+      ">
+
+        <div style="
+          font-size:18px;
+          font-weight:800;
+          margin-bottom:6px;
+        ">
+          لون الموقع
+        </div>
+
+        <div style="
+          color:#9da5a1;
+          font-size:13px;
+          margin-bottom:15px;
+        ">
+          اختر اللون الذي تريده للموقع بالكامل
+        </div>
+
+        <div style="
+          display:grid;
+          grid-template-columns:repeat(5,1fr);
+          gap:12px;
+        ">
+
+          ${Object.entries(AWN_COLORS).map(([name,color])=>`
+
+            <button
+              type="button"
+              class="awn-color-option"
+              data-color="${name}"
+              title="${name}"
+              style="
+                width:100%;
+                aspect-ratio:1;
+                border-radius:14px;
+                border:2px solid rgba(255,255,255,.12);
+                background:${color.main};
+                cursor:pointer;
+                min-height:45px;
+              "
+            ></button>
+
+          `).join("")}
+
+        </div>
+
+      </div>
+    `;
+
+
+    /* نبحث عن صفحة الإعدادات */
+    const targets = [
+      "#settings",
+      ".settings-page",
+      ".settings",
+      "[data-page='settings']"
+    ];
+
+    let target = null;
+
+    for(const selector of targets){
+
+      const el = document.querySelector(selector);
+
+      if(el){
+        target = el;
+        break;
+      }
+
+    }
+
+    if(target){
+
+      target.appendChild(panel);
+
+    }else{
+
+      /*
+       إذا ما لقينا صفحة الإعدادات،
+       نخلي اللوحة جاهزة عشان نضيفها
+       أول ما تظهر.
+      */
+
+      panel.style.display = "none";
+
+      document.body.appendChild(panel);
+
+    }
+
+
+    /* أحداث الألوان */
+    panel.querySelectorAll(
+      ".awn-color-option"
+    ).forEach(btn=>{
+
+      btn.addEventListener("click",()=>{
+
+        awnApplyColor(
+          btn.dataset.color
+        );
+
+      });
+
+    });
+
+
+    /* اللون المحفوظ */
+    const saved =
+      localStorage.getItem(
+        "awn_accent_color"
+      ) || "green";
+
+    awnApplyColor(saved);
+
+  }
+
+
+  /* تشغيل اللوحة */
+  function awnInitColors(){
+
+    awnCreateColorPanel();
+
+    const saved =
+      localStorage.getItem(
+        "awn_accent_color"
+      ) || "green";
+
+    awnApplyColor(saved);
+
+  }
+
+
+  /* مراقبة تغيّر الصفحات */
+  const observer =
+    new MutationObserver(()=>{
+
+      const panel =
+        document.getElementById(
+          "awnColorPanel"
+        );
+
+      /*
+       إذا صفحة الإعدادات ظهرت بعد
+       تحميل الموقع، نحاول إضافتها.
+      */
+
+      if(!panel){
+
+        const settings =
+          document.querySelector(
+            "#settings, .settings-page, .settings, [data-page='settings']"
+          );
+
+        if(settings){
+
+          awnCreateColorPanel();
+
+        }
+
+      }
+
+    });
+
+
+  observer.observe(
+    document.body,
+    {
+      childList:true,
+      subtree:true
+    }
+  );
+
+
+  /* تشغيل */
+  if(document.readyState === "loading"){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      ()=>{
+        setTimeout(awnInitColors,500);
+      },
+      {once:true}
+    );
+
+  }else{
+
+    setTimeout(awnInitColors,500);
+
+  }
+
+
+  /* متاح للكود الأساسي */
+  window.awnApplyColor =
+    awnApplyColor;
+
+})();
+</script>

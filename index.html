@@ -5692,3 +5692,780 @@ body.awn-map-mode #map {
 
 })();
 </script>
+<!-- =========================================================
+     AWN — إضافات الخريطة + الألوان
+     الصق هذا الجزء في آخر الملف
+     ========================================================= -->
+
+<style>
+
+/* =========================
+   ألوان عون
+   ========================= */
+
+:root{
+  --awn-accent:#c9a24e;
+  --awn-accent-light:#e6c86a;
+}
+
+/* العناصر التي تستخدم لون عون */
+button.primary,
+.primary,
+.active,
+.selected,
+.nav-item.active,
+.menu-item.active,
+.score-value,
+.accent,
+a:hover{
+  --local-accent:var(--awn-accent);
+}
+
+/* =========================
+   وضع الخريطة الكامل
+   ========================= */
+
+body.awn-full-map{
+  overflow:hidden !important;
+  width:100vw !important;
+  height:100vh !important;
+}
+
+/* إخفاء البار والقائمة وكل عناصر الموقع */
+body.awn-full-map header,
+body.awn-full-map nav,
+body.awn-full-map .header,
+body.awn-full-map .navbar,
+body.awn-full-map #header,
+body.awn-full-map .menu,
+body.awn-full-map #menu,
+body.awn-full-map .menu-btn,
+body.awn-full-map .hamburger,
+body.awn-full-map #headerLogin{
+  display:none !important;
+}
+
+/* التطبيق كله يصبح شاشة الخريطة */
+body.awn-full-map #app{
+  position:fixed !important;
+  top:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  left:0 !important;
+
+  width:100vw !important;
+  height:100vh !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  max-width:none !important;
+  z-index:999999 !important;
+}
+
+/* الخريطة */
+body.awn-full-map #map{
+  position:fixed !important;
+
+  top:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  left:0 !important;
+
+  width:100vw !important;
+  height:100vh !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  border-radius:0 !important;
+  z-index:1000000 !important;
+}
+
+/* أي حاوية للخريطة */
+body.awn-full-map #map-container,
+body.awn-full-map .map-container{
+  position:fixed !important;
+  inset:0 !important;
+
+  width:100vw !important;
+  height:100vh !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  z-index:1000000 !important;
+}
+
+/* زر الخروج */
+.awn-map-exit{
+  position:fixed !important;
+
+  top:18px !important;
+  right:18px !important;
+
+  z-index:1000005 !important;
+
+  background:rgba(8,11,10,.94) !important;
+  color:#fff !important;
+
+  border:1px solid rgba(255,255,255,.15) !important;
+
+  border-radius:14px !important;
+
+  padding:12px 18px !important;
+
+  font-family:Tahoma,Arial,sans-serif !important;
+  font-size:14px !important;
+  font-weight:700 !important;
+
+  box-shadow:0 8px 30px rgba(0,0,0,.4) !important;
+
+  backdrop-filter:blur(12px) !important;
+
+  cursor:pointer !important;
+}
+
+
+/* =========================
+   لوحة الألوان
+   ========================= */
+
+.awn-color-box{
+  margin-top:18px;
+
+  padding:18px;
+
+  background:var(--panel,#101513);
+
+  border:1px solid rgba(255,255,255,.09);
+
+  border-radius:18px;
+}
+
+.awn-color-title{
+  font-size:17px;
+  font-weight:800;
+  margin-bottom:14px;
+  color:var(--text,#f4f5f4);
+}
+
+.awn-colors{
+  display:grid;
+
+  grid-template-columns:
+    repeat(5,1fr);
+
+  gap:12px;
+}
+
+.awn-color{
+  width:100%;
+  aspect-ratio:1;
+
+  border-radius:50%;
+
+  border:3px solid transparent;
+
+  cursor:pointer;
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease,
+    box-shadow .15s ease;
+}
+
+.awn-color:hover{
+  transform:scale(1.08);
+}
+
+.awn-color.active{
+  border-color:#fff;
+
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.15),
+    0 6px 18px rgba(0,0,0,.35);
+}
+
+/* ألوان الاختيار */
+
+.awn-green{background:#4fae78 !important;}
+.awn-blue{background:#4f8cdc !important;}
+.awn-purple{background:#8b5cf6 !important;}
+.awn-red{background:#ff5f61 !important;}
+.awn-orange{background:#ff9f43 !important;}
+.awn-pink{background:#ec6fa9 !important;}
+.awn-gold{background:#c9a24e !important;}
+.awn-cyan{background:#36c9d8 !important;}
+.awn-brown{background:#9a6b45 !important;}
+.awn-gray{background:#8b9290 !important;}
+
+
+/* =========================
+   تطبيق اللون المختار
+   ========================= */
+
+body.awn-theme-green{
+  --awn-accent:#4fae78;
+  --awn-accent-light:#73c997;
+}
+
+body.awn-theme-blue{
+  --awn-accent:#4f8cdc;
+  --awn-accent-light:#78a8ef;
+}
+
+body.awn-theme-purple{
+  --awn-accent:#8b5cf6;
+  --awn-accent-light:#aa86ff;
+}
+
+body.awn-theme-red{
+  --awn-accent:#ff5f61;
+  --awn-accent-light:#ff8587;
+}
+
+body.awn-theme-orange{
+  --awn-accent:#ff9f43;
+  --awn-accent-light:#ffb86d;
+}
+
+body.awn-theme-pink{
+  --awn-accent:#ec6fa9;
+  --awn-accent-light:#f28abd;
+}
+
+body.awn-theme-gold{
+  --awn-accent:#c9a24e;
+  --awn-accent-light:#e6c86a;
+}
+
+body.awn-theme-cyan{
+  --awn-accent:#36c9d8;
+  --awn-accent-light:#62dce8;
+}
+
+body.awn-theme-brown{
+  --awn-accent:#9a6b45;
+  --awn-accent-light:#bb8b63;
+}
+
+body.awn-theme-gray{
+  --awn-accent:#8b9290;
+  --awn-accent-light:#b0b6b4;
+}
+
+
+/* العناصر المهمة تتبع اللون */
+
+body[class*="awn-theme-"] .primary,
+body[class*="awn-theme-"] button.primary{
+  background:var(--awn-accent) !important;
+  border-color:var(--awn-accent) !important;
+}
+
+body[class*="awn-theme-"] .accent,
+body[class*="awn-theme-"] .score-value,
+body[class*="awn-theme-"] .gold{
+  color:var(--awn-accent-light) !important;
+}
+
+body[class*="awn-theme-"] .active,
+body[class*="awn-theme-"] .selected{
+  border-color:var(--awn-accent) !important;
+}
+
+body[class*="awn-theme-"] .nav-item.active{
+  color:var(--awn-accent-light) !important;
+}
+
+</style>
+
+
+<script>
+
+/* =========================================================
+   AWN — نظام الخريطة الكاملة
+   ========================================================= */
+
+(function(){
+
+  /* حفظ الدوال الأصلية */
+  const awnOldMapPage =
+    window.renderMapPage;
+
+  const awnOldGoHome =
+    window.goHome;
+
+  const awnOldShowPage =
+    window.showPage;
+
+
+  /* فتح الخريطة */
+  window.renderMapPage = function(){
+
+    document.body.classList.add("awn-full-map");
+
+    /* تشغيل الخريطة الأصلية */
+    if(typeof awnOldMapPage === "function"){
+      awnOldMapPage();
+    }
+
+    setTimeout(function(){
+
+      const app =
+        document.getElementById("app");
+
+      const map =
+        document.getElementById("map");
+
+      if(!app || !map) return;
+
+
+      /* نخلي فقط العنصر الذي يحتوي الخريطة */
+      Array.from(app.children).forEach(function(el){
+
+        if(
+          el !== map &&
+          !el.contains(map)
+        ){
+          el.style.display="none";
+        }
+
+      });
+
+
+      /* زر الخروج */
+      let exit =
+        document.getElementById("awnMapExit");
+
+      if(!exit){
+
+        exit =
+          document.createElement("button");
+
+        exit.id="awnMapExit";
+
+        exit.className=
+          "awn-map-exit";
+
+        exit.textContent=
+          "✕ خروج";
+
+        exit.onclick=function(){
+
+          document.body
+            .classList
+            .remove("awn-full-map");
+
+          exit.remove();
+
+
+          if(typeof awnOldGoHome === "function"){
+
+            awnOldGoHome();
+
+          }else if(typeof awnOldShowPage === "function"){
+
+            awnOldShowPage("home");
+
+          }
+
+
+          setTimeout(function(){
+
+            if(typeof updateHeader === "function"){
+              updateHeader();
+            }
+
+            if(
+              typeof mapInstance !== "undefined" &&
+              mapInstance
+            ){
+              try{
+                mapInstance.invalidateSize();
+              }catch(e){}
+            }
+
+          },150);
+
+        };
+
+        document.body.appendChild(exit);
+
+      }
+
+
+      /* تحديث حجم الخريطة */
+      setTimeout(function(){
+
+        if(
+          typeof mapInstance !== "undefined" &&
+          mapInstance
+        ){
+
+          try{
+            mapInstance.invalidateSize();
+          }catch(e){}
+
+        }
+
+      },350);
+
+    },150);
+
+  };
+
+
+  /* عند الرجوع للرئيسية */
+  window.goHome=function(){
+
+    document.body
+      .classList
+      .remove("awn-full-map");
+
+    const exit =
+      document.getElementById("awnMapExit");
+
+    if(exit) exit.remove();
+
+
+    if(typeof awnOldGoHome === "function"){
+      awnOldGoHome();
+    }
+
+  };
+
+
+  /* أي انتقال من الخريطة يلغي وضع الشاشة الكاملة */
+  window.showPage=function(page){
+
+    if(page !== "map"){
+
+      document.body
+        .classList
+        .remove("awn-full-map");
+
+      const exit =
+        document.getElementById("awnMapExit");
+
+      if(exit) exit.remove();
+
+    }
+
+
+    if(typeof awnOldShowPage === "function"){
+      return awnOldShowPage(page);
+    }
+
+  };
+
+
+})();
+
+
+/* =========================================================
+   AWN — نظام الألوان
+   ========================================================= */
+
+(function(){
+
+  const colors = {
+
+    green:{
+      value:"#4fae78",
+      light:"#73c997"
+    },
+
+    blue:{
+      value:"#4f8cdc",
+      light:"#78a8ef"
+    },
+
+    purple:{
+      value:"#8b5cf6",
+      light:"#aa86ff"
+    },
+
+    red:{
+      value:"#ff5f61",
+      light:"#ff8587"
+    },
+
+    orange:{
+      value:"#ff9f43",
+      light:"#ffb86d"
+    },
+
+    pink:{
+      value:"#ec6fa9",
+      light:"#f28abd"
+    },
+
+    gold:{
+      value:"#c9a24e",
+      light:"#e6c86a"
+    },
+
+    cyan:{
+      value:"#36c9d8",
+      light:"#62dce8"
+    },
+
+    brown:{
+      value:"#9a6b45",
+      light:"#bb8b63"
+    },
+
+    gray:{
+      value:"#8b9290",
+      light:"#b0b6b4"
+    }
+
+  };
+
+
+  /* تطبيق اللون */
+  window.awnSetColor=function(name){
+
+    if(!colors[name]) return;
+
+
+    /* إزالة اللون القديم */
+    Object.keys(colors).forEach(function(c){
+
+      document.body
+        .classList
+        .remove("awn-theme-"+c);
+
+    });
+
+
+    /* إضافة اللون الجديد */
+    document.body
+      .classList
+      .add("awn-theme-"+name);
+
+
+    /* CSS variables */
+    document.documentElement
+      .style
+      .setProperty(
+        "--awn-accent",
+        colors[name].value
+      );
+
+    document.documentElement
+      .style
+      .setProperty(
+        "--awn-accent-light",
+        colors[name].light
+      );
+
+
+    /* حفظ الاختيار */
+    localStorage.setItem(
+      "awn_accent_color",
+      name
+    );
+
+
+    /* تحديث الأزرار */
+    document
+      .querySelectorAll(".awn-color")
+      .forEach(function(btn){
+
+        btn.classList.remove("active");
+
+      });
+
+
+    const selected =
+      document.querySelector(
+        '.awn-color[data-color="'+name+'"]'
+      );
+
+    if(selected){
+      selected.classList.add("active");
+    }
+
+  };
+
+
+  /* إنشاء لوحة الألوان */
+  window.awnCreateColorPanel=function(){
+
+    const old =
+      document.getElementById(
+        "awnColorPanel"
+      );
+
+    if(old) old.remove();
+
+
+    const panel =
+      document.createElement("div");
+
+    panel.id="awnColorPanel";
+
+    panel.className="awn-color-box";
+
+
+    panel.innerHTML=`
+
+      <div class="awn-color-title">
+        🎨 لون عون
+      </div>
+
+      <div class="awn-colors">
+
+        <button
+          class="awn-color awn-green"
+          data-color="green"
+          aria-label="أخضر">
+        </button>
+
+        <button
+          class="awn-color awn-blue"
+          data-color="blue"
+          aria-label="أزرق">
+        </button>
+
+        <button
+          class="awn-color awn-purple"
+          data-color="purple"
+          aria-label="بنفسجي">
+        </button>
+
+        <button
+          class="awn-color awn-red"
+          data-color="red"
+          aria-label="أحمر">
+        </button>
+
+        <button
+          class="awn-color awn-orange"
+          data-color="orange"
+          aria-label="برتقالي">
+        </button>
+
+        <button
+          class="awn-color awn-pink"
+          data-color="pink"
+          aria-label="وردي">
+        </button>
+
+        <button
+          class="awn-color awn-gold"
+          data-color="gold"
+          aria-label="ذهبي">
+        </button>
+
+        <button
+          class="awn-color awn-cyan"
+          data-color="cyan"
+          aria-label="سماوي">
+        </button>
+
+        <button
+          class="awn-color awn-brown"
+          data-color="brown"
+          aria-label="بني">
+        </button>
+
+        <button
+          class="awn-color awn-gray"
+          data-color="gray"
+          aria-label="رمادي">
+        </button>
+
+      </div>
+    `;
+
+
+    /* أحداث الألوان */
+    panel
+      .querySelectorAll(".awn-color")
+      .forEach(function(btn){
+
+        btn.onclick=function(){
+
+          awnSetColor(
+            btn.dataset.color
+          );
+
+        };
+
+      });
+
+
+    return panel;
+
+  };
+
+
+  /* استرجاع اللون المحفوظ */
+  function awnLoadColor(){
+
+    const saved =
+      localStorage.getItem(
+        "awn_accent_color"
+      ) || "gold";
+
+    awnSetColor(saved);
+
+  }
+
+
+  /* محاولة إضافة الألوان داخل صفحة الإعدادات */
+  function awnAttachSettings(){
+
+    const settings =
+      document.querySelector(
+        "#settings, .settings-page, .settings"
+      );
+
+    if(!settings) return;
+
+    if(
+      document.getElementById(
+        "awnColorPanel"
+      )
+    ) return;
+
+
+    const panel =
+      awnCreateColorPanel();
+
+    settings.appendChild(panel);
+
+  }
+
+
+  /* ننتظر تحميل الصفحة */
+  setTimeout(function(){
+
+    awnLoadColor();
+
+    awnAttachSettings();
+
+  },500);
+
+
+  /* إذا فتحت الإعدادات لاحقاً */
+  document.addEventListener(
+    "click",
+    function(){
+
+      setTimeout(
+        awnAttachSettings,
+        100
+      );
+
+    }
+  );
+
+
+})();
+
+</script>
